@@ -5,7 +5,7 @@ repo_url: https://github.com/vRallev/app-platform
 edit_uri: edit/main/docs/
 site_description: "A lightweight application framework for state and memory management suitable for Kotlin Multiplatform projects."
 remote_branch: gh-pages
-copyright: 'Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.'
+copyright: 'Licensed under Apache-2.0.'
 
 # https://squidfunk.github.io/mkdocs-material/
 theme:

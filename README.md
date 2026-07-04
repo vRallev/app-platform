@@ -13,10 +13,20 @@ which allows different application targets to change the look and feel.
 
 ### [vrallev.github.io/app-platform](https://vrallev.github.io/app-platform/)
 
-## Security
+## Project Ownership
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+App Platform was originally developed at Amazon. Ownership has since moved away from
+Amazon, and this repository is now maintained independently under
+`vRallev/app-platform` by the original author of App Platform.
+
+Some package names, Maven coordinates, and historical documentation still use
+`software.amazon.app.platform` for source and binary compatibility.
+
+## Contributing
+
+Contributions are welcome through GitHub issues and pull requests. Submissions are 
+provided under the [Apache-2.0 License](LICENSE).
 
 ## License
 
-This project is licensed under the Apache-2.0 License.
+This project is licensed under the [Apache-2.0 License](LICENSE).
