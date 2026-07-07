@@ -27,6 +27,7 @@ public open class AppPlugin : Plugin<Project> {
     target.configureAndroidSettings()
     target.makeSingleVariant()
     target.addDependencies()
+    target.addDependencyConstraints()
     target.configureWasm()
 
     target.plugins.withId(Plugins.COMPOSE_MULTIPLATFORM) { target.configureDesktopApp() }
@@ -52,6 +53,22 @@ public open class AppPlugin : Plugin<Project> {
     allExportedDependencies().forEach { dependency ->
       kmpExtension.sourceSets.getByName("commonMain").dependencies { api(dependency) }
     }
+  }
+
+  private fun Project.addDependencyConstraints() {
+    // This is needed for Lint in app modules:
+    //
+    // Could not determine the dependencies of task
+    // ':recipes:app:generateDebugAndroidTestLintModel'.
+    //  > Could not resolve all dependencies for configuration
+    // ':recipes:app:debugAndroidTestRuntimeClasspath'.
+    //   > Could not resolve androidx.concurrent:concurrent-futures:1.2.0.
+    //
+    // TODO: Remove when upgrading AGP.
+    dependencies.constraints.add(
+      "androidMainImplementation",
+      libs.findLibrary("androidx.concurrent.futures").get().get().toString(),
+    )
   }
 
   @OptIn(ExperimentalWasmDsl::class)

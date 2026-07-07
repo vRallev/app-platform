@@ -4,7 +4,7 @@ agp-gradle-plugin = "9.2.1"
 android-compileSdk = "36"
 # https://developer.android.com/jetpack/androidx/releases/compose-ui
 # https://maven.google.com/web/index.html#androidx.compose.ui:ui
-android-compose-version = "1.11.1"
+android-compose-version = "1.11.4"
 android-minSdk = "23"
 android-targetSdk = "36"
 ios-deploymentTarget = "26.0"
@@ -12,6 +12,7 @@ ios-deploymentTarget = "26.0"
 androidx-activity = "1.13.0"
 androidx-annotations = "1.9.1"
 androidx-collection = "1.5.0"
+androidx-concurrent-futures = "1.2.0"
 androidx-lifecycle = "2.9.4"
 #noinspection GradleDependency
 androidx-constraintlayout = "2.1.4"
@@ -31,7 +32,7 @@ build-config = "6.0.10"
 # https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compatibility-and-versioning.html#kotlin-compatibility
 # https://mvnrepository.com/artifact/org.jetbrains.compose/compose-gradle-plugin
 # https://github.com/JetBrains/compose-multiplatform/releases
-compose-multiplatform = "1.11.0"
+compose-multiplatform = "1.11.1"
 coroutines = "1.11.0"
 detekt = "2.0.0-alpha.5"
 graphviz-java = "0.18.1"
@@ -67,6 +68,7 @@ android-gradle-plugin-api-gradle-plugin = { module = "com.android.tools.build:gr
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-annotations = { module = "androidx.annotation:annotation", version.ref = "androidx-annotations" }
+androidx-concurrent-futures = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent-futures" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-collection = { module = "androidx.collection:collection", version.ref = "androidx-collection" }
