@@ -1,10 +1,10 @@
 package com.test
 
-import software.amazon.app.platform.inject.ContributesRenderer
-import software.amazon.app.platform.metro.compiler.support.UnusedRendererFactory
-import software.amazon.app.platform.presenter.BaseModel
-import software.amazon.app.platform.renderer.Renderer
-import software.amazon.app.platform.renderer.RendererGraph
+import software.ralf.app.platform.inject.ContributesRenderer
+import software.ralf.app.platform.metro.compiler.support.UnusedRendererFactory
+import software.ralf.app.platform.presenter.BaseModel
+import software.ralf.app.platform.renderer.Renderer
+import software.ralf.app.platform.renderer.RendererGraph
 
 class Presenter {
   class Model : BaseModel

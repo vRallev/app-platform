@@ -1,6 +1,6 @@
-public final class software/amazon/app/platform/scope/di/ComponentServiceKt {
+public final class software/ralf/app/platform/scope/di/ComponentServiceKt {
 	public static final field DI_COMPONENT_KEY Ljava/lang/String;
-	public static final fun addDiComponent (Lsoftware/amazon/app/platform/scope/Scope$Builder;Ljava/lang/Object;)V
-	public static final fun addKotlinInjectComponent (Lsoftware/amazon/app/platform/scope/Scope$Builder;Ljava/lang/Object;)V
+	public static final fun addDiComponent (Lsoftware/ralf/app/platform/scope/Scope$Builder;Ljava/lang/Object;)V
+	public static final fun addKotlinInjectComponent (Lsoftware/ralf/app/platform/scope/Scope$Builder;Ljava/lang/Object;)V
 }
 

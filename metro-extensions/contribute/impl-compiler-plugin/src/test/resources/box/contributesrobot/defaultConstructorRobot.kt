@@ -1,8 +1,8 @@
 package com.test
 
-import software.amazon.app.platform.inject.robot.ContributesRobot
-import software.amazon.app.platform.robot.Robot
-import software.amazon.app.platform.robot.RobotGraph
+import software.ralf.app.platform.inject.robot.ContributesRobot
+import software.ralf.app.platform.robot.Robot
+import software.ralf.app.platform.robot.RobotGraph
 
 @ContributesRobot(AppScope::class)
 class TestRobot : Robot

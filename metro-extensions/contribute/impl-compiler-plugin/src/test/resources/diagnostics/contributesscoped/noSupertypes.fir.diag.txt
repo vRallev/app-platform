@@ -1,1 +1,1 @@
-/noSupertypes.kt:(182,217): error: In order to use @ContributesScoped, TestClass must implement software.amazon.app.platform.scope.Scoped.
+/noSupertypes.kt:(180,215): error: In order to use @ContributesScoped, TestClass must implement software.ralf.app.platform.scope.Scoped.

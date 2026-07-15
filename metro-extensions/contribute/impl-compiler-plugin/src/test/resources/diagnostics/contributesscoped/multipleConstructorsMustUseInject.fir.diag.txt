@@ -1,1 +1,1 @@
-/multipleConstructorsMustUseInject.kt:(217,252): error: TestClass has multiple constructors. Annotate the constructor to use with @Inject, or remove the extra constructors so @ContributesScoped can generate a provider.
+/multipleConstructorsMustUseInject.kt:(213,248): error: TestClass has multiple constructors. Annotate the constructor to use with @Inject, or remove the extra constructors so @ContributesScoped can generate a provider.

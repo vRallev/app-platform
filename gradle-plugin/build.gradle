@@ -18,9 +18,9 @@ mavenPublishing {
 gradlePlugin {
     plugins {
         appPlatformPlugin {
-            id = "software.amazon.app.platform"
+            id = "software.ralf.app.platform"
             displayName = "App Platform Gradle Plugin"
-            implementationClass = "software.amazon.app.platform.gradle.AppPlatformPlugin"
+            implementationClass = "software.ralf.app.platform.gradle.AppPlatformPlugin"
             description = "The Gradle plugin to make the integration of the App Platform easy."
         }
     }

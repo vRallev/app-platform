@@ -1,6 +1,6 @@
 //file:noinspection UnnecessaryQualifiedReference
 plugins {
-    id 'software.amazon.app.platform.lib.jvm'
+    id 'software.ralf.app.platform.lib.jvm'
     id 'com.google.devtools.ksp'
 }
 
@@ -147,7 +147,7 @@ tasks.register('generateTests', JavaExec) {
             .withPropertyName('generatedTests')
 
     classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'software.amazon.app.platform.metro.compiler.GenerateTestsKt'
+    mainClass = 'software.ralf.app.platform.metro.compiler.GenerateTestsKt'
     workingDir = rootDir
 
     minHeapSize = '128m'

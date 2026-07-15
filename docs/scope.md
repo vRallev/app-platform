@@ -34,7 +34,7 @@ We need to be in charge of our own scopes. In simple terms this means having an 
 destroyed.
 
 The App Platform provides the
-[Scope](https://github.com/vRallev/app-platform/blob/main/scope/public/src/commonMain/kotlin/software/amazon/app/platform/scope/Scope.kt)
+[Scope](https://github.com/vRallev/app-platform/blob/main/scope/public/src/commonMain/kotlin/software/ralf/app/platform/scope/Scope.kt)
 interface to implement this concept.
 
 ```kotlin title="Scope.kt"
@@ -57,7 +57,7 @@ interface Scope {
 ## Creating a `Scope`
 
 A `Scope` is created through the builder function. The
-[Builder](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/scope/public/src/commonMain/kotlin/software/amazon/app/platform/scope/Scope.kt#L57)
+[Builder](https://github.com/vRallev/app-platform/blob/main/scope/public/src/commonMain/kotlin/software/ralf/app/platform/scope/Scope.kt#L57)
 allows you to add services before the Scope is finalized:
 
 ```kotlin
@@ -77,12 +77,12 @@ rootScope.buildChild("user scope") {
 ??? example "Sample"
 
     The root scope is usually created when the application is launched. The sample application creates its
-    root scope [here](https://github.com/vRallev/app-platform/blob/main/sample/app/src/commonMain/kotlin/software/amazon/app/platform/sample/DemoApplication.kt).
+    root scope [here](https://github.com/vRallev/app-platform/blob/main/sample/app/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt).
     This `Scope` is never destroyed and stays alive for the entire app lifetime.
 
     The sample application has a child scope for the logged in user. This `Scope` is created during
-    [login](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserManagerImpl.kt#L47-L52)
-    and [destroyed](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserManagerImpl.kt#L68)
+    [login](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserManagerImpl.kt#L47-L52)
+    and [destroyed](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserManagerImpl.kt#L68)
     during logout.
 
     ```kotlin
@@ -126,7 +126,7 @@ fun `my test`() = runTestWithScope { scope ->
 ??? example "Sample"
 
     Classes implementing the `Scoped` interface usually make use of the `runTestWithScope` function in their tests.
-    Notice in [this sample](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/user/impl/src/commonTest/kotlin/software/amazon/app/platform/sample/user/SessionTimeoutTest.kt#L36-L48)
+    Notice in [this sample](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonTest/kotlin/software/ralf/app/platform/sample/user/SessionTimeoutTest.kt#L36-L48)
     how `SessionTimeout`, which implements the `Scoped` interface, is registered in the `Scope`.
 
     ```kotlin hl_lines="7"
@@ -208,7 +208,7 @@ rootScope.kotlinInjectComponent<AbcComponent>()
     is used by default and added to `Scope` instance.
 
 It's strongly recommended to add a `CoroutineScope` to each `Scope`. App Platform provides a `CoroutineScope`
-[by default for the `AppScope`](https://github.com/vRallev/app-platform/blob/main/kotlin-inject/impl/src/commonMain/kotlin/software/amazon/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent.kt).
+[by default for the `AppScope`](https://github.com/vRallev/app-platform/blob/main/kotlin-inject/impl/src/commonMain/kotlin/software/ralf/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent.kt).
 It is important to register this `CoroutineScope` in the created app `Scope` instance in order to cancel the
 `CoroutineScope` in case the `AppScope` ever gets destroyed. The same applies to any child scope.
 
@@ -305,7 +305,7 @@ override fun onEnterScope(scope: Scope) {
 ## `Scoped`
 
 Service objects can tie themselves to the lifecycle of a scope by implementing the
-[`Scoped`](https://github.com/vRallev/app-platform/blob/main/scope/public/src/commonMain/kotlin/software/amazon/app/platform/scope/Scoped.kt)
+[`Scoped`](https://github.com/vRallev/app-platform/blob/main/scope/public/src/commonMain/kotlin/software/ralf/app/platform/scope/Scoped.kt)
 interface:
 
 ```kotlin
@@ -434,7 +434,7 @@ With Metro, or alternatively `kotlin-inject-anvil`, for the app scope it would b
 
 ??? example "Sample"
 
-    Another example in the sample app is [`SessionTimeout`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/SessionTimeout.kt).
+    Another example in the sample app is [`SessionTimeout`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/SessionTimeout.kt).
     This class is part of the `UserScope` and implements the `Scoped` interface. `onEnterScope()` will be called when
     the user logs in and `onExitScope()` when the user logs out.
 
@@ -525,8 +525,8 @@ instances, but don't automatically register them in the `Scope`. This has to be 
 ??? example "Sample"
 
     The sample application implements this mechanism for the
-    [`AppScope`](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/app/src/commonMain/kotlin/software/amazon/app/platform/sample/DemoApplication.kt#L31-L33)
-    and the [`UserScope`](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserManagerImpl.kt#L58-L60).
+    [`AppScope`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt#L31-L33)
+    and the [`UserScope`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserManagerImpl.kt#L58-L60).
 
 ### `onExit`
 
@@ -614,15 +614,15 @@ highlighted above.
 
 ??? example "Sample"
 
-    The sample application has a common class [DemoApplication](https://github.com/vRallev/app-platform/blob/main/sample/app/src/commonMain/kotlin/software/amazon/app/platform/sample/DemoApplication.kt)
+    The sample application has a common class [DemoApplication](https://github.com/vRallev/app-platform/blob/main/sample/app/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt)
     that is responsible for creating the app scope. The Android app instantiates `DemoApplication` in the
-    [`Application` class](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/app/src/androidMain/kotlin/software/amazon/app/platform/sample/AndroidApplication.kt#L19).
-    The iOS sample creates the `DemoApplication` in the [`UIApplicationDelegate`](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/iosApp/iosApp/iOSApp.swift#L6).
-    On Desktop `DemoApplication` is created part of the [`main()` function](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/app/src/desktopMain/kotlin/software/amazon/app/platform/sample/Main.kt#L8).
+    [`Application` class](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/AndroidApplication.kt#L19).
+    The iOS sample creates the `DemoApplication` in the [`UIApplicationDelegate`](https://github.com/vRallev/app-platform/blob/main/sample/iosApp/iosApp/iOSApp.swift#L6).
+    On Desktop `DemoApplication` is created part of the [`main()` function](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopMain/kotlin/software/ralf/app/platform/sample/Main.kt#L8).
 
 ### `RootScopeProvider`
 
-[`RootScopeProvider`](https://github.com/vRallev/app-platform/blob/main/scope/public/src/commonMain/kotlin/software/amazon/app/platform/scope/RootScopeProvider.kt),
+[`RootScopeProvider`](https://github.com/vRallev/app-platform/blob/main/scope/public/src/commonMain/kotlin/software/ralf/app/platform/scope/RootScopeProvider.kt),
 as the name suggests, gives access to the root `Scope` ("AppScope"). Usually, this interface is implemented by the application
 object of the individual platform to get access to the root `Scope` from a platform context, e.g. on Android this is
 handy in an `Activity`:
@@ -640,7 +640,7 @@ class MainActivity : Activity() {
 ??? example "Sample"
 
     The sample application implements `RootScopeProvider` in the Android
-    [`Application` class](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/app/src/androidMain/kotlin/software/amazon/app/platform/sample/AndroidApplication.kt#L19)
-    and the iOS [`UIApplicationDelegate`](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/iosApp/iosApp/iOSApp.swift#L6).
+    [`Application` class](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/AndroidApplication.kt#L19)
+    and the iOS [`UIApplicationDelegate`](https://github.com/vRallev/app-platform/blob/main/sample/iosApp/iosApp/iOSApp.swift#L6).
     On Desktop there is no concept of a singleton application object by default, but in the sample app we created an
-    equivalent with [`DesktopApp`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopMain/kotlin/software/amazon/app/platform/sample/DesktopApp.kt).
+    equivalent with [`DesktopApp`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopMain/kotlin/software/ralf/app/platform/sample/DesktopApp.kt).

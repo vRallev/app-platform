@@ -1,1 +1,1 @@
-/onlyAppScopeSupported.kt:(194,226): error: Robots can only be contributed to the AppScope for now. Scope kotlin.String is unsupported.
+/onlyAppScopeSupported.kt:(190,222): error: Robots can only be contributed to the AppScope for now. Scope kotlin.String is unsupported.

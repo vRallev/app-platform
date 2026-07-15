@@ -1,13 +1,13 @@
 FILE: defaultConstructorRobotIr.kt
     package com.test
 
-    @R|software/amazon/app/platform/inject/robot/ContributesRobot|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) public final class TestRobot : R|software/amazon/app/platform/robot/Robot| {
+    @R|software/ralf/app/platform/inject/robot/ContributesRobot|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) public final class TestRobot : R|software/ralf/app/platform/robot/Robot| {
         public constructor(): R|com/test/TestRobot| {
             super<R|kotlin/Any|>()
         }
 
         @R|dev/zacsweers/metro/BindingContainer|() @R|dev/zacsweers/metro/ContributesTo|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) @R|dev/zacsweers/metro/Origin|(value = <getClass>(Q|com/test/TestRobot|)) public abstract interface RobotContribution : R|kotlin/Any| {
-            @R|dev/zacsweers/metro/Binds|() @R|dev/zacsweers/metro/IntoMap|() @R|software/amazon/app/platform/renderer/metro/RobotKey|(value = <getClass>(Q|com/test/TestRobot|)) public open fun provideTestRobotIntoMap(robot: R|com/test/TestRobot|): R|software/amazon/app/platform/robot/Robot|
+            @R|dev/zacsweers/metro/Binds|() @R|dev/zacsweers/metro/IntoMap|() @R|software/ralf/app/platform/renderer/metro/RobotKey|(value = <getClass>(Q|com/test/TestRobot|)) public open fun provideTestRobotIntoMap(robot: R|com/test/TestRobot|): R|software/ralf/app/platform/robot/Robot|
 
             public final companion object Companion : R|kotlin/Any| {
                 @R|dev/zacsweers/metro/Provides|() public open fun provideTestRobot(): R|com/test/TestRobot| {
@@ -18,7 +18,7 @@ FILE: defaultConstructorRobotIr.kt
                     super<R|kotlin/Any|>()
                 }
 
-                @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) @R|dev/zacsweers/metro/internal/CallableMetadata|(callableName = String(provideTestRobot), propertyName = String(), startOffset = Int(206), endOffset = Int(264), newInstanceName = String(provideTestRobot)) public final object ProvideTestRobotMetroFactory : R|kotlin/Any| {
+                @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) @R|dev/zacsweers/metro/internal/CallableMetadata|(callableName = String(provideTestRobot), propertyName = String(), startOffset = Int(202), endOffset = Int(260), newInstanceName = String(provideTestRobot)) public final object ProvideTestRobotMetroFactory : R|kotlin/Any| {
                     private constructor(): R|com/test/TestRobot.RobotContribution.Companion.ProvideTestRobotMetroFactory| {
                         super<R|kotlin/Any|>()
                     }

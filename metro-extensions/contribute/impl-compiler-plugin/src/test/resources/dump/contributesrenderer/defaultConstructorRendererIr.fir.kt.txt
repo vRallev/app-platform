@@ -28,8 +28,8 @@ class TestRenderer : Renderer<Model> {
       @Binds
       @IntoMap
       @RendererKey(value = Model::class)
-      @CallableMetadata(callableName = "provideComTestTestRendererModel", propertyName = "", startOffset = 290, endOffset = 394)
-      fun provideComTestTestRendererModel1186685849_intomap(renderer: TestRenderer): Renderer<*> {
+      @CallableMetadata(callableName = "provideComTestTestRendererModel", propertyName = "", startOffset = 284, endOffset = 388)
+      fun provideComTestTestRendererModel2248969044_intomap(renderer: TestRenderer): Renderer<*> {
         return error(message = "Never called")
       }
 
@@ -37,7 +37,7 @@ class TestRenderer : Renderer<Model> {
 
     companion object Companion {
       @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
-      @CallableMetadata(callableName = "provideComTestTestRenderer", propertyName = "", startOffset = 290, endOffset = 394, newInstanceName = "provideComTestTestRenderer")
+      @CallableMetadata(callableName = "provideComTestTestRenderer", propertyName = "", startOffset = 284, endOffset = 388, newInstanceName = "provideComTestTestRenderer")
       object ProvideComTestTestRendererMetroFactory : Factory<TestRenderer> {
         private constructor() /* primary */ {
           super/*Any*/()
@@ -73,7 +73,7 @@ class TestRenderer : Renderer<Model> {
       }
 
       @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
-      @CallableMetadata(callableName = "provideComTestTestRendererModelKey", propertyName = "", startOffset = 290, endOffset = 394, newInstanceName = "provideComTestTestRendererModelKey")
+      @CallableMetadata(callableName = "provideComTestTestRendererModelKey", propertyName = "", startOffset = 284, endOffset = 388, newInstanceName = "provideComTestTestRendererModelKey")
       object ProvideComTestTestRendererModelKeyMetroFactory : Factory<KClass<out Renderer<*>>> {
         private constructor() /* primary */ {
           super/*Any*/()
@@ -154,10 +154,10 @@ class TestRenderer : Renderer<Model> {
 
 }
 
-// FILE: comTestTestRendererRendererContributionSoftware_amazon_app_platform_renderer_RendererScope.kt
+// FILE: comTestTestRendererRendererContributionSoftware_ralf_app_platform_renderer_RendererScope.kt
 package metro.hints
 
-fun software_amazon_app_platform_renderer_RendererScope(contributed: RendererContribution) {
+fun software_ralf_app_platform_renderer_RendererScope(contributed: RendererContribution) {
   return error(message = "Never called")
 }
 

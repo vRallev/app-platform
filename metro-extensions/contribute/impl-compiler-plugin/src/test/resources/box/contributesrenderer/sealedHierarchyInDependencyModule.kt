@@ -2,7 +2,7 @@
 // FILE: Template.kt
 package com.test
 
-import software.amazon.app.platform.presenter.BaseModel
+import software.ralf.app.platform.presenter.BaseModel
 
 sealed interface Template : BaseModel {
   data object FullScreen : Template
@@ -14,8 +14,8 @@ sealed interface Template : BaseModel {
 // FILE: TestRenderer.kt
 package com.test
 
-import software.amazon.app.platform.inject.ContributesRenderer
-import software.amazon.app.platform.renderer.Renderer
+import software.ralf.app.platform.inject.ContributesRenderer
+import software.ralf.app.platform.renderer.Renderer
 
 @ContributesRenderer
 class TestRenderer : Renderer<Template> {
@@ -26,8 +26,8 @@ class TestRenderer : Renderer<Template> {
 // FILE: app.kt
 package com.test
 
-import software.amazon.app.platform.metro.compiler.support.UnusedRendererFactory
-import software.amazon.app.platform.renderer.RendererGraph
+import software.ralf.app.platform.metro.compiler.support.UnusedRendererFactory
+import software.ralf.app.platform.renderer.RendererGraph
 
 @DependencyGraph(AppScope::class)
 interface AppGraph

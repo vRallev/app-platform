@@ -1,3 +1,3 @@
-/classMustImplementRobot.kt:(146,176): error: In order to use @ContributesRobot, MissingRobot must implement software.amazon.app.platform.robot.Robot.
+/classMustImplementRobot.kt:(144,174): error: In order to use @ContributesRobot, MissingRobot must implement software.ralf.app.platform.robot.Robot.
 
-/classMustImplementRobot.kt:(146,176): error: Robots can only be contributed to the AppScope for now. Scope kotlin.Unit is unsupported.
+/classMustImplementRobot.kt:(144,174): error: Robots can only be contributed to the AppScope for now. Scope kotlin.Unit is unsupported.

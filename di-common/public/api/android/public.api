@@ -1,21 +1,21 @@
-public abstract interface annotation class software/amazon/app/platform/inject/ContributesRenderer : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/inject/ContributesRenderer : java/lang/annotation/Annotation {
 	public abstract fun includeSealedSubtypes ()Z
 	public abstract fun modelType ()Ljava/lang/Class;
 }
 
-public abstract interface annotation class software/amazon/app/platform/inject/robot/ContributesRobot : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/inject/robot/ContributesRobot : java/lang/annotation/Annotation {
 	public abstract fun scope ()Ljava/lang/Class;
 }
 
-public abstract interface annotation class software/amazon/app/platform/presenter/PresenterCoroutineScope : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/presenter/PresenterCoroutineScope : java/lang/annotation/Annotation {
 }
 
-public abstract interface annotation class software/amazon/app/platform/scope/coroutine/DefaultCoroutineDispatcher : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/scope/coroutine/DefaultCoroutineDispatcher : java/lang/annotation/Annotation {
 }
 
-public abstract interface annotation class software/amazon/app/platform/scope/coroutine/IoCoroutineDispatcher : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/scope/coroutine/IoCoroutineDispatcher : java/lang/annotation/Annotation {
 }
 
-public abstract interface annotation class software/amazon/app/platform/scope/coroutine/MainCoroutineDispatcher : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/scope/coroutine/MainCoroutineDispatcher : java/lang/annotation/Annotation {
 }
 

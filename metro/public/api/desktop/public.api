@@ -1,17 +1,17 @@
-public abstract interface annotation class software/amazon/app/platform/inject/metro/ContributesScoped : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/inject/metro/ContributesScoped : java/lang/annotation/Annotation {
 	public abstract fun scope ()Ljava/lang/Class;
 }
 
-public abstract interface annotation class software/amazon/app/platform/renderer/metro/RendererKey : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/renderer/metro/RendererKey : java/lang/annotation/Annotation {
 	public abstract fun value ()Ljava/lang/Class;
 }
 
-public abstract interface annotation class software/amazon/app/platform/renderer/metro/RobotKey : java/lang/annotation/Annotation {
+public abstract interface annotation class software/ralf/app/platform/renderer/metro/RobotKey : java/lang/annotation/Annotation {
 	public abstract fun value ()Ljava/lang/Class;
 }
 
-public final class software/amazon/app/platform/scope/di/metro/MetroServiceKt {
+public final class software/ralf/app/platform/scope/di/metro/MetroServiceKt {
 	public static final field METRO_DEPENDENCY_GRAPH_KEY Ljava/lang/String;
-	public static final fun addMetroDependencyGraph (Lsoftware/amazon/app/platform/scope/Scope$Builder;Ljava/lang/Object;)V
+	public static final fun addMetroDependencyGraph (Lsoftware/ralf/app/platform/scope/Scope$Builder;Ljava/lang/Object;)V
 }
 

@@ -37,7 +37,7 @@ use case of Compose is handling, creating and modifying tree-like data structure
 UI frameworks. Molecule reuses Compose to handle state management and state transitions to implement business
 logic in the form of `@Composable` functions with all the benefits that Compose provides.
 
-The [MoleculePresenter](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/amazon/app/platform/presenter/molecule/MoleculePresenter.kt)
+The [MoleculePresenter](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/MoleculePresenter.kt)
 interface looks like this:
 
 ```kotlin
@@ -47,7 +47,7 @@ interface MoleculePresenter<InputT : Any, ModelT : BaseModel> {
 }
 ```
 
-[`Models`](https://github.com/vRallev/app-platform/blob/main/presenter/public/src/commonMain/kotlin/software/amazon/app/platform/presenter/BaseModel.kt)
+[`Models`](https://github.com/vRallev/app-platform/blob/main/presenter/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/BaseModel.kt)
 represent the state of a `Presenter`. Usually, they’re implemented as immutable, inner data classes of the `Presenter`.
 Using sealed hierarchies is a good practice to allow to differentiate between different states:
 
@@ -69,9 +69,9 @@ an interface and there can be multiple implementations.
 ??? example "Sample"
 
     The sample application follows the same principle of dependency inversion. E.g. the API of the
-    [`LoginPresenter`](https://github.com/vRallev/app-platform/blob/main/sample/login/public/src/commonMain/kotlin/software/amazon/app/platform/sample/login/LoginPresenter.kt)
-    is part of the `:public` module, while the implementation [`LoginPresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/login/LoginPresenterImpl.kt)
-    lives in the `:impl` module. This abstraction is used in tests, where [`FakeLoginPresenter`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonTest/kotlin/software/amazon/app/platform/sample/navigation/NavigationPresenterImplTest.kt#L45-L49)
+    [`LoginPresenter`](https://github.com/vRallev/app-platform/blob/main/sample/login/public/src/commonMain/kotlin/software/ralf/app/platform/sample/login/LoginPresenter.kt)
+    is part of the `:public` module, while the implementation [`LoginPresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/login/LoginPresenterImpl.kt)
+    lives in the `:impl` module. This abstraction is used in tests, where [`FakeLoginPresenter`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonTest/kotlin/software/ralf/app/platform/sample/navigation/NavigationPresenterImplTest.kt#L45-L49)
     simplifies the test setup of classes relying on `LoginPresenter`.
 
 Observers of the state of a `Presenter`, such as the UI layer, communicate back to the `Presenter` through events.
@@ -103,7 +103,7 @@ A concrete implementation of `LoginPresenter` could look like this:
 
 ```kotlin
 @ContributesBinding(AppScope::class)
-class AmazonLoginPresenter : LoginPresenter {
+class LoginPresenterImpl : LoginPresenter {
   @Composable
   fun present(input: Unit): Model {
     ..
@@ -166,10 +166,10 @@ a regular function to compute their model and return it.
 
 ??? example "Sample"
 
-    [`NavigationPresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/navigation/NavigationPresenterImpl.kt)
+    [`NavigationPresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/navigation/NavigationPresenterImpl.kt)
     is another example that highlights this principle.
 
-    [`UserPagePresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserPagePresenterImpl.kt)
+    [`UserPagePresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserPagePresenterImpl.kt)
     goes a step further. Its `BaseModel` is composed of two sub-models. The `listModel` is even an input for the
     detail-presenter.
 
@@ -251,7 +251,7 @@ interface AccountManager {
   fun mustRegister(): Boolean
 }
 
-class AmazonLoginPresenter(
+class LoginPresenterImpl(
   private val accountManager: AccountManager
 ): LoginPresenter {
   @Composable
@@ -304,7 +304,7 @@ In this example the `LoginPresenter` model is computed from an iOS Compose Multi
 In other scenarios a composable context may not be available and it's necessary to turn the `@Composable` functions
 into a `StateFlow` for consumption.
 
-[`MoleculeScope`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/amazon/app/platform/presenter/molecule/MoleculeScope.kt)
+[`MoleculeScope`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/MoleculeScope.kt)
 helps to turn a `MoleculePresenter` into a `Presenter`, which then exposes a `StateFlow`:
 
 ```kotlin
@@ -322,7 +322,7 @@ val stateFlow = moleculeScope
     until the `MoleculeScope` is canceled. If the `MoleculeScope` is never canceled, then presenters leak and will
     cause issues later.
 
-    Use [`MoleculeScopeFactory`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/amazon/app/platform/presenter/molecule/MoleculeScopeFactory.kt)
+    Use [`MoleculeScopeFactory`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/MoleculeScopeFactory.kt)
     to create a new `MoleculeScope` instance and call `cancel()` when you don't need it anymore.
 
     On Android an implementation using `ViewModels` may look like this:
@@ -414,7 +414,7 @@ in that case, child presenter updates are driven by the detached hierarchy's own
 
 ## Testing
 
-A [`test()`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/testing/src/commonMain/kotlin/software/amazon/app/platform/presenter/molecule/TestPresenter.kt)
+A [`test()`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/testing/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/TestPresenter.kt)
 utility function is provided to make testing `MoleculePresenters` easy using the [Turbine](https://github.com/cashapp/turbine/)
 library:
 
@@ -438,9 +438,9 @@ The `test()` function uses the `TestScope.backgroundScope` to run the presenter.
 ??? example "Sample"
 
     The sample application implements multiple tests for its presenters, e.g.
-    [`LoginPresenterImplTest`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl/src/commonTest/kotlin/software/amazon/app/platform/sample/login/LoginPresenterImplTest.kt),
-    [`NavigationPresenterImplTest`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonTest/kotlin/software/amazon/app/platform/sample/navigation/NavigationPresenterImplTest.kt)
-    and [`UserPagePresenterImplTest`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonTest/kotlin/software/amazon/app/platform/sample/user/UserPagePresenterImplTest.kt).
+    [`LoginPresenterImplTest`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl/src/commonTest/kotlin/software/ralf/app/platform/sample/login/LoginPresenterImplTest.kt),
+    [`NavigationPresenterImplTest`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonTest/kotlin/software/ralf/app/platform/sample/navigation/NavigationPresenterImplTest.kt)
+    and [`UserPagePresenterImplTest`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonTest/kotlin/software/ralf/app/platform/sample/user/UserPagePresenterImplTest.kt).
 
 ## Back gestures
 
@@ -623,7 +623,7 @@ interface AccountManager {
   val currentAccount: StateFlow<Account>
 }
 
-class AmazonLoginPresenter(
+class LoginPresenterImpl(
   private val accountManager: AccountManager
 ): LoginPresenter {
   @Composable
@@ -715,7 +715,7 @@ is called with their initial state. These presenters only remember their state, 
 
 The Compose runtime provides `rememberSaveable { }` and `SaveableStateHolder` as a solution to save and restore small
 pieces of UI state. App Platform provides the experimental
-[`ReturningSaveableStateHolder`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/amazon/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolder.kt)
+[`ReturningSaveableStateHolder`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolder.kt)
 API for `@Composable` functions that return a value. This matters for `MoleculePresenter` functions, because a presenter
 doesn't render UI directly; it returns a model.
 
@@ -723,8 +723,8 @@ doesn't render UI directly; it returns a model.
 weren't part of the hierarchy anymore:
 
 ```kotlin
-import software.amazon.app.platform.ExperimentalAppPlatform
-import software.amazon.app.platform.presenter.molecule.saveable.rememberReturningSaveableStateHolder
+import software.ralf.app.platform.ExperimentalAppPlatform
+import software.ralf.app.platform.presenter.molecule.saveable.rememberReturningSaveableStateHolder
 
 @OptIn(ExperimentalAppPlatform::class)
 @Composable
@@ -835,7 +835,7 @@ class CrossSlideBackstackPresenter(
 
 `presenterBackstack()` always keeps the initial presenter as the root entry. It composes every presenter in the stack,
 returns the resulting model list to the `content` lambda, and provides
-[`PresenterBackstackScope`](https://github.com/vRallev/app-platform/blob/main/presenter-backstack-nav3/public/src/commonMain/kotlin/software/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope.kt)
+[`PresenterBackstackScope`](https://github.com/vRallev/app-platform/blob/main/presenter-backstack-nav3/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope.kt)
 to the presenter subtree. The scope exposes `push()`, `pop()`, and `replaceTop()`.
 
 The model's `onBack` callback is the only back hook the presenter needs for renderer-driven back navigation.
@@ -1071,7 +1071,7 @@ The `SampleAppTemplateRenderer` has access to `appBarModel` from the `FullScreen
 to configure the app bar UI.
 
 The Recipe app has chosen a different implementation, where any `BaseModel` class from a `Presenter` can implement the
-specific [`AppBarConfigModel`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/amazon/app/platform/recipes/appbar/AppBarConfigModel.kt)
+specific [`AppBarConfigModel`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/ralf/app/platform/recipes/appbar/AppBarConfigModel.kt)
 interface, which provides the configuration for the app bar. Implementing this interface is optional:
 
 ```kotlin
@@ -1092,7 +1092,7 @@ class MenuPresenter : MoleculePresenter<Unit, Model> {
 ```
 
 If a `BaseModel` implementing `AppBarConfigModel` bubbles all the way up to the
-[`RootPresenter`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/amazon/app/platform/recipes/template/RootPresenter.kt),
+[`RootPresenter`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/ralf/app/platform/recipes/template/RootPresenter.kt),
 then the `BaseModel` from the child `Presenter` will provide the config for the `Template` or otherwise the
 `RootPresenter` will provide a default:
 
@@ -1124,7 +1124,7 @@ in the business logic. With the right integration strategy, this downside can be
 
 The presenter backstack API is the recommended integration strategy when a Compose renderer should use Navigation 3
 but presenter code should still own navigation state. The Recipes app's
-[`Navigation3HomePresenter`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/amazon/app/platform/recipes/nav3/Navigation3HomePresenter.kt)
+[`Navigation3HomePresenter`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/ralf/app/platform/recipes/nav3/Navigation3HomePresenter.kt)
 hosts a nested presenter stack:
 
 ```kotlin
@@ -1157,7 +1157,7 @@ override fun present(input: Unit): Model {
 ```
 
 The
-[`Renderer`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/amazon/app/platform/recipes/nav3/Navigation3HomeRenderer.kt)
+[`Renderer`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/ralf/app/platform/recipes/nav3/Navigation3HomeRenderer.kt)
 extends `PresenterBackstackRenderer`. The base renderer wraps the model stack in `NavDisplay`, gives each entry a
 stable Navigation 3 key, invokes the individual renderer for each model, and forwards back gestures to the presenter
 model's `onBack` callback:
@@ -1330,7 +1330,7 @@ detail, and we want ensure that all back events are handled appropriately and th
 
 The Recipes app demonstrates how SwiftUI navigation APIs can be used while following App Platform's philosophy of 
 unidirectional data flow. As navigation is a part of business logic, the recipe [implements navigation with 
-a backstack of `Presenters`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/amazon/app/platform/recipes/swiftui/SwiftUiHomePresenter.kt).
+a backstack of `Presenters`](https://github.com/vRallev/app-platform/blob/main/recipes/common/impl/src/commonMain/kotlin/software/ralf/app/platform/recipes/swiftui/SwiftUiHomePresenter.kt).
 The root `Presenter` responsible for the `Presenter` backstack computes the `Model` backstack:
 
 ```kotlin

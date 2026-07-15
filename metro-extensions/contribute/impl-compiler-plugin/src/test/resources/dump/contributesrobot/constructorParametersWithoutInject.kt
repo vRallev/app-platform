@@ -1,8 +1,8 @@
 // RUN_PIPELINE_TILL: BACKEND
 package com.test
 
-import software.amazon.app.platform.inject.robot.ContributesRobot
-import software.amazon.app.platform.robot.Robot
+import software.ralf.app.platform.inject.robot.ContributesRobot
+import software.ralf.app.platform.robot.Robot
 
 class RobotDependency
 

@@ -1,1 +1,1 @@
-/rendererMustNotBeSingleton.kt:(337,357): error: Renderers should not be singletons in the RendererScope. The RendererFactory will cache the Renderer when necessary. Remove the @SingleIn(RendererScope::class) annotation.
+/rendererMustNotBeSingleton.kt:(329,349): error: Renderers should not be singletons in the RendererScope. The RendererFactory will cache the Renderer when necessary. Remove the @SingleIn(RendererScope::class) annotation.

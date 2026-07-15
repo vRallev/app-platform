@@ -1,68 +1,68 @@
-public final class software/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenterAndroidKt {
-	public static final fun forwardBackPressEventsToPresenters (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;Landroidx/activity/OnBackPressedDispatcherOwner;)V
+public final class software/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenterAndroidKt {
+	public static final fun forwardBackPressEventsToPresenters (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;Landroidx/activity/OnBackPressedDispatcherOwner;)V
 }
 
-public class software/amazon/app/platform/renderer/AndroidRendererFactory : software/amazon/app/platform/renderer/BaseRendererFactory {
-	public fun <init> (Lsoftware/amazon/app/platform/scope/RootScopeProvider;Landroid/app/Activity;Landroid/view/ViewGroup;)V
-	public fun createRenderer (Lkotlin/reflect/KClass;)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public final fun createRenderer (Lkotlin/reflect/KClass;Landroid/view/ViewGroup;)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public fun getRenderer (Lkotlin/reflect/KClass;I)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public final fun getRenderer (Lkotlin/reflect/KClass;Landroid/view/ViewGroup;I)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public static synthetic fun getRenderer$default (Lsoftware/amazon/app/platform/renderer/AndroidRendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;IILjava/lang/Object;)Lsoftware/amazon/app/platform/renderer/Renderer;
+public class software/ralf/app/platform/renderer/AndroidRendererFactory : software/ralf/app/platform/renderer/BaseRendererFactory {
+	public fun <init> (Lsoftware/ralf/app/platform/scope/RootScopeProvider;Landroid/app/Activity;Landroid/view/ViewGroup;)V
+	public fun createRenderer (Lkotlin/reflect/KClass;)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public final fun createRenderer (Lkotlin/reflect/KClass;Landroid/view/ViewGroup;)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public fun getRenderer (Lkotlin/reflect/KClass;I)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public final fun getRenderer (Lkotlin/reflect/KClass;Landroid/view/ViewGroup;I)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public static synthetic fun getRenderer$default (Lsoftware/ralf/app/platform/renderer/AndroidRendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;IILjava/lang/Object;)Lsoftware/ralf/app/platform/renderer/Renderer;
 }
 
-public final class software/amazon/app/platform/renderer/AndroidRendererFactoryKt {
-	public static final fun createRenderer (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public static final fun getChildRendererForParent (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public static final fun getChildRendererForParent (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lsoftware/amazon/app/platform/presenter/BaseModel;Landroid/view/ViewGroup;)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public static final fun getRenderer (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;I)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public static synthetic fun getRenderer$default (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;IILjava/lang/Object;)Lsoftware/amazon/app/platform/renderer/Renderer;
+public final class software/ralf/app/platform/renderer/AndroidRendererFactoryKt {
+	public static final fun createRenderer (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public static final fun getChildRendererForParent (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public static final fun getChildRendererForParent (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lsoftware/ralf/app/platform/presenter/BaseModel;Landroid/view/ViewGroup;)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public static final fun getRenderer (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;I)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public static synthetic fun getRenderer$default (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;Landroid/view/ViewGroup;IILjava/lang/Object;)Lsoftware/ralf/app/platform/renderer/Renderer;
 }
 
-public abstract interface class software/amazon/app/platform/renderer/BaseAndroidViewRenderer : software/amazon/app/platform/renderer/Renderer {
+public abstract interface class software/ralf/app/platform/renderer/BaseAndroidViewRenderer : software/ralf/app/platform/renderer/Renderer {
 	public abstract fun init (Landroid/app/Activity;Landroid/view/ViewGroup;)V
 }
 
-public abstract class software/amazon/app/platform/renderer/RecyclerViewViewHolderRenderer : software/amazon/app/platform/renderer/BaseAndroidViewRenderer {
+public abstract class software/ralf/app/platform/renderer/RecyclerViewViewHolderRenderer : software/ralf/app/platform/renderer/BaseAndroidViewRenderer {
 	public fun <init> ()V
 	protected final fun getActivity ()Landroid/app/Activity;
 	protected abstract fun inflate (Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/LayoutInflater;)Landroid/view/View;
 	public final fun init (Landroid/app/Activity;Landroid/view/ViewGroup;)V
-	public final fun viewHolder ()Lsoftware/amazon/app/platform/renderer/RecyclerViewViewHolderRenderer$ViewHolder;
+	public final fun viewHolder ()Lsoftware/ralf/app/platform/renderer/RecyclerViewViewHolderRenderer$ViewHolder;
 }
 
-public final class software/amazon/app/platform/renderer/RecyclerViewViewHolderRenderer$ViewHolder : androidx/recyclerview/widget/RecyclerView$ViewHolder {
-	public final fun getRenderer ()Lsoftware/amazon/app/platform/renderer/Renderer;
+public final class software/ralf/app/platform/renderer/RecyclerViewViewHolderRenderer$ViewHolder : androidx/recyclerview/widget/RecyclerView$ViewHolder {
+	public final fun getRenderer ()Lsoftware/ralf/app/platform/renderer/Renderer;
 }
 
-public abstract class software/amazon/app/platform/renderer/ViewBindingRenderer : software/amazon/app/platform/renderer/ViewRenderer {
+public abstract class software/ralf/app/platform/renderer/ViewBindingRenderer : software/ralf/app/platform/renderer/ViewRenderer {
 	public fun <init> ()V
 	protected final fun getBinding ()Landroidx/viewbinding/ViewBinding;
-	protected final fun inflate (Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/LayoutInflater;Lsoftware/amazon/app/platform/presenter/BaseModel;)Landroid/view/View;
-	protected abstract fun inflateViewBinding (Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/LayoutInflater;Lsoftware/amazon/app/platform/presenter/BaseModel;)Landroidx/viewbinding/ViewBinding;
+	protected final fun inflate (Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/LayoutInflater;Lsoftware/ralf/app/platform/presenter/BaseModel;)Landroid/view/View;
+	protected abstract fun inflateViewBinding (Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/LayoutInflater;Lsoftware/ralf/app/platform/presenter/BaseModel;)Landroidx/viewbinding/ViewBinding;
 }
 
-public abstract class software/amazon/app/platform/renderer/ViewRenderer : software/amazon/app/platform/renderer/BaseAndroidViewRenderer {
+public abstract class software/ralf/app/platform/renderer/ViewRenderer : software/ralf/app/platform/renderer/BaseAndroidViewRenderer {
 	public fun <init> ()V
 	protected final fun getActivity ()Landroid/app/Activity;
 	protected final fun getCoroutineScope ()Lkotlinx/coroutines/CoroutineScope;
-	protected abstract fun inflate (Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/LayoutInflater;Lsoftware/amazon/app/platform/presenter/BaseModel;)Landroid/view/View;
+	protected abstract fun inflate (Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/LayoutInflater;Lsoftware/ralf/app/platform/presenter/BaseModel;)Landroid/view/View;
 	public final fun init (Landroid/app/Activity;Landroid/view/ViewGroup;)V
 	public fun onDetach ()V
 	protected fun releaseViewOnDetach ()Z
-	public final fun render (Lsoftware/amazon/app/platform/presenter/BaseModel;)V
-	protected fun renderModel (Lsoftware/amazon/app/platform/presenter/BaseModel;)V
-	protected fun renderModel (Lsoftware/amazon/app/platform/presenter/BaseModel;Lsoftware/amazon/app/platform/presenter/BaseModel;)V
+	public final fun render (Lsoftware/ralf/app/platform/presenter/BaseModel;)V
+	protected fun renderModel (Lsoftware/ralf/app/platform/presenter/BaseModel;)V
+	protected fun renderModel (Lsoftware/ralf/app/platform/presenter/BaseModel;Lsoftware/ralf/app/platform/presenter/BaseModel;)V
 }
 
-public abstract class software/amazon/app/platform/renderer/template/AndroidTemplateRenderer : software/amazon/app/platform/renderer/ViewRenderer {
-	public fun <init> (Lsoftware/amazon/app/platform/renderer/RendererFactory;)V
+public abstract class software/ralf/app/platform/renderer/template/AndroidTemplateRenderer : software/ralf/app/platform/renderer/ViewRenderer {
+	public fun <init> (Lsoftware/ralf/app/platform/renderer/RendererFactory;)V
 }
 
-protected final class software/amazon/app/platform/renderer/template/AndroidTemplateRenderer$Container {
-	public fun <init> (Lsoftware/amazon/app/platform/renderer/template/AndroidTemplateRenderer;Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/ViewGroup;)V
+protected final class software/ralf/app/platform/renderer/template/AndroidTemplateRenderer$Container {
+	public fun <init> (Lsoftware/ralf/app/platform/renderer/template/AndroidTemplateRenderer;Landroid/app/Activity;Landroid/view/ViewGroup;Landroid/view/ViewGroup;)V
 	public final fun hide ()V
-	public final fun renderModel (Lsoftware/amazon/app/platform/presenter/BaseModel;)V
+	public final fun renderModel (Lsoftware/ralf/app/platform/presenter/BaseModel;)V
 	public final fun reset ()V
 	public final fun show ()V
 }

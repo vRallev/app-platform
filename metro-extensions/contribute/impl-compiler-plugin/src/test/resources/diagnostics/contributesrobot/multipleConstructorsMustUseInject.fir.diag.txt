@@ -1,1 +1,1 @@
-/multipleConstructorsMustUseInject.kt:(217,251): error: TestRobot has multiple constructors. Annotate the constructor to use with @Inject, or remove the extra constructors so @ContributesRobot can generate a provider.
+/multipleConstructorsMustUseInject.kt:(213,247): error: TestRobot has multiple constructors. Annotate the constructor to use with @Inject, or remove the extra constructors so @ContributesRobot can generate a provider.

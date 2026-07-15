@@ -1,18 +1,18 @@
-public abstract interface class software/amazon/app/platform/presenter/BaseModel {
+public abstract interface class software/ralf/app/platform/presenter/BaseModel {
 }
 
-public abstract interface class software/amazon/app/platform/presenter/Presenter {
+public abstract interface class software/ralf/app/platform/presenter/Presenter {
 	public abstract fun getModel ()Lkotlinx/coroutines/flow/StateFlow;
 }
 
-public final class software/amazon/app/platform/presenter/StateInKt {
+public final class software/ralf/app/platform/presenter/StateInKt {
 	public static final fun stateInPresenter (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function0;)Lkotlinx/coroutines/flow/StateFlow;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/template/ModelDelegate {
-	public abstract fun delegate ()Lsoftware/amazon/app/platform/presenter/BaseModel;
+public abstract interface class software/ralf/app/platform/presenter/template/ModelDelegate {
+	public abstract fun delegate ()Lsoftware/ralf/app/platform/presenter/BaseModel;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/template/Template : software/amazon/app/platform/presenter/BaseModel {
+public abstract interface class software/ralf/app/platform/presenter/template/Template : software/ralf/app/platform/presenter/BaseModel {
 }
 

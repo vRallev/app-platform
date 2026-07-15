@@ -1,30 +1,30 @@
-public abstract interface class software/amazon/app/platform/presenter/PresenterCoroutineScopeComponent {
+public abstract interface class software/ralf/app/platform/presenter/PresenterCoroutineScopeComponent {
 	public fun providePresenterCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineScope;
 }
 
-public final class software/amazon/app/platform/presenter/PresenterCoroutineScopeComponent$DefaultImpls {
-	public static fun providePresenterCoroutineScope (Lsoftware/amazon/app/platform/presenter/PresenterCoroutineScopeComponent;Lkotlinx/coroutines/CoroutineScope;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineScope;
+public final class software/ralf/app/platform/presenter/PresenterCoroutineScopeComponent$DefaultImpls {
+	public static fun providePresenterCoroutineScope (Lsoftware/ralf/app/platform/presenter/PresenterCoroutineScopeComponent;Lkotlinx/coroutines/CoroutineScope;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineScope;
 }
 
-public abstract interface class software/amazon/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent {
-	public fun provideAppCoroutineScope (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
-	public fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;
+public abstract interface class software/ralf/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent {
+	public fun provideAppCoroutineScope (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
+	public fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent$DefaultImpls {
-	public static fun provideAppCoroutineScope (Lsoftware/amazon/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent;Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
-	public static fun provideAppScopeCoroutineScopeScoped (Lsoftware/amazon/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent;Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;
+public final class software/ralf/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent$DefaultImpls {
+	public static fun provideAppCoroutineScope (Lsoftware/ralf/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent;Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
+	public static fun provideAppScopeCoroutineScopeScoped (Lsoftware/ralf/app/platform/scope/coroutine/AppScopeCoroutineScopeComponent;Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;
 }
 
-public abstract interface class software/amazon/app/platform/scope/coroutine/CoroutineDispatcherComponent {
+public abstract interface class software/ralf/app/platform/scope/coroutine/CoroutineDispatcherComponent {
 	public fun provideDefaultCoroutineDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public fun provideIoCoroutineDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public fun provideMainCoroutineDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/CoroutineDispatcherComponent$DefaultImpls {
-	public static fun provideDefaultCoroutineDispatcher (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineDispatcherComponent;)Lkotlinx/coroutines/CoroutineDispatcher;
-	public static fun provideIoCoroutineDispatcher (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineDispatcherComponent;)Lkotlinx/coroutines/CoroutineDispatcher;
-	public static fun provideMainCoroutineDispatcher (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineDispatcherComponent;)Lkotlinx/coroutines/CoroutineDispatcher;
+public final class software/ralf/app/platform/scope/coroutine/CoroutineDispatcherComponent$DefaultImpls {
+	public static fun provideDefaultCoroutineDispatcher (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineDispatcherComponent;)Lkotlinx/coroutines/CoroutineDispatcher;
+	public static fun provideIoCoroutineDispatcher (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineDispatcherComponent;)Lkotlinx/coroutines/CoroutineDispatcher;
+	public static fun provideMainCoroutineDispatcher (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineDispatcherComponent;)Lkotlinx/coroutines/CoroutineDispatcher;
 }
 

@@ -1,42 +1,42 @@
-public abstract interface class software/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackModel : software/amazon/app/platform/presenter/BaseModel {
+public abstract interface class software/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackModel : software/ralf/app/platform/presenter/BaseModel {
 	public abstract fun getBackstack ()Ljava/util/List;
 	public abstract fun getOnBack ()Lkotlin/jvm/functions/Function0;
 }
 
-public abstract class software/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackRenderer : software/amazon/app/platform/renderer/ComposeRenderer {
+public abstract class software/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackRenderer : software/ralf/app/platform/renderer/ComposeRenderer {
 	public static final field $stable I
 	public fun <init> ()V
-	public synthetic fun Compose (Lsoftware/amazon/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
-	protected final fun Compose (Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
-	public abstract fun ComposeBackstackEntry (Lsoftware/amazon/app/platform/presenter/BaseModel;Landroidx/compose/runtime/Composer;I)V
+	public synthetic fun Compose (Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
+	protected final fun Compose (Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
+	public abstract fun ComposeBackstackEntry (Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/runtime/Composer;I)V
 	public fun PresenterNavDisplay (Ljava/util/List;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
 }
 
-public abstract interface class software/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope {
+public abstract interface class software/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope {
 	public abstract fun getLastBackstackChange ()Landroidx/compose/runtime/State;
 	public abstract fun pop ()V
-	public abstract fun push (Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;)V
-	public abstract fun replaceTop (Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;)V
+	public abstract fun push (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;)V
+	public abstract fun replaceTop (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;)V
 }
 
-public abstract interface class software/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange {
-	public abstract fun getAction ()Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
+public abstract interface class software/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange {
+	public abstract fun getAction ()Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
 	public abstract fun getBackstack ()Ljava/util/List;
 }
 
-public final class software/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action : java/lang/Enum {
-	public static final field POP Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
-	public static final field PUSH Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
-	public static final field REPLACE Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
+public final class software/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action : java/lang/Enum {
+	public static final field POP Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
+	public static final field PUSH Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
+	public static final field REPLACE Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
-	public static fun values ()[Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
+	public static fun valueOf (Ljava/lang/String;)Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
+	public static fun values ()[Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope$BackstackChange$Action;
 }
 
-public final class software/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScopeKt {
-	public static final fun getBackstack (Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope;)Ljava/util/List;
+public final class software/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScopeKt {
+	public static final fun getBackstack (Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope;)Ljava/util/List;
 	public static final fun getLocalBackstackScope ()Landroidx/compose/runtime/ProvidableCompositionLocal;
-	public static final fun presenterBackstack (Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;Lkotlin/jvm/functions/Function4;Landroidx/compose/runtime/Composer;I)Lsoftware/amazon/app/platform/presenter/BaseModel;
-	public static final fun requireNotNull (Landroidx/compose/runtime/CompositionLocal;Landroidx/compose/runtime/Composer;I)Lsoftware/amazon/app/platform/presenter/backstack/nav3/PresenterBackstackScope;
+	public static final fun presenterBackstack (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;Lkotlin/jvm/functions/Function4;Landroidx/compose/runtime/Composer;I)Lsoftware/ralf/app/platform/presenter/BaseModel;
+	public static final fun requireNotNull (Landroidx/compose/runtime/CompositionLocal;Landroidx/compose/runtime/Composer;I)Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope;
 }
 

@@ -1,10 +1,10 @@
 plugins {
-    id 'software.amazon.app.platform'
+    id 'software.ralf.app.platform'
 
     // This plugin lives in the buildSrc directory and is not published.
     // It's used to manage certain configurations and dependencies for all
     // :recipes:* modules, otherwise we'd need to repeat them several times.
-    id 'software.amazon.app.platform.lib'
+    id 'software.ralf.app.platform.lib'
 }
 
 appPlatform {

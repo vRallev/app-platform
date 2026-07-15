@@ -1,43 +1,43 @@
-public final class software/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenterComposeKt {
-	public static final fun ForwardBackPressEventsToPresenters (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;Landroidx/compose/runtime/Composer;I)V
+public final class software/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenterComposeKt {
+	public static final fun ForwardBackPressEventsToPresenters (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;Landroidx/compose/runtime/Composer;I)V
 }
 
-public abstract interface class software/amazon/app/platform/renderer/BaseComposeRenderer {
-	public abstract fun renderCompose (Lsoftware/amazon/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
+public abstract interface class software/ralf/app/platform/renderer/BaseComposeRenderer {
+	public abstract fun renderCompose (Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
 }
 
-public final class software/amazon/app/platform/renderer/BaseComposeRenderer$ComposeDefaultImpls {
-	public static final fun renderCompose$default (Lsoftware/amazon/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Lsoftware/amazon/app/platform/renderer/BaseComposeRenderer;Landroidx/compose/runtime/Composer;II)V
+public final class software/ralf/app/platform/renderer/BaseComposeRenderer$ComposeDefaultImpls {
+	public static final fun renderCompose$default (Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;Landroidx/compose/runtime/Composer;II)V
 }
 
-public abstract class software/amazon/app/platform/renderer/ComposeRenderer : software/amazon/app/platform/renderer/BaseComposeRenderer, software/amazon/app/platform/renderer/Renderer {
+public abstract class software/ralf/app/platform/renderer/ComposeRenderer : software/ralf/app/platform/renderer/BaseComposeRenderer, software/ralf/app/platform/renderer/Renderer {
 	public static final field $stable I
 	public fun <init> ()V
-	protected abstract fun Compose (Lsoftware/amazon/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
-	public final synthetic fun render (Lsoftware/amazon/app/platform/presenter/BaseModel;)Ljava/lang/Void;
-	public synthetic fun render (Lsoftware/amazon/app/platform/presenter/BaseModel;)V
-	public final fun renderCompose (Lsoftware/amazon/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
+	protected abstract fun Compose (Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
+	public final synthetic fun render (Lsoftware/ralf/app/platform/presenter/BaseModel;)Ljava/lang/Void;
+	public synthetic fun render (Lsoftware/ralf/app/platform/presenter/BaseModel;)V
+	public final fun renderCompose (Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;I)V
 }
 
-public final class software/amazon/app/platform/renderer/ComposeRendererFactory : software/amazon/app/platform/renderer/BaseRendererFactory {
+public final class software/ralf/app/platform/renderer/ComposeRendererFactory : software/ralf/app/platform/renderer/BaseRendererFactory {
 	public static final field $stable I
-	public fun <init> (Lsoftware/amazon/app/platform/scope/RootScopeProvider;)V
-	public fun createRenderer (Lkotlin/reflect/KClass;)Lsoftware/amazon/app/platform/renderer/ComposeRenderer;
-	public synthetic fun createRenderer (Lkotlin/reflect/KClass;)Lsoftware/amazon/app/platform/renderer/Renderer;
-	public fun getRenderer (Lkotlin/reflect/KClass;I)Lsoftware/amazon/app/platform/renderer/ComposeRenderer;
-	public synthetic fun getRenderer (Lkotlin/reflect/KClass;I)Lsoftware/amazon/app/platform/renderer/Renderer;
+	public fun <init> (Lsoftware/ralf/app/platform/scope/RootScopeProvider;)V
+	public fun createRenderer (Lkotlin/reflect/KClass;)Lsoftware/ralf/app/platform/renderer/ComposeRenderer;
+	public synthetic fun createRenderer (Lkotlin/reflect/KClass;)Lsoftware/ralf/app/platform/renderer/Renderer;
+	public fun getRenderer (Lkotlin/reflect/KClass;I)Lsoftware/ralf/app/platform/renderer/ComposeRenderer;
+	public synthetic fun getRenderer (Lkotlin/reflect/KClass;I)Lsoftware/ralf/app/platform/renderer/Renderer;
 }
 
-public final class software/amazon/app/platform/renderer/ComposeRendererFactoryKt {
-	public static final fun createComposeRenderer (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;)Lsoftware/amazon/app/platform/renderer/BaseComposeRenderer;
-	public static final fun createComposeRenderer (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lsoftware/amazon/app/platform/presenter/BaseModel;)Lsoftware/amazon/app/platform/renderer/BaseComposeRenderer;
-	public static final fun getComposeRenderer (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;I)Lsoftware/amazon/app/platform/renderer/BaseComposeRenderer;
-	public static final fun getComposeRenderer (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lsoftware/amazon/app/platform/presenter/BaseModel;I)Lsoftware/amazon/app/platform/renderer/BaseComposeRenderer;
-	public static synthetic fun getComposeRenderer$default (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;IILjava/lang/Object;)Lsoftware/amazon/app/platform/renderer/BaseComposeRenderer;
-	public static synthetic fun getComposeRenderer$default (Lsoftware/amazon/app/platform/renderer/RendererFactory;Lsoftware/amazon/app/platform/presenter/BaseModel;IILjava/lang/Object;)Lsoftware/amazon/app/platform/renderer/BaseComposeRenderer;
+public final class software/ralf/app/platform/renderer/ComposeRendererFactoryKt {
+	public static final fun createComposeRenderer (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
+	public static final fun createComposeRenderer (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lsoftware/ralf/app/platform/presenter/BaseModel;)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
+	public static final fun getComposeRenderer (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;I)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
+	public static final fun getComposeRenderer (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lsoftware/ralf/app/platform/presenter/BaseModel;I)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
+	public static synthetic fun getComposeRenderer$default (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;IILjava/lang/Object;)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
+	public static synthetic fun getComposeRenderer$default (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lsoftware/ralf/app/platform/presenter/BaseModel;IILjava/lang/Object;)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
 }
 
-public final class software/amazon/app/platform/renderer/text/PresenterBackedTextFieldStateKt {
-	public static final fun rememberPresenterBackedTextFieldState (Lsoftware/amazon/app/platform/presenter/molecule/text/PresenterTextFieldState;Landroidx/compose/runtime/Composer;I)Landroidx/compose/foundation/text/input/TextFieldState;
+public final class software/ralf/app/platform/renderer/text/PresenterBackedTextFieldStateKt {
+	public static final fun rememberPresenterBackedTextFieldState (Lsoftware/ralf/app/platform/presenter/molecule/text/PresenterTextFieldState;Landroidx/compose/runtime/Composer;I)Landroidx/compose/foundation/text/input/TextFieldState;
 }
 

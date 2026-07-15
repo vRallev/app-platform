@@ -146,7 +146,7 @@ android-app = { id = "com.android.application", version.ref = "agp" }
 android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
-app-platform = { id = "software.amazon.app.platform" }
+app-platform = { id = "software.ralf.app.platform" }
 build-config = { id = "com.github.gmazzo.buildconfig", version.ref = "build-config" }
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 kotlin-hierarchy = { id = "io.github.terrakok.kmp-hierarchy", version.ref = "kotlin-hierarchy" }

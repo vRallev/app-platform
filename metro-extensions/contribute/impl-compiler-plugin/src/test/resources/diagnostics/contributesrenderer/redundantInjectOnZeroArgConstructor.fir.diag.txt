@@ -1,1 +1,1 @@
-/redundantInjectOnZeroArgConstructor.kt:(278,298): error: It's redundant to use @Inject when using @ContributesRenderer for a Renderer with a zero-arg constructor.
+/redundantInjectOnZeroArgConstructor.kt:(272,292): error: It's redundant to use @Inject when using @ContributesRenderer for a Renderer with a zero-arg constructor.

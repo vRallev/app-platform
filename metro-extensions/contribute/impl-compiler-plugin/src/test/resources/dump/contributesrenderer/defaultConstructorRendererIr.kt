@@ -2,9 +2,9 @@
 // DUMP_KT_IR
 package com.test
 
-import software.amazon.app.platform.inject.ContributesRenderer
-import software.amazon.app.platform.presenter.BaseModel
-import software.amazon.app.platform.renderer.Renderer
+import software.ralf.app.platform.inject.ContributesRenderer
+import software.ralf.app.platform.presenter.BaseModel
+import software.ralf.app.platform.renderer.Renderer
 
 class Model : BaseModel
 

@@ -1,87 +1,87 @@
-public final class software/amazon/app/platform/presenter/metro/PresenterCoroutineScopeGraph {
-	public static final field INSTANCE Lsoftware/amazon/app/platform/presenter/metro/PresenterCoroutineScopeGraph;
+public final class software/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph {
+	public static final field INSTANCE Lsoftware/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph;
 	public final fun providePresenterCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineScope;
 }
 
-public final class software/amazon/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory : dev/zacsweers/metro/internal/Factory {
-	public static final field Companion Lsoftware/amazon/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory$Companion;
+public final class software/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory : dev/zacsweers/metro/internal/Factory {
+	public static final field Companion Lsoftware/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory$Companion;
 	public synthetic fun <init> (Ldev/zacsweers/metro/Provider;Ldev/zacsweers/metro/Provider;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun create (Ldev/zacsweers/metro/Provider;Ldev/zacsweers/metro/Provider;)Lsoftware/amazon/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory;
+	public static final fun create (Ldev/zacsweers/metro/Provider;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
 	public final fun invoke ()Lkotlinx/coroutines/CoroutineScope;
 	public final fun mirrorFunction (Lkotlinx/coroutines/CoroutineScope;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineScope;
 	public static final fun providePresenterCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineScope;
 }
 
-public final class software/amazon/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory$Companion {
-	public final fun create (Ldev/zacsweers/metro/Provider;Ldev/zacsweers/metro/Provider;)Lsoftware/amazon/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory;
+public final class software/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory$Companion {
+	public final fun create (Ldev/zacsweers/metro/Provider;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory;
 	public final fun providePresenterCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineScope;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph {
-	public static final field INSTANCE Lsoftware/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph;
-	public final fun provideAppCoroutineScope (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
-	public final fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;
+public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph {
+	public static final field INSTANCE Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph;
+	public final fun provideAppCoroutineScope (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
+	public final fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory : dev/zacsweers/metro/internal/Factory {
-	public static final field Companion Lsoftware/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory$Companion;
+public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory : dev/zacsweers/metro/internal/Factory {
+	public static final field Companion Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory$Companion;
 	public synthetic fun <init> (Ldev/zacsweers/metro/Provider;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory;
+	public static final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
 	public final fun invoke ()Lkotlinx/coroutines/CoroutineScope;
-	public final fun mirrorFunction (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
-	public static final fun provideAppCoroutineScope (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
+	public final fun mirrorFunction (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
+	public static final fun provideAppCoroutineScope (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory$Companion {
-	public final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory;
-	public final fun provideAppCoroutineScope (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
+public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory$Companion {
+	public final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory;
+	public final fun provideAppCoroutineScope (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory : dev/zacsweers/metro/internal/Factory {
-	public static final field Companion Lsoftware/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory$Companion;
+public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory : dev/zacsweers/metro/internal/Factory {
+	public static final field Companion Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory$Companion;
 	public synthetic fun <init> (Ldev/zacsweers/metro/Provider;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory;
+	public static final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
-	public final fun invoke ()Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;
-	public final fun mirrorFunction (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;
-	public static final fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;
+	public final fun invoke ()Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;
+	public final fun mirrorFunction (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;
+	public static final fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory$Companion {
-	public final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/amazon/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory;
-	public final fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;
+public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory$Companion {
+	public final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory;
+	public final fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph {
-	public static final field INSTANCE Lsoftware/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph;
+public final class software/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph {
+	public static final field INSTANCE Lsoftware/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph;
 	public final fun provideDefaultCoroutineDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public final fun provideIoCoroutineDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public final fun provideMainCoroutineDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideDefaultCoroutineDispatcherMetroFactory : dev/zacsweers/metro/internal/Factory {
-	public static final field INSTANCE Lsoftware/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideDefaultCoroutineDispatcherMetroFactory;
-	public static final fun create ()Lsoftware/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideDefaultCoroutineDispatcherMetroFactory;
+public final class software/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideDefaultCoroutineDispatcherMetroFactory : dev/zacsweers/metro/internal/Factory {
+	public static final field INSTANCE Lsoftware/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideDefaultCoroutineDispatcherMetroFactory;
+	public static final fun create ()Lsoftware/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideDefaultCoroutineDispatcherMetroFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
 	public final fun invoke ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public final fun mirrorFunction ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public static final fun provideDefaultCoroutineDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideIoCoroutineDispatcherMetroFactory : dev/zacsweers/metro/internal/Factory {
-	public static final field INSTANCE Lsoftware/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideIoCoroutineDispatcherMetroFactory;
-	public static final fun create ()Lsoftware/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideIoCoroutineDispatcherMetroFactory;
+public final class software/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideIoCoroutineDispatcherMetroFactory : dev/zacsweers/metro/internal/Factory {
+	public static final field INSTANCE Lsoftware/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideIoCoroutineDispatcherMetroFactory;
+	public static final fun create ()Lsoftware/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideIoCoroutineDispatcherMetroFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
 	public final fun invoke ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public final fun mirrorFunction ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public static final fun provideIoCoroutineDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 }
 
-public final class software/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideMainCoroutineDispatcherMetroFactory : dev/zacsweers/metro/internal/Factory {
-	public static final field INSTANCE Lsoftware/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideMainCoroutineDispatcherMetroFactory;
-	public static final fun create ()Lsoftware/amazon/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideMainCoroutineDispatcherMetroFactory;
+public final class software/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideMainCoroutineDispatcherMetroFactory : dev/zacsweers/metro/internal/Factory {
+	public static final field INSTANCE Lsoftware/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideMainCoroutineDispatcherMetroFactory;
+	public static final fun create ()Lsoftware/ralf/app/platform/scope/coroutine/metro/CoroutineDispatcherGraph$ProvideMainCoroutineDispatcherMetroFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
 	public final fun invoke ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public final fun mirrorFunction ()Lkotlinx/coroutines/CoroutineDispatcher;

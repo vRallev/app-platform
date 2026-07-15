@@ -181,11 +181,11 @@ from the `Application` class and the Metro object graph is found through the `me
 
 ??? example "Sample"
 
-    The `ViewModel` example comes from the [sample app](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/amazon/app/platform/sample/MainActivityViewModel.kt).
+    The `ViewModel` example comes from the [sample app](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/MainActivityViewModel.kt).
     `ViewModels` can use constructor injection, but this requires more setup. This approach of using a graph
     interface was simpler and faster.
 
-    Another example where this approach is handy is in [`NavigationPresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/navigation/NavigationPresenterImpl.kt).
+    Another example where this approach is handy is in [`NavigationPresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/navigation/NavigationPresenterImpl.kt).
     This class waits for the user scope to be available and then optionally retrieves the `Presenter` that is part
     of the user graph. Constructor injection cannot be used, because `NavigationPresenterImpl` is part of the app
     scope and cannot inject dependencies from the user scope, which is a child scope of app scope. This would violate
@@ -232,7 +232,7 @@ class SampleClass(
 
     The `CoroutineScope` uses the IO dispatcher by default. The qualifier `@ForScope(AppScope::class)` is needed to
     allow other scopes to have their own `CoroutineScope`. For example, the sample app provides a `CoroutineScope`
-    [for the user scope](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserComponent.kt),
+    [for the user scope](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserGraph.kt),
     which gets canceled when the user scope gets destroyed. The `CoroutineScope` for the user scope uses the qualifier
     `@ForScope(UserScope::class)
 
@@ -506,11 +506,11 @@ from the `Application` class and the `kotlin-inject-anvil` component is found th
 
 ??? example "Sample"
 
-    The `ViewModel` example comes from the [sample app](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/amazon/app/platform/sample/MainActivityViewModel.kt).
+    The `ViewModel` example comes from the [sample app](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/MainActivityViewModel.kt).
     `ViewModels` can use constructor injection, but this requires more setup. This approach of using a component
     interface was simpler and faster.
 
-    Another example where this approach is handy is in [`NavigationPresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/navigation/NavigationPresenterImpl.kt).
+    Another example where this approach is handy is in [`NavigationPresenterImpl`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/navigation/NavigationPresenterImpl.kt).
     This class waits for the user scope to be available and then optionally retrieves the `Presenter` that is part
     of the user component. Constructor injection cannot be used, because `NavigationPresenterImpl` is part of the app
     scope and cannot inject dependencies from the user scope, which is a child scope of app scope. This would violate
@@ -557,7 +557,7 @@ class SampleClass(
 
     The `CoroutineScope` uses the IO dispatcher by default. The qualifier `@ForScope(AppScope::class)` is needed to
     allow other scopes to have their own `CoroutineScope`. For example, the sample app provides a `CoroutineScope`
-    [for the user scope](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserComponent.kt),
+    [for the user scope](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserGraph.kt),
     which gets canceled when the user scope gets destroyed. The `CoroutineScope` for the user scope uses the qualifier
     `@ForScope(UserScope::class)
 

@@ -9,7 +9,7 @@ are explained in more detail in many of the following sections.
 
     ```groovy
     plugins {
-      id 'software.amazon.app.platform' version 'x.y.z'
+      id 'software.ralf.app.platform' version 'x.y.z'
     }
 
     appPlatform {
@@ -44,7 +44,7 @@ are explained in more detail in many of the following sections.
 
     ```kotlin
     plugins {
-      id("software.amazon.app.platform") version "x.y.z"
+      id("software.ralf.app.platform") version "x.y.z"
     }
 
     appPlatform {

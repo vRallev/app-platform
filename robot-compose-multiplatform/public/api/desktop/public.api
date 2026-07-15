@@ -1,8 +1,8 @@
-public abstract interface class software/amazon/app/platform/robot/ComposeInteractionsProvider {
+public abstract interface class software/ralf/app/platform/robot/ComposeInteractionsProvider {
 	public abstract fun getSemanticsNodeInteractionsProvider ()Landroidx/compose/ui/test/SemanticsNodeInteractionsProvider;
 }
 
-public abstract class software/amazon/app/platform/robot/ComposeRobot : software/amazon/app/platform/robot/Robot {
+public abstract class software/ralf/app/platform/robot/ComposeRobot : software/ralf/app/platform/robot/Robot {
 	public static final field $stable I
 	public field interactionsProvider Landroidx/compose/ui/test/SemanticsNodeInteractionsProvider;
 	public fun <init> ()V

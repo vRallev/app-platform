@@ -6,6 +6,10 @@
 
 ### Changed
 
+- **Breaking change:** Move App Platform packages, Maven coordinates, and the Gradle plugin ID from
+  `software.amazon.app.platform` to `software.ralf.app.platform`. Consumers must update their plugin IDs,
+  dependency coordinates, and imports together. The standalone starter blueprint will be migrated separately.
+
 ### Deprecated
 
 ### Removed

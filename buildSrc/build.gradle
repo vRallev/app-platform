@@ -25,27 +25,27 @@ kotlin {
 gradlePlugin {
     plugins {
         appPlatformAppPlugin {
-            id = "software.amazon.app.platform.app"
+            id = "software.ralf.app.platform.app"
             displayName = "App Platform App Gradle Plugin"
-            implementationClass = "software.amazon.app.platform.gradle.buildsrc.AppPlugin"
+            implementationClass = "software.ralf.app.platform.gradle.buildsrc.AppPlugin"
             description = "The Gradle convention plugin for app modules."
         }
         appPlatformLibPlugin {
-            id = "software.amazon.app.platform.lib"
+            id = "software.ralf.app.platform.lib"
             displayName = "App Platform Library Gradle Plugin"
-            implementationClass = "software.amazon.app.platform.gradle.buildsrc.LibraryPlugin"
+            implementationClass = "software.ralf.app.platform.gradle.buildsrc.LibraryPlugin"
             description = "The Gradle convention plugin for library modules."
         }
         appPlatformJvmLibPlugin {
-            id = "software.amazon.app.platform.lib.jvm"
+            id = "software.ralf.app.platform.lib.jvm"
             displayName = "App Platform JVM Library Gradle Plugin"
-            implementationClass = "software.amazon.app.platform.gradle.buildsrc.JvmLibraryPlugin"
+            implementationClass = "software.ralf.app.platform.gradle.buildsrc.JvmLibraryPlugin"
             description = "The Gradle convention plugin for JVM library modules."
         }
         appPlatformRootPlugin {
-            id = "software.amazon.app.platform.root"
+            id = "software.ralf.app.platform.root"
             displayName = "App Platform Root Gradle Plugin"
-            implementationClass = "software.amazon.app.platform.gradle.buildsrc.RootPlugin"
+            implementationClass = "software.ralf.app.platform.gradle.buildsrc.RootPlugin"
             description = "The Gradle convention plugin for the root module."
         }
     }

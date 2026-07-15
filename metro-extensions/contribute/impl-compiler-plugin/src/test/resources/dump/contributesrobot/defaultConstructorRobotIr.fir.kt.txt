@@ -19,8 +19,8 @@ class TestRobot : Robot {
       @Binds
       @IntoMap
       @RobotKey(value = TestRobot::class)
-      @CallableMetadata(callableName = "provideTestRobotIntoMap", propertyName = "", startOffset = 206, endOffset = 264)
-      fun provideTestRobotIntoMap1666857635_intomap(robot: TestRobot): Robot {
+      @CallableMetadata(callableName = "provideTestRobotIntoMap", propertyName = "", startOffset = 202, endOffset = 260)
+      fun provideTestRobotIntoMap2729140830_intomap(robot: TestRobot): Robot {
         return error(message = "Never called")
       }
 
@@ -28,7 +28,7 @@ class TestRobot : Robot {
 
     companion object Companion {
       @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
-      @CallableMetadata(callableName = "provideTestRobot", propertyName = "", startOffset = 206, endOffset = 264, newInstanceName = "provideTestRobot")
+      @CallableMetadata(callableName = "provideTestRobot", propertyName = "", startOffset = 202, endOffset = 260, newInstanceName = "provideTestRobot")
       object ProvideTestRobotMetroFactory : Factory<TestRobot> {
         private constructor() /* primary */ {
           super/*Any*/()

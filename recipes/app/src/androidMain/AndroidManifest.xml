@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name="software.amazon.app.platform.recipes.AndroidApplication"
+        android:name="software.ralf.app.platform.recipes.AndroidApplication"
         android:allowBackup="false"
         android:enableOnBackInvokedCallback="true"
         android:label="Recipes"
@@ -13,7 +13,7 @@
         <activity
             android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mnc|colorMode|density|fontScale|fontWeightAdjustment|keyboard|layoutDirection|locale|mcc|navigation|smallestScreenSize|touchscreen|uiMode"
-            android:name="software.amazon.app.platform.recipes.MainActivity">
+            android:name="software.ralf.app.platform.recipes.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

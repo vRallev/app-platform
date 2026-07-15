@@ -15,7 +15,7 @@ FILE: constructorParametersWithoutInject.kt
         }
 
     }
-    @R|dev/zacsweers/metro/SingleIn|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) @R|software/amazon/app/platform/inject/metro/ContributesScoped|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) public final class TestClass : R|com/test/SuperType|, R|software/amazon/app/platform/scope/Scoped| {
+    @R|dev/zacsweers/metro/SingleIn|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) @R|software/ralf/app/platform/inject/metro/ContributesScoped|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) public final class TestClass : R|com/test/SuperType|, R|software/ralf/app/platform/scope/Scoped| {
         public constructor(dependency: R|com/test/ScopedDependency|, anotherDependency: R|com/test/AnotherScopedDependency|): R|com/test/TestClass| {
             super<R|kotlin/Any|>()
         }
@@ -29,7 +29,7 @@ FILE: constructorParametersWithoutInject.kt
         @R|dev/zacsweers/metro/BindingContainer|() @R|dev/zacsweers/metro/ContributesTo|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) @R|dev/zacsweers/metro/Origin|(value = <getClass>(Q|com/test/TestClass|) [evaluated = <getClass>(Q|com/test/TestClass|)]) public abstract interface ScopedContribution : R|kotlin/Any| {
             @R|dev/zacsweers/metro/Binds|() public open fun bindSuperType(instance: R|com/test/TestClass|): R|com/test/SuperType|
 
-            @R|dev/zacsweers/metro/Binds|() @R|dev/zacsweers/metro/IntoSet|() @R|dev/zacsweers/metro/ForScope|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) public open fun bindTestClassScoped(instance: R|com/test/TestClass|): R|software/amazon/app/platform/scope/Scoped|
+            @R|dev/zacsweers/metro/Binds|() @R|dev/zacsweers/metro/IntoSet|() @R|dev/zacsweers/metro/ForScope|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) public open fun bindTestClassScoped(instance: R|com/test/TestClass|): R|software/ralf/app/platform/scope/Scoped|
 
             public final companion object Companion : R|kotlin/Any| {
                 @R|dev/zacsweers/metro/Provides|() @R|dev/zacsweers/metro/SingleIn|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) public open fun provideTestClass(dependency: R|com/test/ScopedDependency|, anotherDependency: R|com/test/AnotherScopedDependency|): R|com/test/TestClass| {
@@ -40,7 +40,7 @@ FILE: constructorParametersWithoutInject.kt
                     super<R|kotlin/Any|>()
                 }
 
-                @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) @R|dev/zacsweers/metro/internal/CallableMetadata|(callableName = String(provideTestClass), propertyName = String(), startOffset = Int(270), endOffset = Int(457), newInstanceName = String(provideTestClass)) public final class ProvideTestClassMetroFactory : R|kotlin/Any| {
+                @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) @R|dev/zacsweers/metro/internal/CallableMetadata|(callableName = String(provideTestClass), propertyName = String(), startOffset = Int(266), endOffset = Int(453), newInstanceName = String(provideTestClass)) public final class ProvideTestClassMetroFactory : R|kotlin/Any| {
                     public final companion object Companion : R|kotlin/Any| {
                         private constructor(): R|com/test/TestClass.ScopedContribution.Companion.ProvideTestClassMetroFactory.Companion| {
                             super<R|kotlin/Any|>()

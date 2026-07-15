@@ -1,31 +1,31 @@
-public abstract interface class software/amazon/app/platform/robot/Robot {
+public abstract interface class software/ralf/app/platform/robot/Robot {
 	public fun close ()V
 }
 
-public final class software/amazon/app/platform/robot/Robot$DefaultImpls {
-	public static fun close (Lsoftware/amazon/app/platform/robot/Robot;)V
+public final class software/ralf/app/platform/robot/Robot$DefaultImpls {
+	public static fun close (Lsoftware/ralf/app/platform/robot/Robot;)V
 }
 
-public abstract interface class software/amazon/app/platform/robot/RobotComponent {
+public abstract interface class software/ralf/app/platform/robot/RobotComponent {
 	public abstract fun getRobots ()Ljava/util/Map;
 }
 
-public abstract interface class software/amazon/app/platform/robot/RobotGraph {
+public abstract interface class software/ralf/app/platform/robot/RobotGraph {
 	public abstract fun getRobots ()Ljava/util/Map;
 }
 
-public abstract class software/amazon/app/platform/robot/RobotGraph$BindsMirror {
+public abstract class software/ralf/app/platform/robot/RobotGraph$BindsMirror {
 	public final fun robots_property4205200196 ()Ljava/util/Map;
 }
 
-public abstract interface class software/amazon/app/platform/robot/RobotGraph$MetroContributionToAppScope : software/amazon/app/platform/robot/RobotGraph {
+public abstract interface class software/ralf/app/platform/robot/RobotGraph$MetroContributionToAppScope : software/ralf/app/platform/robot/RobotGraph {
 }
 
-public final class software/amazon/app/platform/robot/RobotKt {
-	public static final fun getAllRobots (Lsoftware/amazon/app/platform/scope/Scope;)Ljava/util/Map;
+public final class software/ralf/app/platform/robot/RobotKt {
+	public static final fun getAllRobots (Lsoftware/ralf/app/platform/scope/Scope;)Ljava/util/Map;
 }
 
-public final class software/amazon/app/platform/robot/WaiterKt {
+public final class software/ralf/app/platform/robot/WaiterKt {
 	public static final fun waitFor-vLdBGDU (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static synthetic fun waitFor-vLdBGDU$default (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun waitUntil-vLdBGDU (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;)V
@@ -34,8 +34,8 @@ public final class software/amazon/app/platform/robot/WaiterKt {
 	public static synthetic fun waitUntilCatching-vLdBGDU$default (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 }
 
-public final class software/amazon/app/platform/robot/internal/RobotInternals {
-	public static final field INSTANCE Lsoftware/amazon/app/platform/robot/internal/RobotInternals;
-	public final fun setRootScopeProvider (Lsoftware/amazon/app/platform/scope/RootScopeProvider;)V
+public final class software/ralf/app/platform/robot/internal/RobotInternals {
+	public static final field INSTANCE Lsoftware/ralf/app/platform/robot/internal/RobotInternals;
+	public final fun setRootScopeProvider (Lsoftware/ralf/app/platform/scope/RootScopeProvider;)V
 }
 

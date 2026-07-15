@@ -1,15 +1,15 @@
-public final class software/amazon/app/platform/presenter/molecule/LaunchMoleculePresenterKt {
-	public static final fun launchMoleculePresenter (Lkotlinx/coroutines/CoroutineScope;Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;Lkotlinx/coroutines/flow/StateFlow;Lapp/cash/molecule/RecompositionMode;)Lsoftware/amazon/app/platform/presenter/Presenter;
-	public static final fun launchMoleculePresenter (Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScope;Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;Ljava/lang/Object;)Lsoftware/amazon/app/platform/presenter/Presenter;
-	public static final fun launchMoleculePresenter (Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScope;Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;Lkotlinx/coroutines/flow/StateFlow;)Lsoftware/amazon/app/platform/presenter/Presenter;
-	public static final fun presentDetached (Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;Ljava/lang/Object;Lapp/cash/molecule/RecompositionMode;Landroidx/compose/runtime/Composer;II)Lsoftware/amazon/app/platform/presenter/BaseModel;
+public final class software/ralf/app/platform/presenter/molecule/LaunchMoleculePresenterKt {
+	public static final fun launchMoleculePresenter (Lkotlinx/coroutines/CoroutineScope;Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;Lkotlinx/coroutines/flow/StateFlow;Lapp/cash/molecule/RecompositionMode;)Lsoftware/ralf/app/platform/presenter/Presenter;
+	public static final fun launchMoleculePresenter (Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;Ljava/lang/Object;)Lsoftware/ralf/app/platform/presenter/Presenter;
+	public static final fun launchMoleculePresenter (Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;Lkotlinx/coroutines/flow/StateFlow;)Lsoftware/ralf/app/platform/presenter/Presenter;
+	public static final fun presentDetached (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;Ljava/lang/Object;Lapp/cash/molecule/RecompositionMode;Landroidx/compose/runtime/Composer;II)Lsoftware/ralf/app/platform/presenter/BaseModel;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/MoleculePresenter {
-	public abstract fun present (Ljava/lang/Object;Landroidx/compose/runtime/Composer;I)Lsoftware/amazon/app/platform/presenter/BaseModel;
+public abstract interface class software/ralf/app/platform/presenter/molecule/MoleculePresenter {
+	public abstract fun present (Ljava/lang/Object;Landroidx/compose/runtime/Composer;I)Lsoftware/ralf/app/platform/presenter/BaseModel;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/MoleculeScope {
+public final class software/ralf/app/platform/presenter/molecule/MoleculeScope {
 	public static final field $stable I
 	public fun <init> (Lkotlinx/coroutines/CoroutineScope;Lapp/cash/molecule/RecompositionMode;)V
 	public final fun cancel ()V
@@ -17,23 +17,23 @@ public final class software/amazon/app/platform/presenter/molecule/MoleculeScope
 	public final fun getRecompositionMode ()Lapp/cash/molecule/RecompositionMode;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/MoleculeScopeFactory {
-	public abstract fun createMoleculeScope ()Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScope;
-	public abstract fun createMoleculeScopeFromCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScope;
-	public static synthetic fun createMoleculeScopeFromCoroutineScope$default (Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScope;
+public abstract interface class software/ralf/app/platform/presenter/molecule/MoleculeScopeFactory {
+	public abstract fun createMoleculeScope ()Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;
+	public abstract fun createMoleculeScopeFromCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;
+	public static synthetic fun createMoleculeScopeFromCoroutineScope$default (Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/MoleculeScopeFactory$DefaultImpls {
-	public static synthetic fun createMoleculeScopeFromCoroutineScope$default (Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScope;
+public final class software/ralf/app/platform/presenter/molecule/MoleculeScopeFactory$DefaultImpls {
+	public static synthetic fun createMoleculeScopeFromCoroutineScope$default (Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/ReturningCompositionLocalProviderKt {
-	public static final fun returningCompositionLocalProvider ([Landroidx/compose/runtime/ProvidedValue;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Lsoftware/amazon/app/platform/presenter/BaseModel;
+public final class software/ralf/app/platform/presenter/molecule/ReturningCompositionLocalProviderKt {
+	public static final fun returningCompositionLocalProvider ([Landroidx/compose/runtime/ProvidedValue;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Lsoftware/ralf/app/platform/presenter/BaseModel;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/BackEventPresenter {
+public final class software/ralf/app/platform/presenter/molecule/backgesture/BackEventPresenter {
 	public static final field $stable I
-	public static final field Companion Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackEventPresenter$Companion;
+	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackEventPresenter$Companion;
 	public static final field EDGE_LEFT I
 	public static final field EDGE_RIGHT I
 	public fun <init> (FFFI)V
@@ -43,36 +43,36 @@ public final class software/amazon/app/platform/presenter/molecule/backgesture/B
 	public final fun getTouchY ()F
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/BackEventPresenter$Companion {
+public final class software/ralf/app/platform/presenter/molecule/backgesture/BackEventPresenter$Companion {
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter {
-	public static final field Companion Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter$Companion;
+public abstract interface class software/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter {
+	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter$Companion;
 	public abstract fun PredictiveBackHandlerPresenter (ZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V
 	public abstract fun getListenersCount ()Lkotlinx/coroutines/flow/StateFlow;
 	public abstract fun onPredictiveBack (Lkotlinx/coroutines/flow/Flow;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter$Companion {
-	public final fun createNewInstance ()Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+public final class software/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter$Companion {
+	public final fun createNewInstance ()Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenterKt {
-	public static final fun BackHandlerPresenter (Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
-	public static final fun PredictiveBackHandlerPresenter (Lsoftware/amazon/app/platform/presenter/molecule/MoleculePresenter;ZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+public final class software/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenterKt {
+	public static final fun BackHandlerPresenter (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun PredictiveBackHandlerPresenter (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;ZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 	public static final fun getLocalBackGestureDispatcherPresenter ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolder {
+public abstract interface class software/ralf/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolder {
 	public abstract fun SaveableStateProvider (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Ljava/lang/Object;
 	public abstract fun removeState (Ljava/lang/Object;)V
 }
 
-public final class software/amazon/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolderKt {
-	public static final fun rememberReturningSaveableStateHolder (Landroidx/compose/runtime/Composer;I)Lsoftware/amazon/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolder;
+public final class software/ralf/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolderKt {
+	public static final fun rememberReturningSaveableStateHolder (Landroidx/compose/runtime/Composer;I)Lsoftware/ralf/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolder;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/text/PresenterTextFieldState : androidx/compose/runtime/State {
+public final class software/ralf/app/platform/presenter/molecule/text/PresenterTextFieldState : androidx/compose/runtime/State {
 	public static final field $stable I
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;)V

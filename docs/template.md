@@ -1,6 +1,6 @@
 # Template
 
-[`Templates`](https://github.com/vRallev/app-platform/blob/main/presenter/public/src/commonMain/kotlin/software/amazon/app/platform/presenter/template/Template.kt)
+[`Templates`](https://github.com/vRallev/app-platform/blob/main/presenter/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/template/Template.kt)
 are an abstraction between `Presenters` and `Renderers` and represent the root of the presenter and renderer tree.
 Practically, a template is one particular type of `BaseModel` that hosts other models (a container of models).
 However, instead of using a weak type like `List<BaseModel>`, a template carries semantics about what content should
@@ -25,7 +25,7 @@ sealed interface SampleAppTemplate : Template {
 
 ??? example "Sample"
 
-    A [similar hierarchy](https://github.com/vRallev/app-platform/blob/main/sample/templates/public/src/commonMain/kotlin/software/amazon/app/platform/sample/template/SampleAppTemplate.kt)
+    A [similar hierarchy](https://github.com/vRallev/app-platform/blob/main/sample/templates/public/src/commonMain/kotlin/software/ralf/app/platform/sample/template/SampleAppTemplate.kt)
     is implemented in the sample application.
 
 The `Template` interface extends `BaseModel` and each app must come with its own `TemplatePresenter` and
@@ -51,9 +51,9 @@ class SampleAppTemplatePresenter(
 
 ??? example "Sample"
 
-    The sample app has a [similar implementation](https://github.com/vRallev/app-platform/blob/main/sample/templates/public/src/commonMain/kotlin/software/amazon/app/platform/sample/template/SampleAppTemplatePresenter.kt).
+    The sample app has a [similar implementation](https://github.com/vRallev/app-platform/blob/main/sample/templates/public/src/commonMain/kotlin/software/ralf/app/platform/sample/template/SampleAppTemplatePresenter.kt).
 
-The wrapped presenter can override which `Template` to use by implementing [`ModelDelegate`](https://github.com/vRallev/app-platform/blob/main/presenter/public/src/commonMain/kotlin/software/amazon/app/platform/presenter/template/ModelDelegate.kt),
+The wrapped presenter can override which `Template` to use by implementing [`ModelDelegate`](https://github.com/vRallev/app-platform/blob/main/presenter/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/template/ModelDelegate.kt),
 e.g.
 
 ```kotlin
@@ -66,7 +66,7 @@ data class Model(
 
 ??? example "Sample"
 
-    The sample app makes use of this mechanism in the [user page](https://github.com/vRallev/app-platform/blob/main/sample/user/public/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserPagePresenter.kt),
+    The sample app makes use of this mechanism in the [user page](https://github.com/vRallev/app-platform/blob/main/sample/user/public/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserPagePresenter.kt),
     where it the layout is split between a list presenter / renderer and detail presenter / renderer.
 
     ```kotlin

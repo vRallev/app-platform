@@ -14,7 +14,7 @@
 
 ## Renderer basics
 
-A [`Renderer`](https://github.com/vRallev/app-platform/blob/main/renderer/public/src/commonMain/kotlin/software/amazon/app/platform/renderer/Renderer.kt)
+A [`Renderer`](https://github.com/vRallev/app-platform/blob/main/renderer/public/src/commonMain/kotlin/software/ralf/app/platform/renderer/Renderer.kt)
 is the counterpart to a `Presenter`. It consumes `Models` and turns them into UI, which is shown on screen.
 
 ```kotlin
@@ -24,9 +24,9 @@ interface Renderer<in ModelT : BaseModel> {
 ```
 
 The `Renderer` interface is rarely used directly, instead platform specific implementations like
-[`ComposeRenderer`](https://github.com/vRallev/app-platform/blob/main/renderer-compose-multiplatform/public/src/commonMain/kotlin/software/amazon/app/platform/renderer/ComposeRenderer.kt)
+[`ComposeRenderer`](https://github.com/vRallev/app-platform/blob/main/renderer-compose-multiplatform/public/src/commonMain/kotlin/software/ralf/app/platform/renderer/ComposeRenderer.kt)
 for [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/) and
-[`ViewRenderer`](https://github.com/vRallev/app-platform/blob/main/renderer-android-view/public/src/androidMain/kotlin/software/amazon/app/platform/renderer/ViewRenderer.kt)
+[`ViewRenderer`](https://github.com/vRallev/app-platform/blob/main/renderer-android-view/public/src/androidMain/kotlin/software/ralf/app/platform/renderer/ViewRenderer.kt)
 for Android are used. App Platform doesn’t provide any other implementations for now, e.g. a SwiftUI or UIKit
 implementation for iOS is missing.
 
@@ -67,7 +67,7 @@ class LoginRenderer : ViewRenderer<Model>() {
 !!! warning
 
     Note that `ComposeRenderer` like `ViewRenderer` implements the common `Renderer` interface, but calling the
-    `render(model)` function [is an error](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/renderer-compose-multiplatform/public/src/commonMain/kotlin/software/amazon/app/platform/renderer/ComposeRenderer.kt#L52-L58).
+    `render(model)` function [is an error](https://github.com/vRallev/app-platform/blob/main/renderer-compose-multiplatform/public/src/commonMain/kotlin/software/ralf/app/platform/renderer/ComposeRenderer.kt#L52-L58).
     Instead, `ComposeRenderer` defines its own function to preserve the composable context:
 
     ```kotlin
@@ -124,28 +124,28 @@ class LoginRenderer : ComposeRenderer<Model>() {
 
 ??? example "Sample"
 
-    The sample app implements multiple `ComposeRenderers`, e.g. [`LoginRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/login/LoginRenderer.kt),
-    [`UserPageListRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserPageListRenderer.kt)
-    and [`UserPageDetailRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserPageDetailRenderer.kt).
+    The sample app implements multiple `ComposeRenderers`, e.g. [`LoginRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/login/LoginRenderer.kt),
+    [`UserPageListRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserPageListRenderer.kt)
+    and [`UserPageDetailRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserPageDetailRenderer.kt).
 
 ## `RendererFactory`
 
-How `Renderers` are initialized depends on [`RendererFactory`](https://github.com/vRallev/app-platform/blob/main/renderer/public/src/commonMain/kotlin/software/amazon/app/platform/renderer/RendererFactory.kt),
+How `Renderers` are initialized depends on [`RendererFactory`](https://github.com/vRallev/app-platform/blob/main/renderer/public/src/commonMain/kotlin/software/ralf/app/platform/renderer/RendererFactory.kt),
 which only responsibility is to create and cache `Renderers` based on the given model. App Platform comes with three
 different implementations:
 
-[`ComposeRendererFactory`](https://github.com/vRallev/app-platform/blob/main/renderer-compose-multiplatform/public/src/commonMain/kotlin/software/amazon/app/platform/renderer/ComposeRendererFactory.kt)
+[`ComposeRendererFactory`](https://github.com/vRallev/app-platform/blob/main/renderer-compose-multiplatform/public/src/commonMain/kotlin/software/ralf/app/platform/renderer/ComposeRendererFactory.kt)
 
 :   `ComposeRendererFactory` is an implementation for Compose Multiplatform and can be used on all supported
     platforms. It can only create instances of `ComposeRenderer`.
 
-[`AndroidRendererFactory`](https://github.com/vRallev/app-platform/blob/main/renderer-android-view/public/src/androidMain/kotlin/software/amazon/app/platform/renderer/AndroidRendererFactory.kt)
+[`AndroidRendererFactory`](https://github.com/vRallev/app-platform/blob/main/renderer-android-view/public/src/androidMain/kotlin/software/ralf/app/platform/renderer/AndroidRendererFactory.kt)
 
 :   `AndroidRendererFactory` is only suitable for Android. It can be used to create `ViewRenderer` instances and its
     subtypes. It does not support `ComposeRenderer`. Use `ComposeAndroidRendererFactory` if you need to mix and
     match `ViewRenderer` with `ComposeRenderer`.
 
-[`ComposeAndroidRendererFactory`](https://github.com/vRallev/app-platform/blob/main/renderer-compose-multiplatform/public/src/androidMain/kotlin/software/amazon/app/platform/renderer/ComposeAndroidRendererFactory.kt)
+[`ComposeAndroidRendererFactory`](https://github.com/vRallev/app-platform/blob/main/renderer-compose-multiplatform/public/src/androidMain/kotlin/software/ralf/app/platform/renderer/ComposeAndroidRendererFactory.kt)
 
 :   `ComposeAndroidRendererFactory` is only suitable for Android when using `ComposeRenderer` together with
     `ViewRenderer`. The factory wraps the Renderers for seamless interop.
@@ -158,7 +158,7 @@ the app graph or component. Those generated bindings lazily provide all renderer
 multibindings feature. To participate in the lookup, renderers must tell Metro or
 `kotlin-inject-anvil` which models they can render. This is done through generated bindings, which
 are automatically added to the renderer scope by using the
-[`@ContributesRenderer` annotation](https://github.com/vRallev/app-platform/blob/main/kotlin-inject-extensions/contribute/public/src/commonMain/kotlin/software/amazon/app/platform/inject/ContributesRenderer.kt).
+[`@ContributesRenderer` annotation](https://github.com/vRallev/app-platform/blob/main/di-common/public/src/commonMain/kotlin/software/ralf/app/platform/inject/ContributesRenderer.kt).
 
 Which `Model` type is used for the binding is determined based on the super type. In the following example
 `LoginPresenter.Model` is used.
@@ -206,16 +206,16 @@ class LoginRenderer : ComposeRenderer<LoginPresenter.Model>()
         @ContributesTo(RendererScope::class)
         interface LoginRendererComponent {
           @Provides
-          public fun provideSoftwareAmazonAppPlatformSampleLoginLoginRenderer(): LoginRenderer = LoginRenderer()
+          public fun provideSoftwareRalfAppPlatformSampleLoginLoginRenderer(): LoginRenderer = LoginRenderer()
 
           @Provides
           @IntoMap
-          public fun provideSoftwareAmazonAppPlatformSampleLoginLoginRendererLoginPresenterModel(renderer: () -> LoginRenderer): Pair<KClass<out BaseModel>, () -> Renderer<*>> = LoginPresenter.Model::class to renderer
+          public fun provideSoftwareRalfAppPlatformSampleLoginLoginRendererLoginPresenterModel(renderer: () -> LoginRenderer): Pair<KClass<out BaseModel>, () -> Renderer<*>> = LoginPresenter.Model::class to renderer
 
           @Provides
           @IntoMap
           @ForScope(scope = RendererScope::class)
-          public fun provideSoftwareAmazonAppPlatformSampleLoginLoginRendererLoginPresenterModelKey(): Pair<KClass<out BaseModel>, KClass<out Renderer<*>>> = LoginPresenter.Model::class to LoginRenderer::class
+          public fun provideSoftwareRalfAppPlatformSampleLoginLoginRendererLoginPresenterModelKey(): Pair<KClass<out BaseModel>, KClass<out Renderer<*>>> = LoginPresenter.Model::class to LoginRenderer::class
         }
         ```
 
@@ -254,9 +254,9 @@ class MainActivity : ComponentActivity() {
 
 ??? example "Sample"
 
-    The sample app uses `ComposeAndroidRendererFactory` in [Android application](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/app/src/androidMain/kotlin/software/amazon/app/platform/sample/MainActivity.kt#L30-L35)
-    and `ComposeRendererFactory` for [iOS](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/app/src/iosMain/kotlin/software/amazon/app/platform/sample/MainViewController.kt#L40)
-    and [Desktop](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/app/src/desktopMain/kotlin/software/amazon/app/platform/sample/DesktopApp.kt#L36).
+    The sample app uses `ComposeAndroidRendererFactory` in [Android application](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/MainActivity.kt#L30-L35)
+    and `ComposeRendererFactory` for [iOS](https://github.com/vRallev/app-platform/blob/main/sample/app/src/iosMain/kotlin/software/ralf/app/platform/sample/MainViewController.kt#L40)
+    and [Desktop](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopMain/kotlin/software/ralf/app/platform/sample/DesktopApp.kt#L36).
 
 ### Creating `Renderers`
 
@@ -330,8 +330,8 @@ class SampleRenderer(
 
 ??? example "Sample"
 
-    The sample app injects `RendererFactory` in [`ComposeSampleAppTemplateRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/templates/impl/src/commonMain/kotlin/software/amazon/app/platform/sample/template/ComposeSampleAppTemplateRenderer.kt)
-    to create `Renderers` dynamically for unknown `Model` types. There is also an [Android sample implementation](https://github.com/vRallev/app-platform/blob/main/sample/templates/impl/src/androidMain/kotlin/software/amazon/app/platform/sample/template/AndroidSampleAppTemplateRenderer.kt).
+    The sample app injects `RendererFactory` in [`ComposeSampleAppTemplateRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/templates/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/template/ComposeSampleAppTemplateRenderer.kt)
+    to create `Renderers` dynamically for unknown `Model` types. There is also an [Android sample implementation](https://github.com/vRallev/app-platform/blob/main/sample/templates/impl/src/androidMain/kotlin/software/ralf/app/platform/sample/template/AndroidSampleAppTemplateRenderer.kt).
 
 !!! note
 
@@ -365,11 +365,11 @@ from Android Views to Compose UI by simply migrating renderers one by one.
 
 ### `ViewRenderer` subtypes
 
-[`ViewBindingRenderer`](https://github.com/vRallev/app-platform/blob/main/renderer-android-view/public/src/androidMain/kotlin/software/amazon/app/platform/renderer/ViewBindingRenderer.kt).
+[`ViewBindingRenderer`](https://github.com/vRallev/app-platform/blob/main/renderer-android-view/public/src/androidMain/kotlin/software/ralf/app/platform/renderer/ViewBindingRenderer.kt).
 
 :   View binding is supported out of the box using `ViewBindingRenderer`.
 
-[`RecyclerViewViewHolderRenderer`](https://github.com/vRallev/app-platform/blob/main/renderer-android-view/public/src/androidMain/kotlin/software/amazon/app/platform/renderer/RecyclerViewViewHolderRenderer.kt)
+[`RecyclerViewViewHolderRenderer`](https://github.com/vRallev/app-platform/blob/main/renderer-android-view/public/src/androidMain/kotlin/software/ralf/app/platform/renderer/RecyclerViewViewHolderRenderer.kt)
 
 :   `RecyclerViewViewHolderRenderer` allows you to implement elements of a `RecyclerView` as a `Renderer`.
 
@@ -403,6 +403,6 @@ class LoginRendererTest {
 
 ??? example "Sample"
 
-    The sample app demonstrates this with the [`LoginRendererTest`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl/src/appleAndDesktopTest/kotlin/software/amazon/app/platform/sample/login/LoginRendererTest.kt).
+    The sample app demonstrates this with the [`LoginRendererTest`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl/src/appleAndDesktopTest/kotlin/software/ralf/app/platform/sample/login/LoginRendererTest.kt).
     To avoid duplicating the test in the `desktopTest` and `iosTest` source folders, the sample app has a custom
     source set `appleAndDesktop`, which is a shared parent source set for `apple` and `desktop`.

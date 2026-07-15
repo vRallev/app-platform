@@ -1,12 +1,12 @@
-public final class software/amazon/app/platform/scope/RunTestWithScopeKt {
+public final class software/ralf/app/platform/scope/RunTestWithScopeKt {
 	public static final fun runTestWithScope (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)V
 	public static synthetic fun runTestWithScope$default (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)V
-	public static final fun runTestWithScoped (Lsoftware/amazon/app/platform/scope/Scoped;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)V
-	public static synthetic fun runTestWithScoped$default (Lsoftware/amazon/app/platform/scope/Scoped;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)V
+	public static final fun runTestWithScoped (Lsoftware/ralf/app/platform/scope/Scoped;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)V
+	public static synthetic fun runTestWithScoped$default (Lsoftware/ralf/app/platform/scope/Scoped;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)V
 }
 
-public final class software/amazon/app/platform/scope/TestScopeKt {
-	public static final fun buildTestScope (Lsoftware/amazon/app/platform/scope/Scope$Companion;Lkotlinx/coroutines/test/TestScope;Ljava/lang/String;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;)Lsoftware/amazon/app/platform/scope/Scope;
-	public static synthetic fun buildTestScope$default (Lsoftware/amazon/app/platform/scope/Scope$Companion;Lkotlinx/coroutines/test/TestScope;Ljava/lang/String;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lsoftware/amazon/app/platform/scope/Scope;
+public final class software/ralf/app/platform/scope/TestScopeKt {
+	public static final fun buildTestScope (Lsoftware/ralf/app/platform/scope/Scope$Companion;Lkotlinx/coroutines/test/TestScope;Ljava/lang/String;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;)Lsoftware/ralf/app/platform/scope/Scope;
+	public static synthetic fun buildTestScope$default (Lsoftware/ralf/app/platform/scope/Scope$Companion;Lkotlinx/coroutines/test/TestScope;Ljava/lang/String;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lsoftware/ralf/app/platform/scope/Scope;
 }
 

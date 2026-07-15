@@ -15,14 +15,14 @@ are functioning and tests don’t need to be repeated.
 !!! info "Instrumented tests"
 
     The sample application implements instrumented tests for two screens and navigates between the tests. The
-    [tests for Desktop](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopTest/kotlin/software/amazon/app/platform/sample/LoginUiTest.kt)
+    [tests for Desktop](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopTest/kotlin/software/ralf/app/platform/sample/LoginUiTest.kt)
     highlight how templates are rendered and robots are used for verification. They also set up a Metro
-    [`TestDesktopAppGraph`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopTest/kotlin/software/amazon/app/platform/sample/TestDesktopAppGraph.kt),
+    [`TestDesktopAppGraph`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopTest/kotlin/software/ralf/app/platform/sample/TestDesktopAppGraph.kt),
     which replaces the main desktop graph.
 
-    The same UI test is [implemented for Android](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidInstrumentedTest/kotlin/software/amazon/app/platform/sample/AndroidLoginUiTest.kt).
+    The same UI test is [implemented for Android](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidInstrumentedTest/kotlin/software/ralf/app/platform/sample/AndroidLoginUiTest.kt).
     The Android tests reuse the same robots for verification and set up a
-    [`TestAndroidAppGraph`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidInstrumentedTest/kotlin/software/amazon/app/platform/sample/TestAndroidAppGraph.kt)
+    [`TestAndroidAppGraph`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidInstrumentedTest/kotlin/software/ralf/app/platform/sample/TestAndroidAppGraph.kt)
     in a similar way. The sample now uses Metro throughout, while `kotlin-inject-anvil` remains
     available as the alternative path.
 
@@ -105,8 +105,8 @@ This avoids duplication.
 
     The sample app uses `:testing` modules to implement and share fakes across modules, e.g.
     [`:sample:user:testing`](https://github.com/vRallev/app-platform/tree/main/sample/user/testing). In other modules
-    fakes are created next to the tests ad-hoc, e.g. [`FakeUserPagePresenter`](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/sample/navigation/impl/src/commonTest/kotlin/software/amazon/app/platform/sample/navigation/NavigationPresenterImplTest.kt#L51-L58)
-    and [`FakeAnimationHelper`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonTest/kotlin/software/amazon/app/platform/sample/user/FakeAnimationHelper.kt).
+    fakes are created next to the tests ad-hoc, e.g. [`FakeUserPagePresenter`](https://github.com/vRallev/app-platform/blob/main/sample/navigation/impl/src/commonTest/kotlin/software/ralf/app/platform/sample/navigation/NavigationPresenterImplTest.kt#L51-L58)
+    and [`FakeAnimationHelper`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonTest/kotlin/software/ralf/app/platform/sample/user/FakeAnimationHelper.kt).
 
     ```kotlin
     private class FakeUserPagePresenter : UserPagePresenter {
@@ -139,7 +139,7 @@ class LogoutRobot : Robot {
 }
 ```
 
-Test [`Robots`](https://github.com/vRallev/app-platform/blob/main/robot/public/src/commonMain/kotlin/software/amazon/app/platform/robot/Robot.kt)
+Test [`Robots`](https://github.com/vRallev/app-platform/blob/main/robot/public/src/commonMain/kotlin/software/ralf/app/platform/robot/Robot.kt)
 are not limited to UI interactions such as verifying UI elements are shown or hidden and invoking
 actions on them. They can also be used to change fake implementations or make assertions on them. Imagine a
 robot toggling network connectivity. Tests do not interact with fake implementations directly similar to them
@@ -212,7 +212,7 @@ class ConnectionRobot : Robot {
 
 ### Robot types
 
-[`Robot`](https://github.com/vRallev/app-platform/blob/main/robot/public/src/commonMain/kotlin/software/amazon/app/platform/robot/Robot.kt).
+[`Robot`](https://github.com/vRallev/app-platform/blob/main/robot/public/src/commonMain/kotlin/software/ralf/app/platform/robot/Robot.kt).
 
 :   Use this common interface for robots that don't interact with any UI, whether that's Compose Multiplatform or
     Android Views. To obtain an instance of such a robot use the `robot<Type>()` function:
@@ -234,7 +234,7 @@ class ConnectionRobot : Robot {
     }
     ```
 
-[`ComposeRobot`](https://github.com/vRallev/app-platform/blob/main/robot-compose-multiplatform/public/src/commonMain/kotlin/software/amazon/app/platform/robot/ComposeRobot.kt)
+[`ComposeRobot`](https://github.com/vRallev/app-platform/blob/main/robot-compose-multiplatform/public/src/commonMain/kotlin/software/ralf/app/platform/robot/ComposeRobot.kt)
 
 :   `ComposeRobot` should be used as parent type when the robot interacts with Compose UI elements. These robots need
     access to a `SemanticsNodeInteractionsProvider` instance, which is for example provided by calling
@@ -274,7 +274,7 @@ class ConnectionRobot : Robot {
     }
     ```
 
-[`AndroidViewRobot`](https://github.com/vRallev/app-platform/blob/main/robot/public/src/androidMain/kotlin/software/amazon/app/platform/robot/AndroidViewRobot.kt)
+[`AndroidViewRobot`](https://github.com/vRallev/app-platform/blob/main/robot/public/src/androidMain/kotlin/software/ralf/app/platform/robot/AndroidViewRobot.kt)
 
 :   `AndroidViewRobot` should be used as parent type when the robot interacts with Android Views.
     To obtain an instance of such a robot use the `robot<Type>()` function:
@@ -363,8 +363,8 @@ It’s strongly encouraged for features to create `:*-robots` modules and share 
 
 ??? example "Sample"
 
-    The sample application comes with two robot implementations [`LoginRobot`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl-robots/src/commonMain/kotlin/software/amazon/app/platform/sample/login/LoginRobot.kt)
-    and [`UserPageRobot`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl-robots/src/commonMain/kotlin/software/amazon/app/platform/sample/user/UserPageRobot.kt),
+    The sample application comes with two robot implementations [`LoginRobot`](https://github.com/vRallev/app-platform/blob/main/sample/login/impl-robots/src/commonMain/kotlin/software/ralf/app/platform/sample/login/LoginRobot.kt)
+    and [`UserPageRobot`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl-robots/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserPageRobot.kt),
     each living in its feature specific `:robots` module.
 
 ## Mocks

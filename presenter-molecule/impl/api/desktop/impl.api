@@ -1,85 +1,85 @@
-public final class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactory : software/amazon/app/platform/presenter/molecule/MoleculeScopeFactory {
+public final class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactory : software/ralf/app/platform/presenter/molecule/MoleculeScopeFactory {
 	public static final field $stable I
 	public fun <init> (Lkotlin/jvm/functions/Function0;)V
-	public fun createMoleculeScope ()Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScope;
-	public fun createMoleculeScopeFromCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScope;
+	public fun createMoleculeScope ()Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;
+	public fun createMoleculeScopeFromCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryComponent {
-	public fun provideDesktopMoleculeScopeFactory (Lkotlin/jvm/functions/Function0;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
+public abstract interface class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryComponent {
+	public fun provideDesktopMoleculeScopeFactory (Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryComponent$DefaultImpls {
-	public static fun provideDesktopMoleculeScopeFactory (Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryComponent;Lkotlin/jvm/functions/Function0;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
+public final class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryComponent$DefaultImpls {
+	public static fun provideDesktopMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryComponent;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph {
-	public fun provideDesktopMoleculeScopeFactory (Lkotlin/jvm/functions/Function0;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
+public abstract interface class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph {
+	public fun provideDesktopMoleculeScopeFactory (Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$DefaultImpls {
-	public static fun provideDesktopMoleculeScopeFactory (Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
+public final class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$DefaultImpls {
+	public static fun provideDesktopMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope : software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph {
+public abstract interface class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope : software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph {
 }
 
-public final class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope$DefaultImpls {
-	public static fun provideDesktopMoleculeScopeFactory (Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope;Lkotlin/jvm/functions/Function0;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
+public final class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope$DefaultImpls {
+	public static fun provideDesktopMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory : dev/zacsweers/metro/internal/Factory {
+public final class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory : dev/zacsweers/metro/internal/Factory {
 	public static final field $stable I
-	public static final field Companion Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory$Companion;
-	public synthetic fun <init> (Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun create (Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;)Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory;
+	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory$Companion;
+	public synthetic fun <init> (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun create (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
-	public final fun invoke ()Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
-	public final fun mirrorFunction (Lkotlin/jvm/functions/Function0;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
-	public static final fun provideDesktopMoleculeScopeFactory (Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
+	public final fun invoke ()Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
+	public final fun mirrorFunction (Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
+	public static final fun provideDesktopMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory$Companion {
-	public final fun create (Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;)Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory;
-	public final fun provideDesktopMoleculeScopeFactory (Lsoftware/amazon/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/amazon/app/platform/presenter/molecule/MoleculeScopeFactory;
+public final class software/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory$Companion {
+	public final fun create (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory;
+	public final fun provideDesktopMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterComponent {
-	public fun provideDefaultBackGestureDispatcherPresenter ()Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+public abstract interface class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterComponent {
+	public fun provideDefaultBackGestureDispatcherPresenter ()Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterComponent$DefaultImpls {
-	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterComponent;)Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+public final class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterComponent$DefaultImpls {
+	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterComponent;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph {
-	public fun provideDefaultBackGestureDispatcherPresenter ()Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+public abstract interface class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph {
+	public fun provideDefaultBackGestureDispatcherPresenter ()Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$DefaultImpls {
-	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+public final class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$DefaultImpls {
+	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 
-public abstract interface class software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope : software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph {
+public abstract interface class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope : software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph {
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope$DefaultImpls {
-	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope;)Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+public final class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope$DefaultImpls {
+	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory : dev/zacsweers/metro/internal/Factory {
+public final class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory : dev/zacsweers/metro/internal/Factory {
 	public static final field $stable I
-	public static final field Companion Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion;
-	public synthetic fun <init> (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun create (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory;
+	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion;
+	public synthetic fun <init> (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun create (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
-	public final fun invoke ()Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
-	public final fun mirrorFunction ()Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
-	public static final fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+	public final fun invoke ()Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+	public final fun mirrorFunction ()Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+	public static final fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 
-public final class software/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion {
-	public final fun create (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory;
-	public final fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/amazon/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/amazon/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
+public final class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion {
+	public final fun create (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory;
+	public final fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 

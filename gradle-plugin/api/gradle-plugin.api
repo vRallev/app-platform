@@ -1,4 +1,4 @@
-public class software/amazon/app/platform/gradle/AppPlatformExtension {
+public class software/ralf/app/platform/gradle/AppPlatformExtension {
 	public fun <init> (Lorg/gradle/api/model/ObjectFactory;Lorg/gradle/api/Project;)V
 	public final fun addImplModuleDependencies (Z)V
 	public final fun addPublicModuleDependencies (Z)V
@@ -11,20 +11,20 @@ public class software/amazon/app/platform/gradle/AppPlatformExtension {
 	public final fun enableMoleculePresenters (Z)V
 }
 
-public class software/amazon/app/platform/gradle/AppPlatformPlugin : org/gradle/api/Plugin {
-	public static final field Companion Lsoftware/amazon/app/platform/gradle/AppPlatformPlugin$Companion;
+public class software/ralf/app/platform/gradle/AppPlatformPlugin : org/gradle/api/Plugin {
+	public static final field Companion Lsoftware/ralf/app/platform/gradle/AppPlatformPlugin$Companion;
 	public fun <init> ()V
 	public synthetic fun apply (Ljava/lang/Object;)V
 	public fun apply (Lorg/gradle/api/Project;)V
 	public static final fun exportedDependencies ()Ljava/util/Set;
 }
 
-public final class software/amazon/app/platform/gradle/AppPlatformPlugin$Companion {
+public final class software/ralf/app/platform/gradle/AppPlatformPlugin$Companion {
 	public final fun exportedDependencies ()Ljava/util/Set;
 }
 
-public abstract class software/amazon/app/platform/gradle/ModuleStructureDependencyCheckTask : org/gradle/api/DefaultTask {
-	public static final field Companion Lsoftware/amazon/app/platform/gradle/ModuleStructureDependencyCheckTask$Companion;
+public abstract class software/ralf/app/platform/gradle/ModuleStructureDependencyCheckTask : org/gradle/api/DefaultTask {
+	public static final field Companion Lsoftware/ralf/app/platform/gradle/ModuleStructureDependencyCheckTask$Companion;
 	public fun <init> ()V
 	public final fun checkDependencies ()V
 	public abstract fun getAllowLibraryImplToImplDependencies ()Lorg/gradle/api/provider/Property;
@@ -36,47 +36,47 @@ public abstract class software/amazon/app/platform/gradle/ModuleStructureDepende
 	public abstract fun setModulePath (Ljava/lang/String;)V
 }
 
-public final class software/amazon/app/platform/gradle/ModuleStructureDependencyCheckTask$Companion {
+public final class software/ralf/app/platform/gradle/ModuleStructureDependencyCheckTask$Companion {
 	public final fun registerModuleStructureDependencyCheckTask (Lorg/gradle/api/Project;)V
 }
 
-public class software/amazon/app/platform/gradle/ModuleStructureOptions {
+public class software/ralf/app/platform/gradle/ModuleStructureOptions {
 	public fun <init> (Lorg/gradle/api/model/ObjectFactory;)V
 	public final fun allowLibraryImplToImplDependencies (Z)V
 }
 
-public class software/amazon/app/platform/gradle/ModuleStructurePlugin : org/gradle/api/Plugin {
-	public static final field Companion Lsoftware/amazon/app/platform/gradle/ModuleStructurePlugin$Companion;
+public class software/ralf/app/platform/gradle/ModuleStructurePlugin : org/gradle/api/Plugin {
+	public static final field Companion Lsoftware/ralf/app/platform/gradle/ModuleStructurePlugin$Companion;
 	public fun <init> ()V
 	public synthetic fun apply (Ljava/lang/Object;)V
 	public fun apply (Lorg/gradle/api/Project;)V
 }
 
-public final class software/amazon/app/platform/gradle/ModuleStructurePlugin$Companion {
+public final class software/ralf/app/platform/gradle/ModuleStructurePlugin$Companion {
 	public final fun artifactId (Lorg/gradle/api/Project;Ljava/lang/String;)Ljava/lang/String;
-	public static synthetic fun artifactId$default (Lsoftware/amazon/app/platform/gradle/ModuleStructurePlugin$Companion;Lorg/gradle/api/Project;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun artifactId$default (Lsoftware/ralf/app/platform/gradle/ModuleStructurePlugin$Companion;Lorg/gradle/api/Project;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 	public final fun namespace (Lorg/gradle/api/Project;)Ljava/lang/String;
 }
 
-public final class software/amazon/app/platform/gradle/ModuleType : java/lang/Enum {
-	public static final field APP Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static final field IMPL Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static final field IMPL_ROBOTS Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static final field INTERNAL Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static final field INTERNAL_ROBOTS Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static final field PUBLIC Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static final field PUBLIC_ROBOTS Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static final field TESTING Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static final field UNKNOWN Lsoftware/amazon/app/platform/gradle/ModuleType;
+public final class software/ralf/app/platform/gradle/ModuleType : java/lang/Enum {
+	public static final field APP Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field IMPL Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field IMPL_ROBOTS Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field INTERNAL Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field INTERNAL_ROBOTS Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field PUBLIC Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field PUBLIC_ROBOTS Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field TESTING Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field UNKNOWN Lsoftware/ralf/app/platform/gradle/ModuleType;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getUseTestDependenciesInMain ()Z
 	public final fun isRobotsModule ()Z
-	public static fun valueOf (Ljava/lang/String;)Lsoftware/amazon/app/platform/gradle/ModuleType;
-	public static fun values ()[Lsoftware/amazon/app/platform/gradle/ModuleType;
+	public static fun valueOf (Ljava/lang/String;)Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static fun values ()[Lsoftware/ralf/app/platform/gradle/ModuleType;
 }
 
-public final class software/amazon/app/platform/gradle/ModuleTypeKt {
-	public static final fun getModuleType (Lorg/gradle/api/Project;)Lsoftware/amazon/app/platform/gradle/ModuleType;
+public final class software/ralf/app/platform/gradle/ModuleTypeKt {
+	public static final fun getModuleType (Lorg/gradle/api/Project;)Lsoftware/ralf/app/platform/gradle/ModuleType;
 	public static final fun isAnyImplModule (Lorg/gradle/api/Project;)Z
 	public static final fun isAnyInternalModule (Lorg/gradle/api/Project;)Z
 	public static final fun isAnyPublicModule (Lorg/gradle/api/Project;)Z

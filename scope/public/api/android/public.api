@@ -1,71 +1,71 @@
-public abstract interface class software/amazon/app/platform/scope/RootScopeProvider {
-	public abstract fun getRootScope ()Lsoftware/amazon/app/platform/scope/Scope;
+public abstract interface class software/ralf/app/platform/scope/RootScopeProvider {
+	public abstract fun getRootScope ()Lsoftware/ralf/app/platform/scope/Scope;
 }
 
-public abstract interface class software/amazon/app/platform/scope/Scope {
-	public static final field Companion Lsoftware/amazon/app/platform/scope/Scope$Companion;
-	public abstract fun buildChild (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lsoftware/amazon/app/platform/scope/Scope;
-	public static synthetic fun buildChild$default (Lsoftware/amazon/app/platform/scope/Scope;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lsoftware/amazon/app/platform/scope/Scope;
+public abstract interface class software/ralf/app/platform/scope/Scope {
+	public static final field Companion Lsoftware/ralf/app/platform/scope/Scope$Companion;
+	public abstract fun buildChild (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lsoftware/ralf/app/platform/scope/Scope;
+	public static synthetic fun buildChild$default (Lsoftware/ralf/app/platform/scope/Scope;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lsoftware/ralf/app/platform/scope/Scope;
 	public abstract fun children ()Ljava/util/Set;
 	public abstract fun destroy ()V
 	public abstract fun getName ()Ljava/lang/String;
-	public abstract fun getParent ()Lsoftware/amazon/app/platform/scope/Scope;
+	public abstract fun getParent ()Lsoftware/ralf/app/platform/scope/Scope;
 	public abstract fun getService (Ljava/lang/String;)Ljava/lang/Object;
 	public abstract fun isDestroyed ()Z
-	public abstract fun register (Lsoftware/amazon/app/platform/scope/Scoped;)V
+	public abstract fun register (Lsoftware/ralf/app/platform/scope/Scoped;)V
 }
 
-public final class software/amazon/app/platform/scope/Scope$Builder {
+public final class software/ralf/app/platform/scope/Scope$Builder {
 	public final fun addService (Ljava/lang/String;Ljava/lang/Object;)V
-	public final fun register (Lsoftware/amazon/app/platform/scope/Scoped;)V
+	public final fun register (Lsoftware/ralf/app/platform/scope/Scoped;)V
 }
 
-public final class software/amazon/app/platform/scope/Scope$Companion {
-	public final fun buildRootScope (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lsoftware/amazon/app/platform/scope/Scope;
-	public static synthetic fun buildRootScope$default (Lsoftware/amazon/app/platform/scope/Scope$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lsoftware/amazon/app/platform/scope/Scope;
+public final class software/ralf/app/platform/scope/Scope$Companion {
+	public final fun buildRootScope (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lsoftware/ralf/app/platform/scope/Scope;
+	public static synthetic fun buildRootScope$default (Lsoftware/ralf/app/platform/scope/Scope$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lsoftware/ralf/app/platform/scope/Scope;
 }
 
-public final class software/amazon/app/platform/scope/Scope$DefaultImpls {
-	public static synthetic fun buildChild$default (Lsoftware/amazon/app/platform/scope/Scope;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lsoftware/amazon/app/platform/scope/Scope;
+public final class software/ralf/app/platform/scope/Scope$DefaultImpls {
+	public static synthetic fun buildChild$default (Lsoftware/ralf/app/platform/scope/Scope;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lsoftware/ralf/app/platform/scope/Scope;
 }
 
-public final class software/amazon/app/platform/scope/ScopeKt {
-	public static final fun onExit (Lsoftware/amazon/app/platform/scope/Scope;Lkotlin/jvm/functions/Function0;)V
-	public static final fun parents (Lsoftware/amazon/app/platform/scope/Scope;Z)Lkotlin/sequences/Sequence;
-	public static synthetic fun parents$default (Lsoftware/amazon/app/platform/scope/Scope;ZILjava/lang/Object;)Lkotlin/sequences/Sequence;
-	public static final fun register (Lsoftware/amazon/app/platform/scope/Scope$Builder;Ljava/lang/Iterable;)V
-	public static final fun register (Lsoftware/amazon/app/platform/scope/Scope;Ljava/lang/Iterable;)V
+public final class software/ralf/app/platform/scope/ScopeKt {
+	public static final fun onExit (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/jvm/functions/Function0;)V
+	public static final fun parents (Lsoftware/ralf/app/platform/scope/Scope;Z)Lkotlin/sequences/Sequence;
+	public static synthetic fun parents$default (Lsoftware/ralf/app/platform/scope/Scope;ZILjava/lang/Object;)Lkotlin/sequences/Sequence;
+	public static final fun register (Lsoftware/ralf/app/platform/scope/Scope$Builder;Ljava/lang/Iterable;)V
+	public static final fun register (Lsoftware/ralf/app/platform/scope/Scope;Ljava/lang/Iterable;)V
 }
 
-public abstract interface class software/amazon/app/platform/scope/Scoped {
-	public static final field Companion Lsoftware/amazon/app/platform/scope/Scoped$Companion;
-	public fun onEnterScope (Lsoftware/amazon/app/platform/scope/Scope;)V
+public abstract interface class software/ralf/app/platform/scope/Scoped {
+	public static final field Companion Lsoftware/ralf/app/platform/scope/Scoped$Companion;
+	public fun onEnterScope (Lsoftware/ralf/app/platform/scope/Scope;)V
 	public fun onExitScope ()V
 }
 
-public final class software/amazon/app/platform/scope/Scoped$Companion {
-	public final fun getNO_OP ()Lsoftware/amazon/app/platform/scope/Scoped;
+public final class software/ralf/app/platform/scope/Scoped$Companion {
+	public final fun getNO_OP ()Lsoftware/ralf/app/platform/scope/Scoped;
 }
 
-public final class software/amazon/app/platform/scope/Scoped$DefaultImpls {
-	public static fun onEnterScope (Lsoftware/amazon/app/platform/scope/Scoped;Lsoftware/amazon/app/platform/scope/Scope;)V
-	public static fun onExitScope (Lsoftware/amazon/app/platform/scope/Scoped;)V
+public final class software/ralf/app/platform/scope/Scoped$DefaultImpls {
+	public static fun onEnterScope (Lsoftware/ralf/app/platform/scope/Scoped;Lsoftware/ralf/app/platform/scope/Scope;)V
+	public static fun onExitScope (Lsoftware/ralf/app/platform/scope/Scoped;)V
 }
 
-public final class software/amazon/app/platform/scope/coroutine/CoroutineScopeScoped : kotlinx/coroutines/CoroutineScope, software/amazon/app/platform/scope/Scoped {
+public final class software/ralf/app/platform/scope/coroutine/CoroutineScopeScoped : kotlinx/coroutines/CoroutineScope, software/ralf/app/platform/scope/Scoped {
 	public fun <init> (Lkotlin/coroutines/CoroutineContext;)V
 	public final fun createChild (Lkotlin/coroutines/CoroutineContext;)Lkotlinx/coroutines/CoroutineScope;
-	public static synthetic fun createChild$default (Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lkotlinx/coroutines/CoroutineScope;
+	public static synthetic fun createChild$default (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lkotlinx/coroutines/CoroutineScope;
 	public fun getCoroutineContext ()Lkotlin/coroutines/CoroutineContext;
-	public fun onEnterScope (Lsoftware/amazon/app/platform/scope/Scope;)V
+	public fun onEnterScope (Lsoftware/ralf/app/platform/scope/Scope;)V
 	public fun onExitScope ()V
 }
 
-public final class software/amazon/app/platform/scope/coroutine/CoroutineScopeServiceKt {
-	public static final fun addCoroutineScopeScoped (Lsoftware/amazon/app/platform/scope/Scope$Builder;Lsoftware/amazon/app/platform/scope/coroutine/CoroutineScopeScoped;)V
-	public static final fun coroutineScope (Lsoftware/amazon/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;)Lkotlinx/coroutines/CoroutineScope;
-	public static synthetic fun coroutineScope$default (Lsoftware/amazon/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lkotlinx/coroutines/CoroutineScope;
-	public static final fun launch (Lsoftware/amazon/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
-	public static synthetic fun launch$default (Lsoftware/amazon/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
+public final class software/ralf/app/platform/scope/coroutine/CoroutineScopeServiceKt {
+	public static final fun addCoroutineScopeScoped (Lsoftware/ralf/app/platform/scope/Scope$Builder;Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)V
+	public static final fun coroutineScope (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;)Lkotlinx/coroutines/CoroutineScope;
+	public static synthetic fun coroutineScope$default (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lkotlinx/coroutines/CoroutineScope;
+	public static final fun launch (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
+	public static synthetic fun launch$default (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
 }
 

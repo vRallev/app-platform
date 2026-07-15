@@ -129,8 +129,9 @@ App Platform was originally developed at Amazon. Ownership has since moved away 
 repository is now maintained independently under `vRallev/app-platform` by the original author of 
 App Platform.
 
-Some package names, Maven coordinates, and historical documentation still use
-`software.amazon.app.platform` for source and binary compatibility.
+Current packages, Maven coordinates, and the Gradle plugin use
+`software.ralf.app.platform`. Releases through `0.0.17` remain available under the
+former `software.amazon.app.platform` namespace.
 
 ## License
 

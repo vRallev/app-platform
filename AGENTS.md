@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository is the Amazon App Platform: a Kotlin Multiplatform application framework plus example applications and a starter blueprint. The core concepts are documented in [`docs/`](docs/) and implemented across reusable library modules plus a few app entrypoints.
+This repository contains App Platform, a Kotlin Multiplatform application framework plus example applications and a starter blueprint. App Platform was originally developed at Amazon and is now maintained independently. The core concepts are documented in [`docs/`](docs/) and implemented across reusable library modules plus a few app entrypoints.
 
 Start here before changing code:
 
@@ -16,7 +16,7 @@ Start here before changing code:
 - `docs/template.md`
 - `docs/testing.md`
 - `settings.gradle`
-- `buildSrc/src/main/kotlin/software/amazon/app/platform/gradle/buildsrc/`
+- `buildSrc/src/main/kotlin/software/ralf/app/platform/gradle/buildsrc/`
 
 `mkdocs.yml` is the docs site manifest. The Pages workflow builds Wasm artifacts for `:sample:app` and `:recipes:app` and copies them into `docs/web/` before publishing.
 
@@ -24,7 +24,7 @@ Start here before changing code:
 
 Important top-level areas:
 
-- `gradle-plugin/`: the published `software.amazon.app.platform` Gradle plugin.
+- `gradle-plugin/`: the published `software.ralf.app.platform` Gradle plugin.
 - `buildSrc/`: repo-local convention plugins used by this repository’s own modules. This is where platform targets, emulator config, desktop packaging, and Wasm defaults are defined.
 - `docs/`: framework documentation. Treat this as the authoritative product docs.
 - `sample/`: the main sample app. This is the best place to study end-to-end usage of scopes, DI, presenters, renderers, templates, fakes, and robots.
@@ -249,7 +249,7 @@ Run these from the repo root:
 
 ```bash
 ./gradlew :metro-extensions:contribute:impl-compiler-plugin:test
-./gradlew :metro-extensions:contribute:impl-compiler-plugin:test --tests 'software.amazon.app.platform.metro.compiler.runners.BoxTestGenerated$Metro.testTinyGraph'
+./gradlew :metro-extensions:contribute:impl-compiler-plugin:test --tests 'software.ralf.app.platform.metro.compiler.runners.BoxTestGenerated$Metro.testTinyGraph'
 ./gradlew :metro-extensions:contribute:impl-compiler-plugin:test -PupdateTestData
 ./gradlew :metro-extensions:contribute:impl-compiler-plugin:generateTests
 ```
@@ -277,7 +277,7 @@ Test data conventions for this module:
 - Shared fakes: `sample/user/testing/`
 - Shared robots: `sample/login/impl-robots/`, `sample/user/impl-robots/`
 - Compiler plugin test data: `metro-extensions/contribute/impl-compiler-plugin/src/test/resources/`
-- Generated compiler test runners: `metro-extensions/contribute/impl-compiler-plugin/src/test/java/software/amazon/app/platform/metro/compiler/runners/`
+- Generated compiler test runners: `metro-extensions/contribute/impl-compiler-plugin/src/test/java/software/ralf/app/platform/metro/compiler/runners/`
 
 ## Current Test Reality
 

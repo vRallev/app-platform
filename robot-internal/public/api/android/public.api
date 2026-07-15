@@ -1,13 +1,13 @@
-public final class software/amazon/app/platform/robot/internal/DefaultRootScopeKt {
-	public static final fun getDefaultRootScope ()Lsoftware/amazon/app/platform/scope/Scope;
+public final class software/ralf/app/platform/robot/internal/DefaultRootScopeKt {
+	public static final fun getDefaultRootScope ()Lsoftware/ralf/app/platform/scope/Scope;
 }
 
-public final class software/amazon/app/platform/robot/internal/RootScopeKt {
-	public static final fun getRootScope ()Lsoftware/amazon/app/platform/scope/Scope;
+public final class software/ralf/app/platform/robot/internal/RootScopeKt {
+	public static final fun getRootScope ()Lsoftware/ralf/app/platform/scope/Scope;
 }
 
-public final class software/amazon/app/platform/robot/internal/RootScopeProviderKt {
-	public static final fun getRootScopeProvider ()Lsoftware/amazon/app/platform/scope/RootScopeProvider;
-	public static final fun setRootScopeProvider (Lsoftware/amazon/app/platform/scope/RootScopeProvider;)V
+public final class software/ralf/app/platform/robot/internal/RootScopeProviderKt {
+	public static final fun getRootScopeProvider ()Lsoftware/ralf/app/platform/scope/RootScopeProvider;
+	public static final fun setRootScopeProvider (Lsoftware/ralf/app/platform/scope/RootScopeProvider;)V
 }
 

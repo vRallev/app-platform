@@ -1,9 +1,9 @@
 package com.test
 
 import dev.zacsweers.metro.BindingContainer
-import software.amazon.app.platform.inject.robot.ContributesRobot
-import software.amazon.app.platform.robot.Robot
-import software.amazon.app.platform.robot.RobotGraph
+import software.ralf.app.platform.inject.robot.ContributesRobot
+import software.ralf.app.platform.robot.Robot
+import software.ralf.app.platform.robot.RobotGraph
 
 class RobotDependency {
   fun value(): String = "dependency"

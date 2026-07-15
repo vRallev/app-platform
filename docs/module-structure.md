@@ -260,7 +260,7 @@ such as static utilities, extension functions and UI components.
 
 `:impl` modules contain the concrete implementations of the API from `:public` modules. A library can have
 zero or more `:impl` modules. If a library contains multiple `:impl` modules, then they’re suffixed with a name,
-e.g. `:login:impl-amazon` and `:login:impl-google`.
+e.g. `:login:impl-vendor-a` and `:login:impl-vendor-b`.
 
 By default, `:impl` modules cannot depend on each other. The `allowLibraryImplToImplDependencies` option relaxes this
 rule only for `:impl` modules in the same library. Cross-library and external `:impl` dependencies remain
@@ -351,9 +351,9 @@ With this setting enabled, several checks and features are enabled:
 
 * App Platform ensures that the Gradle module follows the naming convention, e.g. it's named `:public` or `:impl`.
 * Default dependencies are added, e.g. an `:impl` module imports its `:public` module by default, or `:impl-robots` imports its `:impl` module by default.
-* An [Android namespace](https://developer.android.com/build/configure-app-module#set-namespace) is set [automatically](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/gradle-plugin/src/main/kotlin/software/amazon/app/platform/gradle/ModuleStructurePlugin.kt#L90-L110) if it hasn't been configured yet.
+* An [Android namespace](https://developer.android.com/build/configure-app-module#set-namespace) is set [automatically](https://github.com/vRallev/app-platform/blob/main/gradle-plugin/src/main/kotlin/software/ralf/app/platform/gradle/ModuleStructurePlugin.kt#L90-L110) if it hasn't been configured yet.
 * A Gradle task `:checkModuleStructureDependencies` is registered, which verifies that module structure dependency rules are followed. The `:check` Gradle task automatically depends on `:checkModuleStructureDependencies`.
-* A consistent API for an [`Project.artifactId`](https://github.com/vRallev/app-platform/blob/main/gradle-plugin/src/main/kotlin/software/amazon/app/platform/gradle/ModuleStructurePlugin.kt#L125-L135) is available, e.g. for `:my-module:public` it would return `my-module-public`.
+* A consistent API for an [`Project.artifactId`](https://github.com/vRallev/app-platform/blob/main/gradle-plugin/src/main/kotlin/software/ralf/app/platform/gradle/ModuleStructurePlugin.kt#L125-L135) is available, e.g. for `:my-module:public` it would return `my-module-public`.
 
 ??? example "Sample"
 
@@ -361,12 +361,12 @@ With this setting enabled, several checks and features are enabled:
     App Platform, e.g. the `:sample:templates:impl` module uses this generated namespace for its `R` class:
 
     ```kotlin
-    software.amazon.app.platform.sample.templates.impl.R
+    software.ralf.app.platform.sample.templates.impl.R
     ```
 
     App Platform uses the `Project.artifactId()` API for its own modules. Publishing using the
     [Gradle Maven Publish Plugin](https://vanniktech.github.io/gradle-maven-publish-plugin/) is configured
-    [here](https://github.com/vRallev/app-platform/blob/0f3e242ae08bb242fbd7080d33caa069c8fae2b4/buildSrc/src/main/kotlin/software/amazon/app/platform/gradle/buildsrc/SdkPlugin.kt#L16-L34).
+    [here](https://github.com/vRallev/app-platform/blob/main/buildSrc/src/main/kotlin/software/ralf/app/platform/gradle/buildsrc/SdkPlugin.kt#L16-L34).
 
     ```kotlin
     private fun mavenPublishing(project: Project) {

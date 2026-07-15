@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <application android:name="software.amazon.app.platform.renderer.TestApplication">
+    <application android:name="software.ralf.app.platform.renderer.TestApplication">
         <activity
-            android:name="software.amazon.app.platform.renderer.TestActivity"
+            android:name="software.ralf.app.platform.renderer.TestActivity"
             android:exported="false" />
     </application>
 </manifest>

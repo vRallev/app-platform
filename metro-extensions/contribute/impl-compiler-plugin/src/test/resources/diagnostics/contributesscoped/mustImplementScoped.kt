@@ -1,7 +1,7 @@
 // RENDER_DIAGNOSTICS_FULL_TEXT
 package com.test
 
-import software.amazon.app.platform.inject.metro.ContributesScoped
+import software.ralf.app.platform.inject.metro.ContributesScoped
 
 interface SuperType
 

@@ -1,6 +1,6 @@
 //file:noinspection UnnecessaryQualifiedReference
 plugins {
-    id 'software.amazon.app.platform.lib.jvm'
+    id 'software.ralf.app.platform.lib.jvm'
     id 'com.google.devtools.ksp'
 }
 

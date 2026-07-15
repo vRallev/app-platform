@@ -1,10 +1,10 @@
 // RENDER_DIAGNOSTICS_FULL_TEXT
 package com.test
 
-import software.amazon.app.platform.inject.ContributesRenderer
-import software.amazon.app.platform.presenter.BaseModel
-import software.amazon.app.platform.renderer.Renderer
-import software.amazon.app.platform.renderer.RendererScope
+import software.ralf.app.platform.inject.ContributesRenderer
+import software.ralf.app.platform.presenter.BaseModel
+import software.ralf.app.platform.renderer.Renderer
+import software.ralf.app.platform.renderer.RendererScope
 
 class Model : BaseModel
 
