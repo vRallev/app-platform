@@ -1,12 +1,12 @@
 [versions]
 agp = "8.13.2"
 agp-gradle-plugin = "9.2.1"
-android-compileSdk = "36"
+android-compileSdk = "37"
 # https://developer.android.com/jetpack/androidx/releases/compose-ui
 # https://maven.google.com/web/index.html#androidx.compose.ui:ui
 android-compose-version = "1.11.4"
 android-minSdk = "23"
-android-targetSdk = "36"
+android-targetSdk = "37"
 ios-deploymentTarget = "26.0"
 #noinspection GradleDependency
 androidx-activity = "1.13.0"
