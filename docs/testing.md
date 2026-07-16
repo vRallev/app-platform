@@ -10,7 +10,10 @@ their dependencies and enable testing in isolation. This approach is important f
 and integration tests. These three types of tests rely on a chain of trust, where we assume that dependencies
 are functioning and tests don’t need to be repeated.
 
-![Testing pyramid](images/testing-pyramid.png){ width="400" }
+<div class="d2-diagram d2-diagram--small">
+  <img class="d2-diagram__light" src="../images/testing/testing-pyramid-light.svg" alt="Testing pyramid">
+  <img class="d2-diagram__dark" src="../images/testing/testing-pyramid-dark.svg" alt="Testing pyramid">
+</div>
 
 !!! info "Instrumented tests"
 

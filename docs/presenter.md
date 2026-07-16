@@ -189,26 +189,10 @@ emitted `Models` navigation becomes a first class API and testable. Imagine havi
 back stack that forwards the model of the top most presenter. When the user navigates to a new screen, then the
 root presenter would add a new presenter to the stack and provide its model object.
 
-```mermaid
-%%{init: {'themeCSS': '.label { font-family: monospace; }'}}%%
-graph TD
-  login["`Login presenter`"]
-  registration["`Register presenter`"]
-  onboarding["`Onboarding presenter`"]
-  delivery["`Delivery presenter`"]
-  settings["`Settings presenter`"]
-  root["`Root presenter`"]
-  ui["`UI Layer`"]
-
-  login --> onboarding
-  registration --> onboarding
-  onboarding --> root
-  delivery --> root
-  settings --> root
-  root --> ui
-
-  style ui stroke:#0f0
-```
+<div class="d2-diagram d2-diagram--standard">
+  <img class="d2-diagram__light" src="../images/presenter/model-driven-navigation-light.svg" alt="Model-driven navigation presenter hierarchy">
+  <img class="d2-diagram__dark" src="../images/presenter/model-driven-navigation-dark.svg" alt="Model-driven navigation presenter hierarchy">
+</div>
 
 In the example above, the root presenter would forward the model of the onboarding, delivery or settings presenter
 to the UI layer. The onboarding presenter as shown in the code example can either call the login or registration

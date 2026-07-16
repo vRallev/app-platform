@@ -1,0 +1,49 @@
+...@../theme
+
+direction: down
+
+delivery_platform: ":delivery-platform" {
+  class: module
+  width: 260
+  height: 64
+}
+navigation_platform: ":navigation-platform" {
+  class: module
+  width: 280
+  height: 64
+}
+location: "" {
+  class: module_container
+  grid-columns: 1
+  grid-gap: 4
+  title: ":location" {
+    class: module_title
+    width: 390
+    height: 24
+  }
+  delivery_provider: "DeliveryAppLocationProvider" {
+    class: module_detail
+    width: 390
+    height: 24
+  }
+  navigation_provider: "NavigationAppLocationProvider" {
+    class: module_detail
+    width: 390
+    height: 24
+  }
+}
+delivery_app: ":delivery-app" {
+  class: module
+  width: 230
+  height: 64
+}
+navigation_app: ":navigation-app" {
+  class: module
+  width: 250
+  height: 64
+}
+
+delivery_platform -> location
+navigation_platform -> location
+location -> delivery_app
+location -> navigation_app

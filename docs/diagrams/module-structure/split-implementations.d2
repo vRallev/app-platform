@@ -1,0 +1,66 @@
+...@../theme
+
+direction: down
+
+delivery_platform: ":delivery-platform" {
+  class: module
+  width: 260
+  height: 64
+}
+location_public: ":location:public" {
+  class: module
+  width: 250
+  height: 64
+}
+navigation_platform: ":navigation-platform" {
+  class: module
+  width: 280
+  height: 64
+}
+location_impl_delivery: "" {
+  class: module_container
+  grid-columns: 1
+  grid-gap: 4
+  title: ":location:impl-delivery" {
+    class: module_title
+    width: 350
+    height: 24
+  }
+  provider: "DeliveryAppLocationProvider" {
+    class: module_detail
+    width: 350
+    height: 24
+  }
+}
+location_impl_navigation: "" {
+  class: module_container
+  grid-columns: 1
+  grid-gap: 4
+  title: ":location:impl-navigation" {
+    class: module_title
+    width: 390
+    height: 24
+  }
+  provider: "NavigationAppLocationProvider" {
+    class: module_detail
+    width: 390
+    height: 24
+  }
+}
+delivery_app: ":delivery-app" {
+  class: module
+  width: 230
+  height: 64
+}
+navigation_app: ":navigation-app" {
+  class: module
+  width: 250
+  height: 64
+}
+
+delivery_platform -> location_impl_delivery
+navigation_platform -> location_impl_navigation
+location_public -> location_impl_delivery
+location_public -> location_impl_navigation
+location_impl_delivery -> delivery_app
+location_impl_navigation -> navigation_app

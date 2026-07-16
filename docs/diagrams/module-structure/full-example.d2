@@ -1,0 +1,287 @@
+...@../theme
+
+grid-rows: 3
+grid-columns: 3
+horizontal-gap: 32
+vertical-gap: 41
+
+platforms: "" {
+  class: layout
+  grid-columns: 4
+  horizontal-gap: 0
+  vertical-gap: 0
+
+  delivery_platform: ":delivery-app-platform" {
+    class: delivery_container
+    grid-columns: 1
+    horizontal-gap: 16
+    vertical-gap: 28
+    public: ":delivery-app-platform:public" {
+      class: module
+      width: 416
+      height: 64
+      style.font-size: 22
+    }
+  }
+  platform_gap: "" {
+    class: invisible
+    width: 103
+    height: 129
+  }
+  navigation_platform: ":navigation-app-platform" {
+    class: navigation_container
+    grid-columns: 1
+    horizontal-gap: 16
+    vertical-gap: 28
+    public: ":navigation-app-platform:public" {
+      class: module
+      width: 416
+      height: 64
+      style.font-size: 22
+    }
+  }
+  tail: "" {
+    class: invisible
+    width: 326
+    height: 129
+  }
+}
+top_pad_1: "" {
+  class: invisible
+  width: 417
+  height: 129
+}
+top_pad_2: "" {
+  class: invisible
+  width: 230
+  height: 129
+}
+
+location_cell: "" {
+  class: layout
+  grid-rows: 2
+  grid-columns: 1
+  horizontal-gap: 0
+  vertical-gap: 0
+
+  offset: "" {
+    class: invisible
+    width: 1325
+    height: 16
+  }
+  location: ":location" {
+    class: container
+    grid-rows: 3
+    grid-columns: 1
+    horizontal-gap: 16
+    vertical-gap: 31
+
+    api_row: "" {
+      class: layout
+      grid-columns: 3
+      horizontal-gap: 0
+      vertical-gap: 0
+      leading: "" {
+        class: invisible
+        width: 223
+        height: 64
+      }
+      public: ":location:public" {
+        class: module
+        width: 385
+        height: 64
+        style.font-size: 22
+      }
+      trailing: "" {
+        class: invisible
+        width: 673
+        height: 64
+      }
+    }
+
+    support_row: "" {
+      class: layout
+      grid-columns: 5
+      horizontal-gap: 0
+      vertical-gap: 0
+      leading: "" {
+        class: invisible
+        width: 223
+        height: 64
+      }
+      internal: ":location:internal" {
+        class: module
+        width: 385
+        height: 64
+        style.font-size: 22
+      }
+      middle: "" {
+        class: invisible
+        width: 286
+        height: 64
+      }
+      testing: ":location:testing" {
+        class: module
+        width: 385
+        height: 64
+        style.font-size: 22
+      }
+      trailing: "" {
+        class: invisible
+        width: 2
+        height: 64
+      }
+    }
+
+    implementation_row: "" {
+      class: layout
+      grid-columns: 6
+      horizontal-gap: 0
+      vertical-gap: 0
+      leading: "" {
+        class: invisible
+        width: 27
+        height: 64
+      }
+      impl_delivery: ":location:impl-delivery" {
+        class: delivery
+        width: 385
+        height: 64
+        style.font-size: 22
+      }
+      delivery_gap: "" {
+        class: invisible
+        width: 36
+        height: 64
+      }
+      impl_navigation: ":location:impl-navigation" {
+        class: navigation
+        width: 385
+        height: 64
+        style.font-size: 22
+      }
+      navigation_gap: "" {
+        class: invisible
+        width: 63
+        height: 64
+      }
+      robots: ":location:impl-\nnavigation-robots" {
+        class: module
+        width: 385
+        height: 64
+        style.font-size: 22
+      }
+    }
+  }
+}
+navigation_cell: "" {
+  class: layout
+  grid-rows: 2
+  grid-columns: 1
+  horizontal-gap: 0
+  vertical-gap: 0
+  navigation: ":navigation" {
+    class: container
+    grid-columns: 1
+    horizontal-gap: 16
+    vertical-gap: 35
+    public: ":navigation:public" {
+      class: module
+      width: 385
+      height: 64
+      style.font-size: 22
+    }
+    impl: ":navigation:impl" {
+      class: module
+      width: 385
+      height: 64
+      style.font-size: 22
+    }
+  }
+  tail: "" {
+    class: invisible
+    width: 417
+    height: 109
+  }
+}
+legend: "" {
+  class: layout
+  grid-columns: 1
+  horizontal-gap: 0
+  vertical-gap: 42
+  direct: "direct dependency\n━━━━━━━━━━━━▶" {
+    class: legend
+    width: 230
+    height: 64
+  }
+  test: "test dependency\n- - - - - - - - - ▶" {
+    class: legend
+    width: 230
+    height: 64
+  }
+}
+
+apps: "" {
+  class: layout
+  grid-columns: 5
+  horizontal-gap: 0
+  vertical-gap: 0
+  leading: "" {
+    class: invisible
+    width: 43
+    height: 97
+  }
+  delivery_app: ":delivery-app" {
+    class: delivery
+    width: 384
+    height: 97
+  }
+  app_gap: "" {
+    class: invisible
+    width: 140
+    height: 97
+  }
+  navigation_app: ":navigation-app" {
+    class: navigation
+    width: 384
+    height: 97
+  }
+  tail: "" {
+    class: invisible
+    width: 374
+    height: 97
+  }
+}
+bottom_pad_1: "" {
+  class: invisible
+  width: 417
+  height: 97
+}
+bottom_pad_2: "" {
+  class: invisible
+  width: 230
+  height: 97
+}
+
+location_cell.location.support_row.internal -> location_cell.location.api_row.public
+location_cell.location.implementation_row.impl_delivery -> location_cell.location.support_row.internal
+location_cell.location.implementation_row.impl_navigation -> location_cell.location.support_row.internal
+location_cell.location.support_row.testing -> location_cell.location.api_row.public
+location_cell.location.implementation_row.robots -> location_cell.location.implementation_row.impl_navigation
+navigation_cell.navigation.impl -> navigation_cell.navigation.public
+
+apps.delivery_app -> platforms.delivery_platform.public
+apps.delivery_app -> location_cell.location.implementation_row.impl_delivery
+location_cell.location.implementation_row.impl_delivery -> platforms.delivery_platform.public
+apps.navigation_app -> platforms.navigation_platform.public
+apps.navigation_app -> location_cell.location.implementation_row.impl_navigation
+apps.navigation_app -> navigation_cell.navigation.impl
+apps.navigation_app -> location_cell.location.implementation_row.robots: {
+  style.stroke-dash: 8
+}
+location_cell.location.implementation_row.impl_navigation -> platforms.navigation_platform.public
+location_cell.location.implementation_row.impl_navigation -> navigation_cell.navigation.public
+navigation_cell.navigation.public -> location_cell.location.api_row.public
+navigation_cell.navigation.public -> location_cell.location.support_row.testing: {
+  style.stroke-dash: 8
+}

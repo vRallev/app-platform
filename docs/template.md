@@ -149,7 +149,10 @@ interface ViewControllerComponent {
 
 Templates complete the circle in our unidirectional dataflow pattern:
 
-![Unidirectional dataflow](images/unidirectional-dataflow.png){ width="600" }
+<div class="d2-diagram d2-diagram--medium">
+  <img class="d2-diagram__light" src="../images/template/unidirectional-dataflow-light.svg" alt="Unidirectional dataflow through presenters, templates, and renderers">
+  <img class="d2-diagram__dark" src="../images/template/unidirectional-dataflow-dark.svg" alt="Unidirectional dataflow through presenters, templates, and renderers">
+</div>
 
 This diagram summarizes how models from child presenters bubble up ultimately to the template presenter. The template
 presenter wraps the models in a template, which is then handed off the rendering pipeline. `RendererFactory` finds

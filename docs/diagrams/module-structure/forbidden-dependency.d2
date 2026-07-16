@@ -1,0 +1,47 @@
+...@../theme
+
+grid-columns: 2
+grid-gap: 40
+
+navigation: ":navigation" {
+  class: container
+  grid-columns: 1
+  grid-gap: 48
+  public: ":public" {
+    class: module
+    width: 280
+    height: 82
+  }
+  impl: ":impl" {
+    class: module
+    width: 280
+    height: 82
+  }
+}
+location: ":location" {
+  class: container
+  grid-columns: 1
+  grid-gap: 48
+  public: ":public" {
+    class: module
+    width: 280
+    height: 82
+  }
+  impl: ":impl" {
+    class: module
+    width: 280
+    height: 82
+  }
+}
+
+navigation.impl -> navigation.public
+location.impl -> location.public
+navigation.public -> location.public
+navigation.impl -> location.public
+navigation.impl -> location.impl: "✕" {
+  style: {
+    font-color: "#FF0000"
+    font-size: 52
+    bold: true
+  }
+}

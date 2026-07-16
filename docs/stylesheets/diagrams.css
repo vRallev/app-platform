@@ -1,0 +1,31 @@
+.d2-diagram {
+  margin: 1.5rem auto;
+}
+
+.d2-diagram img {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.d2-diagram--standard {
+  max-width: 800px;
+}
+
+.d2-diagram--compact {
+  max-width: 500px;
+}
+
+.d2-diagram--small {
+  max-width: 400px;
+}
+
+.d2-diagram--medium {
+  max-width: 600px;
+}
+
+[data-md-color-scheme="default"] .d2-diagram__dark,
+[data-md-color-scheme="slate"] .d2-diagram__light {
+  display: none;
+}

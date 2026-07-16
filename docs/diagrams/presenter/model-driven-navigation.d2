@@ -1,0 +1,47 @@
+...@../theme
+
+direction: down
+
+login: "Login presenter" {
+  class: module
+  width: 240
+  height: 64
+}
+registration: "Register presenter" {
+  class: module
+  width: 280
+  height: 64
+}
+onboarding: "Onboarding presenter" {
+  class: module
+  width: 310
+  height: 64
+}
+delivery: "Delivery presenter" {
+  class: module
+  width: 280
+  height: 64
+}
+settings: "Settings presenter" {
+  class: module
+  width: 280
+  height: 64
+}
+root: "Root presenter" {
+  class: module
+  width: 230
+  height: 64
+}
+ui: "UI Layer" {
+  class: module
+  width: 160
+  height: 64
+  style.stroke: "#6AA84F"
+}
+
+login -> onboarding
+registration -> onboarding
+onboarding -> root
+delivery -> root
+settings -> root
+root -> ui

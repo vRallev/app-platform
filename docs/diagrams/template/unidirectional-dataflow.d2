@@ -1,0 +1,45 @@
+...@../theme
+
+grid-rows: 3
+grid-columns: 2
+horizontal-gap: 260
+vertical-gap: 110
+
+child_presenter: "Child presenter" {
+  class: module
+  width: 300
+  height: 76
+}
+renderer: "Renderer" {
+  class: module
+  width: 300
+  height: 76
+}
+pad: "" {
+  class: invisible
+  width: 300
+  height: 76
+}
+template_renderer: "Template renderer" {
+  class: module
+  width: 300
+  height: 76
+}
+template_presenter: "Template presenter" {
+  class: module
+  width: 300
+  height: 76
+}
+renderer_factory: "Renderer factory" {
+  class: module
+  width: 300
+  height: 76
+}
+
+# D2 grid layouts cannot draw self loops. The renderer postprocessor adds the feedback
+# loops for the child presenter, renderer, and template presenter around this fixed grid.
+renderer -> child_presenter: "Invoke callbacks\nfrom models"
+child_presenter -> template_presenter: "Send model"
+template_presenter -> renderer_factory: "Send template"
+renderer_factory -> template_renderer: "Send template\nto renderer"
+template_renderer -> renderer: "Extract models and\nsend to right renderer"

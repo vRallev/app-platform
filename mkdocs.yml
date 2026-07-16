@@ -47,6 +47,9 @@ theme:
   icon:
     edit: material/pencil
 
+extra_css:
+  - stylesheets/diagrams.css
+
 markdown_extensions:
   - smarty
   - codehilite:
@@ -64,12 +67,10 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.smartsymbols
-  - pymdownx.snippets
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.snippets:
+      base_path:
+        - docs
+  - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
       slugify: !!python/object/apply:pymdownx.slugs.slugify

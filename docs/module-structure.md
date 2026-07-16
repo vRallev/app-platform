@@ -148,43 +148,19 @@ If both classes live in the same module, then the shared Gradle module must depe
 automatically depend on code from the *Navigation App* and the *Navigation App* on *Delivery App* code through
 a transitive dependency as highlighted in the diagram below.
 
-```mermaid
-%%{init: {'themeCSS': '.label { font-family: monospace; }'}}%%
-graph TD
-  delivery-platform["`:delivery-platform`"]
-  navigation-platform["`:navigation-platform`"]
-  location["`**:location**
-  *DeliveryAppLocationProvider*
-  *NavigationAppLocationProvider*`"]
-  delivery-app["`:delivery-app`"]
-  navigation-app["`:navigation-app`"]
-
-  delivery-platform --> location
-  navigation-platform --> location
-  location --> delivery-app
-  location --> navigation-app
-```
+<div class="d2-diagram d2-diagram--compact">
+  <img class="d2-diagram__light" src="../images/module-structure/transitive-dependency-light.svg" alt="Transitive module dependency">
+  <img class="d2-diagram__dark" src="../images/module-structure/transitive-dependency-dark.svg" alt="Transitive module dependency">
+</div>
 
 To avoid the issue of the transitive dependencies, concrete implementation classes `DeliveryAppLocationProvider`
 and `NavigationAppLocationProvider` could be moved into the final respective application packages `:delivery-app`
 and `:navigation-app`.
 
-```mermaid
-%%{init: {'themeCSS': '.label { font-family: monospace; }'}}%%
-graph TD
-  delivery-platform["`:delivery-platform`"]
-  location["`:location`"]
-  navigation-platform["`:navigation-platform`"]
-  delivery-app["`**:delivery-app**
-  *DeliveryAppLocationProvider*`"]
-  navigation-app["`**:navigation-app**
-  *NavigationAppLocationProvider*`"]
-
-  delivery-platform --> delivery-app
-  navigation-platform --> navigation-app
-  location --> delivery-app
-  location --> navigation-app
-```
+<div class="d2-diagram d2-diagram--standard">
+  <img class="d2-diagram__light" src="../images/module-structure/move-implementations-light.svg" alt="Implementation classes moved into app modules">
+  <img class="d2-diagram__dark" src="../images/module-structure/move-implementations-dark.svg" alt="Implementation classes moved into app modules">
+</div>
 
 However, this would be a bad approach from a modularization standpoint. The app modules would become
 larger and larger over time and the many classes within it would have a low cohesion level. Build times get
@@ -194,26 +170,10 @@ can’t be parallelized.
 Instead, a similar approach to [dependency inversion in Kotlin code](module-structure.md#kotlin-code)
 is applied to modules. The shared package can be split into a public API and implementation sub-module:
 
-```mermaid
-%%{init: {'themeCSS': '.label { font-family: monospace; }'}}%%
-graph TD
-  delivery-platform["`:delivery-platform`"]
-  location-public["`:location:public`"]
-  navigation-platform["`:navigation-platform`"]
-  location-impl-delivery["`**:location:impl-delivery**
-  *DeliveryAppLocationProvider*`"]
-  location-impl-navigation["`**:location:impl-navigation**
-  *NavigationAppLocationProvider*`"]
-  delivery-app["`:delivery-app`"]
-  navigation-app["`:navigation-app`"]
-
-  delivery-platform --> location-impl-delivery
-  navigation-platform --> location-impl-navigation
-  location-public --> location-impl-delivery
-  location-public --> location-impl-navigation
-  location-impl-delivery --> delivery-app
-  location-impl-navigation --> navigation-app
-```
+<div class="d2-diagram d2-diagram--standard">
+  <img class="d2-diagram__light" src="../images/module-structure/split-implementations-light.svg" alt="Implementation classes split into app-specific modules">
+  <img class="d2-diagram__dark" src="../images/module-structure/split-implementations-dark.svg" alt="Implementation classes split into app-specific modules">
+</div>
 
 By cleanly separating shared code in `:public` modules from implementations in `:impl` modules we break
 dependencies in our build graph. `DeliveryAppLocationProvider` and `NavigationAppLocationProvider` provide a
@@ -226,7 +186,10 @@ In order to follow the dependency inversion principle correctly the most importa
 is that no other module but the final application module is allowed to depend on `:impl` modules. `:public`
 modules on the other hand are widely shared and can be imported by any other module.
 
-![Forbidden dependency](images/module-structure-forbidden-dep.png){ width="600" }
+<div class="d2-diagram d2-diagram--standard">
+  <img class="d2-diagram__light" src="../images/module-structure/forbidden-dependency-light.svg" alt="Forbidden implementation module dependency">
+  <img class="d2-diagram__dark" src="../images/module-structure/forbidden-dependency-dark.svg" alt="Forbidden implementation module dependency">
+</div>
 
 A library always comes with a single `:public` module for shared code. There can be zero, one or more `:impl`
 modules, e.g. when dependency inversion isn’t needed, then the `:impl` module is redundant. When the implementation
@@ -248,7 +211,10 @@ UI components or test helpers.
 
 Beyond `:public` and `:impl` modules, there are further optional module types:
 
-![Module types](images/module-structure-types.png){ width="600" }
+<div class="d2-diagram d2-diagram--medium">
+  <img class="d2-diagram__light" src="../images/module-structure/module-types-light.svg" alt="Module types and their dependencies">
+  <img class="d2-diagram__dark" src="../images/module-structure/module-types-dark.svg" alt="Module types and their dependencies">
+</div>
 
 ### `:public`
 
@@ -295,7 +261,10 @@ and features.
 
 A more complex dependency graph could look like this:
 
-![Module structure example](images/module-structure-example.png)
+<div class="d2-diagram">
+  <img class="d2-diagram__light" src="../images/module-structure/full-example-light.svg" alt="Full module structure example">
+  <img class="d2-diagram__dark" src="../images/module-structure/full-example-dark.svg" alt="Full module structure example">
+</div>
 
 This example highlights many of the more frequently used dependencies. Notice that the impl modules
 `:location:impl-delivery` and `:location:impl-navigation` both depend on the internal module `:location:internal`

@@ -1,0 +1,62 @@
+...@../theme
+
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 40
+vertical-gap: 74
+
+delivery_platform: ":delivery-platform" {
+  class: module
+  width: 260
+  height: 64
+}
+location: ":location" {
+  class: module
+  width: 210
+  height: 64
+}
+navigation_platform: ":navigation-platform" {
+  class: module
+  width: 280
+  height: 64
+}
+delivery_app: "" {
+  class: module_container
+  grid-columns: 1
+  grid-gap: 4
+  title: ":delivery-app" {
+    class: module_title
+    width: 350
+    height: 24
+  }
+  provider: "DeliveryAppLocationProvider" {
+    class: module_detail
+    width: 350
+    height: 24
+  }
+}
+pad: "" {
+  class: invisible
+  width: 210
+  height: 52
+}
+navigation_app: "" {
+  class: module_container
+  grid-columns: 1
+  grid-gap: 4
+  title: ":navigation-app" {
+    class: module_title
+    width: 390
+    height: 24
+  }
+  provider: "NavigationAppLocationProvider" {
+    class: module_detail
+    width: 390
+    height: 24
+  }
+}
+
+delivery_platform -> delivery_app
+navigation_platform -> navigation_app
+location -> delivery_app
+location -> navigation_app

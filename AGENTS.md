@@ -317,6 +317,8 @@ pip install mkdocs-material "mkdocs-material[imaging]"
 mkdocs serve
 ```
 
+Use D2 for new or updated documentation diagrams. Keep editable `.d2` sources under `docs/diagrams/`, commit matching light and dark SVG variants under `docs/images/`, and use or extend a checked-in rendering script so the exact layout and style remain reproducible.
+
 When changing framework behavior, update both:
 
 - the relevant `docs/*.md` page

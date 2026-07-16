@@ -1,0 +1,70 @@
+...@../theme
+
+grid-rows: 4
+grid-columns: 3
+horizontal-gap: 58
+vertical-gap: 80
+
+public: ":public" {
+  class: module_type
+}
+pad_1: "" {
+  class: invisible
+  width: 300
+  height: 88
+}
+pad_2: "" {
+  class: invisible
+  width: 310
+  height: 88
+}
+
+internal: ":internal" {
+  class: module_type
+}
+testing: ":testing" {
+  class: module_type
+}
+pad_3: "" {
+  class: invisible
+  width: 310
+  height: 88
+}
+
+impl: ":impl" {
+  class: module_type
+}
+robots: ":impl-robots" {
+  class: module_type
+}
+direct_legend: "direct dependency\n━━━━━━━━━━━━▶" {
+  class: legend
+  width: 310
+  height: 88
+}
+
+app: ":app" {
+  class: module_type
+}
+pad_4: "" {
+  class: invisible
+  width: 300
+  height: 88
+}
+test_legend: "test dependency\n- - - - - - - - - ▶" {
+  class: legend
+  width: 310
+  height: 88
+}
+
+internal -> public
+testing -> public
+impl -> internal
+impl -> testing: {
+  style.stroke-dash: 8
+}
+robots -> impl
+app -> impl
+app -> robots: {
+  style.stroke-dash: 8
+}
