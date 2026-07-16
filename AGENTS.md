@@ -303,6 +303,10 @@ then the generated `build/wasm/yarn.lock` does not match the committed lock. In 
 
 Treat `kotlinWasmUpgradeYarnLock` as an intentional dependency update step, not a routine run command. If you change Wasm/npm dependencies on purpose, update and review `kotlin-js-store/wasm/yarn.lock` in the same change.
 
+## Change Log Workflow
+
+When a change affects consumers of this project, add a short, single-line entry describing the implication under the appropriate `Unreleased` section in `CHANGELOG.md`. Follow the existing writing style and omit changes with no consumer-visible impact, such as test-only updates.
+
 ## Docs Workflow
 
 To work on docs locally:
