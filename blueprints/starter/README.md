@@ -1,6 +1,6 @@
-# Template App for Amazon App Platform
+# Template App for App Platform
 
-This is a Kotlin Multiplatform template application built using the [Amazon App Platform](https://github.com/vRallev/app-platform). It provides a modern, opinionated starting point for building scalable, testable, and multiplatform Compose applications.
+This is a Kotlin Multiplatform template application built using the [App Platform](https://github.com/vRallev/app-platform). It provides a modern, opinionated starting point for building scalable, testable, and multiplatform Compose applications.
 
 ## Overview
 
@@ -82,4 +82,4 @@ Feel free to fork and adapt this template for your own projects. If you find bug
 
 ## License
 
-This project inherits the license of the [Amazon App Platform](https://github.com/vRallev/app-platform).
+This project inherits the license of the [App Platform](https://github.com/vRallev/app-platform).

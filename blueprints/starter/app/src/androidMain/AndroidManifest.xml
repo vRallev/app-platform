@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="software.amazon.app.platform.template.AndroidApplication"
+        android:name="software.ralf.app.platform.template.AndroidApplication"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
         tools:ignore="MissingApplicationIcon">
         <activity
-            android:name="software.amazon.app.platform.template.MainActivity"
+            android:name="software.ralf.app.platform.template.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mnc|colorMode|density|fontScale|fontWeightAdjustment|keyboard|layoutDirection|locale|mcc|navigation|smallestScreenSize|touchscreen|uiMode"
             android:exported="true">
             <intent-filter>

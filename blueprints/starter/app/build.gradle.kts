@@ -6,7 +6,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import software.amazon.app.platform.gradle.AppPlatformPlugin
+import software.ralf.app.platform.gradle.AppPlatformPlugin
 
 plugins {
   alias(libs.plugins.appPlatform)
@@ -90,7 +90,7 @@ android {
   compileSdk = libs.versions.android.compileSdk.get().toInt()
 
   defaultConfig {
-    applicationId = "software.amazon.app.platform.template"
+    applicationId = "software.ralf.app.platform.template"
     versionCode = 1
     versionName = "1.0"
     minSdk = libs.versions.android.minSdk.get().toInt()
@@ -112,7 +112,7 @@ android {
 
 compose.desktop {
   application {
-    mainClass = "software.amazon.app.platform.template.MainKt"
+    mainClass = "software.ralf.app.platform.template.MainKt"
 
     nativeDistributions {
       targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
