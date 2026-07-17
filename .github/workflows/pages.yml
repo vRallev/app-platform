@@ -7,20 +7,22 @@ on:
     branches:
       - main
 
+  # Builds the wiki for pull requests without deploying it.
+  pull_request:
+
   # Allows to run this workflow manually from the Actions tab.
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Build jobs only need to read the repository. The deployment job grants its
+# additional permissions separately.
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Cancel outdated builds for the same pull request without affecting other pull
+# requests or production builds.
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build-wasm-sample-app:
@@ -66,26 +68,38 @@ jobs:
       - run: |
           pip install mkdocs-material
           pip install "mkdocs-material[imaging]"
-      - run: mkdocs gh-deploy --config-file mkdocs.yml --force
+      - run: mkdocs build --config-file mkdocs.yml
+      - name: Upload wiki
+        uses: actions/upload-artifact@v4
+        with:
+          name: wiki
+          path: site
 
   deploy-mkdocs:
     needs: build-mkdocs
-    if: github.repository == 'vRallev/app-platform'
+    if: github.repository == 'vRallev/app-platform' && github.event_name != 'pull_request'
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Download wiki
+        uses: actions/download-artifact@v4
         with:
-          ref: gh-pages
+          name: wiki
+          path: site
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
