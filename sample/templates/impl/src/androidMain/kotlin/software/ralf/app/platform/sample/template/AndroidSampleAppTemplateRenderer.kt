@@ -4,7 +4,6 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import software.ralf.app.platform.renderer.RendererFactory
 import software.ralf.app.platform.renderer.template.AndroidTemplateRenderer
 import software.ralf.app.platform.sample.templates.impl.R
@@ -15,16 +14,9 @@ import software.ralf.app.platform.sample.templates.impl.R
 // @ContributesRenderer
 class AndroidSampleAppTemplateRenderer(rendererFactory: RendererFactory) :
   AndroidTemplateRenderer<SampleAppTemplate>(rendererFactory) {
-
-  companion object {
-    private const val ELEVATION = 24f
-  }
-
   private lateinit var fullScreenContainer: Container
   private lateinit var listContainer: Container
   private lateinit var detailContainer: Container
-
-  private lateinit var rootView: ConstraintLayout
 
   override fun inflate(
     activity: Activity,
@@ -33,13 +25,11 @@ class AndroidSampleAppTemplateRenderer(rendererFactory: RendererFactory) :
     initialModel: SampleAppTemplate,
   ): View {
     return layoutInflater.inflate(R.layout.sample_app_template_root, parent, false).also {
-      rootView = it as ConstraintLayout
-
       fullScreenContainer = Container(activity, it.findViewById(R.id.full_screen_container), null)
 
       it.findViewById<ViewGroup>(R.id.list).apply {
         this.clipToOutline = true
-        this.elevation = ELEVATION
+        this.elevation = 24f
         listContainer = Container(activity, this, null)
       }
 

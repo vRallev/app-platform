@@ -13,7 +13,3 @@ appPlatform {
     enableModuleStructure true
     enableMoleculePresenters true
 }
-
-dependencies {
-    androidMainImplementation libs.androidx.constraintlayout
-}
