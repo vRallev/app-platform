@@ -7,11 +7,7 @@ style:
   DataClassShouldBeImmutable:
     active: true
   MagicNumber:
-    # Magic numbers in enums should be ignored
-    ignoreEnums: true
-    # The next two parameters are recommended for Compose: https://detekt.dev/docs/introduction/compose/
-    ignorePropertyDeclaration: true
-    ignoreCompanionObjectPropertyDeclaration: true
+    active: false
   UnusedPrivateClass:
     # Recommended for Compose: https://detekt.dev/docs/introduction/compose/
     ignoreAnnotated: ['Preview']
