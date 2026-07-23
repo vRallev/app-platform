@@ -98,4 +98,4 @@ plugins:
   - search
   - social:
       cards_layout_options:
-        logo: docs/images/app-platform-logo.png
+        logo: docs/images/app-platform-social-logo.png
