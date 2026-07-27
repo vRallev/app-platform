@@ -12,10 +12,11 @@ import org.gradle.testfixtures.ProjectBuilder
 class AppPlatformExtensionTest {
 
   @Test
-  fun `module structure options are disabled by default`() {
+  fun `module structure is disabled and dependency enforcement defaults to enabled`() {
     val extension = createExtension()
 
     assertThat(extension.isModuleStructureEnabled().get()).isFalse()
+    assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isTrue()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isFalse()
   }
@@ -25,10 +26,14 @@ class AppPlatformExtensionTest {
     val extension = createExtension()
 
     extension.enableModuleStructure(
-      Action { options -> options.allowLibraryImplToImplDependencies(true) }
+      Action { options ->
+        options.enableDependencyCheck(false)
+        options.allowLibraryImplToImplDependencies(true)
+      }
     )
 
     assertThat(extension.isModuleStructureEnabled().get()).isTrue()
+    assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }
@@ -39,9 +44,13 @@ class AppPlatformExtensionTest {
     extension.enableModuleStructure(true)
 
     extension.enableModuleStructure(
-      Action { options -> options.allowLibraryImplToImplDependencies(true) }
+      Action { options ->
+        options.enableDependencyCheck(false)
+        options.allowLibraryImplToImplDependencies(true)
+      }
     )
 
+    assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }
@@ -55,6 +64,7 @@ class AppPlatformExtensionTest {
       .evaluate(
         """
         appPlatform.enableModuleStructure {
+          enableDependencyCheck false
           allowLibraryImplToImplDependencies true
         }
         """
@@ -62,6 +72,7 @@ class AppPlatformExtensionTest {
       )
 
     assertThat(extension.isModuleStructureEnabled().get()).isTrue()
+    assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }

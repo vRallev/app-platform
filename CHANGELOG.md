@@ -6,6 +6,7 @@
 
 - Add the advanced `blueprints/list-detail` Kotlin Multiplatform blueprint with a modular architecture, adaptive phone and tablet navigation, bundled character portraits, four platform shells, and dedicated CI.
 - Publish the list-detail blueprint as a horizontally resizable, interactive WebAssembly example in the documentation site.
+- Add an `enableDependencyCheck` module structure option that skips per-target dependency checks while preserving default module dependencies and lifecycle tasks.
 
 ### Changed
 

@@ -13,6 +13,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import org.gradle.language.base.plugins.LifecycleBasePlugin
 import software.ralf.app.platform.gradle.AppPlatformExtension.Companion.appPlatform
 
 /** Checks that our module structure dependency rules are followed. */
@@ -161,8 +162,13 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
           it.description = "Checks that our module structure dependency rules for all targets."
           it.group = "Verification"
         }
+      val dependencyChecksEnabled = appPlatform.moduleStructureOptions().isDependencyCheckEnabled()
 
-      afterEvaluate { tasks.namedOptional("check") { it.dependsOn(baseTask) } }
+      plugins.withType(LifecycleBasePlugin::class.java).configureEach {
+        tasks.named(LifecycleBasePlugin.CHECK_TASK_NAME).configure {
+          it.dependsOn(baseTask)
+        }
+      }
 
       fun registerForConfiguration(taskSuffix: String, configuration: () -> Configuration) {
         val checkTask =
@@ -170,6 +176,9 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
             "$baseTaskName${taskSuffix.capitalize()}",
             ModuleStructureDependencyCheckTask::class.java,
           ) { task ->
+            task.onlyIf("Module structure dependency checks are enabled") {
+              dependencyChecksEnabled.get()
+            }
             task.modulePath = path
             task.allowLibraryImplToImplDependencies.set(
               appPlatform.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed()

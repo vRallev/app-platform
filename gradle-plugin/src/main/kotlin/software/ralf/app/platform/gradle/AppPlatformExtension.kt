@@ -31,6 +31,7 @@ import software.ralf.app.platform.gradle.ModuleStructurePlugin.Companion.testing
  *   enableMoleculePresenterBackstack true // false is the default
  *   enableModuleStructure true // false is the default
  *   enableModuleStructure {
+ *     enableDependencyCheck false // true is the default
  *     allowLibraryImplToImplDependencies true // false is the default
  *   }
  *   enableComposeUi true // false is the default

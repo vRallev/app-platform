@@ -293,6 +293,30 @@ appPlatform {
 }
 ```
 
+Dependency rules are checked by default. An application graph assembly module can explicitly opt
+out of dependency checks while retaining the module structure's default dependencies, naming
+conventions, and Android namespace:
+
+=== "build.gradle"
+
+    ```groovy
+    appPlatform {
+      enableModuleStructure {
+        enableDependencyCheck false
+      }
+    }
+    ```
+
+=== "build.gradle.kts"
+
+    ```kotlin
+    appPlatform {
+      enableModuleStructure {
+        enableDependencyCheck(false)
+      }
+    }
+    ```
+
 By default, `:impl` modules cannot depend on other `:impl` modules. This can be relaxed for dependencies within
 the same library while preserving the cross-library boundary:
 
