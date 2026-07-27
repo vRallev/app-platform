@@ -38,6 +38,10 @@ writing Kotlin Multiplatform effectively.
 === "Web Recipe App"
     <iframe src="web/recipes/app/build/dist/wasmJs/productionExecutable/index.html" width="300px" height="600px" frameborder="1"></iframe>
 
+=== "Web List-Detail Blueprint"
+    <div class="blueprint-demo"><iframe src="web/blueprints/list-detail/app/web/build/dist/wasmJs/productionExecutable/index.html" title="Interactive list-detail blueprint"></iframe></div>
+    <p class="blueprint-demo__hint">Drag the bottom-right corner horizontally to switch between phone and tablet layouts.</p>
+
 ## Overview
 
 App Platform combines several features as a single framework. While all of them are optional, together they help
@@ -99,6 +103,8 @@ structure is enabled.
 ## Getting Started
 
 App Platform gives you a working Kotlin Multiplatform setup out of the box, with support for Android, iOS, Desktop, and Web (WASM). The fastest way to get started is by using the [blueprints/starter](https://github.com/vRallev/app-platform/tree/main/blueprints/starter) project — a fully functional example app that already uses App Platform and applies everything the platform provides, including the module structure, dependency injection, scopes, presenters, and renderers.
+
+For an advanced example, see the [list-detail blueprint](https://github.com/vRallev/app-platform/tree/main/blueprints/list-detail), which demonstrates adaptive phone and tablet layouts, shared presenters and renderers, Metro dependency injection, and platform-specific app shells. The **Web List-Detail Blueprint** tab above lets you run its WebAssembly app directly in the browser.
 
 ### Copy the Starter App
 

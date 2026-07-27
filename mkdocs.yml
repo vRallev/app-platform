@@ -48,6 +48,7 @@ theme:
     edit: material/pencil
 
 extra_css:
+  - stylesheets/blueprints.css
   - stylesheets/diagrams.css
 
 markdown_extensions:

@@ -48,8 +48,33 @@ jobs:
             ./sample/app/build/dist/wasmJs/productionExecutable/
             ./recipes/app/build/dist/wasmJs/productionExecutable/
 
+  build-wasm-list-detail-blueprint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Build list-detail blueprint wasm binary
+        working-directory: blueprints/list-detail
+        run: ./gradlew :app:web:wasmJsBrowserDistribution
+
+      - name: Upload list-detail blueprint wasm binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: wasm-list-detail-files
+          path: blueprints/list-detail/app/web/build/dist/wasmJs/productionExecutable/
+          if-no-files-found: error
+
   build-mkdocs:
-    needs: build-wasm-sample-app
+    needs:
+      - build-wasm-sample-app
+      - build-wasm-list-detail-blueprint
     runs-on: ubuntu-latest
 
     steps:
@@ -63,6 +88,11 @@ jobs:
         with:
           name: wasm-files
           path: docs/web
+      - name: Download list-detail blueprint wasm binary
+        uses: actions/download-artifact@v4
+        with:
+          name: wasm-list-detail-files
+          path: docs/web/blueprints/list-detail/app/web/build/dist/wasmJs/productionExecutable
       - run: |
           cp CHANGELOG.md docs/changelog.md
       - run: |

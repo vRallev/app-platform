@@ -1,0 +1,22 @@
+.blueprint-demo {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  box-sizing: border-box;
+  height: 600px;
+  max-width: 100%;
+  min-width: min(300px, 100%);
+  overflow: auto;
+  resize: horizontal;
+  width: min(300px, 100%);
+}
+
+.blueprint-demo iframe {
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.blueprint-demo__hint {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8rem;
+}
