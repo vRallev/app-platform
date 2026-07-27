@@ -76,7 +76,7 @@ where implementations meet.
 | `:app:web` | Wasm entrypoint, HTML shell, web manifest, and browser icons |
 | `app/ios` | SwiftUI/Xcode shell and iOS asset catalog |
 | `:app-framework:impl` | Root scope, Metro graph assembly, template stream, and shared platform integration |
-| `:app-framework:impl-ui-test-robots` | Android and Desktop test graphs, lifecycle fixtures, and UI-test rules |
+| `:app-framework:impl-ui-test-robots` | Android and Desktop test graphs, lifecycle fixtures, and UI and headless test rules |
 | `:list-detail:public` | Reusable feature contract, character entities, and repository interface |
 | `:list-detail:impl` | Repository implementation, presenters, render models, Compose renderers, and resources |
 | `:list-detail:impl-robots` | Shared, layout-agnostic Compose robots for list and detail interactions |
@@ -304,7 +304,8 @@ interfaces remain in `commonMain`.
 
 ## Testing
 
-The sample separates presenter tests, reusable robot APIs, and platform integration tests.
+The sample separates presenter tests, reusable robot APIs, rendered platform integration tests, and
+headless Desktop integration tests.
 
 ### Presenter tests
 
@@ -346,6 +347,9 @@ feature robot module and provides:
   presentation, disables system animations, and destroys the root scope after each test.
 - `DesktopUiTestRule`, which creates a fresh `DesktopApp`, installs its root scope for robot
   lookup, renders at a controlled phone or tablet size, and tears down the application.
+- `DesktopHeadlessTestRule`, which starts the same production-backed test graph and root template
+  stream, reports a controlled phone or tablet size, and uses an immediate test-owned Molecule
+  scope to observe templates without rendering a Compose scene or polling for state.
 
 Production app modules depend on these modules only from test configurations. Robot code and test
 graphs therefore never enter application artifacts.
@@ -357,21 +361,27 @@ The integration scenarios themselves are intentionally not shared:
 ```text
 app/android/src/androidTest/.../ListDetailAndroidUiTest.kt
 app/desktop/src/desktopTest/.../ListDetailDesktopUiTest.kt
+app-framework/impl-ui-test-robots/src/desktopTest/.../ListDetailDesktopHeadlessTest.kt
 ```
 
-Each platform has its own test class and lifecycle, while only the layout-agnostic robot vocabulary
-is reused. The suites provide three platform tests across two end-to-end behaviors:
+Each test mode has its own class and lifecycle. UI suites reuse the layout-agnostic robot
+vocabulary, while the headless Desktop suite observes `AppTemplate.FullScreenTemplate`, unwraps
+delegated presenter models, and invokes production model callbacks directly. The suites provide
+five platform tests across two end-to-end behaviors:
 
-1. Android and Desktop each verify that a phone opens Samwise's detail through the presenter
-   backstack and returns to the list.
-2. Desktop additionally verifies that a landscape tablet starts with Frodo selected and replaces
-   the detail with Aragorn without exposing back navigation.
+1. Android, rendered Desktop, and headless Desktop each verify that a phone opens Samwise's detail
+   through the presenter backstack and returns to the list.
+2. Rendered and headless Desktop each verify that a landscape tablet starts with Frodo selected and
+   replaces the detail with Aragorn without exposing back navigation.
 
 Android tests use a custom instrumentation runner and test application to install the robot-aware
 Metro graph. Gradle Managed Devices runs them on a Pixel 3 API 30 `aosp-atd` image through AndroidX
 Test Orchestrator. Android does not force an orientation or emulate tablet coverage; its device
-configuration determines the presentation. Desktop tests run against controlled Compose test
-scenes matching the production phone and tablet window presets.
+configuration determines the presentation. Rendered Desktop tests use controlled Compose test
+scenes matching the production phone and tablet window presets. Headless Desktop tests report
+those same presets directly to the production screen-size provider and exercise the real Metro
+graph, repository, application scope, template presenter, and feature presenters without rendering
+UI.
 
 There are deliberately no iOS integration tests or shared cross-platform integration-test source
 sets in this blueprint.
@@ -379,16 +389,18 @@ sets in this blueprint.
 Run the integration suites independently:
 
 ```bash
+./gradlew :app-framework:impl-ui-test-robots:desktopTest
 ./gradlew :app:desktop:desktopTest
 ./gradlew :app:android:emulatorCheck
 ```
 
-The GitHub Actions workflow gives Android and Desktop integration tests separate jobs. The Desktop
-unit-test job discovers every `desktopTest` task and excludes only the app integration-test task,
-so future library modules are covered automatically. Android prepares hardware acceleration before
-starting the managed emulator, and both integration jobs upload test reports on failure. Unit
-tests, static analysis, module checks, and platform builds remain separate so failures identify the
-affected architectural layer.
+The GitHub Actions workflow gives Android and rendered Desktop integration tests separate jobs. The
+Desktop test job discovers every `desktopTest` task and excludes only the app's rendered integration
+task, so it automatically runs the headless application-framework tests and covers future library
+modules. Android prepares hardware acceleration before starting the managed emulator, and both
+rendered integration jobs upload test reports on failure. Headless tests, rendered tests, static
+analysis, module checks, and platform builds remain separate so failures identify the affected
+architectural layer.
 
 ## Extending the blueprint
 
