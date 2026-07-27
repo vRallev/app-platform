@@ -7,7 +7,7 @@ local.properties
 /reports/
 
 # IntelliJ IDEA
-.idea/*
+**/.idea/*
 !.idea/ktfmt.xml
 *.iml
 *.ipl

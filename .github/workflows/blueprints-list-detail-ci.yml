@@ -1,0 +1,202 @@
+name: Build List Detail Blueprint
+
+on:
+  push:
+    paths:
+      - "blueprints/list-detail/**"
+      - ".github/actions/prepare-emulator-action/**"
+      - ".github/actions/setup-action/**"
+      - ".github/workflows/blueprints-list-detail-ci.yml"
+    tags-ignore:
+      - "**"
+  pull_request:
+    paths:
+      - "blueprints/list-detail/**"
+      - ".github/actions/prepare-emulator-action/**"
+      - ".github/actions/setup-action/**"
+      - ".github/workflows/blueprints-list-detail-ci.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: blueprints/list-detail
+
+jobs:
+  check-build-src:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Check buildSrc
+        run: ./gradlew -p buildSrc release
+
+  check-module-boundaries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Check module boundaries
+        run: ./gradlew checkModuleStructureDependencies
+
+  detekt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Detekt
+        run: ./gradlew detekt --stacktrace --show-version --continue
+
+  test-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Run Android tests
+        run: ./gradlew testDebugUnitTest testAndroidHostTest --continue
+
+  test-desktop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Run Desktop unit tests
+        run: ./gradlew desktopTest -x :app:desktop:desktopTest --continue
+
+  test-integration-desktop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Run Desktop integration tests
+        run: ./gradlew :app:desktop:desktopTest --stacktrace
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: test-results-${{ github.job }}
+          path: blueprints/list-detail/**/build/reports/
+
+  test-integration-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Prepare emulator
+        uses: ./.github/actions/prepare-emulator-action
+      - name: Run Android integration tests
+        run: ./gradlew :app:android:emulatorCheck --stacktrace
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: test-results-${{ github.job }}
+          path: |
+            blueprints/list-detail/**/build/reports/
+            blueprints/list-detail/**/build/outputs/androidTest-results/
+
+  test-wasm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Run Wasm tests
+        run: ./gradlew wasmJsTest --continue
+
+  build-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Build Android app
+        run: ./gradlew :app:android:assembleDebug
+
+  build-desktop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Build Desktop app
+        run: ./gradlew :app:desktop:desktopMainClasses
+
+  build-web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Build Wasm web app
+        run: ./gradlew :app:web:wasmJsBrowserDistribution
+
+  build-ios:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          select-xcode-26: "true"
+      - name: Run iOS simulator tests
+        run: ./gradlew iosSimulatorArm64Test --continue
+      - name: Build iOS app
+        run: >
+          /usr/bin/xcodebuild
+          -project app/ios/iosApp.xcodeproj
+          -scheme iosApp
+          -configuration Debug
+          OBJROOT=build/ios
+          SYMROOT=build/ios
+          -destination 'generic/platform=iOS Simulator'
+          ARCHS=arm64
+          ONLY_ACTIVE_ARCH=YES
+          CODE_SIGNING_ALLOWED=NO

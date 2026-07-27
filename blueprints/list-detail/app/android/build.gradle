@@ -1,0 +1,16 @@
+plugins {
+  id 'software.ralf.app.platform.listdetail.app.android'
+}
+
+appPlatform {
+  enableComposeUi true
+  enableMetro true
+  enableMoleculePresenters true
+  addImplModuleDependencies true
+}
+
+dependencies {
+  implementation project(':app-framework:impl')
+
+  androidTestImplementation project(':app-framework:impl-ui-test-robots')
+}

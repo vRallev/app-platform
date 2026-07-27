@@ -1,0 +1,33 @@
+pluginManagement {
+  repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+  }
+}
+
+plugins {
+  id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+dependencyResolutionManagement {
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
+include ':app:android'
+include ':app:desktop'
+include ':app:web'
+include ':app-framework:impl'
+include ':app-framework:impl-ui-test-robots'
+include ':list-detail:impl'
+include ':list-detail:impl-robots'
+include ':list-detail:public'
+include ':list-detail:testing'
+include ':presenter-navigation:impl'
+include ':presenter-navigation:public'
+include ':templates:impl'
+include ':templates:public'
+include ':theme:public'

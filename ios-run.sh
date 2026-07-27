@@ -32,8 +32,9 @@ Which application do you want to run?
 1) sample
 2) recipes
 3) starter blueprint
+4) list-detail blueprint
 EOF
-    printf "Enter selection [1-3]: "
+    printf "Enter selection [1-4]: "
     read -r selection
 
     case "$selection" in
@@ -59,6 +60,14 @@ EOF
         PROJECT_PATH="$ROOT_DIR/blueprints/starter/iosApp/iosApp.xcodeproj"
         SCHEME="iosApp"
         DERIVED_DATA_PATH="/tmp/app-platform-ios-run-starter"
+        return
+        ;;
+      4)
+        APP_KEY="list-detail"
+        APP_LABEL="list-detail blueprint"
+        PROJECT_PATH="$ROOT_DIR/blueprints/list-detail/app/ios/iosApp.xcodeproj"
+        SCHEME="iosApp"
+        DERIVED_DATA_PATH="/tmp/app-platform-ios-run-list-detail"
         return
         ;;
       *)

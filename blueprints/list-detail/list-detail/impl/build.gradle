@@ -1,0 +1,17 @@
+plugins {
+  id 'software.ralf.app.platform.listdetail.library.kmp'
+}
+
+appPlatform {
+  enableComposeUi true
+  enableMetro true
+  enableMoleculePresenterBackstack true
+}
+
+dependencies {
+  commonMainImplementation project(':presenter-navigation:public')
+  commonMainImplementation project(':templates:public')
+  commonMainImplementation project(':theme:public')
+
+  commonTestImplementation project(':list-detail:testing')
+}

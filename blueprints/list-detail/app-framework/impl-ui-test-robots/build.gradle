@@ -1,0 +1,24 @@
+plugins {
+  id 'software.ralf.app.platform.listdetail.library.kmp'
+}
+
+appPlatform {
+  enableComposeUi true
+  enableMetro true
+}
+
+dependencies {
+  commonMainApi project(':list-detail:impl-robots')
+
+  commonMainImplementation project(':app-framework:impl')
+  commonMainImplementation project(':list-detail:impl')
+  commonMainImplementation project(':presenter-navigation:impl')
+  commonMainImplementation project(':templates:impl')
+  commonMainImplementation project(':theme:public')
+
+  androidMainImplementation libs.androidx.test.junit
+  androidMainImplementation libs.androidx.test.rules
+  androidMainImplementation libs.androidx.test.runner
+  androidMainImplementation libs.compose.ui.test.junit4
+  androidMainImplementation libs.compose.ui.test.junit4.android
+}

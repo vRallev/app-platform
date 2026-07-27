@@ -4,6 +4,8 @@
 
 ### Added
 
+- Add the advanced `blueprints/list-detail` Kotlin Multiplatform blueprint with a modular architecture, adaptive phone and tablet navigation, bundled character portraits, four platform shells, and dedicated CI.
+
 ### Changed
 
 - Update the starter blueprint to App Platform `0.1.0`, migrate it to the `software.ralf.app.platform` namespace, and align its shared dependency versions with the root build.

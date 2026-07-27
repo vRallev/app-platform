@@ -1,0 +1,16 @@
+plugins {
+  id 'software.ralf.app.platform.listdetail.app.desktop'
+}
+
+appPlatform {
+  enableComposeUi true
+  enableMetro true
+  enableMoleculePresenters true
+  addImplModuleDependencies true
+}
+
+dependencies {
+  commonMainImplementation project(':app-framework:impl')
+
+  desktopTestImplementation project(':app-framework:impl-ui-test-robots')
+}

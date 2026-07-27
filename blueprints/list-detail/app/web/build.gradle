@@ -1,0 +1,14 @@
+plugins {
+  id 'software.ralf.app.platform.listdetail.app.web'
+}
+
+appPlatform {
+  enableComposeUi true
+  enableMetro true
+  enableMoleculePresenters true
+  addImplModuleDependencies true
+}
+
+dependencies {
+  commonMainImplementation project(':app-framework:impl')
+}

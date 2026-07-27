@@ -1,0 +1,28 @@
+import software.ralf.app.platform.gradle.ModuleStructureDependencyCheckTask
+
+plugins {
+  id 'software.ralf.app.platform.listdetail.library.kmp'
+}
+
+appPlatform {
+  enableComposeUi true
+  enableMetro true
+  enableMoleculePresenters true
+  addImplModuleDependencies true
+}
+
+dependencies {
+  commonMainImplementation project(':list-detail:impl')
+  commonMainImplementation project(':presenter-navigation:impl')
+  commonMainImplementation project(':templates:impl')
+  commonMainImplementation project(':theme:public')
+
+  androidMainImplementation libs.androidx.activity.compose
+
+  commonTestImplementation project(':list-detail:testing')
+}
+
+tasks.withType(ModuleStructureDependencyCheckTask).configureEach {
+  // This module is the application graph assembly point and intentionally imports implementations.
+  enabled = false
+}

@@ -1,0 +1,7 @@
+plugins {
+  id 'software.ralf.app.platform.listdetail.library.kmp'
+}
+
+appPlatform {
+  enableMoleculePresenterBackstack true
+}

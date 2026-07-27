@@ -1,0 +1,9 @@
+plugins {
+  id 'software.ralf.app.platform.listdetail.library.kmp'
+}
+
+appPlatform {
+  enableComposeUi true
+  enableMetro true
+  enableMoleculePresenters true
+}
