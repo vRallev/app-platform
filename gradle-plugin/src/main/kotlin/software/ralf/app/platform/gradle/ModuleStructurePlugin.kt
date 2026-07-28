@@ -2,6 +2,7 @@ package software.ralf.app.platform.gradle
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.BasePluginExtension
 import software.ralf.app.platform.gradle.ModuleStructureDependencyCheckTask.Companion.registerModuleStructureDependencyCheckTask
 
 /** The Gradle plugin that sets up our module structure. */
@@ -9,6 +10,7 @@ public open class ModuleStructurePlugin : Plugin<Project> {
   override fun apply(target: Project) {
     target.ensureFollowsNamingConvention()
     target.addModuleStructureDependencies()
+    target.configureArtifactName()
     target.configureAndroidNamespace()
     target.registerModuleStructureDependencyCheckTask()
   }
@@ -78,6 +80,13 @@ public open class ModuleStructurePlugin : Plugin<Project> {
         publicModuleConfiguration = "api",
         implModuleConfiguration = "implementation",
       )
+    }
+  }
+
+  private fun Project.configureArtifactName() {
+    plugins.withId("base") {
+      // A convention replaces Gradle's project-name default while preserving explicit overrides.
+      extensions.getByType(BasePluginExtension::class.java).archivesName.convention(artifactId())
     }
   }
 

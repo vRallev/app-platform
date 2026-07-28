@@ -19,6 +19,8 @@
 
 ### Fixed
 
+- Give module-structured projects unique default archive names based on their artifact IDs while preserving explicitly configured archive names.
+
 ### Security
 
 ### Other Notes & Contributions

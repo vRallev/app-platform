@@ -2,6 +2,7 @@ package software.ralf.app.platform.gradle
 
 import assertk.assertThat
 import assertk.assertions.contains
+import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import kotlin.test.Test
@@ -9,11 +10,64 @@ import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.internal.project.ProjectInternal
+import org.gradle.api.plugins.BasePluginExtension
+import org.gradle.api.provider.Property
 import org.gradle.language.base.plugins.LifecycleBasePlugin
 import org.gradle.testfixtures.ProjectBuilder
 import software.ralf.app.platform.gradle.AppPlatformExtension.Companion.appPlatform
 
 class ModuleStructurePluginTest {
+
+  @Test
+  fun `Gradle defaults archive names to the project name`() {
+    val project = createImplModule()
+
+    project.plugins.apply("base")
+
+    assertThat(project.archivesName.get()).isEqualTo("impl")
+  }
+
+  @Test
+  fun `module structure derives archive names from artifact IDs`() {
+    val project = createImplModule()
+    project.plugins.apply("base")
+
+    project.appPlatform.enableModuleStructure(true)
+
+    assertThat(project.archivesName.get()).isEqualTo("library-impl")
+  }
+
+  @Test
+  fun `module structure preserves archive names configured before it is enabled`() {
+    val project = createImplModule()
+    project.plugins.apply("base")
+    project.archivesName.set("custom-archive")
+
+    project.appPlatform.enableModuleStructure(true)
+
+    assertThat(project.archivesName.get()).isEqualTo("custom-archive")
+  }
+
+  @Test
+  fun `module structure allows archive names to be configured after it is enabled`() {
+    val project = createImplModule()
+    project.plugins.apply("base")
+    project.appPlatform.enableModuleStructure(true)
+
+    project.archivesName.set("custom-archive")
+
+    assertThat(project.archivesName.get()).isEqualTo("custom-archive")
+  }
+
+  @Test
+  fun `module structure configures archive names when the base plugin is applied later`() {
+    val project = createImplModule()
+    project.appPlatform.enableModuleStructure(true)
+
+    project.plugins.apply("base")
+
+    assertThat(project.archivesName.get()).isEqualTo("library-impl")
+  }
 
   @Test
   fun `module structure dependency checks are enabled by default`() {
@@ -105,6 +159,9 @@ class ModuleStructurePluginTest {
     project.plugins.apply(AppPlatformPlugin::class.java)
     return project
   }
+
+  private val Project.archivesName: Property<String>
+    get() = extensions.getByType(BasePluginExtension::class.java).archivesName
 
   private fun Project.dependencyCheckTask(): ModuleStructureDependencyCheckTask =
     tasks
