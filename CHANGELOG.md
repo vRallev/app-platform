@@ -6,6 +6,7 @@
 
 ### Changed
 
+- Upgrade the blueprint projects to App Platform `0.1.1`.
 - Upgrade Metro to `1.4.0`.
 
 ### Deprecated
