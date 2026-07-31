@@ -33,9 +33,9 @@ public final class software/ralf/app/platform/presenter/molecule/DesktopMolecule
 	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory$Companion;
 	public synthetic fun <init> (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static final fun create (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph$ProvideDesktopMoleculeScopeFactoryMetroFactory;
+	public final fun declarationMirror (Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 	public synthetic fun invoke ()Ljava/lang/Object;
 	public final fun invoke ()Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
-	public final fun mirrorFunction (Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 	public static final fun provideDesktopMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/DesktopMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
@@ -72,9 +72,9 @@ public final class software/ralf/app/platform/presenter/molecule/backgesture/Def
 	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion;
 	public synthetic fun <init> (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static final fun create (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory;
+	public final fun declarationMirror ()Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 	public synthetic fun invoke ()Ljava/lang/Object;
 	public final fun invoke ()Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
-	public final fun mirrorFunction ()Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 	public static final fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 

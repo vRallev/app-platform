@@ -59,15 +59,15 @@ class TestRenderer : Renderer<Model> {
           return Companion.provideComTestTestRenderer()
         }
 
+        @ComptimeOnly
+        @HiddenFromObjC
+        fun declarationMirror(): TestRenderer {
+          return error(message = "Never called")
+        }
+
         @HiddenFromObjC
         override operator fun invoke(): TestRenderer {
           return ProvideComTestTestRendererMetroFactory.provideComTestTestRenderer()
-        }
-
-        @ComptimeOnly
-        @HiddenFromObjC
-        fun mirrorFunction(): TestRenderer {
-          return error(message = "Never called")
         }
 
       }
@@ -95,18 +95,18 @@ class TestRenderer : Renderer<Model> {
           return Companion.provideComTestTestRendererModelKey()
         }
 
-        @HiddenFromObjC
-        override operator fun invoke(): KClass<out Renderer<*>> {
-          return ProvideComTestTestRendererModelKeyMetroFactory.provideComTestTestRendererModelKey()
-        }
-
         @IntoMap
         @ForScope(scope = RendererScope::class)
         @RendererKey(value = Model::class)
         @ComptimeOnly
         @HiddenFromObjC
-        fun mirrorFunction(): KClass<out Renderer<*>> {
+        fun declarationMirror(): KClass<out Renderer<*>> {
           return error(message = "Never called")
+        }
+
+        @HiddenFromObjC
+        override operator fun invoke(): KClass<out Renderer<*>> {
+          return ProvideComTestTestRendererModelKeyMetroFactory.provideComTestTestRendererModelKey()
         }
 
       }

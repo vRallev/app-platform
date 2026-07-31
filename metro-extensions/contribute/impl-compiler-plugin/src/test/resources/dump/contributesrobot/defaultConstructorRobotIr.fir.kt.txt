@@ -50,15 +50,15 @@ class TestRobot : Robot {
           return Companion.provideTestRobot()
         }
 
+        @ComptimeOnly
+        @HiddenFromObjC
+        fun declarationMirror(): TestRobot {
+          return error(message = "Never called")
+        }
+
         @HiddenFromObjC
         override operator fun invoke(): TestRobot {
           return ProvideTestRobotMetroFactory.provideTestRobot()
-        }
-
-        @ComptimeOnly
-        @HiddenFromObjC
-        fun mirrorFunction(): TestRobot {
-          return error(message = "Never called")
         }
 
       }

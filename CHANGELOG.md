@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Upgrade Metro to `1.4.0`.
+
 ### Deprecated
 
 ### Removed
