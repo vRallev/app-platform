@@ -13,6 +13,11 @@ public class AppPlatformMetroExtensionsPluginComponentRegistrar : CompilerPlugin
 
   override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
     FirExtensionRegistrarAdapter.registerExtension(AppPlatformMetroExtensionsPluginRegistrar())
-    IrGenerationExtension.registerExtension(AppPlatformIrDeclarationGenerationExtension())
+    IrGenerationExtension.registerExtension(
+      AppPlatformIrGenerationExtension(
+        generateDeclarationsInIr =
+          AppPlatformCompilerConfiguration.generateClassesInIr(configuration)
+      )
+    )
   }
 }

@@ -16,6 +16,12 @@ fun TestConfigurationBuilder.configurePlugin() {
   configureMetroRuntime()
 }
 
+fun TestConfigurationBuilder.configurePureIrPlugin() {
+  useConfigurators(::ExtensionRegistrarConfigurator)
+  configureAnnotations()
+  configurePureIrMetroRuntime()
+}
+
 fun TestConfigurationBuilder.configureMetroImports() {
   useSourcePreprocessor(::MetroImportsPreprocessor)
 }

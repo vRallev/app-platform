@@ -6,7 +6,7 @@
 
 ### Changed
 
-- Upgrade Kotlin to `2.4.20-Beta2` and generate App Platform's Metro binding containers in IR, retaining FIR only for cross-module contribution hints.
+- Upgrade Kotlin to `2.4.20-Beta2` and migrate App Platform's Metro binding-container generation to IR. Native, Wasm, and other KLIB targets retain FIR contribution hints solely for cross-module package discovery.
 - Upgrade the blueprint projects to App Platform `0.1.1`.
 - Upgrade Metro to `1.4.1`.
 
