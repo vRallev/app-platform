@@ -1,6 +1,5 @@
 package com.test
 
-import dev.zacsweers.metro.BindingContainer
 import software.ralf.app.platform.inject.ContributesRenderer
 import software.ralf.app.platform.metro.compiler.support.UnusedRendererFactory
 import software.ralf.app.platform.presenter.BaseModel
@@ -20,27 +19,6 @@ interface AppGraph {
 }
 
 fun box(): String {
-  if (
-    TestRenderer.RendererContribution::class.java.getAnnotation(BindingContainer::class.java) ==
-      null
-  ) {
-    return "FAIL: expected RendererContribution to be a BindingContainer"
-  }
-  if (
-    TestRenderer.RendererContribution::class.java.declaredMethods.any {
-      it.name == "provideComTestTestRenderer"
-    }
-  ) {
-    return "FAIL: expected constructor provider to be moved off the RendererContribution interface"
-  }
-  if (
-    TestRenderer.RendererContribution.Companion::class.java.declaredMethods.none {
-      it.name == "provideComTestTestRenderer"
-    }
-  ) {
-    return "FAIL: expected constructor provider on RendererContribution companion"
-  }
-
   val factory = createGraph<AppGraph>() as RendererGraph.Factory
   val graph = factory.createRendererGraph(UnusedRendererFactory)
   val rendererProvider = graph.renderers.getValue(Model::class)

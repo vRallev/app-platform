@@ -18,6 +18,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.NATIVE_COMPILER_PLUGIN_CLASSPATH_CONFIGURATION_NAME
 import org.jetbrains.kotlin.gradle.plugin.PLUGIN_CLASSPATH_CONFIGURATION_NAME
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import software.ralf.app.platform.gradle.ModuleStructurePlugin.Companion.testingSourceSets
 
 /**
@@ -280,15 +281,17 @@ private fun Project.enableKotlinInject() {
 }
 
 private fun Project.enableMetro() {
-  plugins.apply(PluginIds.METRO)
-
   val useMetroKsp =
     providers.gradleProperty("app.platform.metro.ksp").map(String::toBoolean).orElse(false).get()
 
   if (useMetroKsp) {
+    plugins.apply(PluginIds.METRO)
     enableMetroKsp()
   } else {
+    // Add App Platform's declaration generator before Metro's IR graph transformer.
     enableMetroCompilerPlugin()
+    plugins.apply(PluginIds.METRO)
+    MetroCompilerOptions.enable(this)
   }
 }
 
@@ -323,6 +326,12 @@ private fun Project.enableMetroKsp() {
 }
 
 private fun Project.enableMetroCompilerPlugin() {
+  tasks.withType(KotlinCompilationTask::class.java).configureEach { task ->
+    task.compilerOptions.freeCompilerArgs.add(
+      "-Xcompiler-plugin-order=software.ralf.app.platform.metro.compiler>dev.zacsweers.metro.compiler"
+    )
+  }
+
   val compilerPluginDependency =
     "$APP_PLATFORM_GROUP:metro-contribute-impl-compiler-plugin:$APP_PLATFORM_VERSION"
 

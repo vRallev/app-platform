@@ -19,16 +19,10 @@ class TestRenderer : Renderer<Model> {
     @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
     @ComptimeOnly
     abstract class BindsMirror {
-      private constructor() /* primary */ {
-        super/*Any*/()
-        /* <init>() */
-
-      }
-
       @Binds
       @IntoMap
       @RendererKey(value = Model::class)
-      @CallableMetadata(callableName = "provideComTestTestRendererModel", propertyName = "", startOffset = 284, endOffset = 388)
+      @CallableMetadata(callableName = "provideComTestTestRendererModel", propertyName = "", startOffset = -1, endOffset = -1)
       fun provideComTestTestRendererModel2248969044_intomap(renderer: TestRenderer): Renderer<*> {
         return error(message = "Never called")
       }
@@ -36,8 +30,7 @@ class TestRenderer : Renderer<Model> {
     }
 
     companion object Companion {
-      @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
-      @CallableMetadata(callableName = "provideComTestTestRenderer", propertyName = "", startOffset = 284, endOffset = 388, newInstanceName = "provideComTestTestRenderer")
+      @CallableMetadata(callableName = "provideComTestTestRenderer", propertyName = "", startOffset = -1, endOffset = -1, newInstanceName = "provideComTestTestRenderer")
       object ProvideComTestTestRendererMetroFactory : Factory<TestRenderer> {
         private constructor() /* primary */ {
           super/*Any*/()
@@ -72,8 +65,7 @@ class TestRenderer : Renderer<Model> {
 
       }
 
-      @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
-      @CallableMetadata(callableName = "provideComTestTestRendererModelKey", propertyName = "", startOffset = 284, endOffset = 388, newInstanceName = "provideComTestTestRendererModelKey")
+      @CallableMetadata(callableName = "provideComTestTestRendererModelKey", propertyName = "", startOffset = -1, endOffset = -1, newInstanceName = "provideComTestTestRendererModelKey")
       object ProvideComTestTestRendererModelKeyMetroFactory : Factory<KClass<out Renderer<*>>> {
         private constructor() /* primary */ {
           super/*Any*/()
@@ -154,11 +146,11 @@ class TestRenderer : Renderer<Model> {
 
 }
 
-// FILE: comTestTestRendererRendererContributionSoftware_ralf_app_platform_renderer_RendererScope.kt
+// FILE: comTestTestRendererSoftware_ralf_app_platform_renderer_RendererScope.kt
 package metro.hints
 
 @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
-fun software_ralf_app_platform_renderer_RendererScope(contributed: RendererContribution) {
+fun software_ralf_app_platform_renderer_RendererScope(contributed: TestRenderer) {
   return error(message = "Never called")
 }
 

@@ -8,33 +8,8 @@ FILE: defaultScoped.kt
             super<R|kotlin/Any|>()
         }
 
-        @R|dev/zacsweers/metro/BindingContainer|() @R|dev/zacsweers/metro/ContributesTo|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) @R|dev/zacsweers/metro/Origin|(value = <getClass>(Q|com/test/TestClass|) [evaluated = <getClass>(Q|com/test/TestClass|)]) public abstract interface ScopedContribution : R|kotlin/Any| {
-            @R|dev/zacsweers/metro/Binds|() public open fun bindSuperType(instance: R|com/test/TestClass|): R|com/test/SuperType|
-
-            @R|dev/zacsweers/metro/Binds|() @R|dev/zacsweers/metro/IntoSet|() @R|dev/zacsweers/metro/ForScope|(scope = <getClass>(Q|dev/zacsweers/metro/AppScope|) [evaluated = <getClass>(Q|dev/zacsweers/metro/AppScope|)]) public open fun bindTestClassScoped(instance: R|com/test/TestClass|): R|software/ralf/app/platform/scope/Scoped|
-
-            @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) public abstract class BindsMirror : R|kotlin/Any| {
-                private constructor(): R|com/test/TestClass.ScopedContribution.BindsMirror| {
-                    super<R|kotlin/Any|>()
-                }
-
-                private constructor(): R|com/test/TestClass.ScopedContribution.BindsMirror| {
-                    super<R|kotlin/Any|>()
-                }
-
-            }
-
-        }
-
-        @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) public final object MetroFactory : R|kotlin/Any| {
-            private constructor(): R|com/test/TestClass.MetroFactory| {
-                super<R|kotlin/Any|>()
-            }
-
-        }
-
     }
-FILE: metro/hints/comTestTestClassScopedContributionDev_zacsweers_metro_AppScope.kt
+FILE: metro/hints/comTestTestClassDev_zacsweers_metro_AppScope.kt
     package metro.hints
 
-    @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) public final fun dev_zacsweers_metro_AppScope(contributed: R|com/test/TestClass.ScopedContribution|): R|kotlin/Unit|
+    @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) public final fun dev_zacsweers_metro_AppScope(contributed: R|com/test/TestClass|): R|kotlin/Unit|

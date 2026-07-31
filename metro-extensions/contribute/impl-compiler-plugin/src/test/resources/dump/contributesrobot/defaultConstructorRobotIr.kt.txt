@@ -10,16 +10,10 @@ class TestRobot : Robot {
     @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
     @ComptimeOnly
     abstract class BindsMirror {
-      private constructor() /* primary */ {
-        super/*Any*/()
-        /* <init>() */
-
-      }
-
       @Binds
       @IntoMap
       @RobotKey(value = TestRobot::class)
-      @CallableMetadata(callableName = "provideTestRobotIntoMap", propertyName = "", startOffset = 202, endOffset = 260)
+      @CallableMetadata(callableName = "provideTestRobotIntoMap", propertyName = "", startOffset = -1, endOffset = -1)
       fun provideTestRobotIntoMap2729140830_intomap(robot: TestRobot): Robot {
         return error(message = "Never called")
       }
@@ -27,8 +21,7 @@ class TestRobot : Robot {
     }
 
     companion object Companion {
-      @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
-      @CallableMetadata(callableName = "provideTestRobot", propertyName = "", startOffset = 202, endOffset = 260, newInstanceName = "provideTestRobot")
+      @CallableMetadata(callableName = "provideTestRobot", propertyName = "", startOffset = -1, endOffset = -1, newInstanceName = "provideTestRobot")
       object ProvideTestRobotMetroFactory : Factory<TestRobot> {
         private constructor() /* primary */ {
           super/*Any*/()
@@ -94,11 +87,11 @@ class TestRobot : Robot {
 
 }
 
-// FILE: comTestTestRobotRobotContributionDev_zacsweers_metro_AppScope.kt
+// FILE: comTestTestRobotDev_zacsweers_metro_AppScope.kt
 package metro.hints
 
 @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
-fun dev_zacsweers_metro_AppScope(contributed: RobotContribution) {
+fun dev_zacsweers_metro_AppScope(contributed: TestRobot) {
   return error(message = "Never called")
 }
 

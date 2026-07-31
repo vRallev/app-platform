@@ -21,13 +21,6 @@ public final class software/ralf/app/platform/presenter/molecule/AndroidMolecule
 	public static fun provideAndroidMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
 
-public abstract interface class software/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope : software/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph {
-}
-
-public final class software/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope$DefaultImpls {
-	public static fun provideAndroidMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph$MetroContributionToMetroAppScope;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
-}
-
 public final class software/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph$ProvideAndroidMoleculeScopeFactoryMetroFactory : dev/zacsweers/metro/internal/Factory {
 	public static final field $stable I
 	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph$ProvideAndroidMoleculeScopeFactoryMetroFactory$Companion;
@@ -40,6 +33,7 @@ public final class software/ralf/app/platform/presenter/molecule/AndroidMolecule
 }
 
 public final class software/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph$ProvideAndroidMoleculeScopeFactoryMetroFactory$Companion {
+	public fun <init> ()V
 	public final fun create (Lsoftware/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph$ProvideAndroidMoleculeScopeFactoryMetroFactory;
 	public final fun provideAndroidMoleculeScopeFactory (Lsoftware/ralf/app/platform/presenter/molecule/AndroidMoleculeScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;
 }
@@ -60,13 +54,6 @@ public final class software/ralf/app/platform/presenter/molecule/backgesture/Def
 	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }
 
-public abstract interface class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope : software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph {
-}
-
-public final class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope$DefaultImpls {
-	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToMetroAppScope;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
-}
-
 public final class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory : dev/zacsweers/metro/internal/Factory {
 	public static final field $stable I
 	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion;
@@ -79,6 +66,7 @@ public final class software/ralf/app/platform/presenter/molecule/backgesture/Def
 }
 
 public final class software/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion {
+	public fun <init> ()V
 	public final fun create (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory;
 	public final fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;
 }

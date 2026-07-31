@@ -6,6 +6,7 @@
 
 ### Changed
 
+- Upgrade Kotlin to `2.4.20-Beta2` and generate App Platform's Metro binding containers in IR, retaining FIR only for cross-module contribution hints.
 - Upgrade the blueprint projects to App Platform `0.1.1`.
 - Upgrade Metro to `1.4.1`.
 

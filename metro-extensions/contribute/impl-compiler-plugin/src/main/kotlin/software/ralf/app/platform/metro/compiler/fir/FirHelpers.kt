@@ -201,11 +201,11 @@ internal fun resolveClassReferenceArgument(
 
   return when (innerArgument) {
     is FirResolvedQualifier ->
-      innerArgument.classId?.let { classId ->
+      innerArgument.qualifierSymbol?.classId?.let { classId ->
         ResolvedClassReference(
           classId = classId,
           classSymbol =
-            (innerArgument.symbol as? FirRegularClassSymbol)
+            (innerArgument.qualifierSymbol as? FirRegularClassSymbol)
               ?: (session.symbolProvider.getClassLikeSymbolByClassId(classId)
                 as? FirRegularClassSymbol)
               ?: findClassLikeSymbolInContainingFile(classSymbol, classId, session)
@@ -307,9 +307,8 @@ internal fun buildClassExpression(
       packageFqName = classId.packageFqName
       relativeClassFqName = classId.relativeClassName
       coneTypeOrNull = classType
-      symbol = classSymbol
+      qualifierSymbol = classSymbol
       resolvedToCompanionObject = false
-      isFullyQualified = true
     }
     argumentList =
       buildResolvedArgumentList(
@@ -354,9 +353,8 @@ internal fun buildClassExpression(
       packageFqName = classId.packageFqName
       relativeClassFqName = classId.relativeClassName
       coneTypeOrNull = classType
-      symbol = classSymbol
+      qualifierSymbol = classSymbol
       resolvedToCompanionObject = false
-      isFullyQualified = classSymbol != null
     }
     argumentList =
       buildResolvedArgumentList(
