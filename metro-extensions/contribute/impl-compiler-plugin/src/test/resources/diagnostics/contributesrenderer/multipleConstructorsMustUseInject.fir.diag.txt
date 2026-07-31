@@ -1,1 +1,0 @@
-/multipleConstructorsMustUseInject.kt:(272,292): error: TestRenderer has multiple constructors. Annotate the constructor to use with @Inject, or remove the extra constructors so @ContributesRenderer can generate a provider.

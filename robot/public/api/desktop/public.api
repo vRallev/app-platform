@@ -18,9 +18,6 @@ public abstract class software/ralf/app/platform/robot/RobotGraph$BindsMirror {
 	public final fun robots_property4205200196 ()Ljava/util/Map;
 }
 
-public abstract interface class software/ralf/app/platform/robot/RobotGraph$MetroContributionToAppScope : software/ralf/app/platform/robot/RobotGraph {
-}
-
 public final class software/ralf/app/platform/robot/RobotKt {
 	public static final fun findRobotFactory (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/reflect/KClass;)Lkotlin/jvm/functions/Function0;
 	public static final fun getAllRobots (Lsoftware/ralf/app/platform/scope/Scope;)Ljava/util/Map;

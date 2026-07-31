@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
 import org.jetbrains.kotlin.test.directives.CodegenTestDirectives
 import org.jetbrains.kotlin.test.directives.ConfigurationDirectives
 import org.jetbrains.kotlin.test.directives.JvmEnvironmentConfigurationDirectives
-import org.jetbrains.kotlin.test.runners.codegen.AbstractFirBlackBoxCodegenTestBase
+import org.jetbrains.kotlin.test.runners.codegen.AbstractJvmBlackBoxCodegenTestBase
 import org.jetbrains.kotlin.test.services.EnvironmentBasedStandardLibrariesPathProvider
 import org.jetbrains.kotlin.test.services.KotlinStandardLibrariesPathProvider
 import software.ralf.app.platform.metro.compiler.services.configureKotlinTestImports
@@ -14,7 +14,7 @@ import software.ralf.app.platform.metro.compiler.services.configureMetroImports
 import software.ralf.app.platform.metro.compiler.services.configurePlugin
 import software.ralf.app.platform.metro.compiler.services.configureTestSupportClasspath
 
-open class AbstractBoxTest : AbstractFirBlackBoxCodegenTestBase(FirParser.LightTree) {
+open class AbstractBoxTest : AbstractJvmBlackBoxCodegenTestBase(FirParser.LightTree) {
   override fun createKotlinStandardLibrariesPathProvider(): KotlinStandardLibrariesPathProvider {
     return EnvironmentBasedStandardLibrariesPathProvider
   }

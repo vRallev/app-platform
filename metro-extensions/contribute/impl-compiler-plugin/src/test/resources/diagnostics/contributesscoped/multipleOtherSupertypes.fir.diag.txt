@@ -1,1 +1,0 @@
-/multipleOtherSupertypes.kt:(270,305): error: In order to use @ContributesScoped, TestClass is allowed to have only one other super type besides Scoped.
