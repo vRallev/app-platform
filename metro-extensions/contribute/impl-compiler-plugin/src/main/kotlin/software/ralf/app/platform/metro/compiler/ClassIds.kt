@@ -5,6 +5,8 @@ import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 
 internal object ClassIds {
+  val ANY = ClassId(FqName("kotlin"), Name.identifier("Any"))
+
   val APP_SCOPE = ClassId(FqName("dev.zacsweers.metro"), Name.identifier("AppScope"))
 
   val BASE_MODEL =

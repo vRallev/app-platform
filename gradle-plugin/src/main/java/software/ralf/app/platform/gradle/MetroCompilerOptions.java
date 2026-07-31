@@ -1,5 +1,6 @@
 package software.ralf.app.platform.gradle;
 
+import java.util.ArrayList;
 import java.util.List;
 import kotlin.Unit;
 import org.gradle.api.Project;
@@ -9,22 +10,26 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPluginLifecycleKt;
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption;
 import org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile;
 import org.jetbrains.kotlin.gradle.tasks.CompilerPluginOptions;
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile;
 
 final class MetroCompilerOptions {
+  private static final String APP_PLATFORM_COMPILER_PLUGIN_ID =
+      "software.ralf.app.platform.metro.compiler";
   private static final String METRO_COMPILER_PLUGIN_ID = "dev.zacsweers.metro.compiler";
+  private static final String GENERATE_CLASSES_IN_IR = "generate-classes-in-ir";
   private static final String GENERATE_CONTRIBUTION_HINTS_IN_FIR =
       "generate-contribution-hints-in-fir";
 
   private MetroCompilerOptions() {}
 
   /**
-   * Keeps Metro's package-discovery hints in FIR while all generated classes remain in IR.
+   * Mirrors Metro's class-generation mode and keeps KLIB package-discovery hints in FIR.
    *
-   * <p>Metro 1.4.0 couples these two settings in its Gradle plugin even though Kotlin cannot
-   * discover package-level callables generated in IR from a downstream KLIB compilation. This
-   * replaces only the hint option after Metro has configured each task, leaving
-   * {@code generate-classes-in-ir} enabled.
+   * <p>App Platform uses the mirrored mode to choose between its IR declaration generator and FIR
+   * fallback. Kotlin cannot discover package-level callables generated in IR from a downstream
+   * KLIB compilation, so non-JVM compilations retain FIR hints without changing Metro's class
+   * generation mode.
    */
   @SuppressWarnings({"rawtypes", "unchecked"})
   static void enable(Project project) {
@@ -45,15 +50,43 @@ final class MetroCompilerOptions {
   }
 
   private static void replaceMetroFirHints(AbstractKotlinCompile<?> task) {
-    List<CompilerPluginOptions> updatedOptions =
-        task.getPluginOptions().get().stream()
-            .map(MetroCompilerOptions::withMetroFirHints)
-            .toList();
+    List<CompilerPluginConfig> pluginOptions = task.getPluginOptions().get();
+    boolean generateClassesInIr =
+        pluginOptions.stream()
+            .flatMap(
+                options ->
+                    options
+                        .allOptions()
+                        .getOrDefault(METRO_COMPILER_PLUGIN_ID, List.of())
+                        .stream())
+            .filter(option -> GENERATE_CLASSES_IN_IR.equals(option.getKey()))
+            .findFirst()
+            .map(SubpluginOption::getValue)
+            .map(Boolean::parseBoolean)
+            .orElse(true);
+    List<CompilerPluginOptions> updatedOptions = new ArrayList<>();
+    pluginOptions.forEach(
+        options ->
+            updatedOptions.add(
+                withAppPlatformOptions(options, !(task instanceof KotlinJvmCompile))));
+    if (updatedOptions.isEmpty()) {
+      updatedOptions.add(new CompilerPluginOptions());
+    }
+    updatedOptions
+        .get(0)
+        .addPluginArgument(
+            APP_PLATFORM_COMPILER_PLUGIN_ID,
+            new SubpluginOption(GENERATE_CLASSES_IN_IR, Boolean.toString(generateClassesInIr)));
     task.getPluginOptions().set(updatedOptions);
   }
 
   private static void replaceMetroFirHints(KotlinNativeCompile task) {
-    CompilerPluginOptions updatedOptions = withMetroFirHints(task.getCompilerPluginOptions());
+    boolean generateClassesInIr = generateClassesInIr(task.getCompilerPluginOptions());
+    CompilerPluginOptions updatedOptions =
+        withAppPlatformOptions(task.getCompilerPluginOptions(), true);
+    updatedOptions.addPluginArgument(
+        APP_PLATFORM_COMPILER_PLUGIN_ID,
+        new SubpluginOption(GENERATE_CLASSES_IN_IR, Boolean.toString(generateClassesInIr)));
     task.getCompilerPluginOptions().allOptions().clear();
     updatedOptions
         .allOptions()
@@ -64,21 +97,38 @@ final class MetroCompilerOptions {
                         task.getCompilerPluginOptions().addPluginArgument(pluginId, option)));
   }
 
-  private static CompilerPluginOptions withMetroFirHints(CompilerPluginConfig pluginOptions) {
+  private static CompilerPluginOptions withAppPlatformOptions(
+      CompilerPluginConfig pluginOptions, boolean generateFirHints) {
     CompilerPluginOptions updatedOptions = new CompilerPluginOptions();
     pluginOptions
         .allOptions()
         .forEach(
             (pluginId, options) ->
                 options.forEach(
-                    option ->
-                        updatedOptions.addPluginArgument(
-                            pluginId, withMetroFirHints(pluginId, option))));
+                    option -> {
+                      if (APP_PLATFORM_COMPILER_PLUGIN_ID.equals(pluginId)
+                          && GENERATE_CLASSES_IN_IR.equals(option.getKey())) {
+                        return;
+                      }
+                      updatedOptions.addPluginArgument(
+                          pluginId, withMetroFirHints(pluginId, option, generateFirHints));
+                    }));
     return updatedOptions;
   }
 
-  private static SubpluginOption withMetroFirHints(String pluginId, SubpluginOption option) {
-    if (METRO_COMPILER_PLUGIN_ID.equals(pluginId)
+  private static boolean generateClassesInIr(CompilerPluginConfig pluginOptions) {
+    return pluginOptions.allOptions().getOrDefault(METRO_COMPILER_PLUGIN_ID, List.of()).stream()
+        .filter(option -> GENERATE_CLASSES_IN_IR.equals(option.getKey()))
+        .findFirst()
+        .map(SubpluginOption::getValue)
+        .map(Boolean::parseBoolean)
+        .orElse(true);
+  }
+
+  private static SubpluginOption withMetroFirHints(
+      String pluginId, SubpluginOption option, boolean generateFirHints) {
+    if (generateFirHints
+        && METRO_COMPILER_PLUGIN_ID.equals(pluginId)
         && GENERATE_CONTRIBUTION_HINTS_IN_FIR.equals(option.getKey())) {
       return new SubpluginOption(option.getKey(), "true");
     }

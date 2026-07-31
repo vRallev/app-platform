@@ -1,20 +1,13 @@
 package software.ralf.app.platform.metro.compiler
 
-import com.google.auto.service.AutoService
-import dev.zacsweers.metro.compiler.MetroOptions
-import dev.zacsweers.metro.compiler.api.ir.MetroIrContributionExtension
 import dev.zacsweers.metro.compiler.compat.CompatContext
 import dev.zacsweers.metro.compiler.compat.IrGeneratedDeclarationsRegistrarCompat
 import java.util.IdentityHashMap
-import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.lower.DeclarationIrBuilder
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
 import org.jetbrains.kotlin.descriptors.Modality
-import org.jetbrains.kotlin.fir.backend.FirMetadataSource
-import org.jetbrains.kotlin.fir.moduleData
-import org.jetbrains.kotlin.fir.symbols.impl.FirRegularClassSymbol
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.builders.declarations.addValueParameter
 import org.jetbrains.kotlin.ir.builders.declarations.buildClass
@@ -26,7 +19,6 @@ import org.jetbrains.kotlin.ir.builders.irReturn
 import org.jetbrains.kotlin.ir.declarations.IrAnnotationContainer
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrConstructor
-import org.jetbrains.kotlin.ir.declarations.IrDeclaration
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.declarations.IrParameterKind
@@ -38,6 +30,7 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrClassReferenceImpl
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
 import org.jetbrains.kotlin.ir.symbols.IrSymbol
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
+import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.classOrNull
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.types.impl.makeTypeProjection
@@ -53,125 +46,30 @@ import org.jetbrains.kotlin.ir.util.copyTo
 import org.jetbrains.kotlin.ir.util.createThisReceiverParameter
 import org.jetbrains.kotlin.ir.util.deepCopyWithSymbols
 import org.jetbrains.kotlin.ir.util.defaultType
-import org.jetbrains.kotlin.ir.util.file
 import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.util.primaryConstructor
-import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
-import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
 import org.jetbrains.kotlin.types.Variance
 import software.ralf.app.platform.metro.compiler.renderer.ContributesRendererIds
-import software.ralf.app.platform.metro.compiler.renderer.rendererContributionMetadata
 import software.ralf.app.platform.metro.compiler.robot.ContributesRobotIds
 import software.ralf.app.platform.metro.compiler.scoped.ContributesScopedIds
-import software.ralf.app.platform.metro.compiler.scoped.contributesScopedMetadata
-
-/** Generates App Platform's Metro binding containers when Metro generates declarations in IR. */
-@OptIn(UnsafeDuringIrConstructionAPI::class)
-internal class AppPlatformIrDeclarationGenerationExtension : IrGenerationExtension {
-  override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
-    AppPlatformIrContributionGenerator(pluginContext, CompatContext.create())
-      .generate(moduleFragment)
-  }
-}
-
-private val METRO_HINTS_PACKAGE = FqName("metro.hints")
-
-private fun ClassId.appPlatformHintCallableId(): CallableId {
-  return CallableId(
-    METRO_HINTS_PACKAGE,
-    Name.identifier(asFqNameString().replace('.', '_')),
-  )
-}
-
-/**
- * Supplies App Platform's generated binding containers to Metro while its IR graph is being merged.
- *
- * Metro uses this hook to discover App Platform containers while it merges a graph. The regular
- * [IrGenerationExtension] creates the declarations before Metro's IR extension scans the module,
- * including in library modules that only declare contributions.
- */
-@OptIn(UnsafeDuringIrConstructionAPI::class)
-internal class AppPlatformMetroIrContributionExtension(
-  private val generator: AppPlatformIrContributionGenerator,
-  private val pluginContext: IrPluginContext,
-  private val compatContext: CompatContext,
-) : MetroIrContributionExtension {
-  override fun contributeBindingContainers(
-    scope: ClassId,
-    callingDeclaration: IrDeclaration,
-  ): List<IrClass> {
-    val localContainers = generator.generate(callingDeclaration.file.module)[scope].orEmpty()
-    val finder =
-      with(compatContext) { pluginContext.finderForSourceCompat(callingDeclaration.file) }
-    val hintFunctions = finder.findFunctions(scope.appPlatformHintCallableId())
-    val sourceClasses = hintFunctions.mapNotNull { hint ->
-      hint.owner.regularParameters().singleOrNull()?.type?.classOrNull?.owner
-    }
-    val externalContainers = sourceClasses.flatMap { sourceClass ->
-      buildList {
-        if (sourceClass.hasAnnotation(ClassIds.CONTRIBUTES_RENDERER)) {
-          add(ContributesRendererIds.NESTED_INTERFACE_NAME)
-        }
-        if (sourceClass.hasAnnotation(ClassIds.CONTRIBUTES_ROBOT)) {
-          add(ContributesRobotIds.NESTED_INTERFACE_NAME)
-        }
-        if (sourceClass.hasAnnotation(ClassIds.CONTRIBUTES_SCOPED)) {
-          add(ContributesScopedIds.NESTED_INTERFACE_NAME)
-        }
-      }
-        .mapNotNull { nestedName ->
-          val sourceClassId = sourceClass.classId ?: return@mapNotNull null
-          finder.findClass(sourceClassId.createNestedClassId(nestedName))?.owner
-        }
-    }
-    return (localContainers + externalContainers).distinctBy(IrClass::classIdOrFail)
-  }
-
-  private fun IrSimpleFunction.regularParameters(): List<IrValueParameter> {
-    return parameters.filter { it.kind == IrParameterKind.Regular }
-  }
-
-  private fun IrClass.hasAnnotation(classId: ClassId): Boolean {
-    return with(compatContext) {
-      annotationsCompat().any { annotation ->
-        annotation.symbol.owner.parentAsClass.classId == classId
-      }
-    }
-  }
-
-  @AutoService(MetroIrContributionExtension.Factory::class)
-  public class Factory : MetroIrContributionExtension.Factory {
-    override fun create(
-      pluginContext: IrPluginContext,
-      compatContext: CompatContext,
-      options: MetroOptions,
-    ): MetroIrContributionExtension? {
-      if (!options.generateClassesInIr) return null
-      return AppPlatformMetroIrContributionExtension(
-        generator = AppPlatformIrContributionGenerator(pluginContext, compatContext),
-        pluginContext = pluginContext,
-        compatContext = compatContext,
-      )
-    }
-  }
-}
-
-private data class GeneratedContribution(val scope: ClassId, val container: IrClass)
 
 @Suppress("DEPRECATION")
 @OptIn(UnsafeDuringIrConstructionAPI::class)
 internal class AppPlatformIrContributionGenerator(
   private val pluginContext: IrPluginContext,
   private val compatContext: CompatContext,
+  private val generateDeclarationsInIr: Boolean,
 ) {
   private val generatedByModule = IdentityHashMap<IrModuleFragment, Map<ClassId, List<IrClass>>>()
 
   private val metadataRegistrar: IrGeneratedDeclarationsRegistrarCompat by lazy {
     compatContext.createIrGeneratedDeclarationsRegistrar(pluginContext)
   }
+
+  private val targetResolver = AppPlatformIrContributionTargetResolver(compatContext)
 
   @Synchronized
   fun generate(moduleFragment: IrModuleFragment): Map<ClassId, List<IrClass>> {
@@ -180,12 +78,14 @@ internal class AppPlatformIrContributionGenerator(
         .sourceClasses()
         .flatMap { sourceClass ->
           buildList {
-            sourceClass.generateRendererContribution()?.let(::add)
-            sourceClass.generateRobotContribution()?.let(::add)
-            sourceClass.generateScopedContribution()?.let(::add)
+            sourceClass.generateRendererContribution()?.let { add(it) }
+            sourceClass.generateRobotContribution()?.let { add(it) }
+            sourceClass.generateScopedContribution()?.let { add(it) }
           }
         }
-        .groupBy(keySelector = GeneratedContribution::scope) { it.container }
+        .groupBy(keySelector = { contribution -> contribution.scope }) { contribution ->
+          contribution.container
+        }
     }
   }
 
@@ -194,33 +94,33 @@ internal class AppPlatformIrContributionGenerator(
 
     fun collect(irClass: IrClass) {
       result += irClass
-      irClass.declarations.filterIsInstance<IrClass>().toList().forEach(::collect)
+      irClass.declarations.filterIsInstance<IrClass>().toList().forEach { nestedClass ->
+        collect(nestedClass)
+      }
     }
 
     files.toList().forEach { file ->
-      file.declarations.filterIsInstance<IrClass>().toList().forEach(::collect)
+      file.declarations.filterIsInstance<IrClass>().toList().forEach { sourceClass ->
+        collect(sourceClass)
+      }
     }
     return result
   }
 
   private fun IrClass.generateRendererContribution(): GeneratedContribution? {
-    if (!hasAnnotation(ClassIds.CONTRIBUTES_RENDERER)) return null
-    val firClass =
-      (metadata as? FirMetadataSource.Class)?.fir?.symbol as? FirRegularClassSymbol ?: return null
-    val contributionMetadata =
-      rendererContributionMetadata(firClass, firClass.moduleData.session) ?: return null
+    val target = targetResolver.resolveRenderer(this) ?: return null
     val classId = classId ?: return null
     val container =
       getOrCreateContainer(
         name = ContributesRendererIds.NESTED_INTERFACE_NAME,
         key = Keys.ContributesRendererGeneratorKey,
         scope = ClassIds.RENDERER_SCOPE,
-      )
+      ) ?: return null
 
-    if (!contributionMetadata.hasInjectAnnotation) {
+    if (!target.hasInjectAnnotation) {
       container
         .getOrCreateCompanion(Keys.ContributesRendererGeneratorKey)
-        .addConstructorProvider(
+        ?.addConstructorProvider(
           sourceClass = this,
           name =
             Name.identifier(
@@ -231,11 +131,11 @@ internal class AppPlatformIrContributionGenerator(
     }
 
     val rendererType = requireClass(ClassIds.RENDERER).starProjectedType
-    contributionMetadata.modelClasses.forEach { modelClass ->
-      val modelSymbol = requireClass(modelClass.classId)
+    target.modelClasses.forEach { modelClass ->
+      val modelClassId = modelClass.owner.classId ?: return@forEach
       val namePrefix =
         "provide${ContributesRendererIds.generatedSafeClassNamePrefix(classId)}" +
-          ContributesRendererIds.generatedModelClassNameSuffix(modelClass.classId)
+          ContributesRendererIds.generatedModelClassNameSuffix(modelClassId)
       container.addBindsFunction(
         name = Name.identifier(namePrefix),
         parameterName = Name.identifier("renderer"),
@@ -246,14 +146,14 @@ internal class AppPlatformIrContributionGenerator(
           listOf(
             annotation(ClassIds.BINDS, container.symbol),
             annotation(ClassIds.INTO_MAP, container.symbol),
-            annotation(ClassIds.RENDERER_KEY, container.symbol, modelSymbol),
+            annotation(ClassIds.RENDERER_KEY, container.symbol, modelClass),
           ),
       )
       container
         .getOrCreateCompanion(Keys.ContributesRendererGeneratorKey)
-        .addRendererKeyFunction(
+        ?.addRendererKeyFunction(
           sourceClass = this,
-          modelClass = modelSymbol,
+          modelClass = modelClass,
           name = Name.identifier("${namePrefix}Key"),
         )
     }
@@ -262,20 +162,19 @@ internal class AppPlatformIrContributionGenerator(
   }
 
   private fun IrClass.generateRobotContribution(): GeneratedContribution? {
-    val contributesRobot = findAnnotation(ClassIds.CONTRIBUTES_ROBOT) ?: return null
-    val scope = contributesRobot.classIdArgument() ?: return null
+    val target = targetResolver.resolveRobot(this) ?: return null
     val classId = classId ?: return null
     val container =
       getOrCreateContainer(
         name = ContributesRobotIds.NESTED_INTERFACE_NAME,
         key = Keys.ContributesRobotGeneratorKey,
-        scope = scope,
-      )
+        scope = target.scope,
+      ) ?: return null
 
-    if (!hasInjectAnnotation()) {
+    if (!target.hasInjectAnnotation) {
       container
         .getOrCreateCompanion(Keys.ContributesRobotGeneratorKey)
-        .addConstructorProvider(
+        ?.addConstructorProvider(
           sourceClass = this,
           name = Name.identifier("provide${ContributesRobotIds.generatedClassNamePrefix(classId)}"),
           key = Keys.ContributesRobotGeneratorKey,
@@ -283,8 +182,7 @@ internal class AppPlatformIrContributionGenerator(
     }
 
     container.addBindsFunction(
-      name =
-        Name.identifier("provide${ContributesRobotIds.generatedClassNamePrefix(classId)}IntoMap"),
+      name = Name.identifier("provide${ContributesRobotIds.generatedClassNamePrefix(classId)}IntoMap"),
       parameterName = Name.identifier("robot"),
       parameterType = defaultType,
       returnType = requireClass(ClassIds.ROBOT).defaultType,
@@ -297,45 +195,37 @@ internal class AppPlatformIrContributionGenerator(
         ),
     )
 
-    return GeneratedContribution(scope, container)
+    return GeneratedContribution(target.scope, container)
   }
 
   private fun IrClass.generateScopedContribution(): GeneratedContribution? {
-    val contributesScoped = findAnnotation(ClassIds.CONTRIBUTES_SCOPED) ?: return null
-    val scope = contributesScoped.classIdArgument() ?: return null
-    val firClass =
-      (metadata as? FirMetadataSource.Class)?.fir?.symbol as? FirRegularClassSymbol ?: return null
-    val contributionMetadata =
-      contributesScopedMetadata(firClass, firClass.moduleData.session) ?: return null
+    val target = targetResolver.resolveScoped(this) ?: return null
     val classId = classId ?: return null
     val container =
       getOrCreateContainer(
         name = ContributesScopedIds.NESTED_INTERFACE_NAME,
         key = Keys.ContributesScopedGeneratorKey,
-        scope = scope,
-      )
+        scope = target.scope,
+      ) ?: return null
 
-    if (!hasInjectAnnotation()) {
+    if (!target.hasInjectAnnotation) {
       container
         .getOrCreateCompanion(Keys.ContributesScopedGeneratorKey)
-        .addConstructorProvider(
+        ?.addConstructorProvider(
           sourceClass = this,
           name = Name.identifier("provide${ContributesScopedIds.generatedOwnerName(classId)}"),
           key = Keys.ContributesScopedGeneratorKey,
-          additionalAnnotations = scopeAnnotations(),
+          additionalAnnotations = target.scopeAnnotations.map { it.deepCopyWithSymbols() },
         )
     }
 
-    contributionMetadata.otherSuperType?.let { otherSuperType ->
-      val irType =
-        superTypes.firstOrNull { it.classOrNull?.owner?.classId == otherSuperType.classId }
-          ?: requireClass(otherSuperType.classId).defaultType
+    target.otherSuperType?.let { otherSuperType ->
+      val otherSuperTypeClassId = otherSuperType.classOrNull?.owner?.classId ?: return@let
       container.addBindsFunction(
-        name =
-          Name.identifier("bind${ContributesScopedIds.generatedTypeName(otherSuperType.classId)}"),
+        name = Name.identifier("bind${ContributesScopedIds.generatedTypeName(otherSuperTypeClassId)}"),
         parameterName = Name.identifier("instance"),
         parameterType = defaultType,
-        returnType = irType,
+        returnType = otherSuperType,
         key = Keys.ContributesScopedGeneratorKey,
         annotations = listOf(annotation(ClassIds.BINDS, container.symbol)),
       )
@@ -351,24 +241,22 @@ internal class AppPlatformIrContributionGenerator(
         listOf(
           annotation(ClassIds.BINDS, container.symbol),
           annotation(ClassIds.INTO_SET, container.symbol),
-          annotation(ClassIds.FOR_SCOPE, container.symbol, requireClass(scope)),
+          annotation(ClassIds.FOR_SCOPE, container.symbol, requireClass(target.scope)),
         ),
     )
 
-    return GeneratedContribution(scope, container)
+    return GeneratedContribution(target.scope, container)
   }
 
   private fun IrClass.getOrCreateContainer(
     name: Name,
     key: org.jetbrains.kotlin.GeneratedDeclarationKey,
     scope: ClassId,
-  ): IrClass {
-    declarations
-      .filterIsInstance<IrClass>()
-      .firstOrNull { it.name == name }
-      ?.let {
-        return it
-      }
+  ): IrClass? {
+    declarations.filterIsInstance<IrClass>().firstOrNull { it.name == name }?.let {
+      return it
+    }
+    if (!generateDeclarationsInIr) return null
 
     val sourceClass = this
     val container =
@@ -398,21 +286,28 @@ internal class AppPlatformIrContributionGenerator(
     key: org.jetbrains.kotlin.GeneratedDeclarationKey,
     additionalAnnotations: List<IrConstructorCall> = emptyList(),
   ) {
-    if (declarations.filterIsInstance<IrSimpleFunction>().any { it.name == name }) return
     val constructor = sourceClass.providerConstructor() ?: return
-    val function =
-      addFunction(
-        name = name,
-        returnType = sourceClass.defaultType,
-        modality = Modality.OPEN,
-        key = key,
-        annotations = listOf(annotation(ClassIds.PROVIDES, symbol)) + additionalAnnotations,
-      )
-    constructor.regularParameters().forEach { constructorParameter ->
-      function
-        .addValueParameter(constructorParameter.name.asString(), constructorParameter.type)
-        .copyAnnotationsFrom(constructorParameter)
+    val existingFunction = declarations.filterIsInstance<IrSimpleFunction>().firstOrNull {
+      it.name == name
     }
+    val function =
+      existingFunction
+        ?: addFunction(
+          name = name,
+          returnType = sourceClass.defaultType,
+          modality = Modality.OPEN,
+          key = key,
+          annotations = listOf(annotation(ClassIds.PROVIDES, symbol)) + additionalAnnotations,
+        )?.also { generatedFunction ->
+          constructor.regularParameters().forEach { constructorParameter ->
+            generatedFunction
+              .addValueParameter(constructorParameter.name.asString(), constructorParameter.type)
+              .copyAnnotationsFrom(constructorParameter)
+          }
+          metadataRegistrar.registerFunctionAsMetadataVisible(generatedFunction)
+        } ?: return
+    if (function.body != null) return
+
     val functionParameters = function.regularParameters()
     function.body =
       DeclarationIrBuilder(pluginContext, function.symbol, UNDEFINED_OFFSET, UNDEFINED_OFFSET)
@@ -423,18 +318,15 @@ internal class AppPlatformIrContributionGenerator(
           }
           +irReturn(call)
         }
-    metadataRegistrar.registerFunctionAsMetadataVisible(function)
   }
 
   private fun IrClass.getOrCreateCompanion(
     key: org.jetbrains.kotlin.GeneratedDeclarationKey
-  ): IrClass {
-    declarations
-      .filterIsInstance<IrClass>()
-      .firstOrNull { it.isCompanion }
-      ?.let {
-        return it
-      }
+  ): IrClass? {
+    declarations.filterIsInstance<IrClass>().firstOrNull { it.isCompanion }?.let {
+      return it
+    }
+    if (!generateDeclarationsInIr) return null
 
     val container = this
     val companion =
@@ -470,8 +362,8 @@ internal class AppPlatformIrContributionGenerator(
   private fun IrClass.addBindsFunction(
     name: Name,
     parameterName: Name,
-    parameterType: org.jetbrains.kotlin.ir.types.IrType,
-    returnType: org.jetbrains.kotlin.ir.types.IrType,
+    parameterType: IrType,
+    returnType: IrType,
     key: org.jetbrains.kotlin.GeneratedDeclarationKey,
     annotations: List<IrConstructorCall>,
   ) {
@@ -483,7 +375,7 @@ internal class AppPlatformIrContributionGenerator(
         modality = Modality.ABSTRACT,
         key = key,
         annotations = annotations,
-      )
+      ) ?: return
     function.addValueParameter(parameterName.asString(), parameterType)
     metadataRegistrar.registerFunctionAsMetadataVisible(function)
   }
@@ -493,40 +385,45 @@ internal class AppPlatformIrContributionGenerator(
     modelClass: IrClassSymbol,
     name: Name,
   ) {
-    if (declarations.filterIsInstance<IrSimpleFunction>().any { it.name == name }) return
+    val existingFunction = declarations.filterIsInstance<IrSimpleFunction>().firstOrNull {
+      it.name == name
+    }
     val rendererType = requireClass(ClassIds.RENDERER).starProjectedType
     val function =
-      addFunction(
-        name = name,
-        returnType =
-          pluginContext.irBuiltIns.kClassClass.typeWithArguments(
-            listOf(makeTypeProjection(rendererType, Variance.OUT_VARIANCE))
-          ),
-        modality = Modality.OPEN,
-        key = Keys.ContributesRendererGeneratorKey,
-        annotations =
-          listOf(
-            annotation(ClassIds.PROVIDES, symbol),
-            annotation(ClassIds.INTO_MAP, symbol),
-            annotation(ClassIds.RENDERER_KEY, symbol, modelClass),
-            annotation(ClassIds.FOR_SCOPE, symbol, requireClass(ClassIds.RENDERER_SCOPE)),
-          ),
-      )
+      existingFunction
+        ?: addFunction(
+          name = name,
+          returnType =
+            pluginContext.irBuiltIns.kClassClass.typeWithArguments(
+              listOf(makeTypeProjection(rendererType, Variance.OUT_VARIANCE))
+            ),
+          modality = Modality.OPEN,
+          key = Keys.ContributesRendererGeneratorKey,
+          annotations =
+            listOf(
+              annotation(ClassIds.PROVIDES, symbol),
+              annotation(ClassIds.INTO_MAP, symbol),
+              annotation(ClassIds.RENDERER_KEY, symbol, modelClass),
+              annotation(ClassIds.FOR_SCOPE, symbol, requireClass(ClassIds.RENDERER_SCOPE)),
+            ),
+        )?.also { generatedFunction ->
+          metadataRegistrar.registerFunctionAsMetadataVisible(generatedFunction)
+        } ?: return
+    if (function.body != null) return
+
     function.body =
       DeclarationIrBuilder(pluginContext, function.symbol, UNDEFINED_OFFSET, UNDEFINED_OFFSET)
-        .irBlockBody {
-          +irReturn(classReference(sourceClass.symbol))
-        }
-    metadataRegistrar.registerFunctionAsMetadataVisible(function)
+        .irBlockBody { +irReturn(classReference(sourceClass.symbol)) }
   }
 
   private fun IrClass.addFunction(
     name: Name,
-    returnType: org.jetbrains.kotlin.ir.types.IrType,
+    returnType: IrType,
     modality: Modality,
     key: org.jetbrains.kotlin.GeneratedDeclarationKey,
     annotations: List<IrConstructorCall>,
-  ): IrSimpleFunction {
+  ): IrSimpleFunction? {
+    if (!generateDeclarationsInIr) return null
     val container = this
     return pluginContext.irFactory
       .buildFun {
@@ -550,18 +447,6 @@ internal class AppPlatformIrContributionGenerator(
     return primaryConstructor ?: constructors.firstOrNull()
   }
 
-  private fun IrClass.hasInjectAnnotation(): Boolean {
-    return hasAnnotation(ClassIds.INJECT) || constructors.any { it.hasAnnotation(ClassIds.INJECT) }
-  }
-
-  private fun IrClass.scopeAnnotations(): List<IrConstructorCall> {
-    return annotations()
-      .filter { annotation ->
-        annotation.symbol.owner.parentAsClass.hasAnnotation(ClassIds.SCOPE)
-      }
-      .map { it.deepCopyWithSymbols() }
-  }
-
   private fun IrValueParameter.copyAnnotationsFrom(source: IrValueParameter) {
     source.annotations().forEach { annotation ->
       with(compatContext) {
@@ -570,24 +455,12 @@ internal class AppPlatformIrContributionGenerator(
     }
   }
 
-  private fun IrAnnotationContainer.hasAnnotation(classId: ClassId): Boolean {
-    return findAnnotation(classId) != null
-  }
-
-  private fun IrAnnotationContainer.findAnnotation(classId: ClassId): IrConstructorCall? {
-    return annotations().firstOrNull { it.symbol.owner.parentAsClass.classId == classId }
-  }
-
   private fun IrAnnotationContainer.annotations(): List<IrConstructorCall> {
     return with(compatContext) { annotationsCompat() }
   }
 
   private fun IrAnnotationContainer.addAnnotation(annotation: IrConstructorCall) {
     with(compatContext) { addAnnotationCompat(annotation) }
-  }
-
-  private fun IrConstructorCall.classIdArgument(): ClassId? {
-    return (arguments.firstOrNull() as? IrClassReference)?.classType?.classOrNull?.owner?.classId
   }
 
   private fun IrConstructor.regularParameters(): List<IrValueParameter> {
@@ -629,4 +502,6 @@ internal class AppPlatformIrContributionGenerator(
       classSymbol.defaultType,
     )
   }
+
+  private data class GeneratedContribution(val scope: ClassId, val container: IrClass)
 }
