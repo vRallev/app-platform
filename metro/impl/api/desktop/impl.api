@@ -14,6 +14,7 @@ public final class software/ralf/app/platform/presenter/metro/PresenterCoroutine
 }
 
 public final class software/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory$Companion {
+	public fun <init> ()V
 	public final fun create (Ldev/zacsweers/metro/Provider;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/metro/PresenterCoroutineScopeGraph$ProvidePresenterCoroutineScopeMetroFactory;
 	public final fun providePresenterCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineScope;
 }
@@ -35,6 +36,7 @@ public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoro
 }
 
 public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory$Companion {
+	public fun <init> ()V
 	public final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppCoroutineScopeMetroFactory;
 	public final fun provideAppCoroutineScope (Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)Lkotlinx/coroutines/CoroutineScope;
 }
@@ -50,6 +52,7 @@ public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoro
 }
 
 public final class software/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory$Companion {
+	public fun <init> ()V
 	public final fun create (Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/scope/coroutine/metro/AppScopeCoroutineScopeGraph$ProvideAppScopeCoroutineScopeScopedMetroFactory;
 	public final fun provideAppScopeCoroutineScopeScoped (Lkotlinx/coroutines/CoroutineDispatcher;)Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;
 }

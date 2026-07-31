@@ -41,7 +41,7 @@ private class ExtensionRegistrarConfigurator(testServices: TestServices) :
       "true",
       configuration,
     )
-    with(metroRegistrar) { registerExtensions(configuration) }
     with(extensionsRegistrar) { registerExtensions(configuration) }
+    with(metroRegistrar) { registerExtensions(configuration) }
   }
 }

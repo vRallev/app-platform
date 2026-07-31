@@ -71,7 +71,6 @@ class AppPlatformPluginDependencyTest {
     val project = createProject(name = "impl")
     project.plugins.apply(PluginIds.KOTLIN_MULTIPLATFORM)
     project.plugins.apply(AppPlatformPlugin::class.java)
-
     project.appPlatform.enableMetro(true)
     project.appPlatform.addImplModuleDependencies(true)
 

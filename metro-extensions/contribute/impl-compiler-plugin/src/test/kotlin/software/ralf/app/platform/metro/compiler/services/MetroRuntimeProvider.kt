@@ -1,5 +1,6 @@
 package software.ralf.app.platform.metro.compiler.services
 
+import dev.zacsweers.metro.compiler.MetroCommandLineProcessor
 import java.io.File
 import org.jetbrains.kotlin.cli.jvm.config.addJvmClasspathRoots
 import org.jetbrains.kotlin.config.CompilerConfiguration
@@ -27,6 +28,11 @@ private class MetroRuntimeEnvironmentConfigurator(testServices: TestServices) :
     module: TestModule,
   ) {
     configuration.addJvmClasspathRoots(metroRuntimeClasspath)
+    val processor = MetroCommandLineProcessor()
+    listOf("generate-classes-in-ir", "generate-contribution-hints-in-fir").forEach { optionName ->
+      val option = processor.pluginOptions.single { it.optionName == optionName }
+      processor.processOption(option, "true", configuration)
+    }
   }
 }
 
