@@ -4,8 +4,8 @@
   height: 600px;
   max-width: 100%;
   min-width: min(300px, 100%);
-  overflow: auto;
-  resize: horizontal;
+  overflow: hidden;
+  position: relative;
   width: min(300px, 100%);
 }
 
@@ -14,6 +14,43 @@
   display: block;
   height: 100%;
   width: 100%;
+}
+
+.blueprint-demo--resizing iframe {
+  pointer-events: none;
+}
+
+.blueprint-demo__resize-handle {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  cursor: ew-resize;
+  height: 20px;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  touch-action: none;
+  width: 20px;
+}
+
+.blueprint-demo__resize-handle::after {
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 3px,
+    var(--md-default-fg-color--light) 3px 4px
+  );
+  bottom: 3px;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  content: "";
+  height: 12px;
+  position: absolute;
+  right: 3px;
+  width: 12px;
+}
+
+.blueprint-demo__resize-handle:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: -2px;
 }
 
 .blueprint-demo__hint {

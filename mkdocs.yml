@@ -51,6 +51,9 @@ extra_css:
   - stylesheets/blueprints.css
   - stylesheets/diagrams.css
 
+extra_javascript:
+  - javascripts/blueprints.js
+
 markdown_extensions:
   - smarty
   - codehilite:

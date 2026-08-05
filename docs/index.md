@@ -39,7 +39,7 @@ writing Kotlin Multiplatform effectively.
     <iframe src="web/recipes/app/build/dist/wasmJs/productionExecutable/index.html" width="300px" height="600px" frameborder="1"></iframe>
 
 === "Web List-Detail Blueprint"
-    <div class="blueprint-demo"><iframe src="web/blueprints/list-detail/app/web/build/dist/wasmJs/productionExecutable/index.html" title="Interactive list-detail blueprint"></iframe></div>
+    <div class="blueprint-demo"><iframe src="web/blueprints/list-detail/app/web/build/dist/wasmJs/productionExecutable/index.html" title="Interactive list-detail blueprint"></iframe><button class="blueprint-demo__resize-handle" type="button" aria-label="Resize app preview"></button></div>
     <p class="blueprint-demo__hint">Drag the bottom-right corner horizontally to switch between phone and tablet layouts.</p>
 
 ## Overview
