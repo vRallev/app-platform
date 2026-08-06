@@ -46,6 +46,12 @@ class Compilation internal constructor(val kotlinCompilation: KotlinCompilation)
         optionName = "unused-graph-inputs-severity",
         optionValue = "NONE",
       )
+    kotlinCompilation.pluginOptions +=
+      PluginOption(
+        pluginId = metroCommandLineProcessor.pluginId,
+        optionName = "generate-contribution-hints-in-fir",
+        optionValue = "true",
+      )
 
     // KSP1 isn't supported with Metro, likely because we run KSP within the kotlinc. That's fine,
     // we shouldn't bother about KSP1 anymore.

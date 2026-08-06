@@ -34,3 +34,7 @@ FILE: defaultScoped.kt
         }
 
     }
+FILE: metro/hints/comTestTestClassScopedContributionDev_zacsweers_metro_AppScope.kt
+    package metro.hints
+
+    @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) public final fun dev_zacsweers_metro_AppScope(contributed: R|com/test/TestClass.ScopedContribution|): R|kotlin/Unit|

@@ -1,5 +1,6 @@
 package software.ralf.app.platform.metro.compiler.services
 
+import dev.zacsweers.metro.compiler.MetroCommandLineProcessor
 import dev.zacsweers.metro.compiler.MetroCompilerPluginRegistrar
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
@@ -32,6 +33,14 @@ private class ExtensionRegistrarConfigurator(testServices: TestServices) :
     module: TestModule,
     configuration: CompilerConfiguration,
   ) {
+    val metroCommandLineProcessor = MetroCommandLineProcessor()
+    metroCommandLineProcessor.processOption(
+      metroCommandLineProcessor.pluginOptions.single {
+        it.optionName == "generate-contribution-hints-in-fir"
+      },
+      "true",
+      configuration,
+    )
     with(metroRegistrar) { registerExtensions(configuration) }
     with(extensionsRegistrar) { registerExtensions(configuration) }
   }

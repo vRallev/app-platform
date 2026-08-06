@@ -81,3 +81,7 @@ FILE: constructorParametersWithoutInject.kt
         }
 
     }
+FILE: metro/hints/comTestTestRendererRendererContributionSoftware_ralf_app_platform_renderer_RendererScope.kt
+    package metro.hints
+
+    @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) public final fun software_ralf_app_platform_renderer_RendererScope(contributed: R|com/test/TestRenderer.RendererContribution|): R|kotlin/Unit|

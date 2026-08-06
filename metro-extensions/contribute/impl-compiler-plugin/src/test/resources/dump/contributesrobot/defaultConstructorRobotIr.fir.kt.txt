@@ -97,6 +97,7 @@ class TestRobot : Robot {
 // FILE: comTestTestRobotRobotContributionDev_zacsweers_metro_AppScope.kt
 package metro.hints
 
+@Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
 fun dev_zacsweers_metro_AppScope(contributed: RobotContribution) {
   return error(message = "Never called")
 }
