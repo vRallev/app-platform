@@ -86,10 +86,6 @@ tasks.withType(ValidatePlugins).configureEach {
     it.enableStricterValidation = true
 }
 
-tasks.named('javadoc', Javadoc).configure {
-    exclude '**/MetroCompilerOptions.java'
-}
-
 tasks.withType(dev.detekt.gradle.Detekt).configureEach {
     it.jvmTarget.set(libs.versions.jvm.gradle.plugin.get())
     it.setSource(layout.files("src"))

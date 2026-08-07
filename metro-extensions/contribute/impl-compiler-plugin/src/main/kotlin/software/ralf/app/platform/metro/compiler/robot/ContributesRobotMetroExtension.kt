@@ -83,8 +83,7 @@ public class ContributesRobotMetroExtension(private val session: FirSession) :
       session: FirSession,
       options: MetroOptions,
       compatContext: CompatContext,
-    ): MetroContributionExtension? {
-      if (options.generateClassesInIr) return null
+    ): MetroContributionExtension {
       return ContributesRobotMetroExtension(session)
     }
   }

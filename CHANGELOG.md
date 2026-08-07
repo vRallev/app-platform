@@ -13,7 +13,7 @@
 - Clarify that `BaseModel` implementations can use observable mutable state that satisfies the Compose stability contract.
 - Upgrade KSP to `2.3.11`.
 - Upgrade Compose Multiplatform to `1.12.0`.
-- Upgrade Kotlin to `2.4.20-Beta2` and migrate App Platform's Metro binding-container generation to IR. Native, Wasm, and other KLIB targets retain FIR contribution hints solely for cross-module package discovery.
+- Upgrade Kotlin to `2.4.20-Beta2`.
 - Upgrade the blueprint projects to App Platform `0.1.1`.
 - Upgrade Metro to `1.4.1`.
 
