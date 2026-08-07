@@ -147,7 +147,7 @@ private class ContributesRendererIrTransformer(private val pluginContext: IrPlug
       }
     val originAnnotation =
       contributionClass.annotations.firstOrNull { annotation ->
-        annotation.symbol.owner.parentAsClass.name == ClassIds.ORIGIN.shortClassName
+        annotation.classSymbol.owner.name == ClassIds.ORIGIN.shortClassName
       } ?: return null
     val classReference = originAnnotation.arguments[0] as? IrClassReference ?: return null
     return classReference.classType.classOrNull?.owner
