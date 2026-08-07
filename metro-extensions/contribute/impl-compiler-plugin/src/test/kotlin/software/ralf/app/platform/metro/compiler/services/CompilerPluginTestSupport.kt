@@ -16,12 +16,6 @@ fun TestConfigurationBuilder.configurePlugin() {
   configureMetroRuntime()
 }
 
-fun TestConfigurationBuilder.configurePureIrPlugin() {
-  useConfigurators(::ExtensionRegistrarConfigurator)
-  configureAnnotations()
-  configurePureIrMetroRuntime()
-}
-
 fun TestConfigurationBuilder.configureMetroImports() {
   useSourcePreprocessor(::MetroImportsPreprocessor)
 }
@@ -40,14 +34,11 @@ private class ExtensionRegistrarConfigurator(testServices: TestServices) :
     configuration: CompilerConfiguration,
   ) {
     val metroCommandLineProcessor = MetroCommandLineProcessor()
-    metroCommandLineProcessor.processOption(
-      metroCommandLineProcessor.pluginOptions.single {
-        it.optionName == "generate-contribution-hints-in-fir"
-      },
-      "true",
-      configuration,
-    )
-    with(extensionsRegistrar) { registerExtensions(configuration) }
+    listOf("generate-classes-in-ir", "generate-contribution-hints-in-fir").forEach { optionName ->
+      val option = metroCommandLineProcessor.pluginOptions.single { it.optionName == optionName }
+      metroCommandLineProcessor.processOption(option, "true", configuration)
+    }
     with(metroRegistrar) { registerExtensions(configuration) }
+    with(extensionsRegistrar) { registerExtensions(configuration) }
   }
 }

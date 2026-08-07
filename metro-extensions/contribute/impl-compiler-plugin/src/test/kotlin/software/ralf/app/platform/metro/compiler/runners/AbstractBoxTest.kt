@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.test.services.EnvironmentBasedStandardLibrariesPathP
 import org.jetbrains.kotlin.test.services.KotlinStandardLibrariesPathProvider
 import software.ralf.app.platform.metro.compiler.services.configureKotlinTestImports
 import software.ralf.app.platform.metro.compiler.services.configureMetroImports
-import software.ralf.app.platform.metro.compiler.services.configurePureIrPlugin
+import software.ralf.app.platform.metro.compiler.services.configurePlugin
 import software.ralf.app.platform.metro.compiler.services.configureTestSupportClasspath
 
 open class AbstractBoxTest : AbstractJvmBlackBoxCodegenTestBase(FirParser.LightTree) {
@@ -30,7 +30,7 @@ open class AbstractBoxTest : AbstractJvmBlackBoxCodegenTestBase(FirParser.LightT
         +CodegenTestDirectives.IGNORE_DEXING
       }
 
-      configurePureIrPlugin()
+      configurePlugin()
       configureTestSupportClasspath()
       configureMetroImports()
       configureKotlinTestImports()

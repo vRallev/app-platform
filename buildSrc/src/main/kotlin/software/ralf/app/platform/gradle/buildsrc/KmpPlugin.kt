@@ -16,7 +16,6 @@ import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.NATIVE_COMPILER_PLUGIN_CLASSPATH_CONFIGURATION_NAME
 import org.jetbrains.kotlin.gradle.plugin.PLUGIN_CLASSPATH_CONFIGURATION_NAME
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import software.ralf.app.platform.gradle.buildsrc.AppPlatformExtension.Companion.appPlatformBuildSrc
 import software.ralf.app.platform.gradle.buildsrc.Platform.Companion.allPlatforms
 
@@ -265,6 +264,8 @@ public open class KmpPlugin : Plugin<Project> {
     }
 
     fun Project.enableMetro() {
+      plugins.apply(Plugins.METRO)
+
       val useMetroKsp =
         providers
           .gradleProperty("app.platform.metro.ksp")
@@ -273,13 +274,9 @@ public open class KmpPlugin : Plugin<Project> {
           .get()
 
       if (useMetroKsp) {
-        plugins.apply(Plugins.METRO)
         enableMetroKsp()
       } else {
-        // Add App Platform's declaration generator before Metro's IR graph transformer.
         enableMetroCompilerPlugin()
-        plugins.apply(Plugins.METRO)
-        MetroCompilerOptions.enable(this)
       }
     }
 
@@ -312,12 +309,6 @@ public open class KmpPlugin : Plugin<Project> {
     }
 
     private fun Project.enableMetroCompilerPlugin() {
-      tasks.withType(KotlinCompilationTask::class.java).configureEach { task ->
-        task.compilerOptions.freeCompilerArgs.add(
-          "-Xcompiler-plugin-order=software.ralf.app.platform.metro.compiler>dev.zacsweers.metro.compiler"
-        )
-      }
-
       if (isKmpModule) {
         kmpExtension.sourceSets.getByName("commonMain").dependencies {
           implementation(project(":di-common:public"))

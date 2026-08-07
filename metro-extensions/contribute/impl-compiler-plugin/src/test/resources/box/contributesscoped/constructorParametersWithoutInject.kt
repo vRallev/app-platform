@@ -1,5 +1,6 @@
 package com.test
 
+import dev.zacsweers.metro.BindingContainer
 import software.ralf.app.platform.inject.metro.ContributesScoped
 import software.ralf.app.platform.scope.Scoped
 
@@ -27,6 +28,24 @@ interface GraphInterface {
 }
 
 fun box(): String {
+  if (
+    TestClass.ScopedContribution::class.java.getAnnotation(BindingContainer::class.java) == null
+  ) {
+    return "FAIL: expected ScopedContribution to be a BindingContainer"
+  }
+  if (
+    TestClass.ScopedContribution::class.java.declaredMethods.any { it.name == "provideTestClass" }
+  ) {
+    return "FAIL: expected provider to be moved off the ScopedContribution interface"
+  }
+  if (
+    TestClass.ScopedContribution.Companion::class.java.declaredMethods.none {
+      it.name == "provideTestClass"
+    }
+  ) {
+    return "FAIL: expected provider on ScopedContribution companion"
+  }
+
   val graph = createGraph<GraphInterface>()
   val scoped = graph.allScoped.single()
   if (graph.superTypeInstance !is TestClass) {

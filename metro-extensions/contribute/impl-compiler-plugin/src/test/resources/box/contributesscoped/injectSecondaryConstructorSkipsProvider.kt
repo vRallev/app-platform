@@ -29,6 +29,14 @@ interface GraphInterface {
 }
 
 fun box(): String {
+  val provider =
+    TestClass.ScopedContribution::class.java.declaredMethods.singleOrNull {
+      it.name == "provideTestClass"
+    }
+  if (provider != null) {
+    return "FAIL: expected generated provider to be skipped"
+  }
+
   val graph = createGraph<GraphInterface>()
   val scoped = graph.allScoped.single()
   if (graph.superTypeInstance !is TestClass) {

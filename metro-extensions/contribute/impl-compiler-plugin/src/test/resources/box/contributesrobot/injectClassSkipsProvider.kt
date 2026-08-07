@@ -19,6 +19,14 @@ class TestRobot(
 interface MyGraph : RobotGraph
 
 fun box(): String {
+  val provider =
+    TestRobot.RobotContribution::class.java.declaredMethods.singleOrNull {
+      it.name == "provideTestRobot"
+    }
+  if (provider != null) {
+    return "FAIL: expected generated provider to be skipped"
+  }
+
   val graph = createGraph<MyGraph>()
   val robotFactory = graph.robots.getValue(TestRobot::class)
   val robot = robotFactory()
