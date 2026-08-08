@@ -18,6 +18,7 @@ import org.gradle.api.provider.Property
 import org.gradle.language.base.plugins.LifecycleBasePlugin
 import org.gradle.testfixtures.ProjectBuilder
 import software.ralf.app.platform.gradle.AppPlatformExtension.Companion.appPlatform
+import software.ralf.app.platform.gradle.ModuleStructureDependencyCheckTask.Companion.registerModuleStructureDependencyCheckTask
 
 class ModuleStructurePluginTest {
 
@@ -226,17 +227,49 @@ class ModuleStructurePluginTest {
     assertThat(task.onlyIf.isSatisfiedBy(task)).isFalse()
   }
 
+  @Test
+  fun `Android KMP main compilation dependencies are checked`() {
+    val project = createModule(name = "impl")
+    project.plugins.apply(PluginIds.KOTLIN_MULTIPLATFORM)
+    project.kmpExtension.jvm("android")
+    project.plugins.apply(AppPlatformPlugin::class.java)
+    project.registerModuleStructureDependencyCheckTask()
+    project.plugins.apply(PluginIds.ANDROID_KMP_LIBRARY)
+
+    val compileConfigurationName =
+      project.kmpExtension.targets
+        .getByName("android")
+        .compilations
+        .getByName("main")
+        .compileDependencyConfigurationName
+    project.dependencies.add(compileConfigurationName, "com.example:forbidden-impl:1.0")
+
+    val task =
+      project.tasks
+        .named(
+          "checkModuleStructureDependenciesAndroid",
+          ModuleStructureDependencyCheckTask::class.java,
+        )
+        .get()
+    assertThat(task.moduleCompileClasspath).contains("com.example:forbidden-impl:1.0")
+    assertFailure { task.checkDependencies() }.isInstanceOf<GradleException>()
+  }
+
   private fun createImplModule(): Project {
+    val project = createModule(name = "impl")
+    project.plugins.apply(PluginIds.KOTLIN_JVM)
+    project.configurations.maybeCreate("compileClasspath")
+    project.plugins.apply(AppPlatformPlugin::class.java)
+    return project
+  }
+
+  private fun createModule(name: String): Project {
     val rootProject = ProjectBuilder.builder().withName("root").build()
     val libraryProject =
       ProjectBuilder.builder().withName("library").withParent(rootProject).build()
     ProjectBuilder.builder().withName("public").withParent(libraryProject).build()
 
-    val project = ProjectBuilder.builder().withName("impl").withParent(libraryProject).build()
-    project.plugins.apply(PluginIds.KOTLIN_JVM)
-    project.configurations.maybeCreate("compileClasspath")
-    project.plugins.apply(AppPlatformPlugin::class.java)
-    return project
+    return ProjectBuilder.builder().withName(name).withParent(libraryProject).build()
   }
 
   private fun createPublicModule(): Project {

@@ -31,7 +31,7 @@ jobs:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: Test
-        run: ./gradlew testDebugUnitTest --stacktrace --show-version --continue
+        run: ./gradlew assembleDebug testAndroidHostTest testDebugUnitTest --stacktrace --show-version --continue
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -218,7 +218,7 @@ jobs:
         uses: ./.github/actions/prepare-emulator-action
 
       - name: Test
-        run: ./gradlew :sample:app:emulatorCheck --stacktrace --show-version --continue
+        run: ./gradlew :sample:app:android:emulatorCheck --stacktrace --show-version --continue
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -242,7 +242,7 @@ jobs:
         uses: ./.github/actions/prepare-emulator-action
 
       - name: Test
-        run: ./gradlew :sample:app:emulatorCheck -Papp.platform.metro.ksp=true --stacktrace --show-version --continue
+        run: ./gradlew :sample:app:android:emulatorCheck -Papp.platform.metro.ksp=true --stacktrace --show-version --continue
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -271,7 +271,7 @@ jobs:
         run: |
           /usr/bin/xcodebuild -version
           /usr/bin/xcodebuild -showsdks
-          /usr/bin/xcodebuild -project sample/iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug OBJROOT=build/ios SYMROOT=build/ios -destination 'generic/platform=iOS Simulator' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES -allowProvisioningDeviceRegistration -allowProvisioningUpdates
+          /usr/bin/xcodebuild -project sample/app/ios/iosApp.xcodeproj -scheme iosApp -configuration Debug OBJROOT=build/ios SYMROOT=build/ios -destination 'generic/platform=iOS Simulator' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES -allowProvisioningDeviceRegistration -allowProvisioningUpdates
 
   build-wasm-sample-app:
     runs-on: ubuntu-latest
@@ -286,7 +286,7 @@ jobs:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: Build wasm binary
-        run: ./gradlew :sample:app:wasmJsBrowserDistribution
+        run: ./gradlew :sample:app:web:wasmJsBrowserDistribution
 
   binary-compatibility-check:
     runs-on: ubuntu-latest
@@ -331,7 +331,7 @@ jobs:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: Android Lint
-        run: ./gradlew lint --stacktrace --show-version --continue
+        run: ./gradlew lint lintAndroidMain --stacktrace --show-version --continue
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4

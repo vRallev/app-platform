@@ -13,3 +13,7 @@ appPlatform {
     enableModuleStructure true
     enableMoleculePresenters true
 }
+
+appPlatformBuildSrc {
+    enableAndroidResources true
+}

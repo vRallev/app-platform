@@ -3,10 +3,9 @@ package software.ralf.app.platform.gradle.buildsrc
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import software.ralf.app.platform.gradle.buildsrc.AppPlugin.App.Companion.app
-import software.ralf.app.platform.gradle.buildsrc.AppPlugin.Companion.allExportedDependencies
+import software.ralf.app.platform.gradle.buildsrc.App.Companion.app
+import software.ralf.app.platform.gradle.buildsrc.App.Companion.appOrNull
 import software.ralf.app.platform.gradle.buildsrc.KmpPlugin.Companion.kmpExtension
-import software.ralf.app.platform.gradle.isAppModule
 
 internal sealed interface Platform {
   val unitTestTaskName: String?
@@ -35,15 +34,17 @@ internal sealed interface Platform {
       }
 
       target.binaries.framework {
+        val appFramework = project.appOrNull?.takeIf { project.path == it.appFrameworkProjectPath }
+
         baseName =
-          if (project.isAppModule()) {
-            project.app.iosFrameworkName
+          if (appFramework != null) {
+            appFramework.iosFrameworkName
           } else {
             project.safePathString.capitalize()
           }
-        isStatic = project.isAppModule()
+        isStatic = appFramework != null
 
-        if (project.isAppModule()) {
+        if (appFramework != null) {
           project.allExportedDependencies().forEach { dependency -> export(dependency) }
         }
       }
@@ -52,22 +53,10 @@ internal sealed interface Platform {
 
   private class AndroidPlatform(private val project: Project) : Platform {
 
-    override val unitTestTaskName: String = "testDebugUnitTest"
+    override val unitTestTaskName: String = "testAndroidHostTest"
 
     override fun configurePlatform() {
-      project.kmpExtension.androidTarget().compilerOptions { jvmTarget.set(project.javaTarget) }
-
-      project.android.sourceSets.getByName("main").apply {
-        project
-          .file("src/androidMain/AndroidManifest.xml")
-          .takeIf { it.exists() }
-          ?.let { manifest.srcFile(it) }
-        project.file("src/androidMain/res").takeIf { it.exists() }?.let { res.srcDirs(it) }
-        project
-          .file("src/commonMain/resources")
-          .takeIf { it.exists() }
-          ?.let { resources.srcDirs(it) }
-      }
+      project.androidKmpTarget.compilerOptions { jvmTarget.set(project.javaTarget) }
     }
   }
 
@@ -174,9 +163,20 @@ internal sealed interface Platform {
         ":presenter-backstack-nav3:testing",
         ":renderer-compose-multiplatform:public",
         ":robot-compose-multiplatform:public",
-      ) + AppPlugin.App.entries.map { it.rootProjectPath }
+      ) + App.entries.map { it.rootProjectPath }
 
     fun Project.allPlatforms(): Set<Platform> = buildSet {
+      val app = appOrNull
+
+      if (path == app?.desktopAppProjectPath) {
+        add(DesktopPlatform(project = this@allPlatforms))
+        return@buildSet
+      }
+      if (path == app?.webAppProjectPath) {
+        add(Wasm(project = this@allPlatforms))
+        return@buildSet
+      }
+
       // Always add Android. It's our most important platform and buildable in all
       // environments (locally and CI)
       add(AndroidPlatform(project = this@allPlatforms))

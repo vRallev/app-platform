@@ -1,0 +1,25 @@
+plugins {
+    id 'software.ralf.app.platform'
+
+    // This plugin lives in the buildSrc directory and is not published.
+    id 'software.ralf.app.platform.app.kmp'
+}
+
+appPlatform {
+    enableComposeUi true
+    enableMetro true
+    enableModuleStructure true
+    enableMoleculePresenters true
+    addImplModuleDependencies true
+}
+
+metro {
+    // Suppress for this sample. The input is used to demonstrate how platform specific
+    // types can be provided in the graph.
+    //noinspection UnnecessaryQualifiedReference
+    unusedGraphInputsSeverity.set(dev.zacsweers.metro.gradle.DiagnosticSeverity.NONE)
+}
+
+dependencies {
+    commonMainImplementation project(':sample:app-framework:impl')
+}

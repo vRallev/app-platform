@@ -15,6 +15,7 @@ import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.language.base.plugins.LifecycleBasePlugin
+import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import software.ralf.app.platform.gradle.AppPlatformExtension.Companion.appPlatform
 
 /** Checks that our module structure dependency rules are followed. */
@@ -240,21 +241,31 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
       }
 
       plugins.withId(PluginIds.KOTLIN_MULTIPLATFORM) {
-        kmpExtension.targets.configureEach { target ->
-          // We register Android above.
-          if (target.name == "android") return@configureEach
-
-          target.compilations.configureEach configureEach2@{ compilation ->
+        fun KotlinTarget.registerMainCompilation() {
+          compilations.configureEach { compilation ->
             // We only care about main.
-            if (compilation.name != "main") return@configureEach2
+            if (compilation.name != "main") return@configureEach
 
             registerForConfiguration(
-              taskSuffix = target.name,
+              taskSuffix = name,
               configuration = {
                 configurations.getByName(compilation.compileDependencyConfigurationName)
               },
             )
           }
+        }
+
+        kmpExtension.targets.configureEach { target ->
+          if (target.name == "android") {
+            // Legacy Android variants are registered above. The Android-KMP plugin does not expose
+            // those variants, so register its KMP main compilation instead.
+            plugins.withId(PluginIds.ANDROID_KMP_LIBRARY) {
+              target.registerMainCompilation()
+            }
+            return@configureEach
+          }
+
+          target.registerMainCompilation()
         }
       }
 

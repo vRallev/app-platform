@@ -1,0 +1,39 @@
+plugins {
+    id 'software.ralf.app.platform'
+
+    // This plugin lives in the buildSrc directory and is not published.
+    // It's used to manage certain configurations and dependencies for all
+    // :sample:* modules, otherwise we'd need to repeat them several times.
+    id 'software.ralf.app.platform.app.kmp'
+}
+
+// This extension comes from our published plugin.
+appPlatform {
+    enableComposeUi true
+    enableMetro true
+    enableModuleStructure {
+        enableDependencyCheck false
+    }
+    enableMoleculePresenters true
+    addImplModuleDependencies true
+}
+
+metro {
+    // Suppress for this sample. The input is used to demonstrate how platform specific
+    // types can be provided in the graph.
+    //noinspection UnnecessaryQualifiedReference
+    unusedGraphInputsSeverity.set(dev.zacsweers.metro.gradle.DiagnosticSeverity.NONE)
+}
+
+appPlatformBuildSrc {
+    enableAndroidResources true
+}
+
+dependencies {
+    commonMainImplementation project(':sample:login:impl')
+    commonMainImplementation project(':sample:navigation:impl')
+    commonMainImplementation project(':sample:templates:impl')
+    commonMainImplementation project(':sample:user:impl')
+
+    androidMainImplementation libs.androidx.activity.compose
+}

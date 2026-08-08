@@ -24,7 +24,7 @@ platform strengths and changing app or device specific behavior when needed. The
 writing Kotlin Multiplatform effectively.
 
 === "Web (clickable)"
-    <iframe src="web/sample/app/build/dist/wasmJs/productionExecutable/index.html" width="300px" height="600px" frameborder="1"></iframe>
+    <iframe src="web/sample/app/web/build/dist/wasmJs/productionExecutable/index.html" width="300px" height="600px" frameborder="1"></iframe>
 
 === "Android"
     ![Android screenshot](images/Android.png){ width="300" }
@@ -36,7 +36,7 @@ writing Kotlin Multiplatform effectively.
     ![Desktop screenshot](images/Desktop.png){ width="300" }
 
 === "Web Recipe App"
-    <iframe src="web/recipes/app/build/dist/wasmJs/productionExecutable/index.html" width="300px" height="600px" frameborder="1"></iframe>
+    <iframe src="web/recipes/app/web/build/dist/wasmJs/productionExecutable/index.html" width="300px" height="600px" frameborder="1"></iframe>
 
 === "Web List-Detail Blueprint"
     <div class="blueprint-demo"><iframe src="web/blueprints/list-detail/app/web/build/dist/wasmJs/productionExecutable/index.html" title="Interactive list-detail blueprint"></iframe><button class="blueprint-demo__resize-handle" type="button" aria-label="Resize app preview"></button></div>

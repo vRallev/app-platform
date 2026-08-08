@@ -254,9 +254,9 @@ class MainActivity : ComponentActivity() {
 
 ??? example "Sample"
 
-    The sample app uses `ComposeAndroidRendererFactory` in [Android application](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/MainActivity.kt#L30-L35)
-    and `ComposeRendererFactory` for [iOS](https://github.com/vRallev/app-platform/blob/main/sample/app/src/iosMain/kotlin/software/ralf/app/platform/sample/MainViewController.kt#L40)
-    and [Desktop](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopMain/kotlin/software/ralf/app/platform/sample/DesktopApp.kt#L36).
+    The sample app uses `ComposeAndroidRendererFactory` in [Android application](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl/src/androidMain/kotlin/software/ralf/app/platform/sample/MainActivity.kt#L29-L36)
+    and `ComposeRendererFactory` for [iOS](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl/src/iosMain/kotlin/software/ralf/app/platform/sample/MainViewController.kt#L40)
+    and [Desktop](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl/src/desktopMain/kotlin/software/ralf/app/platform/sample/DesktopApp.kt#L36).
 
 ### Creating `Renderers`
 

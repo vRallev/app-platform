@@ -14,6 +14,10 @@ appPlatform {
     enableMoleculePresenters true
 }
 
+appPlatformBuildSrc {
+    enableAndroidResources true
+}
+
 dependencies {
     commonMainApi project(':sample:templates:public')
 

@@ -1,0 +1,26 @@
+plugins {
+    id 'software.ralf.app.platform'
+
+    // This plugin lives in the buildSrc directory and is not published.
+    // It's used to manage certain configurations and dependencies for all
+    // :sample:* modules, otherwise we'd need to repeat them several times.
+    id 'software.ralf.app.platform.lib'
+}
+
+appPlatform {
+    enableComposeUi true
+    enableMetro true
+    enableModuleStructure true
+    enableMoleculePresenters true
+}
+
+dependencies {
+    commonMainApi project(':sample:login:impl-robots')
+    commonMainApi project(':sample:user:impl-robots')
+
+    commonMainImplementation project(':sample:app-framework:impl')
+    commonMainImplementation project(':sample:login:impl')
+    commonMainImplementation project(':sample:navigation:impl')
+    commonMainImplementation project(':sample:templates:impl')
+    commonMainImplementation project(':sample:user:impl')
+}

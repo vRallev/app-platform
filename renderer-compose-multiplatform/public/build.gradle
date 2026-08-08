@@ -5,6 +5,7 @@ plugins {
 appPlatformBuildSrc {
     enableCompose true
     enableInstrumentedTests true
+    enableAndroidResources true
     enablePublishing true
 }
 
@@ -23,12 +24,12 @@ dependencies {
     commonTestImplementation project(':scope:testing')
     commonTestImplementation libs.metro.runtime
 
-    androidTestImplementation project(':metro:public')
-    androidTestImplementation project(':presenter-molecule:impl')
-    androidTestImplementation libs.androidx.activity.compose
-    androidTestImplementation libs.androidx.test.espresso
-    androidTestImplementation libs.compose.ui.test.junit4
-    androidTestImplementation libs.compose.ui.test.junit4.android
-    androidTestImplementation libs.compose.ui.test.manifest
-    androidTestImplementation libs.metro.runtime
+    androidDeviceTestImplementation project(':metro:public')
+    androidDeviceTestImplementation project(':presenter-molecule:impl')
+    androidDeviceTestImplementation libs.androidx.activity.compose
+    androidDeviceTestImplementation libs.androidx.test.espresso
+    androidDeviceTestImplementation libs.compose.ui.test.junit4
+    androidDeviceTestImplementation libs.compose.ui.test.junit4.android
+    androidDeviceTestImplementation libs.compose.ui.test.manifest
+    androidDeviceTestImplementation libs.metro.runtime
 }

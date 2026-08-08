@@ -1,6 +1,7 @@
 package software.ralf.app.platform.gradle.buildsrc
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import com.android.build.api.variant.AndroidComponentsExtension
 import java.util.Locale
 import org.gradle.api.JavaVersion
@@ -9,9 +10,11 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.PluginContainer
 import org.gradle.api.tasks.TaskProvider
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import software.ralf.app.platform.gradle.moduleType
 
 internal val Project.libs: VersionCatalog
@@ -33,11 +36,17 @@ internal val Project.isKmpModule: Boolean
 internal val Project.isRoot: Boolean
   get() = path == ":"
 
-internal val Project.android: CommonExtension<*, *, *, *, *, *>
+internal val Project.android: CommonExtension
   get() = extensions.getByType(CommonExtension::class.java)
 
 internal val Project.androidComponents: AndroidComponentsExtension<*, *, *>
   get() = extensions.getByType(AndroidComponentsExtension::class.java)
+
+internal val Project.androidKmpTarget: KotlinMultiplatformAndroidLibraryTarget
+  get() =
+    (extensions.getByType(KotlinMultiplatformExtension::class.java) as ExtensionAware)
+      .extensions
+      .getByType(KotlinMultiplatformAndroidLibraryTarget::class.java)
 
 internal val Project.releaseTask: TaskProvider<Task>
   get() = tasks.named("release")

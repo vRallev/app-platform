@@ -1,0 +1,40 @@
+plugins {
+    id 'software.ralf.app.platform'
+
+    // This plugin lives in the buildSrc directory and is not published.
+    id 'software.ralf.app.platform.app.android'
+}
+
+appPlatform {
+    enableComposeUi true
+    enableMetro true
+    enableModuleStructure true
+    enableMoleculePresenters true
+    addImplModuleDependencies true
+}
+
+metro {
+    // Suppress for this sample. The input is used to demonstrate how platform specific
+    // types can be provided in the graph.
+    //noinspection UnnecessaryQualifiedReference
+    unusedGraphInputsSeverity.set(dev.zacsweers.metro.gradle.DiagnosticSeverity.NONE)
+}
+
+appPlatformBuildSrc {
+    enableInstrumentedTests true
+}
+
+android {
+    defaultConfig {
+        testInstrumentationRunner 'software.ralf.app.platform.sample.TestRunner'
+    }
+}
+
+dependencies {
+    implementation project(':sample:app-framework:impl')
+
+    androidTestImplementation project(':sample:app-framework:impl-ui-test-robots')
+    androidTestImplementation libs.compose.ui.test.junit4
+    androidTestImplementation libs.compose.ui.test.junit4.android
+    androidTestImplementation libs.compose.ui.test.manifest
+}

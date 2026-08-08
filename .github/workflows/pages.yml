@@ -38,15 +38,15 @@ jobs:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: Build wasm binary
-        run: ./gradlew :sample:app:wasmJsBrowserDistribution :recipes:app:wasmJsBrowserDistribution
+        run: ./gradlew :sample:app:web:wasmJsBrowserDistribution :recipes:app:web:wasmJsBrowserDistribution
 
       - name: Upload wasm binaries
         uses: actions/upload-artifact@v4
         with:
           name: wasm-files
           path: |
-            ./sample/app/build/dist/wasmJs/productionExecutable/
-            ./recipes/app/build/dist/wasmJs/productionExecutable/
+            ./sample/app/web/build/dist/wasmJs/productionExecutable/
+            ./recipes/app/web/build/dist/wasmJs/productionExecutable/
 
   build-wasm-list-detail-blueprint:
     runs-on: ubuntu-latest

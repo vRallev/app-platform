@@ -2,9 +2,10 @@ package software.ralf.app.platform.sample.user
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import dev.zacsweers.metro.Inject
@@ -24,12 +25,10 @@ class UserPageDetailPresenter(private val sessionTimeout: SessionTimeout) :
   override fun present(input: Input): Model {
     var showPictureFullscreen by remember { mutableStateOf(false) }
 
-    val timeoutProgress =
-      produceState(getSessionTimeoutProgress(sessionTimeout.sessionTimeout.value)) {
-        sessionTimeout.sessionTimeout.collect { timeout ->
-          value = getSessionTimeoutProgress(timeout)
-        }
-      }
+    val timeout = sessionTimeout.sessionTimeout.collectAsState()
+    val timeoutProgress = remember {
+      derivedStateOf { getSessionTimeoutProgress(timeout.value) }
+    }
 
     return Model(
       text = input.user.attributes[input.selectedAttribute].value,

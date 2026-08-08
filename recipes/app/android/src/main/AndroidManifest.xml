@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name="software.ralf.app.platform.recipes.AndroidApplication"
+        android:allowBackup="false"
+        android:enableOnBackInvokedCallback="true"
+        android:label="Recipes"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar"
+        tools:ignore="DataExtractionRules,MissingApplicationIcon,UnusedAttribute" />
+
+</manifest>

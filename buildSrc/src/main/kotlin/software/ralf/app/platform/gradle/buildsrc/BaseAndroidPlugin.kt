@@ -50,68 +50,26 @@ public open class BaseAndroidPlugin : Plugin<Project> {
       isReturnDefaultValues = true
     }
 
-    android.lint {
-      warningsAsErrors = true
-      htmlReport = true
-      disable +=
-        setOf(
-          "GradleDependency",
-          "ObsoleteLintCustomCheck",
-          "NewerVersionAvailable",
-          "AndroidGradlePluginVersion",
-          "OldTargetApi",
-        )
-    }
+    android.lint.configureAppPlatformLint()
 
     releaseTask.configure { it.dependsOn("lintDebug") }
   }
 
   internal companion object {
-    internal fun Project.enableInstrumentedTests() {
-      releaseTask.configure {
-        it.dependsOn("assembleDebugAndroidTest")
-        it.dependsOn("emulatorCheck")
+    internal fun Project.enableAndroidInstrumentedTests() {
+      releaseTask.configure { it.dependsOn("assembleDebugAndroidTest") }
+      configureAppPlatformInstrumentedTests("androidTestImplementation")
+
+      android.defaultConfig.apply {
+        testInstrumentationRunner = ANDROID_TEST_INSTRUMENTATION_RUNNER
+        testInstrumentationRunnerArguments += ANDROID_TEST_INSTRUMENTATION_RUNNER_ARGUMENTS
       }
 
-      android.defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments += "clearPackageData" to "true"
-      }
-
-      android.testOptions.execution = "ANDROIDX_TEST_ORCHESTRATOR"
-
-      dependencies.add(
-        "androidTestUtil",
-        libs.findLibrary("androidx.test.orchestrator").get().get().toString(),
-      )
-      dependencies.add(
-        "androidTestImplementation",
-        libs.findLibrary("androidx.test.runner").get().get().toString(),
-      )
-      dependencies.add(
-        "androidTestImplementation",
-        libs.findLibrary("androidx.test.rules").get().get().toString(),
-      )
-      dependencies.add(
-        "androidTestImplementation",
-        libs.findLibrary("androidx.test.junit").get().get().toString(),
-      )
-      dependencies.add(
-        "androidTestImplementation",
-        libs.findLibrary("kotlin.test").get().get().toString(),
-      )
-      dependencies.add(
-        "androidTestImplementation",
-        libs.findLibrary("assertk").get().get().toString(),
-      )
+      android.testOptions.execution = ANDROID_TEST_EXECUTION
 
       @Suppress("UnstableApiUsage")
       android.testOptions.managedDevices.localDevices.create("emulator") {
-        // Use device profiles you typically see in Android Studio.
-        it.device = "Pixel 3"
-        it.apiLevel = 30
-        it.require64Bit = true
-        it.systemImageSource = "aosp-atd"
+        it.configureAppPlatformEmulator()
       }
     }
   }

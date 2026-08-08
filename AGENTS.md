@@ -18,7 +18,7 @@ Start here before changing code:
 - `settings.gradle`
 - `buildSrc/src/main/kotlin/software/ralf/app/platform/gradle/buildsrc/`
 
-`mkdocs.yml` is the docs site manifest. The Pages workflow builds Wasm artifacts for `:sample:app` and `:recipes:app` and copies them into `docs/web/` before publishing.
+`mkdocs.yml` is the docs site manifest. The Pages workflow builds Wasm artifacts for `:sample:app:web` and `:recipes:app:web` and copies them into `docs/web/` before publishing.
 
 ## Repo Shape
 
@@ -53,9 +53,9 @@ The most important repo rule is the module structure documented in `docs/module-
 - `:impl` modules contain concrete implementations.
 - `:testing` modules hold shared fakes and test helpers.
 - `:*-robots` modules hold shared UI robots.
-- `:app` modules are the only modules allowed to depend on `:impl` modules.
+- `:app` modules and the application-assembly `:app-framework:impl` modules are allowed to depend on `:impl` modules.
 
-Do not introduce a dependency from a non-`:app` module to an `:impl` module. The build enforces this via `checkModuleStructureDependencies`.
+Do not introduce a dependency on an `:impl` module outside these application assembly points. The build enforces this via `checkModuleStructureDependencies`, with a scoped exception for each application framework assembly module.
 
 The framework’s architectural flow is:
 
@@ -67,10 +67,10 @@ The framework’s architectural flow is:
 
 Representative entrypoints:
 
-- Android: `sample/app/src/androidMain/.../AndroidApplication.kt`, `MainActivity.kt`
-- iOS: `sample/app/src/iosMain/.../MainViewController.kt`, `sample/iosApp/`
-- Desktop: `sample/app/src/desktopMain/.../Main.kt`, `DesktopApp.kt`
-- Wasm: `sample/app/src/wasmJsMain/.../Main.kt`
+- Android: `sample/app/android/src/main/.../AndroidApplication.kt`, `sample/app-framework/impl/src/androidMain/.../MainActivity.kt`
+- iOS: `sample/app-framework/impl/src/iosMain/.../MainViewController.kt`, `sample/app/ios/`
+- Desktop: `sample/app/desktop/src/desktopMain/.../Main.kt`, `sample/app-framework/impl/src/desktopMain/.../DesktopApp.kt`
+- Wasm: `sample/app/web/src/wasmJsMain/.../Main.kt`, `sample/app-framework/impl/src/wasmJsMain/.../WasmJsApp.kt`
 
 ## Toolchain
 
@@ -86,10 +86,10 @@ For Metro compiler-plugin work, prefer source over decompiled artifacts:
 
 ## Run The Apps
 
-There are three app-style entrypoints to care about:
+The root build contains two shared multiplatform application frameworks with separate platform applications:
 
-- `:sample:app`: main sample app inside the root build.
-- `:recipes:app`: recipe/demo app inside the root build.
+- `:sample:app-framework:impl` with `:sample:app:android`, `:sample:app:desktop`, and `:sample:app:web`.
+- `:recipes:app-framework:impl` with `:recipes:app:android`, `:recipes:app:desktop`, and `:recipes:app:web`.
 - `blueprints/starter`: standalone starter app; run commands from inside that directory or use its own `./gradlew`.
 
 ### Android
@@ -97,8 +97,8 @@ There are three app-style entrypoints to care about:
 Install the debug APK onto a connected device or emulator:
 
 ```bash
-./gradlew :sample:app:installDebug
-./gradlew :recipes:app:installDebug
+./gradlew :sample:app:android:installDebug
+./gradlew :recipes:app:android:installDebug
 ```
 
 For the standalone starter:
@@ -115,36 +115,36 @@ cd blueprints/starter
 Sample app:
 
 ```bash
-open sample/iosApp/iosApp.xcodeproj
+open sample/app/ios/iosApp.xcodeproj
 ```
 
 Recipe app:
 
 ```bash
-open recipes/recipesIosApp/recipesIosApp.xcodeproj
+open recipes/app/ios/recipesIosApp.xcodeproj
 ```
 
 The Xcode projects include a shell build phase that calls Gradle:
 
-- `:sample:app:embedAndSignAppleFrameworkForXcode`
-- `:recipes:app:embedAndSignAppleFrameworkForXcode`
+- `:sample:app-framework:impl:embedAndSignAppleFrameworkForXcode`
+- `:recipes:app-framework:impl:embedAndSignAppleFrameworkForXcode`
 
 If you only want to build the Kotlin framework without opening Xcode:
 
 ```bash
-./gradlew :sample:app:linkDebugFrameworkIosSimulatorArm64
-./gradlew :recipes:app:linkDebugFrameworkIosSimulatorArm64
+./gradlew :sample:app-framework:impl:linkDebugFrameworkIosSimulatorArm64
+./gradlew :recipes:app-framework:impl:linkDebugFrameworkIosSimulatorArm64
 ```
 
-CI builds the sample iOS wrapper with `xcodebuild -project sample/iosApp/iosApp.xcodeproj -scheme iosApp ... -destination id=<simulator-id>`. Use `xcrun simctl list devices` to pick a simulator if you need a pure CLI invocation.
+CI builds the sample iOS wrapper with `xcodebuild -project sample/app/ios/iosApp.xcodeproj -scheme iosApp ... -destination id=<simulator-id>`. Use `xcrun simctl list devices` to pick a simulator if you need a pure CLI invocation.
 
 ### Desktop
 
 Run the desktop Compose app:
 
 ```bash
-./gradlew :sample:app:run
-./gradlew :recipes:app:run
+./gradlew :sample:app:desktop:run
+./gradlew :recipes:app:desktop:run
 ```
 
 Starter blueprint:
@@ -161,15 +161,15 @@ Desktop packaging tasks such as `packageDmg`, `packageDeb`, and `packageMsi` are
 Development server:
 
 ```bash
-./gradlew :sample:app:wasmJsBrowserDevelopmentRun
-./gradlew :recipes:app:wasmJsBrowserDevelopmentRun
+./gradlew :sample:app:web:wasmJsBrowserDevelopmentRun
+./gradlew :recipes:app:web:wasmJsBrowserDevelopmentRun
 ```
 
 Production bundle:
 
 ```bash
-./gradlew :sample:app:wasmJsBrowserDistribution
-./gradlew :recipes:app:wasmJsBrowserDistribution
+./gradlew :sample:app:web:wasmJsBrowserDistribution
+./gradlew :recipes:app:web:wasmJsBrowserDistribution
 ```
 
 Starter blueprint:
@@ -181,8 +181,8 @@ cd blueprints/starter
 
 After a production Wasm build, serve the generated files from:
 
-- `sample/app/build/dist/wasmJs/productionExecutable/`
-- `recipes/app/build/dist/wasmJs/productionExecutable/`
+- `sample/app/web/build/dist/wasmJs/productionExecutable/`
+- `recipes/app/web/build/dist/wasmJs/productionExecutable/`
 
 The starter README suggests `npx http-server` from the production output directory.
 
@@ -193,7 +193,7 @@ The starter README suggests `npx http-server` from the production output directo
 These are the main root-level quality gates used by GitHub Actions:
 
 ```bash
-./gradlew testDebugUnitTest
+./gradlew testAndroidHostTest testDebugUnitTest
 ./gradlew iosSimulatorArm64Test -Pkotlin.incremental.native=true
 ./gradlew desktopTest
 ./gradlew linuxX64Test
@@ -201,7 +201,7 @@ These are the main root-level quality gates used by GitHub Actions:
 ./gradlew apiCheck
 ./ktfmt.sh --dry-run --set-exit-if-changed
 ./gradlew detekt
-./gradlew lint
+./gradlew lint lintAndroidMain
 ./gradlew checkModuleStructureDependencies
 ```
 
@@ -210,37 +210,37 @@ These are the main root-level quality gates used by GitHub Actions:
 Android instrumented UI tests:
 
 ```bash
-./gradlew :sample:app:emulatorCheck
+./gradlew :sample:app:android:emulatorCheck
 ```
 
 Or against a manually started device:
 
 ```bash
-./gradlew :sample:app:connectedDebugAndroidTest
+./gradlew :sample:app:android:connectedDebugAndroidTest
 ```
 
 Desktop UI tests:
 
 ```bash
-./gradlew :sample:app:desktopTest
+./gradlew :sample:app:desktop:desktopTest
 ```
 
-Android unit tests:
+Android host and launcher unit tests:
 
 ```bash
-./gradlew :sample:app:testDebugUnitTest
+./gradlew :sample:app-framework:impl:testAndroidHostTest :sample:app:android:testDebugUnitTest
 ```
 
 iOS simulator tests:
 
 ```bash
-./gradlew :sample:app:iosSimulatorArm64Test -Pkotlin.incremental.native=true
+./gradlew :sample:app-framework:impl:iosSimulatorArm64Test -Pkotlin.incremental.native=true
 ```
 
-All sample app target tests:
+All shared KMP app target tests:
 
 ```bash
-./gradlew :sample:app:allTests
+./gradlew :sample:app-framework:impl:allTests
 ```
 
 ### Metro compiler-plugin module
@@ -271,9 +271,9 @@ Test data conventions for this module:
 
 ### Where tests live
 
-- Android UI tests: `sample/app/src/androidInstrumentedTest/`
-- Desktop UI tests: `sample/app/src/desktopTest/`
-- Shared unit tests: `sample/*/src/commonTest/`
+- Android UI tests: `sample/app/android/src/androidTest/`
+- Desktop UI tests: `sample/app/desktop/src/desktopTest/`
+- Shared unit tests: feature `sample/*/src/commonTest/` directories and `sample/app-framework/impl/src/commonTest/`
 - Shared fakes: `sample/user/testing/`
 - Shared robots: `sample/login/impl-robots/`, `sample/user/impl-robots/`
 - Compiler plugin test data: `metro-extensions/contribute/impl-compiler-plugin/src/test/resources/`
@@ -283,10 +283,10 @@ Test data conventions for this module:
 
 As of this checkout:
 
-- `:sample:app:desktopTest` runs successfully.
-- `:sample:app:testDebugUnitTest` succeeds but currently has `NO-SOURCE`.
-- `:sample:app:iosSimulatorArm64Test -Pkotlin.incremental.native=true` succeeds but is currently skipped because `sample/app` has no iOS test sources.
-- Android UI coverage for the sample app is in `androidInstrumentedTest` and is exercised through `emulatorCheck`/`connectedDebugAndroidTest`.
+- `:sample:app:desktop:desktopTest` runs successfully.
+- `:sample:app-framework:impl:testAndroidHostTest` and `:sample:app:android:testDebugUnitTest` succeed but currently have `NO-SOURCE`.
+- `:sample:app-framework:impl:iosSimulatorArm64Test -Pkotlin.incremental.native=true` succeeds but is currently skipped because the sample app framework has no iOS test sources.
+- Android UI coverage for the sample app is in `sample/app/android/src/androidTest` and is exercised through `:sample:app:android:emulatorCheck` or `:sample:app:android:connectedDebugAndroidTest`.
 
 ## Wasm Lockfile Caveat
 
@@ -299,7 +299,7 @@ Execution failed for task ':kotlinWasmStoreYarnLock'.
 Lock file was changed. Run the `kotlinWasmUpgradeYarnLock` task to actualize lock file
 ```
 
-then the generated `build/wasm/yarn.lock` does not match the committed lock. In this checkout, both `:sample:app:wasmJsTest` and `:sample:app:wasmJsBrowserDistribution` hit that failure.
+then the generated `build/wasm/yarn.lock` does not match the committed lock. In this checkout, both `:sample:app:web:wasmJsTest` and `:sample:app:web:wasmJsBrowserDistribution` hit that failure.
 
 Treat `kotlinWasmUpgradeYarnLock` as an intentional dependency update step, not a routine run command. If you change Wasm/npm dependencies on purpose, update and review `kotlin-js-store/wasm/yarn.lock` in the same change.
 

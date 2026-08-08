@@ -7,24 +7,6 @@ appPlatformBuildSrc {
     enableInstrumentedTests true
 }
 
-android {
-    buildFeatures {
-        viewBinding = true
-    }
-}
-
-// This doesn't work automatically in KMP modules. It's only needed for the IDE and indexing the
-// generated sources.
-if (project.properties['android.injected.invoked.from.ide'] == 'true') {
-    kotlin {
-        sourceSets {
-            androidInstrumentedTest {
-                kotlin.srcDir('build/generated/data_binding_base_class_source_out/debugAndroidTest/out')
-            }
-        }
-    }
-}
-
 dependencies {
     commonMainApi project(':presenter:public')
     commonMainApi project(':renderer:public')
@@ -37,8 +19,6 @@ dependencies {
     androidMainApi libs.recyclerView
     androidMainImplementation libs.androidx.core
 
-    androidInstrumentedTestImplementation project(':kotlin-inject:public')
-    androidInstrumentedTestImplementation libs.androidx.test.espresso
-    // Use the version aligned with AGP in tests.
-    androidInstrumentedTestImplementation libs.viewbinding.agp
+    androidDeviceTestImplementation project(':kotlin-inject:public')
+    androidDeviceTestImplementation libs.androidx.test.espresso
 }

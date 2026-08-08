@@ -45,9 +45,9 @@ extension function:
 scope.metroDependencyGraph<AppGraph>()
 ```
 
-In modularized projects, final graphs are defined in the `:app` modules, because the object graph has to
-know about all features of the app. It is strongly recommended to create an object graph in each platform specific
-folder to provide platform specific types.
+In modularized projects, final graphs are defined in application modules, because the object graph has to
+know about all features of the app. It is strongly recommended to create an object graph in each
+platform-specific source set or launcher module to provide platform-specific types.
 
 === "Android"
 
@@ -106,9 +106,9 @@ folder to provide platform specific types.
 ### Platform implementations
 
 Metro makes it simple to provide platform specific implementations for abstract APIs without needing
-to use `expect / actual` declarations or any specific wiring. Since the final object graphs live in the platform
-specific source folders, all contributions for a platform are automatically picked up. Platform specific
-implementations can use and inject types from the platform.
+to use `expect / actual` declarations or any specific wiring. Since the final object graphs live in
+platform-specific source sets or modules, all contributions for a platform are automatically picked up.
+Platform specific implementations can use and inject types from the platform.
 
 ```kotlin title="commonMain"
 interface LocationProvider
@@ -181,7 +181,7 @@ from the `Application` class and the Metro object graph is found through the `me
 
 ??? example "Sample"
 
-    The `ViewModel` example comes from the [sample app](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/MainActivityViewModel.kt).
+    The `ViewModel` example comes from the [sample app](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl/src/androidMain/kotlin/software/ralf/app/platform/sample/MainActivityViewModel.kt).
     `ViewModels` can use constructor injection, but this requires more setup. This approach of using a graph
     interface was simpler and faster.
 
@@ -377,9 +377,9 @@ function:
 scope.kotlinInjectComponent<AppComponent>()
 ```
 
-In modularized projects, final components are defined in the `:app` modules, because the object graph has to
-know about all features of the app. It is strongly recommended to create a component in each platform specific
-folder to provide platform specific types.
+In modularized projects, final components are defined in application modules, because the object graph has to
+know about all features of the app. It is strongly recommended to create a component in each platform-specific
+source set or launcher module to provide platform-specific types.
 
 === "Android"
 
@@ -427,9 +427,9 @@ folder to provide platform specific types.
 ### Platform implementations
 
 `kotlin-inject-anvil` makes it simple to provide platform specific implementations for abstract APIs without needing
-to use `expect / actual` declarations or any specific wiring. Since the final components live in the platform specific
-source folders, all contributions for a platform are automatically picked up. Platform specific implementations can
-use and inject types from the platform.
+to use `expect / actual` declarations or any specific wiring. Since the final components live in
+platform-specific source sets or modules, all contributions for a platform are automatically picked up.
+Platform specific implementations can use and inject types from the platform.
 
 ```kotlin title="commonMain"
 interface LocationProvider
@@ -506,7 +506,7 @@ from the `Application` class and the `kotlin-inject-anvil` component is found th
 
 ??? example "Sample"
 
-    The `ViewModel` example comes from the [sample app](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/MainActivityViewModel.kt).
+    The `ViewModel` example comes from the [recipes app](https://github.com/vRallev/app-platform/blob/main/recipes/app-framework/impl/src/androidMain/kotlin/software/ralf/app/platform/recipes/MainActivityViewModel.kt).
     `ViewModels` can use constructor injection, but this requires more setup. This approach of using a component
     interface was simpler and faster.
 

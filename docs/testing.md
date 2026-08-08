@@ -18,14 +18,14 @@ are functioning and tests don’t need to be repeated.
 !!! info "Instrumented tests"
 
     The sample application implements instrumented tests for two screens and navigates between the tests. The
-    [tests for Desktop](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopTest/kotlin/software/ralf/app/platform/sample/LoginUiTest.kt)
+    [tests for Desktop](https://github.com/vRallev/app-platform/blob/main/sample/app/desktop/src/desktopTest/kotlin/software/ralf/app/platform/sample/LoginUiTest.kt)
     highlight how templates are rendered and robots are used for verification. They also set up a Metro
-    [`TestDesktopAppGraph`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopTest/kotlin/software/ralf/app/platform/sample/TestDesktopAppGraph.kt),
+    [`TestDesktopAppGraph`](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl-ui-test-robots/src/desktopMain/kotlin/software/ralf/app/platform/sample/TestDesktopAppGraph.kt),
     which replaces the main desktop graph.
 
-    The same UI test is [implemented for Android](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidInstrumentedTest/kotlin/software/ralf/app/platform/sample/AndroidLoginUiTest.kt).
+    The same UI test is [implemented for Android](https://github.com/vRallev/app-platform/blob/main/sample/app/android/src/androidTest/kotlin/software/ralf/app/platform/sample/AndroidLoginUiTest.kt).
     The Android tests reuse the same robots for verification and set up a
-    [`TestAndroidAppGraph`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidInstrumentedTest/kotlin/software/ralf/app/platform/sample/TestAndroidAppGraph.kt)
+    [`TestAndroidAppGraph`](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl-ui-test-robots/src/androidMain/kotlin/software/ralf/app/platform/sample/TestAndroidAppGraph.kt)
     in a similar way. The sample now uses Metro throughout, while `kotlin-inject-anvil` remains
     available as the alternative path.
 

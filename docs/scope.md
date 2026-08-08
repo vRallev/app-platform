@@ -77,7 +77,7 @@ rootScope.buildChild("user scope") {
 ??? example "Sample"
 
     The root scope is usually created when the application is launched. The sample application creates its
-    root scope [here](https://github.com/vRallev/app-platform/blob/main/sample/app/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt).
+    root scope [here](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt).
     This `Scope` is never destroyed and stays alive for the entire app lifetime.
 
     The sample application has a child scope for the logged in user. This `Scope` is created during
@@ -525,7 +525,7 @@ instances, but don't automatically register them in the `Scope`. This has to be 
 ??? example "Sample"
 
     The sample application implements this mechanism for the
-    [`AppScope`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt#L31-L33)
+    [`AppScope`](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt#L31-L33)
     and the [`UserScope`](https://github.com/vRallev/app-platform/blob/main/sample/user/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/user/UserManagerImpl.kt#L58-L60).
 
 ### `onExit`
@@ -614,11 +614,11 @@ highlighted above.
 
 ??? example "Sample"
 
-    The sample application has a common class [DemoApplication](https://github.com/vRallev/app-platform/blob/main/sample/app/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt)
+    The sample application has a common class [DemoApplication](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/DemoApplication.kt)
     that is responsible for creating the app scope. The Android app instantiates `DemoApplication` in the
-    [`Application` class](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/AndroidApplication.kt#L19).
-    The iOS sample creates the `DemoApplication` in the [`UIApplicationDelegate`](https://github.com/vRallev/app-platform/blob/main/sample/iosApp/iosApp/iOSApp.swift#L6).
-    On Desktop `DemoApplication` is created part of the [`main()` function](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopMain/kotlin/software/ralf/app/platform/sample/Main.kt#L8).
+    [`Application` class](https://github.com/vRallev/app-platform/blob/main/sample/app/android/src/main/kotlin/software/ralf/app/platform/sample/AndroidApplication.kt#L19).
+    The iOS sample creates the `DemoApplication` in the [`UIApplicationDelegate`](https://github.com/vRallev/app-platform/blob/main/sample/app/ios/iosApp/iOSApp.swift#L6).
+    On Desktop `DemoApplication` is created part of the [`main()` function](https://github.com/vRallev/app-platform/blob/main/sample/app/desktop/src/desktopMain/kotlin/software/ralf/app/platform/sample/Main.kt#L8).
 
 ### `RootScopeProvider`
 
@@ -640,7 +640,7 @@ class MainActivity : Activity() {
 ??? example "Sample"
 
     The sample application implements `RootScopeProvider` in the Android
-    [`Application` class](https://github.com/vRallev/app-platform/blob/main/sample/app/src/androidMain/kotlin/software/ralf/app/platform/sample/AndroidApplication.kt#L19)
-    and the iOS [`UIApplicationDelegate`](https://github.com/vRallev/app-platform/blob/main/sample/iosApp/iosApp/iOSApp.swift#L6).
+    [`Application` class](https://github.com/vRallev/app-platform/blob/main/sample/app/android/src/main/kotlin/software/ralf/app/platform/sample/AndroidApplication.kt#L19)
+    and the iOS [`UIApplicationDelegate`](https://github.com/vRallev/app-platform/blob/main/sample/app/ios/iosApp/iOSApp.swift#L6).
     On Desktop there is no concept of a singleton application object by default, but in the sample app we created an
-    equivalent with [`DesktopApp`](https://github.com/vRallev/app-platform/blob/main/sample/app/src/desktopMain/kotlin/software/ralf/app/platform/sample/DesktopApp.kt).
+    equivalent with [`DesktopApp`](https://github.com/vRallev/app-platform/blob/main/sample/app-framework/impl/src/desktopMain/kotlin/software/ralf/app/platform/sample/DesktopApp.kt).

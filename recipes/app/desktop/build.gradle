@@ -1,0 +1,18 @@
+plugins {
+    id 'software.ralf.app.platform'
+
+    // This plugin lives in the buildSrc directory and is not published.
+    id 'software.ralf.app.platform.app.kmp'
+}
+
+appPlatform {
+    enableComposeUi true
+    enableKotlinInject true
+    enableModuleStructure true
+    enableMoleculePresenters true
+    addImplModuleDependencies true
+}
+
+dependencies {
+    commonMainImplementation project(':recipes:app-framework:impl')
+}

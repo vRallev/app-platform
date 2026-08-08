@@ -41,7 +41,7 @@ EOF
       1)
         APP_KEY="sample"
         APP_LABEL="sample"
-        PROJECT_PATH="$ROOT_DIR/sample/iosApp/iosApp.xcodeproj"
+        PROJECT_PATH="$ROOT_DIR/sample/app/ios/iosApp.xcodeproj"
         SCHEME="iosApp"
         DERIVED_DATA_PATH="/tmp/app-platform-ios-run-sample"
         return
@@ -49,7 +49,7 @@ EOF
       2)
         APP_KEY="recipes"
         APP_LABEL="recipes"
-        PROJECT_PATH="$ROOT_DIR/recipes/recipesIosApp/recipesIosApp.xcodeproj"
+        PROJECT_PATH="$ROOT_DIR/recipes/app/ios/recipesIosApp.xcodeproj"
         SCHEME="recipesIosApp"
         DERIVED_DATA_PATH="/tmp/app-platform-ios-run-recipes"
         return

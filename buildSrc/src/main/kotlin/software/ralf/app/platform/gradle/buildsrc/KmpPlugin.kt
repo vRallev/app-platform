@@ -1,9 +1,6 @@
 package software.ralf.app.platform.gradle.buildsrc
 
 import com.google.devtools.ksp.gradle.KspExtension
-import dev.detekt.gradle.Detekt
-import dev.detekt.gradle.DetektCreateBaselineTask
-import dev.detekt.gradle.extensions.DetektExtension
 import guru.nidi.graphviz.engine.Format
 import io.github.terrakok.KmpHierarchyConfig
 import org.gradle.api.Plugin
@@ -11,9 +8,10 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.plugins.BasePluginExtension
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.api.tasks.SourceTask
 import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.NATIVE_COMPILER_PLUGIN_CLASSPATH_CONFIGURATION_NAME
 import org.jetbrains.kotlin.gradle.plugin.PLUGIN_CLASSPATH_CONFIGURATION_NAME
 import software.ralf.app.platform.gradle.buildsrc.AppPlatformExtension.Companion.appPlatformBuildSrc
@@ -138,7 +136,7 @@ public open class KmpPlugin : Plugin<Project> {
         if (suffix == "Main") {
           kmpExtension.sourceSets.named("android$suffix").configure { it.dependsOn(noWasmJs) }
         } else {
-          kmpExtension.sourceSets.named("androidUnit$suffix").configure { it.dependsOn(noWasmJs) }
+          kmpExtension.sourceSets.named("androidHostTest").configure { it.dependsOn(noWasmJs) }
         }
       }
     }
@@ -252,10 +250,9 @@ public open class KmpPlugin : Plugin<Project> {
       }
 
       if (isKmpModule) {
-        kmpExtension.targets.configureEach {
-          if (it.name != "metadata") {
-            dependencies.addKspProcessorDependencies("ksp${it.name.capitalize()}")
-            dependencies.addKspProcessorDependencies("ksp${it.name.capitalize()}Test")
+        kmpExtension.targets.configureEach { target ->
+          addKspDependenciesWhenConfigExists(target) { configurationName ->
+            dependencies.addKspProcessorDependencies(configurationName)
           }
         }
       } else {
@@ -297,10 +294,9 @@ public open class KmpPlugin : Plugin<Project> {
       }
 
       if (isKmpModule) {
-        kmpExtension.targets.configureEach {
-          if (it.name != "metadata") {
-            dependencies.addKspProcessorDependencies("ksp${it.name.capitalize()}")
-            dependencies.addKspProcessorDependencies("ksp${it.name.capitalize()}Test")
+        kmpExtension.targets.configureEach { target ->
+          addKspDependenciesWhenConfigExists(target) { configurationName ->
+            dependencies.addKspProcessorDependencies(configurationName)
           }
         }
       } else {
@@ -337,55 +333,45 @@ public open class KmpPlugin : Plugin<Project> {
       plugins.apply(Plugins.KSP)
     }
 
+    private fun Project.addKspDependenciesWhenConfigExists(
+      target: KotlinTarget,
+      block: (String) -> Unit,
+    ) {
+      if (target.name == "metadata") return
+
+      target.compilations.configureEach { compilation ->
+        fun configExists(name: String): Boolean = configurations.any { it.name == name }
+
+        val targetName = target.name.capitalize()
+        var configurationName =
+          if (compilation.name == "main") {
+            "ksp$targetName"
+          } else {
+            "ksp$targetName${compilation.name.capitalize()}"
+          }
+
+        if (
+          !configExists(configurationName) && target.platformType == KotlinPlatformType.androidJvm
+        ) {
+          configurationName =
+            when {
+              configurationName.endsWith("AndroidTest") -> "kspAndroidAndroidTest"
+              configurationName.endsWith("UnitTest") -> "kspAndroidTest"
+              else -> configurationName
+            }
+        }
+
+        if (configExists(configurationName)) {
+          block(configurationName)
+        }
+      }
+    }
+
     fun Project.enableMolecule() {
       plugins.apply(Plugins.COMPOSE_COMPILER)
       kmpExtension.sourceSets.getByName("commonMain").dependencies {
         implementation(libs.findLibrary("molecule.runtime").get().get().toString())
       }
-    }
-
-    private fun Project.configureDetekt() {
-      plugins.apply(Plugins.DETEKT)
-
-      fun SourceTask.configureDefaultDetektTask() {
-        // The :detekt task in a multiplatform project doesn't do anything, it has no
-        // sources configured. Instead, the Detekt plugin creates a Gradle task for each
-        // source set, which then need to be called manually. This is annoying and tedious.
-        //
-        // We make the default :detekt task analyze all .kt files, which is faster,
-        // because only a single task runs, and we avoid all the wiring.
-        setSource(layout.files("src"))
-        exclude("**/*.kts")
-        exclude("**/api/**")
-        exclude("**/build/**")
-        exclude("**/detekt/**")
-      }
-
-      // Make Detekt use the right version of Java
-      tasks.withType(Detekt::class.java).configureEach { detekt ->
-        detekt.jvmTarget.set(javaVersion.toString())
-
-        if (detekt.name == "detekt") {
-          detekt.configureDefaultDetektTask()
-        }
-      }
-      tasks.withType(DetektCreateBaselineTask::class.java).configureEach {
-        it.jvmTarget.set(javaVersion.toString())
-
-        if (it.name == "detektBaseline") {
-          it.configureDefaultDetektTask()
-        }
-      }
-      with(extensions.getByType(DetektExtension::class.java)) {
-        // From the Groovy DSL at https://detekt.github.io/detekt/gradle.html#groovy-dsl-3
-        // This produces baselines named "detekt-baseline.xml"
-        baseline.set(file("detekt/detekt-baseline.xml"))
-        // Config overrides
-        config.from(rootProject.file("gradle/detekt-config.yml"))
-        buildUponDefaultConfig.set(true)
-      }
-
-      releaseTask.configure { releaseTask -> releaseTask.dependsOn("detekt") }
     }
 
     private val Project.testingSourceSets

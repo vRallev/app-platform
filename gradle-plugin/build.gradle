@@ -50,7 +50,7 @@ dependencies {
     // compileOnly to not set a minimum version for any consumers of this Gradle plugin and
     // because AGP is purely optional. Usage of AGP APIs is gated by checks when the plugin
     // is applied.
-    compileOnly libs.android.gradle.plugin.api.gradle.plugin
+    compileOnly libs.android.gradle.plugin.api
 
     // compileOnly, because not every consumer of this Gradle plugin will use KMP. All usages
     // are guarded by checks when the plugin is applied.

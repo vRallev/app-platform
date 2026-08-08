@@ -5,7 +5,9 @@ import org.gradle.api.Project
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import software.ralf.app.platform.gradle.AppPlatformExtension as AppPlatformExtensionGradlePlugin
-import software.ralf.app.platform.gradle.buildsrc.BaseAndroidPlugin.Companion.enableInstrumentedTests
+import software.ralf.app.platform.gradle.buildsrc.BaseAndroidPlugin.Companion.enableAndroidInstrumentedTests
+import software.ralf.app.platform.gradle.buildsrc.KmpAndroidPlugin.Companion.enableAndroidResources
+import software.ralf.app.platform.gradle.buildsrc.KmpAndroidPlugin.Companion.enableKmpInstrumentedTests
 import software.ralf.app.platform.gradle.buildsrc.KmpPlugin.Companion.enableCompose
 import software.ralf.app.platform.gradle.buildsrc.KmpPlugin.Companion.enableKotlinInject
 import software.ralf.app.platform.gradle.buildsrc.KmpPlugin.Companion.enableMetro
@@ -114,11 +116,19 @@ constructor(objects: ObjectFactory, private val project: Project) {
     enableInstrumentedTests.disallowChanges()
 
     if (enabled) {
-      project.enableInstrumentedTests()
+      if (project.plugins.hasPlugin(Plugins.ANDROID_KMP_LIBRARY)) {
+        project.enableKmpInstrumentedTests()
+      } else {
+        project.enableAndroidInstrumentedTests()
+      }
     }
   }
 
   internal fun isInstrumentedTestsEnabled(): Property<Boolean> = enableInstrumentedTests
+
+  public fun enableAndroidResources(enabled: Boolean) {
+    project.enableAndroidResources(enabled)
+  }
 
   internal companion object {
     val Project.appPlatformBuildSrc: AppPlatformExtension

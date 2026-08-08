@@ -30,5 +30,7 @@ public interface BaseComposeRenderer<in ModelT : BaseModel> {
   // the name "renderCompose" was chosen to align it with the "render" function from the
   // Renderer interface. Implementations will usually have a separate "Compose()" function, see
   // ComposeRenderer for example.
-  @Composable public fun renderCompose(model: ModelT, modifier: Modifier = Modifier)
+  @Suppress("ComposableNaming")
+  @Composable
+  public fun renderCompose(model: ModelT, modifier: Modifier = Modifier)
 }

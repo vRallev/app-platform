@@ -1204,7 +1204,7 @@ the renderer-level navigation container and back gesture integration.
 #### `Presenters` and SwiftUI `Views`
 
 In iOS it's possible to connect `Presenters` to SwiftUI `Views` so `Presenter` logic can be shared while keeping UI
-native. The Recipes app demonstrates a [set of Swift APIs](https://github.com/vRallev/app-platform/tree/main/recipes/recipesIosApp/recipesIosApp/PresenterViews)
+native. The Recipes app demonstrates a [set of Swift APIs](https://github.com/vRallev/app-platform/tree/main/recipes/app/ios/recipesIosApp/PresenterViews)
 that demonstrate how to launch a `Presenter` and render SwiftUI `Views` in the iOS flavor. Note that App Platform 
 does not provide an API equivalent of SwiftUI `Renderers`. As such, we need to decide how to observe the flow of models 
 from a given `Presenter` and create `Views` from them.
@@ -1340,7 +1340,7 @@ The root `Presenter` responsible for the `Presenter` backstack computes the `Mod
   }
 ```
 The `Presenter` forwards the `Models` and event callbacks to a SwiftUI `View`, which
-integrates these models with a [`NavigationStack`](https://github.com/vRallev/app-platform/blob/main/recipes/recipesIosApp/recipesIosApp/SwiftUI/SwiftUiHomePresenterView.swift).
+integrates these models with a [`NavigationStack`](https://github.com/vRallev/app-platform/blob/main/recipes/app/ios/recipesIosApp/SwiftUI/SwiftUiHomePresenterView.swift).
 Note that to integrate we create a [`Binding`](https://developer.apple.com/documentation/swiftui/binding) that is passed
 in to the `NavigationStack`. The `Binding's` value type must conform to `Hashable` and by default `BaseModel` does not
 conform. To resolve this in the recipe we simply represent each `Model` by the index of its position in the `Model`

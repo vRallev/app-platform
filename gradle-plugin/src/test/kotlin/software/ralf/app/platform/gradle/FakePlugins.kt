@@ -17,6 +17,10 @@ public class FakeAndroidLibraryPlugin : Plugin<Project> {
   }
 }
 
+public class FakeAndroidKmpLibraryPlugin : Plugin<Project> {
+  override fun apply(target: Project) = Unit
+}
+
 public class FakeKotlinAndroidPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     target.addSinglePlatformConfigurations()

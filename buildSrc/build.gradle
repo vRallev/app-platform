@@ -24,11 +24,17 @@ kotlin {
 
 gradlePlugin {
     plugins {
-        appPlatformAppPlugin {
-            id = "software.ralf.app.platform.app"
-            displayName = "App Platform App Gradle Plugin"
-            implementationClass = "software.ralf.app.platform.gradle.buildsrc.AppPlugin"
-            description = "The Gradle convention plugin for app modules."
+        appPlatformAndroidAppPlugin {
+            id = "software.ralf.app.platform.app.android"
+            displayName = "App Platform Android App Gradle Plugin"
+            implementationClass = "software.ralf.app.platform.gradle.buildsrc.AndroidAppPlugin"
+            description = "The Gradle convention plugin for Android app modules."
+        }
+        appPlatformKmpAppPlugin {
+            id = "software.ralf.app.platform.app.kmp"
+            displayName = "App Platform KMP Application Gradle Plugin"
+            implementationClass = "software.ralf.app.platform.gradle.buildsrc.KmpAppPlugin"
+            description = "The Gradle convention plugin for app framework, desktop, and web modules."
         }
         appPlatformLibPlugin {
             id = "software.ralf.app.platform.lib"
