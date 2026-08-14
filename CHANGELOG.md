@@ -15,7 +15,7 @@
 - Upgrade Compose Multiplatform to `1.12.0`.
 - Upgrade Kotlin to `2.4.20-Beta2`.
 - Upgrade the blueprint projects to App Platform `0.1.1`.
-- Upgrade Metro to `1.4.1`.
+- Upgrade Metro to `1.4.2`.
 
 ### Deprecated
 
