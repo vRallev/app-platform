@@ -26,12 +26,12 @@ public final class software/ralf/app/platform/robot/RobotKt {
 }
 
 public final class software/ralf/app/platform/robot/WaiterKt {
-	public static final fun waitFor-vLdBGDU (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;)Ljava/lang/Object;
-	public static synthetic fun waitFor-vLdBGDU$default (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
-	public static final fun waitUntil-vLdBGDU (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;)V
-	public static synthetic fun waitUntil-vLdBGDU$default (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
-	public static final fun waitUntilCatching-vLdBGDU (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;)V
-	public static synthetic fun waitUntilCatching-vLdBGDU$default (Ljava/lang/String;JJLkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public static final fun waitFor-vLdBGDU (Ljava/lang/String;JJLkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static synthetic fun waitFor-vLdBGDU$default (Ljava/lang/String;JJLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun waitUntil-vLdBGDU (Ljava/lang/String;JJLkotlin/jvm/functions/Function1;)V
+	public static synthetic fun waitUntil-vLdBGDU$default (Ljava/lang/String;JJLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static final fun waitUntilCatching-vLdBGDU (Ljava/lang/String;JJLkotlin/jvm/functions/Function1;)V
+	public static synthetic fun waitUntilCatching-vLdBGDU$default (Ljava/lang/String;JJLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
 
 public final class software/ralf/app/platform/robot/internal/RobotInternals {

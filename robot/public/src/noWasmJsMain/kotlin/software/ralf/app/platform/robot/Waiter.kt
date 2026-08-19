@@ -3,15 +3,18 @@ package software.ralf.app.platform.robot
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 
 private val defaultTimeout = 10.seconds
 private val defaultDelay = 15.milliseconds
 
 /**
- * Blocks the current thread until the given [block] returns true or the [timeout] occurs. [block]
- * is invoked multiple times with the given [delay] to check the condition. In case of a timeout an
+ * Blocks the current thread until the given suspending [block] returns true or the [timeout]
+ * occurs. [block] is invoked multiple times with the given [delay] to check the condition. The
+ * timeout includes time spent inside [block] and waiting between attempts. In case of a timeout an
  * [IllegalStateException] is thrown, because the app never transitioned into the expected state.
  * For better error messages [condition] describes what [block] is checking and waiting for.
  *
@@ -23,26 +26,26 @@ public fun waitUntil(
   condition: String,
   timeout: Duration = defaultTimeout,
   delay: Duration = defaultDelay,
-  block: () -> Boolean,
+  block: suspend () -> Boolean,
 ) {
-  val sleepCycles = (timeout / delay).toInt()
-
   runBlocking {
-    repeat(sleepCycles) {
-      if (!block()) {
-        delay(delay)
-      } else {
-        return@runBlocking
-      }
-    }
+    val succeeded =
+      withTimeoutOrNull(timeout) {
+        while (!block()) {
+          delay(delay)
+        }
 
-    check(block()) { "Waiting until '$condition' never returned true." }
+        true
+      }
+
+    check(succeeded == true) { "Waiting until '$condition' never returned true." }
   }
 }
 
 /**
- * Similar to [waitUntil], but allows [block] to throw any error when the condition isn't met. This
- * is helpful for example to wait for a UI element, e.g.
+ * Similar to [waitUntil], but allows the suspending [block] to throw any error when the condition
+ * isn't met. Coroutine cancellation is not retried. The last failed attempt is included as the
+ * cause when waiting times out. This is helpful for example to wait for a UI element, e.g.
  *
  * ```
  * waitUntilCatching("text is visible") {
@@ -55,36 +58,35 @@ public fun waitUntilCatching(
   condition: String,
   timeout: Duration = defaultTimeout,
   delay: Duration = defaultDelay,
-  block: () -> Unit,
+  block: suspend () -> Unit,
 ) {
   var lastException: Throwable? = null
   try {
     waitUntil(condition = condition, timeout = timeout, delay = delay) {
       try {
-        lastException = null
         block()
         true
+      } catch (exception: CancellationException) {
+        throw exception
       } catch (t: Throwable) {
         lastException = t
         false
       }
     }
   } catch (t: Throwable) {
-    if (lastException != null) {
-      throw IllegalStateException("Waiting until '$condition' never succeeded.", lastException)
-    } else {
-      throw t
-    }
+    throw t as? CancellationException
+      ?: IllegalStateException("Waiting until '$condition' never succeeded.", lastException ?: t)
   }
 }
 
 /**
- * Similar to [waitUntil], but allows [block] to throw any error when the condition isn't met. This
- * is helpful for example to wait for a UI element, e.g.
+ * Blocks the current thread until the suspending [block] returns a non-null value or [timeout]
+ * occurs. [block] is invoked multiple times with the given [delay] while it returns null. The
+ * timeout includes time spent inside [block] and waiting between attempts, e.g.
  *
  * ```
- * waitUntilCatching("text is visible") {
- *     seeViewWithText("Some text")
+ * val session = waitFor("user is authenticated") {
+ *     sessionManager.sessionFlow.first { it is AuthSession.Authenticated }
  * }
  * ```
  */
@@ -93,7 +95,7 @@ public fun <T : Any> waitFor(
   condition: String,
   timeout: Duration = defaultTimeout,
   delay: Duration = defaultDelay,
-  block: () -> T?,
+  block: suspend () -> T?,
 ): T {
   var result: T? = null
 
@@ -103,13 +105,13 @@ public fun <T : Any> waitFor(
       result != null
     }
   } catch (t: Throwable) {
-    if (result == null) {
-      throw IllegalStateException(
+    throw if (t is CancellationException || result != null) {
+      t
+    } else {
+      IllegalStateException(
         "Waiting for '$condition' never succeeded and the value is null.",
         t,
       )
-    } else {
-      throw t
     }
   }
 
