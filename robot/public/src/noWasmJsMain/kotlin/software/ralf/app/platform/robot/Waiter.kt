@@ -44,14 +44,17 @@ public fun waitUntil(
 
 /**
  * Similar to [waitUntil], but allows the suspending [block] to throw any error when the condition
- * isn't met. Coroutine cancellation is not retried. The last failed attempt is included as the
- * cause when waiting times out. This is helpful for example to wait for a UI element, e.g.
+ * isn't met. Coroutine cancellation is not retried. This is helpful for example to wait for a UI
+ * element, e.g.
  *
  * ```
  * waitUntilCatching("text is visible") {
  *     seeViewWithText("Some text")
  * }
  * ```
+ *
+ * If the timeout occurs while [block] throws an [AssertionError], the last assertion failure is
+ * rethrown unchanged. Other failures are included as the cause of an [IllegalStateException].
  */
 @Suppress("TooGenericExceptionCaught")
 public fun waitUntilCatching(
@@ -74,8 +77,12 @@ public fun waitUntilCatching(
       }
     }
   } catch (t: Throwable) {
-    throw t as? CancellationException
-      ?: IllegalStateException("Waiting until '$condition' never succeeded.", lastException ?: t)
+    val failure = lastException
+    throw when {
+      t is CancellationException -> t
+      failure is AssertionError -> failure
+      else -> IllegalStateException("Waiting until '$condition' never succeeded.", failure ?: t)
+    }
   }
 }
 

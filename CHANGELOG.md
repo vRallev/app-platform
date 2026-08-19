@@ -15,6 +15,7 @@
 ### Fixed
 
 - Enforce module structure dependency rules for Android and JVM test fixtures while allowing fixtures to use test-only modules.
+- Preserve assertion failures when `waitUntilCatching` times out so test runners report failed assertions correctly.
 
 ### Security
 
