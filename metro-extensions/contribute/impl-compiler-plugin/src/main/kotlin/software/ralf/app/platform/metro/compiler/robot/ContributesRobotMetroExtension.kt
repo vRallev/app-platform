@@ -36,29 +36,43 @@ public class ContributesRobotMetroExtension(private val session: FirSession) :
     scopeClassId: ClassId,
     typeResolverFactory: MetroFirTypeResolver.Factory,
   ): List<MetroContributionExtension.Contribution> {
-    return annotatedClasses.mapNotNull { parentSymbol ->
+    return annotatedClasses.flatMap { parentSymbol ->
       val annotationScopeClassId =
         extractScopeClassId(parentSymbol, ContributesRobotIds.CONTRIBUTES_ROBOT_CLASS_ID, session)
-          ?: return@mapNotNull null
-      if (annotationScopeClassId != scopeClassId) return@mapNotNull null
+          ?: return@flatMap emptyList()
+      if (annotationScopeClassId != scopeClassId) return@flatMap emptyList()
 
       val contributionInterfaceClassId =
         parentSymbol.classId.createNestedClassId(ContributesRobotIds.NESTED_INTERFACE_NAME)
       val contributionSymbol =
         session.symbolProvider.getClassLikeSymbolByClassId(contributionInterfaceClassId)
-          as? FirRegularClassSymbol ?: return@mapNotNull null
+          as? FirRegularClassSymbol ?: return@flatMap emptyList()
       val scope = contributionSymbol.declaredMemberScope(session, memberRequiredPhase = null)
       val metroContributionName =
         scope.getClassifierNames().firstOrNull { it.identifier.startsWith("MetroContributionTo") }
-          ?: return@mapNotNull null
+          ?: return@flatMap emptyList()
       val metroContributionSymbol =
         scope.getSingleClassifier(metroContributionName) as? FirRegularClassSymbol
-          ?: return@mapNotNull null
+          ?: return@flatMap emptyList()
+      val robotGraphContributionClassId =
+        parentSymbol.classId.createNestedClassId(
+          ContributesRobotIds.NESTED_ROBOT_GRAPH_INTERFACE_NAME
+        )
+      val robotGraphContributionSymbol =
+        session.symbolProvider.getClassLikeSymbolByClassId(robotGraphContributionClassId)
+          as? FirRegularClassSymbol ?: return@flatMap emptyList()
 
-      MetroContributionExtension.Contribution(
-        supertype = metroContributionSymbol.defaultType(),
-        replaces = emptyList(),
-        originClassId = parentSymbol.classId,
+      listOf(
+        MetroContributionExtension.Contribution(
+          supertype = metroContributionSymbol.defaultType(),
+          replaces = emptyList(),
+          originClassId = parentSymbol.classId,
+        ),
+        MetroContributionExtension.Contribution(
+          supertype = robotGraphContributionSymbol.defaultType(),
+          replaces = emptyList(),
+          originClassId = parentSymbol.classId,
+        ),
       )
     }
   }

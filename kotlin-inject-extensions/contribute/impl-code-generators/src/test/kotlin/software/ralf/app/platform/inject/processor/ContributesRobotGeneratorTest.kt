@@ -50,6 +50,7 @@ class ContributesRobotGeneratorTest {
 
       assertThat(robotComponent.getAnnotation(ContributesTo::class.java).scope)
         .isEqualTo(AppScope::class)
+      assertThat(robotComponent.interfaces.toList()).contains(RobotComponent::class.java)
       assertThat(robotComponent.origin).isEqualTo(testRobot)
 
       with(robotComponent.declaredNonSyntheticMethods.single { it.name == "provideTestRobot" }) {
@@ -320,25 +321,25 @@ class ContributesRobotGeneratorTest {
   }
 
   @Test
-  fun `only the app scope is supported for now`() {
+  fun `a custom scope is supported`() {
     compile(
       """
             package software.ralf.test
 
             import software.ralf.app.platform.inject.robot.ContributesRobot
             import software.ralf.app.platform.robot.Robot
-            import software.amazon.lastmile.kotlin.inject.anvil.AppScope
-
             @ContributesRobot(String::class)
             class TestRobot : Robot
             """,
-      exitCode = COMPILATION_ERROR,
+      customScopeComponentInterfaceSource,
     ) {
-      assertThat(messages)
-        .contains(
-          "Robots can only be contributed to the AppScope for now. " +
-            "Scope kotlin.String is unsupported."
-        )
+      val robotComponent = testRobot.component
+
+      assertThat(robotComponent.getAnnotation(ContributesTo::class.java).scope)
+        .isEqualTo(String::class)
+      assertThat(robotComponent.interfaces.toList()).contains(RobotComponent::class.java)
+      assertThat(componentInterface.newComponent<RobotComponent>().robots.keys)
+        .containsOnly(testRobot.kotlin)
     }
   }
 
@@ -356,6 +357,19 @@ class ContributesRobotGeneratorTest {
         @Component
         @MergeComponent(AppScope::class, exclude = [RendererComponent::class])
         @SingleIn(AppScope::class)
+        interface ComponentInterface : ComponentInterfaceMerged
+    """
+
+  @Language("kotlin")
+  private val customScopeComponentInterfaceSource =
+    """
+        package software.ralf.test
+
+        import me.tatarka.inject.annotations.Component
+        import software.amazon.lastmile.kotlin.inject.anvil.MergeComponent
+
+        @Component
+        @MergeComponent(String::class)
         interface ComponentInterface : ComponentInterfaceMerged
     """
 

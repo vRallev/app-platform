@@ -20,7 +20,6 @@ import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.name.ClassId
 import software.ralf.app.platform.metro.compiler.ClassIds
 import software.ralf.app.platform.metro.compiler.fir.AppPlatformMetroExtensionsDiagnostics
-import software.ralf.app.platform.metro.compiler.fir.extractScopeClassId
 import software.ralf.app.platform.metro.compiler.fir.hasAnnotation
 import software.ralf.app.platform.metro.compiler.fir.hasTransitiveSupertype
 
@@ -81,17 +80,6 @@ internal object ContributesRobotChecker : FirClassChecker(MppCheckerKind.Common)
           "robot is scoped to the robot() factory function. Remove the @" +
           singletonAnnotation.toAnnotationClassIdSafe(session)?.shortClassName?.asString() +
           " annotation.",
-      )
-    }
-
-    val scopeClassId =
-      extractScopeClassId(classSymbol, ContributesRobotIds.CONTRIBUTES_ROBOT_CLASS_ID, session)
-    if (scopeClassId != null && scopeClassId != ClassIds.APP_SCOPE) {
-      reporter.reportOn(
-        annotation.source ?: declaration.source,
-        AppPlatformMetroExtensionsDiagnostics.CONTRIBUTES_ROBOT_ERROR,
-        "Robots can only be contributed to the AppScope for now. Scope " +
-          "${scopeClassId.asSingleFqName()} is unsupported.",
       )
     }
   }

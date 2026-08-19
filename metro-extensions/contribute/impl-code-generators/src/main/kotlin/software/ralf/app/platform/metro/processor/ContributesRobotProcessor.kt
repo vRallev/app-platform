@@ -25,7 +25,6 @@ import com.squareup.kotlinpoet.ksp.toAnnotationSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
-import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.IntoMap
@@ -68,6 +67,7 @@ internal class ContributesRobotProcessor(
 
   private val robotClassName = ClassName("software.ralf.app.platform.robot", "Robot")
   private val robotFqName = robotClassName.canonicalName
+  private val robotGraphClassName = ClassName("software.ralf.app.platform.robot", "RobotGraph")
 
   private val robotKey = RobotKey::class.asClassName()
 
@@ -79,7 +79,6 @@ internal class ContributesRobotProcessor(
         checkIsPublic(it)
         checkNotSingleton(it)
         checkSuperType(it)
-        checkAppScope(it)
         checkSingleConstructorOrInject(it)
       }
       .forEach { generateGraph(it) }
@@ -96,6 +95,7 @@ internal class ContributesRobotProcessor(
         .addType(
           TypeSpec.interfaceBuilder(graphClassName)
             .addOriginatingKSFile(clazz.requireContainingFile())
+            .addSuperinterface(robotGraphClassName)
             .addMetroOriginAnnotation(clazz)
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
@@ -155,13 +155,6 @@ internal class ContributesRobotProcessor(
     check(extendsRobot, clazz) {
       "In order to use @ContributesRobot, ${clazz.simpleName.asString()} must " +
         "implement $robotFqName."
-    }
-  }
-
-  private fun checkAppScope(clazz: KSClassDeclaration) {
-    val scope = clazz.scope().type.declaration.requireQualifiedName()
-    check(scope == AppScope::class.requireQualifiedName(), clazz) {
-      "Robots can only be contributed to the AppScope for now. Scope $scope is unsupported."
     }
   }
 

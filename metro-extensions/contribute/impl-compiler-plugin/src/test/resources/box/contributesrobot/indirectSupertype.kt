@@ -13,10 +13,10 @@ abstract class BaseRobot2 : BaseRobot1
 class TestRobot : BaseRobot2()
 
 @DependencyGraph(AppScope::class)
-interface MyGraph : RobotGraph
+interface MyGraph
 
 fun box(): String {
-  val graph = createGraph<MyGraph>()
+  val graph = createGraph<MyGraph>() as RobotGraph
   val robotFactory = graph.robots.getValue(TestRobot::class)
   val robot = robotFactory()
 

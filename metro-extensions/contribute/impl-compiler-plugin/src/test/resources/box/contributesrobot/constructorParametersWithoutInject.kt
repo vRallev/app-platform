@@ -15,7 +15,7 @@ class TestRobot(
 ) : Robot
 
 @DependencyGraph(AppScope::class)
-interface MyGraph : RobotGraph {
+interface MyGraph {
   @Provides fun robotDependency(): RobotDependency = RobotDependency()
 }
 
@@ -38,7 +38,7 @@ fun box(): String {
     return "FAIL: expected provider on RobotContribution companion"
   }
 
-  val graph = createGraph<MyGraph>()
+  val graph = createGraph<MyGraph>() as RobotGraph
   val robotFactory = graph.robots.getValue(TestRobot::class)
   val robot = robotFactory()
 

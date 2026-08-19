@@ -302,6 +302,10 @@ class ConnectionRobot : Robot {
 or `composeRobot<Type>()` function. The annotation makes sure that the robots are added to the Metro
 or `kotlin-inject-anvil` dependency graph.
 
+Robots can be contributed to the application scope or any child scope. Robot lookup starts at the application scope
+and searches its children automatically. If multiple sibling scope instances provide the requested robot, lookup
+fails because the intended scope instance would be ambiguous.
+
 ??? info "Generated code"
 
     The `@ContributesRobot` annotation generates following code.
@@ -324,13 +328,17 @@ or `kotlin-inject-anvil` dependency graph.
               MetricsRobot(metricsService)
           }
         }
+
+        @ContributesTo(AppScope::class)
+        @Origin(MetricsRobot::class)
+        public interface MetricsRobotGraphContribution : RobotGraph
         ```
 
     === "kotlin-inject-anvil"
 
         ```kotlin
         @ContributesTo(AppScope::class)
-        public interface MetricsRobotComponent {
+        public interface MetricsRobotComponent : RobotComponent {
           @Provides
           public fun provideMetricsRobot(metricsService: FakeMetricsService): MetricsRobot =
             MetricsRobot(metricsService)

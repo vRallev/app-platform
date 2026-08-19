@@ -89,6 +89,9 @@ import software.ralf.app.platform.metro.compiler.fir.resolveTypeRef
  *       fun provideTestRobot(dependency: RobotDependency): TestRobot
  *     }
  *   }
+ *
+ *   @ContributesTo(AppScope::class)
+ *   interface RobotGraphContribution : RobotGraph
  * }
  * ```
  *
@@ -103,14 +106,23 @@ public class ContributesRobotFir(session: FirSession) :
   }
 
   override fun getContributionHints(): List<ContributionHint> {
-    return annotatedRobotClasses().mapNotNull { classSymbol ->
+    return annotatedRobotClasses().flatMap { classSymbol ->
       val scopeClassId =
         extractScopeClassId(classSymbol, ContributesRobotIds.CONTRIBUTES_ROBOT_CLASS_ID, session)
-          ?: return@mapNotNull null
-      ContributionHint(
-        contributingClassId =
-          classSymbol.classId.createNestedClassId(ContributesRobotIds.NESTED_INTERFACE_NAME),
-        scope = scopeClassId,
+          ?: return@flatMap emptyList()
+      listOf(
+        ContributionHint(
+          contributingClassId =
+            classSymbol.classId.createNestedClassId(ContributesRobotIds.NESTED_INTERFACE_NAME),
+          scope = scopeClassId,
+        ),
+        ContributionHint(
+          contributingClassId =
+            classSymbol.classId.createNestedClassId(
+              ContributesRobotIds.NESTED_ROBOT_GRAPH_INTERFACE_NAME
+            ),
+          scope = scopeClassId,
+        ),
       )
     }
   }
@@ -130,7 +142,10 @@ public class ContributesRobotFir(session: FirSession) :
     return if (
       hasAnnotation(classSymbol, ContributesRobotIds.CONTRIBUTES_ROBOT_CLASS_ID, session)
     ) {
-      setOf(ContributesRobotIds.NESTED_INTERFACE_NAME)
+      setOf(
+        ContributesRobotIds.NESTED_INTERFACE_NAME,
+        ContributesRobotIds.NESTED_ROBOT_GRAPH_INTERFACE_NAME,
+      )
     } else {
       emptySet()
     }
@@ -152,12 +167,46 @@ public class ContributesRobotFir(session: FirSession) :
       return companion.symbol
     }
 
-    if (name != ContributesRobotIds.NESTED_INTERFACE_NAME) return null
     if (!hasAnnotation(owner, ContributesRobotIds.CONTRIBUTES_ROBOT_CLASS_ID, session)) return null
 
     val scopeArg =
       extractScopeArgument(owner, ContributesRobotIds.CONTRIBUTES_ROBOT_CLASS_ID, session)
         ?: return null
+
+    if (name == ContributesRobotIds.NESTED_ROBOT_GRAPH_INTERFACE_NAME) {
+      val nestedClassId = owner.classId.createNestedClassId(name)
+      val classSymbol = FirRegularClassSymbol(nestedClassId)
+      val contributionClass = buildRegularClass {
+        resolvePhase = FirResolvePhase.BODY_RESOLVE
+        moduleData = session.moduleData
+        origin = Keys.ContributesRobotGeneratorKey.origin
+        source = owner.source
+        classKind = ClassKind.INTERFACE
+        scopeProvider = session.kotlinScopeProvider
+        this.name = nestedClassId.shortClassName
+        symbol = classSymbol
+        status =
+          FirResolvedDeclarationStatusImpl(
+            Visibilities.Public,
+            Modality.ABSTRACT,
+            Visibilities.Public.toEffectiveVisibility(owner, forClass = true),
+          )
+        superTypeRefs += robotGraphType().toFirResolvedTypeRef()
+        annotations +=
+          buildAnnotationCallWithArgument(
+            ClassIds.CONTRIBUTES_TO,
+            Name.identifier("scope"),
+            scopeArg,
+            classSymbol,
+            session,
+          )
+        annotations += buildOriginAnnotation(owner)
+      }
+      return contributionClass.symbol
+    }
+
+    if (name != ContributesRobotIds.NESTED_INTERFACE_NAME) return null
+
     val nestedClassId = owner.classId.createNestedClassId(name)
     val classSymbol = FirRegularClassSymbol(nestedClassId)
 
@@ -455,6 +504,13 @@ public class ContributesRobotFir(session: FirSession) :
   private fun robotType() =
     ConeClassLikeTypeImpl(
       ConeClassLikeLookupTagImpl(ClassIds.ROBOT),
+      emptyArray(),
+      isMarkedNullable = false,
+    )
+
+  private fun robotGraphType() =
+    ConeClassLikeTypeImpl(
+      ConeClassLikeLookupTagImpl(ClassIds.ROBOT_GRAPH),
       emptyArray(),
       isMarkedNullable = false,
     )

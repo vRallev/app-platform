@@ -3,5 +3,5 @@ package com.test
 
 import software.ralf.app.platform.inject.robot.ContributesRobot
 
-<!CONTRIBUTES_ROBOT_ERROR, CONTRIBUTES_ROBOT_ERROR!>@ContributesRobot(Unit::class)<!>
+<!CONTRIBUTES_ROBOT_ERROR!>@ContributesRobot(Unit::class)<!>
 class MissingRobot

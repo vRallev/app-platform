@@ -10,6 +10,7 @@ internal object ContributesRobotIds {
   val CONTRIBUTES_ROBOT_CLASS_ID = ClassIds.CONTRIBUTES_ROBOT
   val CONTRIBUTES_ROBOT_FQ_NAME = FqName("software.ralf.app.platform.inject.robot.ContributesRobot")
   val NESTED_INTERFACE_NAME: Name = Name.identifier("RobotContribution")
+  val NESTED_ROBOT_GRAPH_INTERFACE_NAME: Name = Name.identifier("RobotGraphContribution")
 
   val PREDICATE = LookupPredicate.create { annotated(CONTRIBUTES_ROBOT_FQ_NAME) }
 

@@ -28,7 +28,7 @@ import software.ralf.app.platform.ksp.isAnnotatedWith
 import software.ralf.app.platform.metro.METRO_LOOKUP_PACKAGE
 import software.ralf.app.platform.renderer.metro.RobotKey
 import software.ralf.app.platform.robot.Robot
-import software.ralf.test.TestRobotGraph
+import software.ralf.app.platform.robot.RobotGraph
 
 class ContributesRobotGeneratorTest {
 
@@ -51,6 +51,7 @@ class ContributesRobotGeneratorTest {
 
       assertThat(robotGraph.getAnnotation(ContributesTo::class.java).scope)
         .isEqualTo(AppScope::class)
+      assertThat(robotGraph.interfaces.toList()).contains(RobotGraph::class.java)
 
       with(robotGraph.declaredNonSyntheticMethods.single { it.name == "provideTestRobot" }) {
         assertThat(parameters).isEmpty()
@@ -67,7 +68,7 @@ class ContributesRobotGeneratorTest {
         assertThat(getAnnotation(RobotKey::class.java).value.java).isEqualTo(testRobot)
       }
 
-      assertThat(graphInterface.newMetroGraph<TestRobotGraph>().robots.keys)
+      assertThat(graphInterface.newMetroGraph<RobotGraph>().robots.keys)
         .containsOnly(testRobot.kotlin)
     }
   }
@@ -107,7 +108,7 @@ class ContributesRobotGeneratorTest {
         assertThat(getAnnotation(RobotKey::class.java).value.java).isEqualTo(testRobot)
       }
 
-      assertThat(graphInterface.newMetroGraph<TestRobotGraph>().robots.keys)
+      assertThat(graphInterface.newMetroGraph<RobotGraph>().robots.keys)
         .containsOnly(testRobot.kotlin)
     }
   }
@@ -140,7 +141,7 @@ class ContributesRobotGeneratorTest {
         )
         .isNull()
 
-      val robot = graphInterface.newMetroGraph<TestRobotGraph>().robots[testRobot.kotlin]!!()
+      val robot = graphInterface.newMetroGraph<RobotGraph>().robots[testRobot.kotlin]!!()
       assertThat(testRobot.getMethod("value").invoke(robot)).isEqualTo("dependency")
     }
   }
@@ -175,7 +176,7 @@ class ContributesRobotGeneratorTest {
         )
         .isNull()
 
-      val robot = graphInterface.newMetroGraph<TestRobotGraph>().robots[testRobot.kotlin]!!()
+      val robot = graphInterface.newMetroGraph<RobotGraph>().robots[testRobot.kotlin]!!()
       assertThat(testRobot.getMethod("value").invoke(robot)).isEqualTo("dependency injected")
     }
   }
@@ -234,7 +235,7 @@ class ContributesRobotGeneratorTest {
         assertThat(this).isAnnotatedWith(Provides::class)
       }
 
-      val robot = graphInterface.newMetroGraph<TestRobotGraph>().robots[testRobot.kotlin]!!()
+      val robot = graphInterface.newMetroGraph<RobotGraph>().robots[testRobot.kotlin]!!()
       assertThat(testRobot.getMethod("value").invoke(robot)).isEqualTo("dependency")
     }
   }
@@ -315,25 +316,25 @@ class ContributesRobotGeneratorTest {
   }
 
   @Test
-  fun `only the app scope is supported for now`() {
+  fun `a custom scope is supported`() {
     compile(
       """
       package software.ralf.test
 
       import software.ralf.app.platform.inject.robot.ContributesRobot
       import software.ralf.app.platform.robot.Robot
-      import software.amazon.lastmile.kotlin.inject.anvil.AppScope
 
       @ContributesRobot(String::class)
       class TestRobot : Robot
-              """,
-      exitCode = COMPILATION_ERROR,
+      """,
+      customScopeGraphInterfaceSource,
     ) {
-      assertThat(messages)
-        .contains(
-          "Robots can only be contributed to the AppScope for now. " +
-            "Scope kotlin.String is unsupported."
-        )
+      val robotGraph = testRobot.graph
+
+      assertThat(robotGraph.getAnnotation(ContributesTo::class.java).scope).isEqualTo(String::class)
+      assertThat(robotGraph.interfaces.toList()).contains(RobotGraph::class.java)
+      assertThat(graphInterface.newMetroGraph<RobotGraph>().robots.keys)
+        .containsOnly(testRobot.kotlin)
     }
   }
 
@@ -349,7 +350,7 @@ class ContributesRobotGeneratorTest {
 
         @DependencyGraph(AppScope::class)
         @SingleIn(AppScope::class)
-        interface GraphInterface : TestRobotGraph {
+        interface GraphInterface {
             companion object {
                 fun create(): GraphInterface = createGraph<GraphInterface>()
             }
@@ -369,9 +370,25 @@ class ContributesRobotGeneratorTest {
 
         @DependencyGraph(AppScope::class)
         @SingleIn(AppScope::class)
-        interface GraphInterface : TestRobotGraph {
+        interface GraphInterface {
             @Provides fun provideString(): String = "dependency"
 
+            companion object {
+                fun create(): GraphInterface = createGraph<GraphInterface>()
+            }
+        }
+    """
+
+  @Language("kotlin")
+  private val customScopeGraphInterfaceSource =
+    """
+        package software.ralf.test
+
+        import dev.zacsweers.metro.createGraph
+        import dev.zacsweers.metro.DependencyGraph
+
+        @DependencyGraph(String::class)
+        interface GraphInterface {
             companion object {
                 fun create(): GraphInterface = createGraph<GraphInterface>()
             }

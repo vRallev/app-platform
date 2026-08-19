@@ -26,8 +26,6 @@ import software.amazon.lastmile.kotlin.inject.anvil.extend.ContributingAnnotatio
  *     ...
  * }
  * ```
- *
- * **ATTENTION:** Only `AppScope` is supported for now.
  */
 @ContributingAnnotation
 public annotation class ContributesRobot(

@@ -89,12 +89,6 @@ public class FirDiagnosticTestGenerated extends AbstractFirDiagnosticTest {
     }
 
     @Test
-    @TestMetadata("onlyAppScopeSupported.kt")
-    public void testOnlyAppScopeSupported() {
-      run("onlyAppScopeSupported.kt");
-    }
-
-    @Test
     @TestMetadata("robotMustNotBeSingleton.kt")
     public void testRobotMustNotBeSingleton() {
       run("robotMustNotBeSingleton.kt");

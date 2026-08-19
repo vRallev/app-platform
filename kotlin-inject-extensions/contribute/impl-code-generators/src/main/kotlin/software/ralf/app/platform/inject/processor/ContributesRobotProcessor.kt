@@ -31,7 +31,6 @@ import kotlin.reflect.KClass
 import me.tatarka.inject.annotations.Inject
 import me.tatarka.inject.annotations.IntoMap
 import me.tatarka.inject.annotations.Provides
-import software.amazon.lastmile.kotlin.inject.anvil.AppScope
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesTo
 import software.ralf.app.platform.inject.APP_PLATFORM_LOOKUP_PACKAGE
 import software.ralf.app.platform.inject.KotlinInjectContextAware
@@ -69,6 +68,8 @@ internal class ContributesRobotProcessor(
 
   private val robotClassName = ClassName("software.ralf.app.platform.robot", "Robot")
   private val robotFqName = robotClassName.canonicalName
+  private val robotComponentClassName =
+    ClassName("software.ralf.app.platform.robot", "RobotComponent")
 
   override fun process(resolver: Resolver): List<KSAnnotated> {
     resolver
@@ -78,7 +79,6 @@ internal class ContributesRobotProcessor(
         checkIsPublic(it)
         checkNotSingleton(it)
         checkSuperType(it)
-        checkAppScope(it)
         checkSingleConstructorOrInject(it)
       }
       .forEach { generateComponentInterface(it) }
@@ -95,6 +95,7 @@ internal class ContributesRobotProcessor(
         .addType(
           TypeSpec.interfaceBuilder(componentClassName)
             .addOriginatingKSFile(clazz.requireContainingFile())
+            .addSuperinterface(robotComponentClassName)
             .addOriginAnnotation(clazz)
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
@@ -158,13 +159,6 @@ internal class ContributesRobotProcessor(
     check(extendsRobot, clazz) {
       "In order to use @ContributesRobot, ${clazz.simpleName.asString()} must " +
         "implement $robotFqName."
-    }
-  }
-
-  private fun checkAppScope(clazz: KSClassDeclaration) {
-    val scope = clazz.scope().type.declaration.requireQualifiedName()
-    check(scope == AppScope::class.requireQualifiedName(), clazz) {
-      "Robots can only be contributed to the AppScope for now. Scope $scope is unsupported."
     }
   }
 

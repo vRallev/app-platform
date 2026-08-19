@@ -112,6 +112,67 @@ class RobotTest {
     assertThat(metroRobot).isNotNull()
   }
 
+  @Test
+  fun `a robot is found in a child scope`() {
+    val rootScope = rootScope()
+    rootScope.buildChild("child") { addMetroDependencyGraph(Graph(ChildTestRobot())) }
+
+    var childRobot: ChildTestRobot? = null
+    robot<ChildTestRobot>(rootScope) { childRobot = this }
+
+    assertThat(childRobot).isNotNull()
+  }
+
+  @Test
+  fun `robots inherited from a parent scope are not ambiguous`() {
+    val rootRobot = MetroTestRobot()
+    val rootScope = rootScope(kiRobot = null, metroRobot = rootRobot)
+    val childRobot = ChildTestRobot()
+    val childScope =
+      rootScope.buildChild("child") {
+        addMetroDependencyGraph(Graph(rootRobot, childRobot))
+      }
+    childScope.buildChild("grandchild") {
+      addMetroDependencyGraph(Graph(rootRobot, childRobot))
+    }
+
+    var foundRootRobot: MetroTestRobot? = null
+    robot<MetroTestRobot>(rootScope) { foundRootRobot = this }
+
+    var foundChildRobot: ChildTestRobot? = null
+    robot<ChildTestRobot>(rootScope) { foundChildRobot = this }
+
+    assertThat(foundRootRobot).isNotNull()
+    assertThat(foundChildRobot).isNotNull()
+  }
+
+  @Test
+  fun `the same robot in sibling scopes is ambiguous`() {
+    val rootScope = rootScope(kiRobot = null, metroRobot = null)
+    rootScope.buildChild("child-1") { addMetroDependencyGraph(Graph(ChildTestRobot())) }
+    rootScope.buildChild("child-2") { addMetroDependencyGraph(Graph(ChildTestRobot())) }
+
+    val exception = assertFailsWith<IllegalStateException> { robot<ChildTestRobot>(rootScope) {} }
+
+    val message =
+      exception.message?.replace("RobotTest\$ChildTestRobot", "RobotTest.ChildTestRobot").toString()
+    assertThat(message)
+      .contains(
+        "Found Robot of type class software.ralf.app.platform.robot.RobotTest.ChildTestRobot"
+      )
+    assertThat(message).contains("child-1 and child-2")
+  }
+
+  @Test
+  fun `destroyed child scopes are not searched`() {
+    val rootScope = rootScope(kiRobot = null, metroRobot = null)
+    val childScope =
+      rootScope.buildChild("child") { addMetroDependencyGraph(Graph(ChildTestRobot())) }
+    childScope.destroy()
+
+    assertFailsWith<IllegalStateException> { robot<ChildTestRobot>(rootScope) {} }
+  }
+
   private fun rootScope(
     kiRobot: Robot? = KiTestRobot(),
     metroRobot: Robot? = MetroTestRobot(),
@@ -153,4 +214,6 @@ class RobotTest {
       closeCalled = true
     }
   }
+
+  private class ChildTestRobot : Robot
 }

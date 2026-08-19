@@ -79,14 +79,15 @@ public interface Robot {
  * }
  * ```
  *
- * [rootScope] refers to the application scope, which provides [RobotComponent]. Usually, the
- * parameter doesn't need to be changed and the default value can be used.
+ * [rootScope] refers to the application scope. The scope and all of its children are searched for
+ * the contributed robot. Usually, the parameter doesn't need to be changed and the default value
+ * can be used.
  */
 public inline fun <reified T : Robot> robot(
   rootScope: Scope = software.ralf.app.platform.robot.internal.rootScope,
   noinline block: T.() -> Unit,
 ) {
-  val robot = rootScope.allRobots[T::class]?.invoke() as? T
+  val robot = rootScope.findRobotFactory(T::class)?.invoke() as? T
 
   checkNotNull(robot) {
     "Could not find Robot of type ${T::class}. Did you forget to add the @ContributesRobot " +
@@ -98,6 +99,34 @@ public inline fun <reified T : Robot> robot(
   } finally {
     robot.close()
   }
+}
+
+@PublishedApi
+internal fun Scope.findRobotFactory(robotType: KClass<*>): (() -> Robot)? {
+  var match: (() -> Robot)? = null
+  var matchingScope: Scope? = null
+
+  fun Scope.findRobot(inheritedRobotTypes: Set<KClass<*>>) {
+    if (isDestroyed()) return
+
+    val robots = allRobots
+    if (robotType !in inheritedRobotTypes) {
+      robots[robotType]?.let { robotFactory ->
+        check(match == null) {
+          "Found Robot of type $robotType in multiple scopes: " +
+            "${matchingScope?.name} and $name."
+        }
+        match = robotFactory
+        matchingScope = this
+      }
+    }
+
+    val visibleRobotTypes = inheritedRobotTypes + robots.keys
+    children().forEach { childScope -> childScope.findRobot(visibleRobotTypes) }
+  }
+
+  findRobot(emptySet())
+  return match
 }
 
 @PublishedApi

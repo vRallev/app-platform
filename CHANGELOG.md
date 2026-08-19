@@ -4,6 +4,8 @@
 
 ### Added
 
+- Allow robots to be contributed to any scope and find them automatically in child scopes during tests.
+
 ### Changed
 
 - **Breaking binary change:** Robot waiting helpers accept suspending callbacks and enforce timeouts across callback execution and polling delays; existing Kotlin call sites remain source-compatible, but previously compiled consumers must recompile.

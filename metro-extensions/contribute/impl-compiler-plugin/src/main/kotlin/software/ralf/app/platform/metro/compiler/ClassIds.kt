@@ -61,6 +61,9 @@ internal object ClassIds {
 
   val ROBOT = ClassId(FqName("software.ralf.app.platform.robot"), Name.identifier("Robot"))
 
+  val ROBOT_GRAPH =
+    ClassId(FqName("software.ralf.app.platform.robot"), Name.identifier("RobotGraph"))
+
   val ROBOT_KEY =
     ClassId(FqName("software.ralf.app.platform.renderer.metro"), Name.identifier("RobotKey"))
 
