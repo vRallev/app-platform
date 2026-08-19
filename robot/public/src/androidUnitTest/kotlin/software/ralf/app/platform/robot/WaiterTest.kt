@@ -37,14 +37,14 @@ class WaiterTest {
   @Test
   fun `waitUntil throws an error when the condition is never met`() {
     assertFailure {
-      waitUntil(
-        condition = "Wait for test condition",
-        timeout = 200.milliseconds,
-        delay = 100.milliseconds,
-      ) {
-        false
+        waitUntil(
+          condition = "Wait for test condition",
+          timeout = 200.milliseconds,
+          delay = 100.milliseconds,
+        ) {
+          false
+        }
       }
-    }
       .messageContains("Waiting until 'Wait for test condition' never returned true.")
   }
 
@@ -64,15 +64,15 @@ class WaiterTest {
   fun `waitUntil times out while the condition is suspended`() {
     val elapsed = measureTime {
       assertFailure {
-        waitUntil(
-          condition = "Wait for suspended condition",
-          timeout = 100.milliseconds,
-          delay = 10.milliseconds,
-        ) {
-          delay(5.seconds)
-          true
+          waitUntil(
+            condition = "Wait for suspended condition",
+            timeout = 100.milliseconds,
+            delay = 10.milliseconds,
+          ) {
+            delay(5.seconds)
+            true
+          }
         }
-      }
         .messageContains("Waiting until 'Wait for suspended condition' never returned true.")
     }
 
@@ -83,14 +83,14 @@ class WaiterTest {
   fun `waitUntil times out during the polling delay`() {
     val elapsed = measureTime {
       assertFailure {
-        waitUntil(
-          condition = "Wait between attempts",
-          timeout = 100.milliseconds,
-          delay = 5.seconds,
-        ) {
-          false
+          waitUntil(
+            condition = "Wait between attempts",
+            timeout = 100.milliseconds,
+            delay = 5.seconds,
+          ) {
+            false
+          }
         }
-      }
         .messageContains("Waiting until 'Wait between attempts' never returned true.")
     }
 
@@ -100,14 +100,14 @@ class WaiterTest {
   @Test
   fun `throwing an exception in waitUntil bubbles up`() {
     assertFailure {
-      waitUntil(
-        condition = "Wait for test condition",
-        timeout = 200.milliseconds,
-        delay = 100.milliseconds,
-      ) {
-        error("Test exception")
+        waitUntil(
+          condition = "Wait for test condition",
+          timeout = 200.milliseconds,
+          delay = 100.milliseconds,
+        ) {
+          error("Test exception")
+        }
       }
-    }
       .messageContains("Test exception")
   }
 
@@ -174,14 +174,14 @@ class WaiterTest {
     val assertionError = AssertionError("Test assertion")
 
     assertFailure {
-      waitUntilCatching(
-        condition = "Wait for test assertion",
-        timeout = 100.milliseconds,
-        delay = 20.milliseconds,
-      ) {
-        throw assertionError
+        waitUntilCatching(
+          condition = "Wait for test assertion",
+          timeout = 100.milliseconds,
+          delay = 20.milliseconds,
+        ) {
+          throw assertionError
+        }
       }
-    }
       .isSameInstanceAs(assertionError)
   }
 
@@ -206,14 +206,14 @@ class WaiterTest {
   fun `waitUntilCatching times out while the condition is suspended`() {
     val elapsed = measureTime {
       assertFailure {
-        waitUntilCatching(
-          condition = "Wait for suspended condition",
-          timeout = 100.milliseconds,
-          delay = 10.milliseconds,
-        ) {
-          delay(5.seconds)
+          waitUntilCatching(
+            condition = "Wait for suspended condition",
+            timeout = 100.milliseconds,
+            delay = 10.milliseconds,
+          ) {
+            delay(5.seconds)
+          }
         }
-      }
         .messageContains("Waiting until 'Wait for suspended condition' never succeeded.")
     }
 
@@ -249,18 +249,18 @@ class WaiterTest {
     var counter = 0
 
     assertFailure {
-      waitUntilCatching(
-        condition = "Wait for suspended assertion",
-        timeout = 100.milliseconds,
-        delay = 10.milliseconds,
-      ) {
-        if (counter++ == 0) {
-          throw assertionError
-        }
+        waitUntilCatching(
+          condition = "Wait for suspended assertion",
+          timeout = 100.milliseconds,
+          delay = 10.milliseconds,
+        ) {
+          if (counter++ == 0) {
+            throw assertionError
+          }
 
-        delay(5.seconds)
+          delay(5.seconds)
+        }
       }
-    }
       .isSameInstanceAs(assertionError)
   }
 
@@ -332,14 +332,14 @@ class WaiterTest {
   @Test
   fun `waitFor throws an error when the result is null`() {
     assertFailure {
-      waitFor<Int>(
-        condition = "Wait for result",
-        timeout = 100.milliseconds,
-        delay = 20.milliseconds,
-      ) {
-        null
+        waitFor<Int>(
+          condition = "Wait for result",
+          timeout = 100.milliseconds,
+          delay = 20.milliseconds,
+        ) {
+          null
+        }
       }
-    }
       .messageContains("Waiting for 'Wait for result' never succeeded and the value is null.")
   }
 
@@ -347,17 +347,17 @@ class WaiterTest {
   fun `waitFor times out while producing a result`() {
     val elapsed = measureTime {
       assertFailure {
-        waitFor<String>(
-          condition = "Wait for suspended result",
-          timeout = 100.milliseconds,
-          delay = 10.milliseconds,
-        ) {
-          delay(5.seconds)
-          "result"
+          waitFor<String>(
+            condition = "Wait for suspended result",
+            timeout = 100.milliseconds,
+            delay = 10.milliseconds,
+          ) {
+            delay(5.seconds)
+            "result"
+          }
         }
-      }
         .messageContains(
-          "Waiting for 'Wait for suspended result' never succeeded and the value is null.",
+          "Waiting for 'Wait for suspended result' never succeeded and the value is null."
         )
     }
 
