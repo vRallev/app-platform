@@ -14,6 +14,8 @@
 
 ### Fixed
 
+- Enforce module structure dependency rules for Android and JVM test fixtures while allowing fixtures to use test-only modules.
+
 ### Security
 
 ### Other Notes & Contributions

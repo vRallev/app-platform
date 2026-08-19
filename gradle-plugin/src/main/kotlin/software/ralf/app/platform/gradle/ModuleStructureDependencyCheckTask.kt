@@ -1,5 +1,6 @@
 package software.ralf.app.platform.gradle
 
+import com.android.build.api.variant.HasTestFixtures
 import java.io.File
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
@@ -29,6 +30,9 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
   /** Whether `:impl` dependencies within the same library are allowed. */
   @get:Input public abstract val allowLibraryImplToImplDependencies: Property<Boolean>
 
+  /** Whether the checked compile classpath belongs to test fixtures. */
+  @get:Input public abstract val testFixtures: Property<Boolean>
+
   /** An empty output makes the task work with up-to-date checks. */
   @Suppress("unused") @get:OutputFile @get:Optional public abstract var ignoredOutputFile: File
 
@@ -36,6 +40,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
     description = "Checks that our module structure dependency rules are followed."
     group = "Verification"
     allowLibraryImplToImplDependencies.convention(false)
+    testFixtures.convention(false)
   }
 
   @TaskAction
@@ -49,7 +54,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
     if (moduleType != ModuleType.APP && moduleType != ModuleType.IMPL_ROBOTS) {
       checkNoImplImport(moduleType)
     }
-    if (moduleType != ModuleType.TESTING && !moduleType.isRobotsModule) {
+    if (moduleType != ModuleType.TESTING && !moduleType.isRobotsModule && !testFixtures.get()) {
       checkNoTestingImport()
     }
     if (!moduleType.isRobotsModule) {
@@ -61,7 +66,10 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
   }
 
   private fun checkOnlyPublicModule() {
-    val forbiddenDependencies = moduleCompileClasspath.filter { it.moduleType != ModuleType.PUBLIC }
+    val forbiddenDependencies = moduleCompileClasspath.filter {
+      it.moduleType != ModuleType.PUBLIC &&
+        !(testFixtures.get() && it.moduleType == ModuleType.TESTING)
+    }
 
     if (forbiddenDependencies.isNotEmpty()) {
       throw GradleException(
@@ -170,7 +178,11 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
         }
       }
 
-      fun registerForConfiguration(taskSuffix: String, configuration: () -> Configuration) {
+      fun registerForConfiguration(
+        taskSuffix: String,
+        configuration: () -> Configuration,
+        isTestFixtures: Boolean = false,
+      ) {
         val checkTask =
           tasks.register(
             "$baseTaskName${taskSuffix.capitalize()}",
@@ -183,6 +195,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
             task.allowLibraryImplToImplDependencies.set(
               appPlatform.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed()
             )
+            task.testFixtures.set(isTestFixtures)
             task.moduleCompileClasspath =
               configuration()
                 .allDependencies
@@ -214,6 +227,15 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
             taskSuffix = "android${variant.name.capitalize()}",
             configuration = { variant.compileConfiguration },
           )
+
+          val testFixtures = (variant as? HasTestFixtures)?.testFixtures
+          if (testFixtures != null) {
+            registerForConfiguration(
+              taskSuffix = "android${variant.name.capitalize()}TestFixtures",
+              configuration = { testFixtures.compileConfiguration },
+              isTestFixtures = true,
+            )
+          }
         }
       }
 
@@ -241,6 +263,14 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
           taskSuffix = "jvm",
           configuration = { configurations.getByName("compileClasspath") },
         )
+
+        plugins.withId("java-test-fixtures") {
+          registerForConfiguration(
+            taskSuffix = "jvmTestFixtures",
+            configuration = { configurations.getByName("testFixturesCompileClasspath") },
+            isTestFixtures = true,
+          )
+        }
       }
     }
   }

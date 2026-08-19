@@ -1,12 +1,15 @@
 package software.ralf.app.platform.gradle
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.contains
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
+import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
 import kotlin.test.Test
 import org.gradle.api.Action
+import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.internal.project.ProjectInternal
@@ -147,6 +150,82 @@ class ModuleStructurePluginTest {
     project.assertHasPublicModuleDependency()
   }
 
+  @Test
+  fun `test fixture checks are included in module structure checks`() {
+    val project = createPublicModule()
+    project.plugins.apply("java-test-fixtures")
+
+    project.appPlatform.enableModuleStructure(true)
+    project.evaluate()
+
+    val moduleStructureCheckTask = project.tasks.named("checkModuleStructureDependencies").get()
+    val testFixturesCheckTask = project.testFixturesDependencyCheckTask()
+
+    assertThat(moduleStructureCheckTask.taskDependencies.getDependencies(moduleStructureCheckTask))
+      .contains(testFixturesCheckTask)
+  }
+
+  @Test
+  fun `public test fixtures cannot depend on an impl module`() {
+    val project = createPublicModule()
+    project.plugins.apply("java-test-fixtures")
+    project.dependencies.add("testFixturesImplementation", project.project(":library:impl"))
+
+    project.appPlatform.enableModuleStructure(true)
+    project.evaluate()
+
+    val task = project.testFixturesDependencyCheckTask()
+    assertFailure { task.checkDependencies() }.isInstanceOf<GradleException>()
+  }
+
+  @Test
+  fun `public test fixture api dependencies cannot include an impl module`() {
+    val project = createPublicModule()
+    project.plugins.apply("java-test-fixtures")
+    project.dependencies.add("testFixturesApi", project.project(":library:impl"))
+
+    project.appPlatform.enableModuleStructure(true)
+    project.evaluate()
+
+    val task = project.testFixturesDependencyCheckTask()
+    assertFailure { task.checkDependencies() }.isInstanceOf<GradleException>()
+  }
+
+  @Test
+  fun `public test fixtures can depend on testing modules`() {
+    val project = createPublicModule()
+    project.plugins.apply("java-test-fixtures")
+    project.dependencies.add("testFixturesImplementation", project.project(":library:testing"))
+
+    project.appPlatform.enableModuleStructure(true)
+    project.evaluate()
+
+    project.testFixturesDependencyCheckTask().checkDependencies()
+  }
+
+  @Test
+  fun `test fixtures can be enabled after module structure`() {
+    val project = createPublicModule()
+    project.appPlatform.enableModuleStructure(true)
+
+    project.plugins.apply("java-test-fixtures")
+    project.evaluate()
+
+    assertThat(project.tasks.names).contains("checkModuleStructureDependenciesJvmTestFixtures")
+  }
+
+  @Test
+  fun `disabled dependency checks also skip test fixture checks`() {
+    val project = createPublicModule()
+    project.plugins.apply("java-test-fixtures")
+
+    project.appPlatform.enableModuleStructure { options -> options.enableDependencyCheck(false) }
+    project.evaluate()
+
+    val task = project.testFixturesDependencyCheckTask()
+    assertThat(task.onlyIf.isSatisfiedBy(task)).isFalse()
+  }
+
   private fun createImplModule(): Project {
     val rootProject = ProjectBuilder.builder().withName("root").build()
     val libraryProject =
@@ -160,12 +239,34 @@ class ModuleStructurePluginTest {
     return project
   }
 
+  private fun createPublicModule(): Project {
+    val rootProject = ProjectBuilder.builder().withName("root").build()
+    val libraryProject =
+      ProjectBuilder.builder().withName("library").withParent(rootProject).build()
+    ProjectBuilder.builder().withName("impl").withParent(libraryProject).build()
+    ProjectBuilder.builder().withName("testing").withParent(libraryProject).build()
+
+    val project = ProjectBuilder.builder().withName("public").withParent(libraryProject).build()
+    project.plugins.apply(PluginIds.KOTLIN_JVM)
+    project.configurations.maybeCreate("compileClasspath")
+    project.plugins.apply(AppPlatformPlugin::class.java)
+    return project
+  }
+
   private val Project.archivesName: Property<String>
     get() = extensions.getByType(BasePluginExtension::class.java).archivesName
 
   private fun Project.dependencyCheckTask(): ModuleStructureDependencyCheckTask =
     tasks
       .named("checkModuleStructureDependenciesJvm", ModuleStructureDependencyCheckTask::class.java)
+      .get()
+
+  private fun Project.testFixturesDependencyCheckTask(): ModuleStructureDependencyCheckTask =
+    tasks
+      .named(
+        "checkModuleStructureDependenciesJvmTestFixtures",
+        ModuleStructureDependencyCheckTask::class.java,
+      )
       .get()
 
   private fun Project.evaluate() {

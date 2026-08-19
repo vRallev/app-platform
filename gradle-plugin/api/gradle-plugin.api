@@ -31,6 +31,7 @@ public abstract class software/ralf/app/platform/gradle/ModuleStructureDependenc
 	public abstract fun getIgnoredOutputFile ()Ljava/io/File;
 	public abstract fun getModuleCompileClasspath ()Ljava/util/Set;
 	public abstract fun getModulePath ()Ljava/lang/String;
+	public abstract fun getTestFixtures ()Lorg/gradle/api/provider/Property;
 	public abstract fun setIgnoredOutputFile (Ljava/io/File;)V
 	public abstract fun setModuleCompileClasspath (Ljava/util/Set;)V
 	public abstract fun setModulePath (Ljava/lang/String;)V
