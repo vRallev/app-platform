@@ -4,19 +4,17 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import dev.zacsweers.metro.AppScope
 import software.ralf.app.platform.inject.robot.ContributesRobot
 import software.ralf.app.platform.robot.ComposeRobot
 
 /**
  * A test robot to verify interactions with the user page screen written with Compose Multiplatform.
  *
- * This robot injects other dependencies from the object graph, e.g. this is helpful to query
- * further data or change behavior of classes. Robots are not exclusive to verifying UI and UI
- * interactions.
+ * This robot injects the [User] from the user-scoped object graph. Robots are not exclusive to
+ * verifying UI and UI interactions and can use dependencies from their contributed scope.
  */
-@ContributesRobot(AppScope::class)
-class UserPageRobot(private val userManager: UserManager) : ComposeRobot() {
+@ContributesRobot(UserScope::class)
+class UserPageRobot(private val user: User) : ComposeRobot() {
 
   private val userIdTextNode
     get() = compose.onNodeWithTag("userIdText")
@@ -25,10 +23,10 @@ class UserPageRobot(private val userManager: UserManager) : ComposeRobot() {
     get() = compose.onNodeWithTag("profilePicture")
 
   /**
-   * Verify that the user ID is displayed. The [userId] can be changed, but uses by default the ID
-   * of the logged in user if present.
+   * Verify that the user ID is displayed. The [userId] can be changed, but defaults to the ID of
+   * the user associated with this robot's scope.
    */
-  fun seeUserId(userId: Long = userManager.user.value?.userId ?: -1L) {
+  fun seeUserId(userId: Long = user.userId) {
     userIdTextNode.assertIsDisplayed()
     userIdTextNode.assertTextEquals("User: $userId")
   }
