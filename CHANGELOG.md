@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Upgrade Gradle to `9.7.1` and replace deprecated raw `Project` dependency notation with explicit `ProjectDependency` declarations for Gradle 10 compatibility.
 - **Breaking binary change:** Robot waiting helpers accept suspending callbacks and enforce timeouts across callback execution and polling delays; existing Kotlin call sites remain source-compatible, but previously compiled consumers must recompile.
 
 ### Deprecated

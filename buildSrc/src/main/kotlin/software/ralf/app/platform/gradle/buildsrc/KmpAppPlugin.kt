@@ -80,6 +80,7 @@ internal fun Project.allExportedDependencies(): Set<Any> {
         .filter { it.subprojects.isEmpty() }
         .filter { it.appOrNull == null }
         .filter { !it.isRobotsModule() && !it.isTestingModule() && !it.isAppModule() }
+        .map { dependencies.project(it.path) }
     )
 }
 

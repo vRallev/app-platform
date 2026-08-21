@@ -32,10 +32,11 @@ public open class ModuleStructurePlugin : Plugin<Project> {
       if (isPublicModule()) return
 
       fun addPublicModule() {
+        val publicModulePath = "${parent.path}:public"
         // this is ok because no properties within publicModule are accessed
-        @Suppress("GradleProjectIsolation") val publicModule = findProject("${parent.path}:public")
+        @Suppress("GradleProjectIsolation") val publicModule = findProject(publicModulePath)
         if (publicModule != null) {
-          dependencies.add(publicModuleConfiguration, publicModule)
+          dependencies.add(publicModuleConfiguration, dependencies.project(publicModulePath))
         }
       }
 
@@ -60,10 +61,13 @@ public open class ModuleStructurePlugin : Plugin<Project> {
           // dependency is chosen rather than an "api" dependency. The goal of the a
           // robots module to hide all details of the :impl module and only expose
           // abstractions with the help of robots.
+          val implModulePath = path.substringBefore("-robots")
           @Suppress("GradleProjectIsolation") // no properties within project are accessed
-          findProject(path.substringBefore("-robots"))
+          findProject(implModulePath)
             ?.takeIf { it.isImplModule() }
-            ?.let { implModule -> dependencies.add(implModuleConfiguration, implModule) }
+            ?.let {
+              dependencies.add(implModuleConfiguration, dependencies.project(implModulePath))
+            }
         }
       }
     }
