@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Upgrade KSP to `2.3.11`, AndroidX Compose to `1.12.0`, Detekt to `2.0.0-alpha.6`, both blueprint Gradle wrappers to `9.7.1`, and the starter blueprint's Android Gradle plugin to `9.3.1`.
+
 ### Deprecated
 
 ### Removed
