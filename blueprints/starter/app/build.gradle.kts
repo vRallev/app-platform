@@ -10,7 +10,7 @@ import software.ralf.app.platform.gradle.AppPlatformPlugin
 
 plugins {
   alias(libs.plugins.appPlatform)
-  alias(libs.plugins.androidApplication)
+  alias(libs.plugins.androidKmpLibrary)
   alias(libs.plugins.kotlinMultiplatform)
   alias(libs.plugins.composeMultiplatform)
   alias(libs.plugins.composeCompiler)
@@ -35,7 +35,10 @@ kotlin {
     }
   }
 
-  androidTarget {
+  androidLibrary {
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    minSdk = libs.versions.android.minSdk.get().toInt()
+
     compilerOptions {
       jvmTarget.set(JvmTarget.JVM_11)
     }
@@ -82,30 +85,6 @@ kotlin {
     desktopMain.dependencies {
       implementation(compose.desktop.currentOs)
       implementation(libs.coroutines.swing)
-    }
-  }
-}
-
-android {
-  compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-  defaultConfig {
-    applicationId = "software.ralf.app.platform.template"
-    versionCode = 1
-    versionName = "1.0"
-    minSdk = libs.versions.android.minSdk.get().toInt()
-    targetSdk = libs.versions.android.targetSdk.get().toInt()
-  }
-
-  packaging {
-    resources {
-      excludes += "/META-INF/{AL2.0,LGPL2.1}"
-    }
-  }
-
-  buildTypes {
-    getByName("release") {
-      isMinifyEnabled = false
     }
   }
 }

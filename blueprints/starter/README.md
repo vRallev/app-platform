@@ -23,7 +23,8 @@ This template demonstrates:
 
 ## Modules
 
-- `:app` – Main app entrypoint using Compose + App Platform + Metro
+- `:app` – Shared multiplatform app framework using Compose + App Platform + Metro
+- `:app:android` – Thin Android application launcher
 - `:templates` – Main module for templates and the entry point into the application
 - `:navigation` – Example feature module
 
@@ -32,7 +33,7 @@ This template demonstrates:
 ### Android
 
 ```bash
-./gradlew :app:installDebug
+./gradlew :app:android:installDebug
 ```
 
 ### WASM (WebAssembly)
@@ -74,7 +75,8 @@ You can modify app behavior by editing:
 
 - `gradle.properties` – JVM and native memory settings
 - `libs.versions.toml` – Centralized dependency version catalog
-- `app/build.gradle.kts` – Platform-specific targets and UI modules
+- `app/build.gradle.kts` – Shared platform targets and UI modules
+- `app/android/build.gradle.kts` – Android application launcher configuration
 
 ## Contributing
 

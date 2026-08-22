@@ -16,6 +16,7 @@ dependencyResolutionManagement {
 rootProject.name = "Template"
 
 include(":app")
+include(":app:android")
 include(":navigation:impl")
 include(":navigation:public")
 include(":navigation:testing")

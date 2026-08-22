@@ -64,7 +64,7 @@ jobs:
         with:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - name: Build Android
-        run: ./gradlew :app:assembleDebug
+        run: ./gradlew :app:android:assembleDebug
 
   build-desktop-starter-app:
     runs-on: ubuntu-latest
