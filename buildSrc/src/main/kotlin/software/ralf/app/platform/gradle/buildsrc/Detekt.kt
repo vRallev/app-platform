@@ -40,7 +40,7 @@ internal fun Project.configureDetekt() {
     // This produces baselines named "detekt-baseline.xml"
     baseline.set(file("detekt/detekt-baseline.xml"))
     // Config overrides
-    config.from(rootProject.file("gradle/detekt-config.yml"))
+    config.from(rootDir.resolve("gradle/detekt-config.yml"))
     buildUponDefaultConfig.set(true)
   }
 
