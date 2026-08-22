@@ -2,7 +2,6 @@
 
 import dev.zacsweers.metro.gradle.DiagnosticSeverity
 import dev.zacsweers.metro.gradle.MetroPluginExtension
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
@@ -19,7 +18,9 @@ plugins {
 appPlatform {
   enableComposeUi(true)
   enableMetro(true)
-  enableModuleStructure(true)
+  enableModuleStructure {
+    enableDependencyCheck(false)
+  }
   enableMoleculePresenters(true)
   addImplModuleDependencies(true)
 }
@@ -55,14 +56,7 @@ kotlin {
   }
 
   wasmJs {
-    outputModuleName = project.path.removePrefix(":").replace(":", "-")
-    binaries.executable()
-
-    browser {
-      commonWebpackConfig {
-        outputFileName = "template-app.js"
-      }
-    }
+    browser()
   }
 
   sourceSets {
@@ -85,18 +79,6 @@ kotlin {
     desktopMain.dependencies {
       implementation(compose.desktop.currentOs)
       implementation(libs.coroutines.swing)
-    }
-  }
-}
-
-compose.desktop {
-  application {
-    mainClass = "software.ralf.app.platform.template.MainKt"
-
-    nativeDistributions {
-      targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-      packageName = "TemplateApp"
-      packageVersion = "1.0.0"
     }
   }
 }

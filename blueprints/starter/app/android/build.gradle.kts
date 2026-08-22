@@ -49,5 +49,5 @@ android {
 }
 
 dependencies {
-  implementation(project(":app"))
+  implementation(project(":app-framework:impl"))
 }

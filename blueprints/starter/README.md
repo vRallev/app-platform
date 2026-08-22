@@ -23,8 +23,11 @@ This template demonstrates:
 
 ## Modules
 
-- `:app` – Shared multiplatform app framework using Compose + App Platform + Metro
-- `:app:android` – Thin Android application launcher
+- `:app-framework:impl` – Shared multiplatform app framework using Compose + App Platform + Metro
+- `:app:android` – Android application launcher
+- `:app:desktop` – Desktop application launcher and packaging
+- `:app:web` – WebAssembly launcher and browser resources
+- `app/ios` – iOS application and Xcode project
 - `:templates` – Main module for templates and the entry point into the application
 - `:navigation` – Example feature module
 
@@ -39,7 +42,7 @@ This template demonstrates:
 ### WASM (WebAssembly)
 
 ```bash
-./gradlew :app:wasmJsBrowserDevelopmentRun
+./gradlew :app:web:wasmJsBrowserDevelopmentRun
 ```
 
 ### iOS
@@ -54,17 +57,17 @@ This template demonstrates:
 
 1. Open the Xcode project:
    ```bash
-   open iosApp/iosApp.xcodeproj
+   open app/ios/iosApp.xcodeproj
    ```
 
 2. Select a simulator and run the app (`Cmd + R`)
 
-> The required Kotlin Multiplatform framework will be built automatically as part of the Xcode build process (`./gradlew :app:embedAndSignAppleFrameworkForXcode`).
+> The required Kotlin Multiplatform framework will be built automatically as part of the Xcode build process (`./gradlew :app-framework:impl:embedAndSignAppleFrameworkForXcode`).
 
 ### Desktop (JVM)
 
 ```bash
-./gradlew :app:run
+./gradlew :app:desktop:run
 ```
 
 > This runs the desktop Compose app using the JVM target.
@@ -75,8 +78,10 @@ You can modify app behavior by editing:
 
 - `gradle.properties` – JVM and native memory settings
 - `libs.versions.toml` – Centralized dependency version catalog
-- `app/build.gradle.kts` – Shared platform targets and UI modules
+- `app-framework/impl/build.gradle.kts` – Shared platform targets and UI modules
 - `app/android/build.gradle.kts` – Android application launcher configuration
+- `app/desktop/build.gradle.kts` – Desktop application and packaging configuration
+- `app/web/build.gradle.kts` – WebAssembly application configuration
 
 ## Contributing
 
