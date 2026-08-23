@@ -34,7 +34,7 @@ jobs:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
           select-xcode-26: "true"
       - name: Build iOS Framework
-        run: ./gradlew :app:linkDebugFrameworkIosSimulatorArm64
+        run: ./gradlew :app-framework:impl:linkDebugFrameworkIosSimulatorArm64
 
   build-wasm-starter-app:
     runs-on: ubuntu-latest
