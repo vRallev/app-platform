@@ -49,7 +49,7 @@ jobs:
         with:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - name: Build WASM binary
-        run: ./gradlew :app:wasmJsBrowserDistribution
+        run: ./gradlew :app:web:wasmJsBrowserDistribution
 
   build-android-starter-app:
     runs-on: ubuntu-latest
