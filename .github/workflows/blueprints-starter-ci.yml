@@ -79,4 +79,4 @@ jobs:
         with:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - name: Build Desktop binary
-        run: ./gradlew :app:desktopMainClasses
+        run: ./gradlew :app:desktop:desktopMainClasses
