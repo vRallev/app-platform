@@ -152,6 +152,10 @@ internal sealed interface Platform {
     override fun configurePlatform() {
       @Suppress("OPT_IN_USAGE")
       project.kmpExtension.wasmJs { browser { outputModuleName.set(project.safePathString) } }
+
+      project.plugins.withId(Plugins.COMPOSE_MULTIPLATFORM) {
+        @Suppress("OPT_IN_USAGE") project.kmpExtension.wasmJs { binaries.executable() }
+      }
     }
   }
 

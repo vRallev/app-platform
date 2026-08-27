@@ -33,7 +33,7 @@ build-config = "6.0.10"
 # https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compatibility-and-versioning.html#kotlin-compatibility
 # https://mvnrepository.com/artifact/org.jetbrains.compose/compose-gradle-plugin
 # https://github.com/JetBrains/compose-multiplatform/releases
-compose-multiplatform = "1.11.1"
+compose-multiplatform = "1.12.0"
 coroutines = "1.11.0"
 detekt = "2.0.0-alpha.6"
 graphviz-java = "0.18.1"

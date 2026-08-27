@@ -7,6 +7,7 @@
 ### Changed
 
 - Upgrade KSP to `2.3.11`.
+- Upgrade Compose Multiplatform to `1.12.0`.
 
 ### Deprecated
 
