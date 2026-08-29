@@ -1,0 +1,10 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.library.kmp'
+  id 'org.jetbrains.kotlin.plugin.compose'
+  id 'org.jetbrains.compose'
+}
+
+dependencies {
+  commonMainApi libs.compose.runtime
+  commonMainApi libs.compose.ui
+}

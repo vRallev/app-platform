@@ -1,0 +1,71 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+plugins {
+  id 'java-gradle-plugin'
+  alias libs.plugins.kotlin.jvm
+}
+
+java {
+  sourceCompatibility = JavaVersion.toVersion(libs.versions.jvm.buildsrc.get())
+  targetCompatibility = JavaVersion.toVersion(libs.versions.jvm.buildsrc.get())
+}
+
+kotlin {
+  compilerOptions {
+    jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvm.buildsrc.get()))
+    allWarningsAsErrors.set(providers.environmentVariable('CI').map { true }.orElse(false))
+  }
+
+  explicitApi()
+}
+
+gradlePlugin {
+  plugins {
+    listDetailRoot {
+      id = 'software.ralf.circuit.listdetail.root'
+      implementationClass = 'software.ralf.circuit.listdetail.gradle.RootPlugin'
+      displayName = 'List Detail root convention plugin'
+      description = 'Shared root build conventions for the List Detail blueprint.'
+    }
+    listDetailLibraryKmp {
+      id = 'software.ralf.circuit.listdetail.library.kmp'
+      implementationClass = 'software.ralf.circuit.listdetail.gradle.LibraryKmpPlugin'
+      displayName = 'List Detail Kotlin Multiplatform library convention plugin'
+      description = 'Shared KMP library conventions for the List Detail blueprint.'
+    }
+    listDetailAppAndroid {
+      id = 'software.ralf.circuit.listdetail.app.android'
+      implementationClass = 'software.ralf.circuit.listdetail.gradle.AppAndroidPlugin'
+      displayName = 'List Detail Android app convention plugin'
+      description = 'Android application conventions for the List Detail blueprint.'
+    }
+    listDetailAppDesktop {
+      id = 'software.ralf.circuit.listdetail.app.desktop'
+      implementationClass = 'software.ralf.circuit.listdetail.gradle.AppDesktopPlugin'
+      displayName = 'List Detail Desktop app convention plugin'
+      description = 'Desktop application conventions for the List Detail blueprint.'
+    }
+    listDetailAppWeb {
+      id = 'software.ralf.circuit.listdetail.app.web'
+      implementationClass = 'software.ralf.circuit.listdetail.gradle.AppWebPlugin'
+      displayName = 'List Detail Web app convention plugin'
+      description = 'Wasm web application conventions for the List Detail blueprint.'
+    }
+  }
+}
+
+dependencies {
+  implementation libs.android.gradle.plugin
+  implementation libs.app.platform.gradle.plugin
+  implementation libs.compose.gradle.plugin
+  implementation libs.compose.hot.reload.gradle.plugin
+  implementation libs.detekt.gradle.plugin
+  implementation libs.kotlin.compose.gradle.plugin
+  implementation libs.kotlin.gradle.plugin
+  implementation libs.kotlin.serialization.gradle.plugin
+  implementation libs.metro.gradle.plugin
+}
+
+tasks.register('release') {
+  dependsOn('build', 'check')
+}

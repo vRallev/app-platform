@@ -1,0 +1,3 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.library.kmp'
+}

@@ -1,0 +1,25 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.library.kmp'
+  id 'org.jetbrains.kotlin.plugin.compose'
+  id 'org.jetbrains.compose'
+  id 'dev.zacsweers.metro'
+}
+
+dependencies {
+  commonMainApi project(':list-detail:impl-robots')
+
+  commonMainImplementation project(':app-framework:impl')
+  commonMainImplementation project(':list-detail:impl')
+  commonMainImplementation project(':templates:impl')
+  commonMainImplementation project(':theme:public')
+  commonMainApi libs.circuit.test
+  commonMainApi libs.compose.ui.test
+
+  androidMainImplementation libs.androidx.test.junit
+  androidMainApi libs.androidx.test.rules
+  androidMainImplementation libs.androidx.test.runner
+  androidMainApi libs.compose.ui.test.junit4
+  androidMainImplementation libs.compose.ui.test.junit4.android
+
+  desktopMainApi libs.compose.desktop.ui.test.junit4
+}

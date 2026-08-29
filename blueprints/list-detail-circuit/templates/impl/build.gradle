@@ -1,0 +1,11 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.library.kmp'
+  id 'org.jetbrains.kotlin.plugin.compose'
+  id 'org.jetbrains.compose'
+  id 'dev.zacsweers.metro'
+}
+
+dependencies {
+  commonMainImplementation project(':theme:public')
+  commonMainImplementation libs.compose.material
+}

@@ -1,0 +1,10 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.app.web'
+  id 'org.jetbrains.kotlin.plugin.compose'
+  id 'org.jetbrains.compose'
+  id 'dev.zacsweers.metro'
+}
+
+dependencies {
+  commonMainImplementation project(':app-framework:impl')
+}

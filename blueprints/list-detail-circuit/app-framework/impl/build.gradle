@@ -1,0 +1,28 @@
+import software.ralf.app.platform.gradle.ModuleStructureDependencyCheckTask
+
+plugins {
+  id 'software.ralf.circuit.listdetail.library.kmp'
+  id 'org.jetbrains.kotlin.plugin.compose'
+  id 'org.jetbrains.compose'
+  id 'dev.zacsweers.metro'
+}
+
+dependencies {
+  commonMainImplementation project(':list-detail:impl')
+  commonMainImplementation project(':templates:impl')
+  commonMainImplementation project(':theme:public')
+  commonMainApi libs.circuit.foundation
+  commonMainImplementation libs.circuit.gesture.navigation
+  commonMainImplementation libs.circuit.serialization
+  commonMainImplementation libs.circuit.sharedelements
+
+  androidMainImplementation libs.androidx.activity.compose
+
+  commonTestImplementation project(':list-detail:testing')
+  commonTestImplementation libs.circuit.test
+}
+
+tasks.withType(ModuleStructureDependencyCheckTask).configureEach {
+  // This module is the application graph assembly point and intentionally imports implementations.
+  enabled = false
+}

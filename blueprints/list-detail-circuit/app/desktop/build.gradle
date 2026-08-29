@@ -1,0 +1,12 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.app.desktop'
+  id 'org.jetbrains.kotlin.plugin.compose'
+  id 'org.jetbrains.compose'
+  id 'dev.zacsweers.metro'
+}
+
+dependencies {
+  commonMainImplementation project(':app-framework:impl')
+
+  desktopTestImplementation project(':app-framework:impl-ui-test-robots')
+}

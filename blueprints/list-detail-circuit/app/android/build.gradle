@@ -1,0 +1,14 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.app.android'
+  id 'org.jetbrains.kotlin.plugin.compose'
+  id 'dev.zacsweers.metro'
+}
+
+dependencies {
+  implementation project(':app-framework:impl')
+  implementation libs.metro.runtime
+  implementation libs.compose.runtime
+  implementation libs.compose.foundation
+
+  androidTestImplementation project(':app-framework:impl-ui-test-robots')
+}

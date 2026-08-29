@@ -1,0 +1,23 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.library.kmp'
+  id 'org.jetbrains.kotlin.plugin.compose'
+  id 'org.jetbrains.kotlin.plugin.serialization'
+  id 'org.jetbrains.compose'
+  id 'dev.zacsweers.metro'
+}
+
+dependencies {
+  commonMainImplementation project(':templates:public')
+  commonMainImplementation project(':theme:public')
+  commonMainImplementation libs.circuit.foundation
+  commonMainImplementation libs.circuit.backstack
+  commonMainImplementation libs.circuit.sharedelements
+  commonMainImplementation libs.circuit.serialization
+  commonMainImplementation libs.compose.animation
+  commonMainImplementation libs.compose.material
+  commonMainImplementation libs.compose.material.icons
+  commonMainImplementation libs.navigationevent.compose
+
+  commonTestImplementation project(':list-detail:testing')
+  commonTestImplementation libs.circuit.test
+}

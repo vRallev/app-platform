@@ -1,0 +1,9 @@
+<resources>
+  <string name="age_at_ring_destruction">Age when the Ring was destroyed: %1$s</string>
+  <string name="back">Back</string>
+  <string name="character_detail_title">Character</string>
+  <string name="character_list_title">Middle-earth</string>
+  <string name="character_not_available">Character no longer available</string>
+  <string name="character_profile_picture">%1$s profile picture</string>
+  <string name="no_characters_available">No characters available</string>
+</resources>

@@ -1,0 +1,9 @@
+plugins {
+  id 'software.ralf.circuit.listdetail.library.kmp'
+  id 'org.jetbrains.kotlin.plugin.serialization'
+}
+
+dependencies {
+  commonMainApi libs.circuit.runtime
+  commonMainApi libs.kotlinx.serialization.core
+}
