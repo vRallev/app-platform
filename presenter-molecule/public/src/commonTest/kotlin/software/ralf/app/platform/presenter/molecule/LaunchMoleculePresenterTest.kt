@@ -5,11 +5,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import app.cash.molecule.RecompositionMode
 import assertk.assertThat
-import assertk.assertions.contains
-import assertk.assertions.doesNotContain
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
-import assertk.assertions.startsWith
+import assertk.assertions.isTrue
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlinx.coroutines.CoroutineScope
@@ -19,13 +17,13 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.isActive
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.internal.IgnoreNative
 import software.ralf.app.platform.internal.IgnoreWasm
-import software.ralf.app.platform.internal.currentThreadName
+import software.ralf.app.platform.internal.MarkedDispatcher
+import software.ralf.app.platform.internal.createMarkedDispatcher
 import software.ralf.app.platform.presenter.BaseModel
 
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalAppPlatform::class)
@@ -34,19 +32,21 @@ class LaunchMoleculePresenterTest {
   @Test
   @IgnoreNative
   @IgnoreWasm
-  fun `the first present call happens inline and the second present call happens on the background thread`() =
+  fun `the first present call happens inline and the second uses the supplied dispatcher`() =
     runTest {
       val inputFlow = MutableStateFlow("1")
-      TestPresenter().test(this, inputFlow, UnconfinedTestDispatcher()) {
-        val model1 = awaitItem()
-        inputFlow.value = "2"
-        val model2 = awaitItem()
+      val markedDispatcher = createMarkedDispatcher()
+      try {
+        ThreadPresenter(markedDispatcher).test(this, inputFlow, markedDispatcher.dispatcher) {
+          val model1 = awaitItem()
+          inputFlow.value = "2"
+          val model2 = awaitItem()
 
-        val testRunnerPackage = "kotlinx.coroutines.test"
-        assertThat(model1.threadName).startsWith("Test worker")
-        assertThat(model1.threadName).contains(testRunnerPackage)
-        assertThat(model2.threadName).startsWith("Test worker")
-        assertThat(model2.threadName).doesNotContain(testRunnerPackage)
+          assertThat(model1.ranOnMarkedDispatcher).isFalse()
+          assertThat(model2.ranOnMarkedDispatcher).isTrue()
+        }
+      } finally {
+        markedDispatcher.close()
       }
     }
 
@@ -232,14 +232,19 @@ class LaunchMoleculePresenterTest {
     assertFailsWith<IllegalStateException> { moleculeScope.launchMoleculePresenter(presenter, 1) }
   }
 
-  private class TestPresenter : MoleculePresenter<StateFlow<String>, TestPresenter.Model> {
+  private class ThreadPresenter(private val markedDispatcher: MarkedDispatcher) :
+    MoleculePresenter<StateFlow<String>, ThreadPresenter.Model> {
+
     @Composable
     override fun present(input: StateFlow<String>): Model {
       val value by input.collectAsState()
 
-      return Model(threadName = currentThreadName + value)
+      return Model(
+        value = value,
+        ranOnMarkedDispatcher = markedDispatcher.isCurrentThreadMarked(),
+      )
     }
 
-    data class Model(val threadName: String) : BaseModel
+    data class Model(val value: String, val ranOnMarkedDispatcher: Boolean) : BaseModel
   }
 }
