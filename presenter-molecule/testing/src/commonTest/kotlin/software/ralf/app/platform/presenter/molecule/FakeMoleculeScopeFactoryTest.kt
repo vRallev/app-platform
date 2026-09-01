@@ -8,6 +8,7 @@ import kotlin.test.Test
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
@@ -31,13 +32,16 @@ class FakeMoleculeScopeFactoryTest {
   @IgnoreWasm
   fun `a created MoleculeScope does not need to be canceled for the test to complete`() {
     // Basically this test should not hang.
-    var didRun = false
+    var presenterJobStarted = false
     runTest {
-      FakeMoleculeScopeFactory(this).createMoleculeScope()
-      didRun = true
+      val scope = FakeMoleculeScopeFactory(this).createMoleculeScope()
+      scope.coroutineScope.launch(start = CoroutineStart.UNDISPATCHED) {
+        presenterJobStarted = true
+        awaitCancellation()
+      }
     }
 
-    assertThat(didRun).isTrue()
+    assertThat(presenterJobStarted).isTrue()
   }
 
   @Test
