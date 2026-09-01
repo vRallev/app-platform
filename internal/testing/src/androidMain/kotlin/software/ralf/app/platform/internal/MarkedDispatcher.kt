@@ -8,17 +8,16 @@ actual fun createMarkedDispatcher(): MarkedDispatcher = JvmMarkedDispatcher()
 
 private class JvmMarkedDispatcher : MarkedDispatcher {
   private val currentThreadMarker = ThreadLocal<Boolean>()
-  private val executor =
-    Executors.newSingleThreadExecutor { runnable ->
-      Thread {
-        currentThreadMarker.set(true)
-        try {
-          runnable.run()
-        } finally {
-          currentThreadMarker.remove()
-        }
+  private val executor = Executors.newSingleThreadExecutor { runnable ->
+    Thread {
+      currentThreadMarker.set(true)
+      try {
+        runnable.run()
+      } finally {
+        currentThreadMarker.remove()
       }
     }
+  }
   private val closeableDispatcher = executor.asCoroutineDispatcher()
 
   override val dispatcher: CoroutineDispatcher = closeableDispatcher
