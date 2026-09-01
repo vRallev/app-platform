@@ -4,6 +4,7 @@ import java.util.concurrent.Executors
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.asCoroutineDispatcher
 
+/** Creates a marked dispatcher backed by a dedicated JVM thread. */
 actual fun createMarkedDispatcher(): MarkedDispatcher = JvmMarkedDispatcher()
 
 private class JvmMarkedDispatcher : MarkedDispatcher {
