@@ -15,6 +15,8 @@
 
 ### Fixed
 
+- Preserve decorated coroutine scope lifetimes in `FakeMoleculeScopeFactory` instead of creating unmanaged test jobs.
+
 ### Security
 
 ### Other Notes & Contributions
