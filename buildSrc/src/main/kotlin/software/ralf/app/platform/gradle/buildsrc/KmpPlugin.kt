@@ -371,6 +371,7 @@ public open class KmpPlugin : Plugin<Project> {
       plugins.apply(Plugins.COMPOSE_COMPILER)
       kmpExtension.sourceSets.getByName("commonMain").dependencies {
         implementation(libs.findLibrary("molecule.runtime").get().get().toString())
+        implementation(libs.findLibrary("compose.runtime.retain").get().get().toString())
       }
     }
 

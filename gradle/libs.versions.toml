@@ -86,6 +86,7 @@ auto-service-ksp = { module = "dev.zacsweers.autoservice:auto-service-ksp", vers
 build-config-gradle-plugin = { module = "com.github.gmazzo.buildconfig:plugin", version.ref = "build-config" }
 compose-gradle-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose-multiplatform" }
 compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-multiplatform" }
+compose-runtime-retain = { module = "androidx.compose.runtime:runtime-retain", version.ref = "compose-multiplatform" }
 compose-runtime-saveable = { module = "androidx.compose.runtime:runtime-saveable", version.ref = "android-compose-version" }
 compose-ui-back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-multiplatform" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "android-compose-version" }
