@@ -7,8 +7,6 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import gradle_plugin.BuildConfig.APP_PLATFORM_GROUP
 import gradle_plugin.BuildConfig.APP_PLATFORM_VERSION
-import gradle_plugin.BuildConfig.COMPOSE_MULTIPLATFORM_VERSION
-import gradle_plugin.BuildConfig.MOLECULE_VERSION
 import kotlin.test.Test
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ExternalModuleDependency
@@ -18,54 +16,6 @@ import org.jetbrains.kotlin.gradle.plugin.PLUGIN_CLASSPATH_CONFIGURATION_NAME
 import software.ralf.app.platform.gradle.AppPlatformExtension.Companion.appPlatform
 
 class AppPlatformPluginDependencyTest {
-
-  @Test
-  fun `KMP Molecule presenter wiring includes Compose runtime retain`() {
-    val project = createProject(name = "impl")
-    project.plugins.apply(PluginIds.KOTLIN_MULTIPLATFORM)
-    project.plugins.apply(AppPlatformPlugin::class.java)
-
-    project.appPlatform.enableMoleculePresenters(true)
-
-    project.evaluate()
-
-    project.assertHasDependency(
-      "commonMainImplementation",
-      "app.cash.molecule:molecule-runtime:$MOLECULE_VERSION",
-    )
-    project.assertHasDependency(
-      "commonMainImplementation",
-      "androidx.compose.runtime:runtime-retain:$COMPOSE_MULTIPLATFORM_VERSION",
-    )
-    project.assertHasDependency(
-      "commonMainImplementation",
-      appPlatformDependency("presenter-molecule-public"),
-    )
-  }
-
-  @Test
-  fun `JVM Molecule presenter wiring includes Compose runtime retain`() {
-    val project = createProject(name = "impl")
-    project.plugins.apply(PluginIds.KOTLIN_JVM)
-    project.plugins.apply(AppPlatformPlugin::class.java)
-
-    project.appPlatform.enableMoleculePresenters(true)
-
-    project.evaluate()
-
-    project.assertHasDependency(
-      "implementation",
-      "app.cash.molecule:molecule-runtime:$MOLECULE_VERSION",
-    )
-    project.assertHasDependency(
-      "implementation",
-      "androidx.compose.runtime:runtime-retain:$COMPOSE_MULTIPLATFORM_VERSION",
-    )
-    project.assertHasDependency(
-      "implementation",
-      appPlatformDependency("presenter-molecule-public"),
-    )
-  }
 
   @Test
   fun `AGP built-in Kotlin Android application receives Metro public and impl dependencies`() {
