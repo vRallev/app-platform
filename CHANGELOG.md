@@ -4,6 +4,8 @@
 
 ### Added
 
+- Add experimental `RetainedValuesStoreRegistry.returningRetainedValuesStoreProvider()` for retaining child `MoleculePresenter` state while it temporarily leaves the composition.
+
 ### Changed
 
 - Upgrade KSP to `2.3.11`.
@@ -109,7 +111,6 @@
 
 - Add `@ExperimentalAppPlatform` in `:common:public` for APIs that require explicit consumer opt-in.
 - Add experimental `MoleculePresenter.presentDetached()` to compose presenter subtrees in detached Molecule hierarchies so busy parent presenters do not recompose slower child presenters.
-- Add experimental `RetainedValuesStoreRegistry.returningRetainedValuesStoreProvider()` for retaining child `MoleculePresenter` state while it temporarily leaves the composition.
 - Add experimental Molecule presenter-backed text field state helpers for sharing text input state between presenters and Compose renderers.
 - Add experimental `ReturningSaveableStateHolder` in `:presenter-molecule:public` for preserving `rememberSaveable` state in value-returning Molecule presenter subtrees.
 - Add experimental Navigation 3 presenter backstack APIs and the `enableMoleculePresenterBackstack` Gradle plugin option.
