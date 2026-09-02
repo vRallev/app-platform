@@ -59,8 +59,7 @@ import software.ralf.app.platform.presenter.BaseModel
  * Retained values stay in memory, may hold values that are not saveable, and do not survive
  * recreation of the root presenter or process death. Put state that must survive those events in an
  * injected state owner or repository. For state shared across siblings or deeply nested presenters,
- * prefer an injected owner over threading it through every level. This API does not install a
- * saveable-state owner or make `rememberSaveable` survive root recreation.
+ * prefer an injected owner over threading it through every level.
  *
  * The `enableMoleculePresenters(true)` Gradle plugin option adds Compose Runtime Retain together
  * with Molecule, so consumers should not declare this runtime separately.
