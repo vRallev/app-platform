@@ -60,9 +60,6 @@ import software.ralf.app.platform.presenter.BaseModel
  * recreation of the root presenter or process death. Put state that must survive those events in an
  * injected state owner or repository. For state shared across siblings or deeply nested presenters,
  * prefer an injected owner over threading it through every level.
- *
- * The `enableMoleculePresenters(true)` Gradle plugin option adds Compose Runtime Retain together
- * with Molecule, so consumers should not declare this runtime separately.
  */
 @ExperimentalAppPlatform
 @Composable
