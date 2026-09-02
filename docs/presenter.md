@@ -41,7 +41,7 @@ The [MoleculePresenter](https://github.com/vRallev/app-platform/blob/main/presen
 interface looks like this:
 
 ```kotlin
-interface MoleculePresenter<InputT : Any, ModelT : BaseModel> {
+fun interface MoleculePresenter<InputT : Any, ModelT : BaseModel> {
   @Composable
   fun present(input: InputT): ModelT
 }

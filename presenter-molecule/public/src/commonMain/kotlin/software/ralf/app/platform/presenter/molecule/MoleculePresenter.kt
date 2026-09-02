@@ -101,7 +101,7 @@ import software.ralf.app.platform.presenter.Presenter
  * }
  * ```
  */
-public interface MoleculePresenter<InputT : Any, ModelT : BaseModel> {
+public fun interface MoleculePresenter<InputT : Any, ModelT : BaseModel> {
   /** Called every time state of the composable changes to produce a new model. */
   @Composable public fun present(input: InputT): ModelT
 }

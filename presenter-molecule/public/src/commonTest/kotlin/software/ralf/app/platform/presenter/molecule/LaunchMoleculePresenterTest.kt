@@ -54,13 +54,7 @@ class LaunchMoleculePresenterTest {
   fun `the presenter is called and computes a new model whenever the input changes`() = runTest {
     data class Model(val value: String) : BaseModel
 
-    val presenter =
-      object : MoleculePresenter<Int, Model> {
-        @Composable
-        override fun present(input: Int): Model {
-          return Model(input.toString())
-        }
-      }
+    val presenter = MoleculePresenter<Int, Model> { input -> Model(input.toString()) }
 
     val inputFlow = MutableStateFlow(1)
 
