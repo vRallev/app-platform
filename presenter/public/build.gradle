@@ -7,5 +7,5 @@ appPlatformBuildSrc {
 }
 
 dependencies {
-    commonMainApi libs.compose.runtime.annotation
+    commonMainImplementation libs.compose.runtime.annotation
 }
