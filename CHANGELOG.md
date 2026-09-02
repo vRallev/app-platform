@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Clarify that `BaseModel` implementations can use observable mutable state that satisfies the Compose stability contract.
 - Upgrade KSP to `2.3.11`.
 - Upgrade Compose Multiplatform to `1.12.0`.
 

@@ -10,9 +10,9 @@ package software.ralf.app.platform.presenter
  * }
  * ```
  *
- * Models must be immutable. Making models mutable and changing their state is an error and leads to
- * undesired results or crashes. While technically not required, common practice is to use a `data
- * class` for models.
+ * Models must be immutable or satisfy the Compose stability contract by notifying composition when
+ * public state changes. Mutating a previously returned model without observable state can produce
+ * incorrect results or crashes. Immutable data classes are the common default.
  *
  * Using sealed hierarchies for models is common and allows to differentiate between states better:
  * ```
