@@ -5,3 +5,7 @@ plugins {
 appPlatformBuildSrc {
     enablePublishing true
 }
+
+dependencies {
+    commonMainApi libs.compose.runtime.annotation
+}

@@ -1,5 +1,7 @@
 package software.ralf.app.platform.presenter
 
+import androidx.compose.runtime.Stable
+
 /**
  * `Presenters` produce a stream of models that represents the state of this presenter. Concrete
  * model types are usually implemented as inner classes of the presenter, e.g.
@@ -52,4 +54,4 @@ package software.ralf.app.platform.presenter
  *
  * [BaseModel] is a marker interface for all models that can be used for extensions.
  */
-public interface BaseModel
+@Stable public interface BaseModel

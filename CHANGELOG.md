@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Mark `BaseModel` as stable so Compose treats `MoleculePresenter` models consistently through the shared interface.
 - Allow constructing `MoleculePresenter` instances with SAM syntax.
 - Clarify that `BaseModel` implementations can use observable mutable state that satisfies the Compose stability contract.
 - Upgrade KSP to `2.3.11`.
