@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add experimental `RetainedValuesStoreRegistry.returningRetainedValuesStoreProvider()` for retaining child `MoleculePresenter` state while it temporarily leaves the composition.
+- Add experimental `withLocalRetainedValuesStore()` for retaining child `MoleculePresenter` state with caller-owned managed stores while it temporarily leaves the composition.
 
 ### Changed
 

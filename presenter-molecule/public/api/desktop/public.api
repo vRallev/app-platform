@@ -31,8 +31,8 @@ public final class software/ralf/app/platform/presenter/molecule/ReturningCompos
 	public static final fun returningCompositionLocalProvider ([Landroidx/compose/runtime/ProvidedValue;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Lsoftware/ralf/app/platform/presenter/BaseModel;
 }
 
-public final class software/ralf/app/platform/presenter/molecule/ReturningRetainedValuesStoreProviderKt {
-	public static final fun returningRetainedValuesStoreProvider (Landroidx/compose/runtime/retain/RetainedValuesStoreRegistry;Ljava/lang/Object;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Lsoftware/ralf/app/platform/presenter/BaseModel;
+public final class software/ralf/app/platform/presenter/molecule/WithLocalRetainedValuesStoreKt {
+	public static final fun withLocalRetainedValuesStore (Landroidx/compose/runtime/retain/RetainedValuesStore;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Ljava/lang/Object;
 }
 
 public final class software/ralf/app/platform/presenter/molecule/backgesture/BackEventPresenter {

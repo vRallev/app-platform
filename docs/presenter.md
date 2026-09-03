@@ -673,6 +673,39 @@ There are common scenarios you may encounter when using `Presenters`.
 
     The [Recipes app](index.md#web-recipe-app) and [Sample app](index.md#web-clickable) can be tested in the browser.
 
+### Retain inactive `Presenter` state
+
+Use `retain` for arbitrary in-memory state that should return after a child presenter temporarily leaves the hierarchy.
+The parent that selects the active child creates one keyed `ManagedRetainedValuesStore` for each logical child, then
+composes the active child through `withLocalRetainedValuesStore()`:
+
+```kotlin
+@OptIn(ExperimentalAppPlatform::class)
+@Composable
+fun present(input: Destination): BaseModel {
+  val loginRetainedValuesStore =
+    key(Destination.Login) { retainManagedRetainedValuesStore() }
+  val registrationRetainedValuesStore =
+    key(Destination.Registration) { retainManagedRetainedValuesStore() }
+
+  return when (input) {
+    Destination.Login ->
+      withLocalRetainedValuesStore(loginRetainedValuesStore) {
+        loginPresenter.present(Unit)
+      }
+    Destination.Registration ->
+      withLocalRetainedValuesStore(registrationRetainedValuesStore) {
+        registrationPresenter.present(Unit)
+      }
+  }
+}
+```
+
+Create the stores outside the branch that selects the active child so each store remains in composition while its child
+is inactive. Use a key with stable equality and hash-code behavior that identifies the logical child. A managed store is
+disposed automatically when its retained scope is retired. Retained values stay in memory, may hold values that are not
+saveable, and do not survive recreation of the root presenter or process death.
+
 ### Save `Presenter` state
 
 `Presenters` can make full use of the Compose runtime, e.g. using `remember { }` and `mutableStateOf()`. But when a
