@@ -1,6 +1,7 @@
 package software.ralf.app.platform.sample.template
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.withCompositionLocal
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -8,7 +9,6 @@ import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
 import software.ralf.app.platform.presenter.molecule.backgesture.BackGestureDispatcherPresenter
 import software.ralf.app.platform.presenter.molecule.backgesture.LocalBackGestureDispatcherPresenter
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 import software.ralf.app.platform.presenter.template.ModelDelegate
 import software.ralf.app.platform.presenter.template.toTemplate
 
@@ -25,7 +25,7 @@ class SampleAppTemplatePresenter(
 ) : MoleculePresenter<Unit, SampleAppTemplate> {
   @Composable
   override fun present(input: Unit): SampleAppTemplate {
-    return returningCompositionLocalProvider(
+    return withCompositionLocal(
       LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter
     ) {
       rootPresenter.present(Unit).toTemplate<SampleAppTemplate> {

@@ -3,10 +3,10 @@
 package software.ralf.app.platform.presenter.backstack.nav3
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.withCompositionLocal
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 
 /**
  * Wraps the receiver presenter with another presenter to provide a [PresenterBackstackScope] as
@@ -60,7 +60,7 @@ public fun <InputT : Any, ModelT : BaseModel> MoleculePresenter<InputT, ModelT>
   return object : MoleculePresenter<InputT, ModelT> {
     @Composable
     override fun present(input: InputT): ModelT {
-      return returningCompositionLocalProvider(LocalBackstackScope provides scope) {
+      return withCompositionLocal(LocalBackstackScope provides scope) {
         delegate.present(input)
       }
     }

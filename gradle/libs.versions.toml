@@ -87,6 +87,7 @@ build-config-gradle-plugin = { module = "com.github.gmazzo.buildconfig:plugin", 
 compose-gradle-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose-multiplatform" }
 compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-multiplatform" }
 compose-runtime-annotation = { module = "androidx.compose.runtime:runtime-annotation", version.ref = "compose-multiplatform" }
+compose-multiplatform-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
 compose-runtime-retain = { module = "androidx.compose.runtime:runtime-retain", version.ref = "compose-multiplatform" }
 compose-runtime-saveable = { module = "androidx.compose.runtime:runtime-saveable", version.ref = "android-compose-version" }
 compose-ui-back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-multiplatform" }

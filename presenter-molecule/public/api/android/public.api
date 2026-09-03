@@ -27,10 +27,6 @@ public final class software/ralf/app/platform/presenter/molecule/MoleculeScopeFa
 	public static synthetic fun createMoleculeScopeFromCoroutineScope$default (Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScopeFactory;Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculeScope;
 }
 
-public final class software/ralf/app/platform/presenter/molecule/ReturningCompositionLocalProviderKt {
-	public static final fun returningCompositionLocalProvider ([Landroidx/compose/runtime/ProvidedValue;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Lsoftware/ralf/app/platform/presenter/BaseModel;
-}
-
 public final class software/ralf/app/platform/presenter/molecule/backgesture/BackEventPresenter {
 	public static final field $stable I
 	public static final field Companion Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackEventPresenter$Companion;
@@ -82,4 +78,3 @@ public final class software/ralf/app/platform/presenter/molecule/text/PresenterT
 	public fun getValue ()Ljava/lang/String;
 	public final fun replaceText (Ljava/lang/String;)V
 }
-

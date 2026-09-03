@@ -3,6 +3,7 @@ package software.ralf.app.platform.presenter.molecule.backgesture
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.withCompositionLocal
 import kotlin.jvm.JvmName
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -11,7 +12,6 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 
 private class TestBackGestureDispatcherPresenter<InputT : Any, ModelT : BaseModel>(
   private val delegate: MoleculePresenter<InputT, ModelT>,
@@ -21,9 +21,7 @@ private class TestBackGestureDispatcherPresenter<InputT : Any, ModelT : BaseMode
   override fun present(input: InputT): ModelT {
     val dispatcher = remember { BackGestureDispatcherPresenter.createNewInstance() }
 
-    return returningCompositionLocalProvider(
-      LocalBackGestureDispatcherPresenter provides dispatcher
-    ) {
+    return withCompositionLocal(LocalBackGestureDispatcherPresenter provides dispatcher) {
       LaunchedEffect(Unit) { backEvents.collect { dispatcher.onPredictiveBack(it) } }
 
       delegate.present(input)

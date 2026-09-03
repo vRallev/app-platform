@@ -8,6 +8,7 @@ import androidx.compose.runtime.saveable.LocalSaveableStateRegistry
 import androidx.compose.runtime.saveable.SaveableStateRegistry
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withCompositionLocal
 import androidx.savedstate.compose.LocalSavedStateRegistryOwner
 import assertk.assertThat
 import assertk.assertions.isEqualTo
@@ -19,7 +20,6 @@ import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 import software.ralf.app.platform.presenter.molecule.test
 
 @OptIn(ExperimentalAppPlatform::class)
@@ -129,7 +129,7 @@ class ReturningSaveableStateHolderTest {
     @Composable
     override fun present(input: Unit): Model {
       return if (parentRegistry != null) {
-        returningCompositionLocalProvider(LocalSaveableStateRegistry provides parentRegistry) {
+        withCompositionLocal(LocalSaveableStateRegistry provides parentRegistry) {
           presentSaveableContent()
         }
       } else {
@@ -162,7 +162,7 @@ class ReturningSaveableStateHolderTest {
     MoleculePresenter<Unit, Model> {
     @Composable
     override fun present(input: Unit): Model {
-      return returningCompositionLocalProvider(LocalSaveableStateRegistry provides parentRegistry) {
+      return withCompositionLocal(LocalSaveableStateRegistry provides parentRegistry) {
         val stateHolder = rememberReturningSaveableStateHolder()
         stateHolder.SaveableStateProvider(key = NonSaveableKey) {
           Model(

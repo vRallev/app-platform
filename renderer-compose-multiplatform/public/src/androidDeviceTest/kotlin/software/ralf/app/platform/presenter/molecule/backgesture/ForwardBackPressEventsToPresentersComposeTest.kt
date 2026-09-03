@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withCompositionLocal
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertTextEquals
@@ -19,7 +20,6 @@ import org.junit.Test
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
 import software.ralf.app.platform.presenter.molecule.backgesture.ForwardBackPressEventsToPresentersComposeTest.TestPresenter.Model
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 import software.ralf.app.platform.renderer.ComposeRenderer
 import software.ralf.app.platform.renderer.TestActivity
 import software.ralf.app.platform.renderer.getActivityFromTestRule
@@ -73,7 +73,7 @@ class ForwardBackPressEventsToPresentersComposeTest {
   ) : MoleculePresenter<Unit, Model> {
     @Composable
     override fun present(input: Unit): Model {
-      return returningCompositionLocalProvider(
+      return withCompositionLocal(
         LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter
       ) {
         var backPressCount by remember { mutableIntStateOf(0) }
