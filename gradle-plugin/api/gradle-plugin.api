@@ -89,5 +89,6 @@ public final class software/ralf/app/platform/gradle/ModuleTypeKt {
 	public static final fun isRobotsModule (Lorg/gradle/api/Project;)Z
 	public static final fun isTestingModule (Lorg/gradle/api/Project;)Z
 	public static final fun isUsingModuleStructure (Lorg/gradle/api/Project;)Z
+	public static final fun moduleTypeFromProjectPath (Ljava/lang/String;)Lsoftware/ralf/app/platform/gradle/ModuleType;
 }
 

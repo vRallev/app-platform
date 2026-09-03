@@ -88,7 +88,8 @@ public enum class ModuleType(
 public val Project.moduleType: ModuleType
   get() = path.moduleTypeFromProjectPath()
 
-internal fun String.moduleTypeFromProjectPath(): ModuleType {
+/** Returns the module type inferred from this Gradle project path. */
+public fun String.moduleTypeFromProjectPath(): ModuleType {
   val name = substringAfterLast(':')
 
   val isRobots = name.endsWith("-robots")
