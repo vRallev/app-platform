@@ -88,7 +88,13 @@ public enum class ModuleType(
 public val Project.moduleType: ModuleType
   get() = path.moduleTypeFromProjectPath()
 
-/** Returns the module type inferred from this Gradle project path. */
+/**
+ * Returns the module type inferred from an absolute Gradle project path such as `:feature:public`.
+ *
+ * Explicit module types in the final path segment take precedence over app-like parent segments.
+ * Returns [ModuleType.UNKNOWN] when no supported module naming convention matches. The receiver is
+ * not otherwise validated as a Gradle project path.
+ */
 public fun String.moduleTypeFromProjectPath(): ModuleType {
   val name = substringAfterLast(':')
 
