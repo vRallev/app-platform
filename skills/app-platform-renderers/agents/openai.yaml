@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Platform Renderers and Template Layouts"
+  short_description: "Build renderers and template layouts"
+  default_prompt: "Use $app-platform-renderers to build or update renderers and template layouts, including model bindings, child rendering, UI state, factory setup, and tests."

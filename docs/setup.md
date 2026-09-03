@@ -81,6 +81,18 @@ are explained in more detail in many of the following sections.
     the opinionated module structure. Compose UI can be enabled without using `Metro` or
     `kotlin-inject-anvil`. When you do want DI, Metro is the recommended default.
 
+## Coding agent skills
+
+This repository includes project-neutral skills for coding agents working on applications built with App Platform. Choose the skill that matches the change:
+
+| Skill | Use for |
+| --- | --- |
+| [Module structure](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-module-structure/SKILL.md) | Public, implementation, testing, and robot module boundaries; app assembly; and Gradle checks |
+| [Scopes](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-scope/SKILL.md) | App Platform lifetimes, coroutine scopes, and Metro graph integration |
+| [Presenters](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-presenters/SKILL.md) | `MoleculePresenter` models, state, composition, hosting, and template selection |
+| [Renderers](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-renderers/SKILL.md) | Compose and Android View renderers, factories, child rendering, and template layouts |
+| [Testing](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-testing/SKILL.md) | Fakes, shared unit tests, optional Desktop renderer tests, and robot integration tests |
+
 ## Snapshot
 
 To import snapshot builds use following repository:

@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Platform Scopes"
+  short_description: "Manage App Platform scopes and lifetimes"
+  default_prompt: "Use $app-platform-scope to build App Platform scope lifecycles, coroutine scopes, and Metro graph integration."

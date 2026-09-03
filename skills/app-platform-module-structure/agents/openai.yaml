@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Platform Module Structure"
+  short_description: "Design App Platform module boundaries"
+  default_prompt: "Use $app-platform-module-structure to place code and dependencies in App Platform modules and verify the module graph."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Platform Testing"
+  short_description: "Test App Platform applications"
+  default_prompt: "Use $app-platform-testing to add or update fakes, unit tests, renderer tests, and robot integration tests."

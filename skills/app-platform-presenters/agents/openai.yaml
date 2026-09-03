@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Platform Presenters"
+  short_description: "Build presenters and select templates"
+  default_prompt: "Use $app-platform-presenters to build or update presenters, including models, state, template selection or delegation, tests, and setup."

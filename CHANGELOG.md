@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add project-neutral coding agent skills for App Platform module structure, scopes, presenters, renderers, templates, and testing.
 - Add experimental `withLocalRetainedValuesStore()` for retaining child `MoleculePresenter` state with caller-owned managed stores while it temporarily leaves the composition.
 - Expose `String.moduleTypeFromProjectPath()` for parsing module types without a `Project` instance.
 
