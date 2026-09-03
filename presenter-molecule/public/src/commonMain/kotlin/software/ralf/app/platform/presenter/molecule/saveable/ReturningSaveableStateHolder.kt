@@ -3,10 +3,7 @@ package software.ralf.app.platform.presenter.molecule.saveable
 import androidx.collection.mutableScatterMapOf
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.InternalComposeApi
-import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.ReusableContent
-import androidx.compose.runtime.currentComposer
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.LocalSaveableStateRegistry
 import androidx.compose.runtime.saveable.SaveableStateHolder
@@ -14,6 +11,7 @@ import androidx.compose.runtime.saveable.SaveableStateRegistry
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import androidx.compose.runtime.withCompositionLocals
 import androidx.lifecycle.LifecycleRegistry
 import androidx.savedstate.SavedState
 import androidx.savedstate.SavedStateRegistryController
@@ -121,7 +119,7 @@ private class ReturningSaveableStateHolderImpl(
         )
       }
       val model =
-        returningCompositionLocalProvider(
+        withCompositionLocals(
           LocalSaveableStateRegistry provides registry,
           LocalSavedStateRegistryOwner provides registry,
           content = content,
@@ -236,16 +234,3 @@ private class ReturningSaveableStateRegistryWrapper(base: SaveableStateRegistry)
 private const val SAVED_STATE_REGISTRY_PROVIDER_KEY = "androidx.savedstate.SavedStateRegistry"
 
 private object Unset
-
-@Composable
-@OptIn(InternalComposeApi::class)
-@Suppress("FunctionNaming")
-private fun <T> returningCompositionLocalProvider(
-  vararg values: ProvidedValue<*>,
-  content: @Composable () -> T,
-): T {
-  currentComposer.startProviders(values)
-  val result = content()
-  currentComposer.endProviders()
-  return result
-}

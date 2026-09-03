@@ -9,10 +9,10 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.withCompositionLocal
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 import software.ralf.app.platform.presenter.molecule.saveable.ReturningSaveableStateHolder
 import software.ralf.app.platform.presenter.molecule.saveable.rememberReturningSaveableStateHolder
 
@@ -175,7 +175,7 @@ public fun <ModelT : BaseModel> presenterBackstack(
   val saveableStateHolder = rememberReturningSaveableStateHolder()
   val stateCleaner = remember { RemovedEntryStateCleaner(saveableStateHolder) }
 
-  return returningCompositionLocalProvider(LocalBackstackScope provides scope) {
+  return withCompositionLocal(LocalBackstackScope provides scope) {
     val presenterBackstack = scope.presenterBackstackEntries
     SideEffect { stateCleaner.removeStateForDroppedEntries(presenterBackstack) }
 

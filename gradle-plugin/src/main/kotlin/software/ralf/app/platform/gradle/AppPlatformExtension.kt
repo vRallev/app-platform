@@ -371,6 +371,7 @@ private fun Project.enableMoleculePresenters() {
   plugins.withId(PluginIds.KOTLIN_MULTIPLATFORM) {
     kmpExtension.sourceSets.getByName("commonMain").dependencies {
       implementation("app.cash.molecule:molecule-runtime:$MOLECULE_VERSION")
+      implementation("org.jetbrains.compose.runtime:runtime:$COMPOSE_MULTIPLATFORM_VERSION")
       implementation("androidx.compose.runtime:runtime-retain:$COMPOSE_MULTIPLATFORM_VERSION")
       implementation("$APP_PLATFORM_GROUP:presenter-molecule-public:$APP_PLATFORM_VERSION")
     }
@@ -383,6 +384,10 @@ private fun Project.enableMoleculePresenters() {
 
   withJvmOrAndroidPlugin {
     dependencies.add("implementation", "app.cash.molecule:molecule-runtime:$MOLECULE_VERSION")
+    dependencies.add(
+      "implementation",
+      "androidx.compose.runtime:runtime:$ANDROID_COMPOSE_VERSION",
+    )
     dependencies.add(
       "implementation",
       "androidx.compose.runtime:runtime-retain:$COMPOSE_MULTIPLATFORM_VERSION",

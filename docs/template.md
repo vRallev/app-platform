@@ -40,7 +40,7 @@ class SampleAppTemplatePresenter(
 ) : MoleculePresenter<Unit, SampleAppTemplate> {
   @Composable
   override fun present(input: Unit): SampleAppTemplate {
-    return returningCompositionLocalProvider {
+    return withCompositionLocals {
       rootPresenter.present(Unit).toTemplate {
         SampleAppTemplate.FullScreenTemplate(it)
       }

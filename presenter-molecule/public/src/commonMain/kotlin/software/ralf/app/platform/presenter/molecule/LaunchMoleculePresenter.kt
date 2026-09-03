@@ -9,6 +9,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.withCompositionLocal
 import app.cash.molecule.RecompositionMode
 import app.cash.molecule.launchMolecule
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +39,7 @@ public fun <InputT : Any, ModelT : BaseModel> CoroutineScope.launchMoleculePrese
   return object : Presenter<ModelT> {
     override val model: StateFlow<ModelT> =
       launchMolecule(recompositionMode) {
-        returningCompositionLocalProvider(LocalRecompositionMode provides recompositionMode) {
+        withCompositionLocal(LocalRecompositionMode provides recompositionMode) {
           val inputElement by input.collectAsState()
           presenter.present(inputElement)
         }

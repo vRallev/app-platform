@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withCompositionLocal
 import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.isEqualTo
@@ -18,7 +19,6 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 import software.ralf.app.platform.presenter.molecule.test
 
 class CommonBackGestureDispatcherPresenterTest {
@@ -222,9 +222,7 @@ class CommonBackGestureDispatcherPresenterTest {
   ) : MoleculePresenter<Unit, ModelT> {
     @Composable
     override fun present(input: Unit): ModelT {
-      return returningCompositionLocalProvider(
-        LocalBackGestureDispatcherPresenter provides dispatcher
-      ) {
+      return withCompositionLocal(LocalBackGestureDispatcherPresenter provides dispatcher) {
         presenter.present(Unit)
       }
     }

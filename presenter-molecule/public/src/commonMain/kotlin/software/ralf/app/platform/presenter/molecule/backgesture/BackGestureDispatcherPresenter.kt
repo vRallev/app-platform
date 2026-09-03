@@ -84,7 +84,7 @@ public interface BackGestureDispatcherPresenter {
  * ) : MoleculePresenter<Unit, Model> {
  *   @Composable
  *   override fun present(input: Unit): Model {
- *     return returningCompositionLocalProvider(
+ *     return withCompositionLocal(
  *       LocalBackPressDispatcherPresenter provides backPressDispatcherPresenter
  *     ) {
  *       ... // Call other presenters.

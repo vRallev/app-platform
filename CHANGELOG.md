@@ -18,6 +18,8 @@
 
 ### Removed
 
+- **Breaking change:** Remove `returningCompositionLocalProvider()` from the Molecule presenter API; use Compose runtime's stable `withCompositionLocal()` or `withCompositionLocals()` instead.
+
 ### Fixed
 
 - Preserve decorated coroutine scope lifetimes in `FakeMoleculeScopeFactory` instead of creating unmanaged test jobs.

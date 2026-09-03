@@ -469,7 +469,7 @@ class RootPresenter(
 ) : MoleculePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
-    return returningCompositionLocalProvider(
+    return withCompositionLocal(
       LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter
     ) {
       // Call other child presenters.
@@ -982,7 +982,7 @@ class ParentPresenter : MoleculePresenter<Unit, Model> {
   override fun present(input: Unit): Model {
     val yourType = remember { YourType() }
 
-    return returningCompositionLocalProvider(
+    return withCompositionLocal(
       LocalYourType provides yourType
     ) {
       // ... call child presenters
