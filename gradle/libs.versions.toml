@@ -42,7 +42,7 @@ jvm-compatibility = "11"
 # with 25.
 jvm-buildsrc = "25"
 jvm-gradle-plugin = "17"
-kotlin = "2.4.20-Beta2"
+kotlin = "2.4.20-RC3"
 kotlin-atomicfu = "0.33.0"
 kotlin-compile-testing = "0.13.0"
 kotlin-hierarchy = "1.1"
