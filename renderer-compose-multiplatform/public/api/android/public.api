@@ -1,5 +1,5 @@
-public final class software/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenterComposeKt {
-	public static final fun ForwardBackPressEventsToPresenters (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;Landroidx/compose/runtime/Composer;I)V
+public final class software/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenterComposeKt {
+	public static final fun ForwardBackPressEventsToPresenters (Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;Landroidx/compose/runtime/Composer;I)V
 }
 
 public abstract interface class software/ralf/app/platform/renderer/BaseComposeRenderer {
@@ -47,6 +47,6 @@ public final class software/ralf/app/platform/renderer/ComposeRendererFactoryKt 
 }
 
 public final class software/ralf/app/platform/renderer/text/PresenterBackedTextFieldStateKt {
-	public static final fun rememberPresenterBackedTextFieldState (Lsoftware/ralf/app/platform/presenter/molecule/text/PresenterTextFieldState;Landroidx/compose/runtime/Composer;I)Landroidx/compose/foundation/text/input/TextFieldState;
+	public static final fun rememberPresenterBackedTextFieldState (Lsoftware/ralf/app/platform/presenter/compose/text/PresenterTextFieldState;Landroidx/compose/runtime/Composer;I)Landroidx/compose/foundation/text/input/TextFieldState;
 }
 

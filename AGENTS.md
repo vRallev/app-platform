@@ -34,7 +34,7 @@ Important top-level areas:
 Core framework module families:
 
 - `scope`, `di-common`
-- `presenter`, `presenter-molecule`
+- `presenter`, `presenter-compose`
 - `renderer`, `renderer-android-view`, `renderer-compose-multiplatform`
 - `robot`, `robot-compose-multiplatform`, `robot-internal`
 - `kotlin-inject`, `kotlin-inject-extensions`
@@ -60,7 +60,7 @@ Do not introduce a dependency on an `:impl` module outside these application ass
 The framework’s architectural flow is:
 
 1. `Scope` and DI assemble objects for a lifecycle boundary.
-2. `MoleculePresenter` implementations produce models.
+2. `ComposePresenter` implementations produce models.
 3. App-specific `Template` presenters wrap the root model tree.
 4. `RendererFactory` resolves platform renderers for those models.
 5. Thin platform entrypoints bootstrap the root scope and start rendering.

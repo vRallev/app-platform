@@ -36,8 +36,8 @@ e.g.
 ```kotlin hl_lines="8"
 @Inject
 class SampleAppTemplatePresenter(
-  @Assisted private val rootPresenter: MoleculePresenter<Unit, *>,
-) : MoleculePresenter<Unit, SampleAppTemplate> {
+  @Assisted private val rootPresenter: ComposePresenter<Unit, *>,
+) : ComposePresenter<Unit, SampleAppTemplate> {
   @Composable
   override fun present(input: Unit): SampleAppTemplate {
     return withCompositionLocals {

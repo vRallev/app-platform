@@ -3,7 +3,7 @@ package software.ralf.app.platform.sample.user
 import androidx.compose.runtime.Composable
 import dev.zacsweers.metro.ContributesBinding
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.backgesture.BackHandlerPresenter
+import software.ralf.app.platform.presenter.compose.backgesture.BackHandlerPresenter
 import software.ralf.app.platform.presenter.template.ModelDelegate
 import software.ralf.app.platform.renderer.Renderer
 import software.ralf.app.platform.sample.template.SampleAppTemplate

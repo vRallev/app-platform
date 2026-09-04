@@ -9,7 +9,7 @@ appPlatformBuildSrc {
 }
 
 dependencies {
-    commonMainApi project(':presenter-molecule:public')
+    commonMainApi project(':presenter-compose:public')
 
-    commonTestImplementation project(':presenter-molecule:testing')
+    commonTestImplementation project(':presenter-compose:testing')
 }

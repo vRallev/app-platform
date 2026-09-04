@@ -6,9 +6,9 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.BackGestureDispatcherPresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.LocalBackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
+import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.backgesture.LocalBackGestureDispatcherPresenter
 import software.ralf.app.platform.presenter.template.ModelDelegate
 import software.ralf.app.platform.presenter.template.toTemplate
 
@@ -21,8 +21,8 @@ import software.ralf.app.platform.presenter.template.toTemplate
 @AssistedInject
 class SampleAppTemplatePresenter(
   private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
-  @Assisted private val rootPresenter: MoleculePresenter<Unit, *>,
-) : MoleculePresenter<Unit, SampleAppTemplate> {
+  @Assisted private val rootPresenter: ComposePresenter<Unit, *>,
+) : ComposePresenter<Unit, SampleAppTemplate> {
   @Composable
   override fun present(input: Unit): SampleAppTemplate {
     return withCompositionLocal(
@@ -44,7 +44,7 @@ class SampleAppTemplatePresenter(
      * [SampleAppTemplate] directly or making its [BaseModel] type implement [ModelDelegate].
      */
     fun createSampleAppTemplatePresenter(
-      rootPresenter: MoleculePresenter<Unit, *>
+      rootPresenter: ComposePresenter<Unit, *>
     ): SampleAppTemplatePresenter
   }
 }

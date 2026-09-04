@@ -77,9 +77,21 @@ class AppPlatformExtensionTest {
       .isTrue()
   }
 
-  private fun createExtension(): AppPlatformExtension {
+  @Test
+  fun `Compose presenter backstack enables Compose presenters and Compose UI`() {
+    val extension = createExtension(PluginIds.KOTLIN_JVM)
+
+    extension.enableComposePresenterBackstack(true)
+
+    assertThat(extension.isComposePresenterBackstackEnabled().get()).isTrue()
+    assertThat(extension.isComposePresentersEnabled().get()).isTrue()
+    assertThat(extension.isComposeUiEnabled().get()).isTrue()
+  }
+
+  private fun createExtension(pluginId: String? = null): AppPlatformExtension {
     val rootProject = ProjectBuilder.builder().withName("root").build()
     val moduleProject = ProjectBuilder.builder().withName("impl").withParent(rootProject).build()
+    pluginId?.let { moduleProject.plugins.apply(it) }
     moduleProject.plugins.apply(AppPlatformPlugin::class.java)
     return moduleProject.extensions.getByType(AppPlatformExtension::class.java)
   }

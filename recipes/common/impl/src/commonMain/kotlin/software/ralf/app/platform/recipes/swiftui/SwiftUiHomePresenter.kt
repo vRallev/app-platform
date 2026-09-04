@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import me.tatarka.inject.annotations.Inject
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.recipes.swiftui.SwiftUiHomePresenter.Model
 
 /**
@@ -28,11 +28,11 @@ import software.ralf.app.platform.recipes.swiftui.SwiftUiHomePresenter.Model
  * class in a hashable `struct`.
  */
 @Inject
-class SwiftUiHomePresenter : MoleculePresenter<Unit, Model> {
+class SwiftUiHomePresenter : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     val backstack = remember {
-      mutableStateListOf<MoleculePresenter<Unit, out BaseModel>>().apply {
+      mutableStateListOf<ComposePresenter<Unit, out BaseModel>>().apply {
         // There must be always one element.
         add(SwiftUiChildPresenter(index = 0, backstack = this))
       }

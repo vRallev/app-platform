@@ -10,7 +10,7 @@ import kotlin.test.Test
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope.BackstackChange.Action
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 class FakePresenterBackstackScopeTest {
   @Test
@@ -89,7 +89,7 @@ class FakePresenterBackstackScopeTest {
     assertThat(scope.lastBackstackChange.value).isSameInstanceAs(changes.last())
   }
 
-  private class TestPresenter(private val id: String) : MoleculePresenter<Unit, BaseModel> {
+  private class TestPresenter(private val id: String) : ComposePresenter<Unit, BaseModel> {
     @Composable
     override fun present(input: Unit): BaseModel {
       return TestModel(id)

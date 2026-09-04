@@ -8,7 +8,7 @@ import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackModel
 import software.ralf.app.platform.presenter.backstack.nav3.presenterBackstack
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.recipes.appbar.AppBarConfig
 import software.ralf.app.platform.recipes.appbar.AppBarConfigModel
 import software.ralf.app.platform.recipes.backstack.CrossSlideBackstackPresenter.Model
@@ -19,8 +19,8 @@ import software.ralf.app.platform.recipes.backstack.CrossSlideBackstackPresenter
  * as an element.
  */
 class CrossSlideBackstackPresenter(
-  private val initialPresenter: MoleculePresenter<Unit, out BaseModel>
-) : MoleculePresenter<Unit, Model> {
+  private val initialPresenter: ComposePresenter<Unit, out BaseModel>
+) : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     return presenterBackstack(initialPresenter) { backstack ->

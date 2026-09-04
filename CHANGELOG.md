@@ -6,6 +6,8 @@
 
 ### Changed
 
+- **Breaking change:** Rename the Molecule-specific presenter API to Compose-focused names, including `MoleculePresenter` to `ComposePresenter`, its scope APIs, Gradle DSL options, and `:presenter-molecule:*` artifacts to `:presenter-compose:*`.
+
 ### Deprecated
 
 ### Removed

@@ -9,14 +9,14 @@ import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackModel
 import software.ralf.app.platform.presenter.backstack.nav3.presenterBackstack
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.recipes.appbar.AppBarConfig
 import software.ralf.app.platform.recipes.appbar.AppBarConfigModel
 import software.ralf.app.platform.recipes.nav3.Navigation3HomePresenter.Model
 
 /** Presenter that hosts a Navigation 3 presenter backstack. */
 @Inject
-class Navigation3HomePresenter : MoleculePresenter<Unit, Model> {
+class Navigation3HomePresenter : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     return presenterBackstack(Navigation3ChildPresenter(index = 0)) { backstack ->

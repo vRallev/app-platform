@@ -11,7 +11,7 @@ appPlatformBuildSrc {
 
 dependencies {
     commonMainApi project(':presenter:public')
-    commonMainApi project(':presenter-molecule:public')
+    commonMainApi project(':presenter-compose:public')
     commonMainApi project(':renderer:public')
     commonMainApi project(':scope:public')
     commonMainApi libs.compose.foundation
@@ -25,7 +25,7 @@ dependencies {
     commonTestImplementation libs.metro.runtime
 
     androidDeviceTestImplementation project(':metro:public')
-    androidDeviceTestImplementation project(':presenter-molecule:impl')
+    androidDeviceTestImplementation project(':presenter-compose:impl')
     androidDeviceTestImplementation libs.androidx.activity.compose
     androidDeviceTestImplementation libs.androidx.test.espresso
     androidDeviceTestImplementation libs.compose.ui.test.junit4

@@ -29,8 +29,8 @@ import kotlinx.coroutines.flow.StateFlow
  * ```
  *
  * Presenters can be implemented with any framework or by hand. Most commonly we use
- * `MoleculePresenter`, which can be transformed into a [Presenter] with `launchMoleculePresenter`.
- * A direct implementation of this interface could look like this:
+ * `ComposePresenter`, which can be transformed into a [Presenter] with `launchComposePresenter`. A
+ * direct implementation of this interface could look like this:
  * ```
  * @Inject
  * class LoginPresenter(

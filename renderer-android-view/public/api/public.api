@@ -1,5 +1,5 @@
-public final class software/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenterAndroidKt {
-	public static final fun forwardBackPressEventsToPresenters (Lsoftware/ralf/app/platform/presenter/molecule/backgesture/BackGestureDispatcherPresenter;Landroidx/activity/OnBackPressedDispatcherOwner;)V
+public final class software/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenterAndroidKt {
+	public static final fun forwardBackPressEventsToPresenters (Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;Landroidx/activity/OnBackPressedDispatcherOwner;)V
 }
 
 public class software/ralf/app/platform/renderer/AndroidRendererFactory : software/ralf/app/platform/renderer/BaseRendererFactory {

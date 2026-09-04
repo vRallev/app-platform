@@ -8,7 +8,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlin.test.Test
 import software.ralf.app.platform.ExperimentalAppPlatform
-import software.ralf.app.platform.presenter.molecule.text.PresenterTextFieldState
+import software.ralf.app.platform.presenter.compose.text.PresenterTextFieldState
 
 @OptIn(ExperimentalAppPlatform::class, ExperimentalTestApi::class)
 class PresenterBackedTextFieldStateTest {

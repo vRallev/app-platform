@@ -11,7 +11,7 @@ dependencies {
     commonMainApi project(':presenter:public')
     commonMainApi project(':renderer:public')
 
-    commonMainImplementation project(':presenter-molecule:public')
+    commonMainImplementation project(':presenter-compose:public')
 
     // Use a lower version to not force a higher version on consumers.
     androidMainApi libs.androidx.activity

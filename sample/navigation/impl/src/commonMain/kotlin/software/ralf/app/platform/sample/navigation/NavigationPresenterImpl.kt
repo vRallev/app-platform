@@ -8,7 +8,7 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.ContributesTo
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.sample.login.LoginPresenter
 import software.ralf.app.platform.sample.user.UserManager
 import software.ralf.app.platform.sample.user.UserPagePresenter
@@ -20,7 +20,7 @@ import software.ralf.app.platform.scope.di.metro.metroDependencyGraph
  * Production implementation of [NavigationPresenter].
  *
  * [loginPresenter] is injected lazily to delay initialization until it's actually needed. See
- * [MoleculePresenter] for more details.
+ * [ComposePresenter] for more details.
  */
 @ContributesBinding(AppScope::class)
 class NavigationPresenterImpl(

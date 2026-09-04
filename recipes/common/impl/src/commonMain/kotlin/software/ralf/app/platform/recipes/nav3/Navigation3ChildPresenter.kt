@@ -14,10 +14,10 @@ import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.LocalBackstackScope
 import software.ralf.app.platform.presenter.backstack.nav3.requireNotNull
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.recipes.nav3.Navigation3ChildPresenter.Model
 
-class Navigation3ChildPresenter(private val index: Int) : MoleculePresenter<Unit, Model> {
+class Navigation3ChildPresenter(private val index: Int) : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     val backstack = LocalBackstackScope.requireNotNull()

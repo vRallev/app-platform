@@ -63,7 +63,7 @@ fun routeChangesWithLocation() = runTest {
 }
 ```
 
-For `MoleculePresenter`, pass the current `TestScope` to the App Platform `test` helper. Drive changes through model callbacks, input flows, or fakes. For a counter model with `count` and `onIncrement`:
+For `ComposePresenter`, pass the current `TestScope` to the App Platform `test` helper. Drive changes through model callbacks, input flows, or fakes. For a counter model with `count` and `onIncrement`:
 
 ```kotlin
 @Test
@@ -167,7 +167,7 @@ appPlatform {
 }
 ```
 
-Keep `enableModuleStructure(true)` when the project uses App Platform's `:testing` and robot module rules. Keep the project's existing DI integration enabled so `@ContributesRobot` registrations are generated. `enableComposeUi(true)` supplies Compose Robot support, but the app still chooses its UI test runner and screenshot dependencies. `enableMoleculePresenters(true)` supplies the presenter test helper to test source sets, and the public plugin supplies scope test helpers.
+Keep `enableModuleStructure(true)` when the project uses App Platform's `:testing` and robot module rules. Keep the project's existing DI integration enabled so `@ContributesRobot` registrations are generated. `enableComposeUi(true)` supplies Compose Robot support, but the app still chooses its UI test runner and screenshot dependencies. `enableComposePresenters(true)` supplies the presenter test helper to test source sets, and the public plugin supplies scope test helpers.
 
 Ordinary production modules add `:testing` only to test configurations and robot modules only to UI or integration-test configurations. Test-only `:testing` and robot modules may use `:testing` from main source sets; robot modules may also depend on other robot modules. Compile the final test graph after changing robot contributions or test bindings; compiling the feature alone does not verify graph assembly.
 
