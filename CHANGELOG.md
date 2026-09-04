@@ -15,6 +15,7 @@
 - Clarify that `BaseModel` implementations can use observable mutable state that satisfies the Compose stability contract.
 - Upgrade KSP to `2.3.11`.
 - Upgrade Compose Multiplatform to `1.12.0`.
+- Upgrade Kotlin to `2.4.20-RC3`.
 
 ### Deprecated
 

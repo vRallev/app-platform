@@ -47,9 +47,6 @@ public abstract interface class software/ralf/app/platform/renderer/RendererGrap
 	public abstract fun createRendererGraph (Lsoftware/ralf/app/platform/renderer/RendererFactory;)Lsoftware/ralf/app/platform/renderer/RendererGraph;
 }
 
-public abstract interface class software/ralf/app/platform/renderer/RendererGraph$Factory$MetroContributionToAppScope : software/ralf/app/platform/renderer/RendererGraph$Factory {
-}
-
 public abstract class software/ralf/app/platform/renderer/RendererScope {
 }
 

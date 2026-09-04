@@ -40,27 +40,6 @@ FILE: constructorParametersWithoutInject.kt
                     super<R|kotlin/Any|>()
                 }
 
-                @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) @R|dev/zacsweers/metro/internal/CallableMetadata|(callableName = String(provideTestClass), propertyName = String(), startOffset = Int(266), endOffset = Int(453), newInstanceName = String(provideTestClass)) public final class ProvideTestClassMetroFactory : R|kotlin/Any| {
-                    public final companion object Companion : R|kotlin/Any| {
-                        private constructor(): R|com/test/TestClass.ScopedContribution.Companion.ProvideTestClassMetroFactory.Companion| {
-                            super<R|kotlin/Any|>()
-                        }
-
-                    }
-
-                }
-
-            }
-
-            @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) public abstract class BindsMirror : R|kotlin/Any| {
-                private constructor(): R|com/test/TestClass.ScopedContribution.BindsMirror| {
-                    super<R|kotlin/Any|>()
-                }
-
-                private constructor(): R|com/test/TestClass.ScopedContribution.BindsMirror| {
-                    super<R|kotlin/Any|>()
-                }
-
             }
 
         }

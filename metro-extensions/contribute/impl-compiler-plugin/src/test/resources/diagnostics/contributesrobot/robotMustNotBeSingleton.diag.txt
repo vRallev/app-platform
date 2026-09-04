@@ -1,0 +1,1 @@
+/robotMustNotBeSingleton.kt:9:1: error: It's not allowed for a robot to be a singleton, because the lifetime of the robot is scoped to the robot() factory function. Remove the @SingleIn annotation.
