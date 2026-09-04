@@ -37,6 +37,7 @@ kotlin {
 
   wasmJs {
     outputModuleName = project.path.removePrefix(":").replace(":", "-")
+    binaries.executable()
 
     browser()
   }

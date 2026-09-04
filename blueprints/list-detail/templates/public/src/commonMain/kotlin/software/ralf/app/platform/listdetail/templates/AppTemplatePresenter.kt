@@ -1,13 +1,13 @@
 package software.ralf.app.platform.listdetail.templates
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.withCompositionLocal
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
 import software.ralf.app.platform.presenter.molecule.backgesture.BackGestureDispatcherPresenter
 import software.ralf.app.platform.presenter.molecule.backgesture.LocalBackGestureDispatcherPresenter
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 
 /**
  * Adapts a root feature presenter into the application template stream.
@@ -22,7 +22,7 @@ class AppTemplatePresenter(
 ) : MoleculePresenter<Unit, AppTemplate> {
   @Composable
   override fun present(input: Unit): AppTemplate {
-    return returningCompositionLocalProvider(
+    return withCompositionLocal(
       LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter
     ) {
       rootPresenter.present(Unit).toAppTemplate()

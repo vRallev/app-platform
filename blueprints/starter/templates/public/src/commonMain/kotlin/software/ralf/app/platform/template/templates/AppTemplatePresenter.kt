@@ -1,12 +1,12 @@
 package software.ralf.app.platform.template.templates
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.withCompositionLocals
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.returningCompositionLocalProvider
 import software.ralf.app.platform.presenter.template.ModelDelegate
 import software.ralf.app.platform.presenter.template.toTemplate
 
@@ -21,10 +21,7 @@ class AppTemplatePresenter(@Assisted private val rootPresenter: MoleculePresente
   MoleculePresenter<Unit, AppTemplate> {
   @Composable
   override fun present(input: Unit): AppTemplate {
-    @Suppress("RemoveEmptyParenthesesFromLambdaCall")
-    return returningCompositionLocalProvider(
-      // Add local composition providers if needed.
-    ) {
+    return withCompositionLocals {
       rootPresenter.present(Unit).toTemplate<AppTemplate> { AppTemplate.FullScreenTemplate(it) }
     }
   }

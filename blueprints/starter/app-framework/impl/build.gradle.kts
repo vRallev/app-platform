@@ -56,6 +56,8 @@ kotlin {
   }
 
   wasmJs {
+    binaries.executable()
+
     browser()
   }
 

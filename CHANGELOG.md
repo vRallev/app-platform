@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Upgrade the blueprint projects to App Platform `0.1.4`.
+
 ### Deprecated
 
 ### Removed

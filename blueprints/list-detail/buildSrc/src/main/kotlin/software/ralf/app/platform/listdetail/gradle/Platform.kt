@@ -122,10 +122,10 @@ internal sealed interface Platform {
             }
           }
         }
+      }
 
-        if (project.path == ":app:web") {
-          binaries.executable()
-        }
+      project.plugins.withId(Plugins.COMPOSE_MULTIPLATFORM) {
+        project.kmpExtension.wasmJs { binaries.executable() }
       }
     }
   }
