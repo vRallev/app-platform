@@ -25,7 +25,7 @@ import software.ralf.app.platform.inject.ContributesRenderer
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.LocalBackstackScope
 import software.ralf.app.platform.presenter.backstack.nav3.requireNotNull
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.recipes.appbar.AppBarConfig
 import software.ralf.app.platform.recipes.appbar.AppBarConfigModel
 import software.ralf.app.platform.recipes.backstack.presenter.BackstackChildPresenter.Model
@@ -35,7 +35,7 @@ import software.ralf.app.platform.renderer.ComposeRenderer
  * A presenter that is added to the backstack and has a button to put a new instance on top of the
  * stack.
  */
-class BackstackChildPresenter(private val index: Int) : MoleculePresenter<Unit, Model> {
+class BackstackChildPresenter(private val index: Int) : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     val backstack = LocalBackstackScope.requireNotNull()

@@ -23,14 +23,14 @@ import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import software.ralf.app.platform.inject.ContributesRenderer
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.recipes.appbar.AppBarConfig
 import software.ralf.app.platform.recipes.appbar.AppBarConfigModel
 import software.ralf.app.platform.recipes.appbar.menu.MenuPresenter.Model
 import software.ralf.app.platform.renderer.ComposeRenderer
 
 /** This presenter provides a custom menu in the App Bar. */
-class MenuPresenter : MoleculePresenter<Unit, Model> {
+class MenuPresenter : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     var itemCount by remember { mutableIntStateOf(2) }

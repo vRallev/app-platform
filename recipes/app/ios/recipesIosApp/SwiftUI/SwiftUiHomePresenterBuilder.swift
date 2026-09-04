@@ -15,9 +15,9 @@ struct SwiftUiHomePresenterBuilder {
     }
 
     func makeHomePresenter() -> Presenter {
-        MoleculePresenterWrapper(
-            moleculeScopeFactory: appComponent.moleculeScopeFactory,
-            moleculePresenter: appComponent.swiftUiHomePresenter,
+        ComposePresenterWrapper(
+            composePresenterScopeFactory: appComponent.composePresenterScopeFactory,
+            composePresenter: appComponent.swiftUiHomePresenter,
             input: Void()
         )
     }

@@ -3,12 +3,12 @@
 !!! note
 
     While App Platform has a generic `Presenter` interface to remove coupling, we strongly recommend using
-    `MoleculePresenter` for implementations. `MoleculePresenters` are an opt-in feature through the Gradle DSL.
+    `ComposePresenter` for implementations. `ComposePresenters` are an opt-in feature through the Gradle DSL.
     The default value is `false`.
 
     ```groovy
     appPlatform {
-      enableMoleculePresenters true
+      enableComposePresenters true
     }
     ```
 
@@ -18,7 +18,7 @@ App Platform implements the unidirectional dataflow pattern to decouple business
 does this allow for better testing of business logic and provides clear boundaries, but individual apps can also
 share more code and change the look and feel when needed.
 
-## `MoleculePresenter`
+## `ComposePresenter`
 
 In the unidirectional dataflow pattern events and state only travel into one direction through a single stream.
 State is produced by `Presenters` and can be observed through a reactive stream:
@@ -37,11 +37,11 @@ use case of Compose is handling, creating and modifying tree-like data structure
 UI frameworks. Molecule reuses Compose to handle state management and state transitions to implement business
 logic in the form of `@Composable` functions with all the benefits that Compose provides.
 
-The [MoleculePresenter](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/MoleculePresenter.kt)
+The [ComposePresenter](https://github.com/vRallev/app-platform/blob/main/presenter-compose/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/compose/ComposePresenter.kt)
 interface looks like this:
 
 ```kotlin
-fun interface MoleculePresenter<InputT : Any, ModelT : BaseModel> {
+fun interface ComposePresenter<InputT : Any, ModelT : BaseModel> {
   @Composable
   fun present(input: InputT): ModelT
 }
@@ -52,7 +52,7 @@ represent the state of a `Presenter`. Usually, they’re implemented as immutabl
 Using sealed hierarchies is a good practice to allow to differentiate between different states:
 
 ```kotlin
-interface LoginPresenter : MoleculePresenter<Model> {
+interface LoginPresenter : ComposePresenter<Model> {
   sealed interface Model : BaseModel {
     data object LoggedOut : Model
 
@@ -78,7 +78,7 @@ Observers of the state of a `Presenter`, such as the UI layer, communicate back 
 Events are sent through a lambda in the `Model`, which the `Presenter` must provide:
 
 ```kotlin hl_lines="16"
-interface LoginPresenter : MoleculePresenter<Unit, Model> {
+interface LoginPresenter : ComposePresenter<Unit, Model> {
 
   sealed interface Event {
     data object Logout : Event
@@ -123,10 +123,10 @@ class LoginPresenterImpl : LoginPresenter {
 
 !!! note
 
-    `MoleculePresenters` are never singletons. They are automatically bound to an API using
+    `ComposePresenters` are never singletons. They are automatically bound to an API using
     `@ContributesBinding`, but they don't use the `@SingleIn` annotation. Metro can instantiate a
     contributed presenter with a single constructor without `@Inject`; `kotlin-inject-anvil` users
-    should still use `@Inject` for constructor injection. `MoleculePresenters` manage their state in
+    should still use `@Inject` for constructor injection. `ComposePresenters` manage their state in
     the `@Composable` function with the Compose runtime. Therefore, it's strongly discouraged to have
     any class properties.
 
@@ -204,7 +204,7 @@ While the pattern isn’t used frequently, parent presenters can provide input t
 returned model from the child presenter can be used further to change the control flow.
 
 ```kotlin
-interface ChildPresenter : MoleculePresenter<Input, Model> {
+interface ChildPresenter : ComposePresenter<Input, Model> {
   data class Input(
     val argument: String,
   )
@@ -272,7 +272,7 @@ on presenter inputs.
 
 ## Launching
 
-`MoleculePresenters` can inject other presenters and call their `present()` function inline. If you are already in a
+`ComposePresenters` can inject other presenters and call their `present()` function inline. If you are already in a
 composable UI context, then you can simply call the presenter to compute the model:
 
 ```kotlin
@@ -288,12 +288,12 @@ In this example the `LoginPresenter` model is computed from an iOS Compose Multi
 In other scenarios a composable context may not be available and it's necessary to turn the `@Composable` functions
 into a `StateFlow` for consumption.
 
-[`MoleculeScope`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/MoleculeScope.kt)
-helps to turn a `MoleculePresenter` into a `Presenter`, which then exposes a `StateFlow`:
+[`ComposePresenterScope`](https://github.com/vRallev/app-platform/blob/main/presenter-compose/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/compose/ComposePresenterScope.kt)
+helps to turn a `ComposePresenter` into a `Presenter`, which then exposes a `StateFlow`:
 
 ```kotlin
-val stateFlow = moleculeScope
-  .launchMoleculePresenter(
+val stateFlow = composePresenterScope
+  .launchComposePresenter(
     presenter = myPresenter,
     input = Unit,
   )
@@ -302,52 +302,52 @@ val stateFlow = moleculeScope
 
 !!! warning
 
-    `MoleculeScope` wraps a `CoroutineScope`. The presenter keeps running, recomposing and producing new models
-    until the `MoleculeScope` is canceled. If the `MoleculeScope` is never canceled, then presenters leak and will
+    `ComposePresenterScope` wraps a `CoroutineScope`. The presenter keeps running, recomposing and producing new models
+    until the `ComposePresenterScope` is canceled. If the `ComposePresenterScope` is never canceled, then presenters leak and will
     cause issues later.
 
-    Use [`MoleculeScopeFactory`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/MoleculeScopeFactory.kt)
-    to create a new `MoleculeScope` instance and call `cancel()` when you don't need it anymore.
+    Use [`ComposePresenterScopeFactory`](https://github.com/vRallev/app-platform/blob/main/presenter-compose/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory.kt)
+    to create a new `ComposePresenterScope` instance and call `cancel()` when you don't need it anymore.
 
     On Android an implementation using `ViewModels` may look like this:
 
     ```kotlin
     class MainActivityViewModel(
-      moleculeScopeFactory: MoleculeScopeFactory,
+      composePresenterScopeFactory: ComposePresenterScopeFactory,
       myPresenter: MyPresenter,
     ) : ViewModel() {
 
-      private val moleculeScope = moleculeScopeFactory.createMoleculeScope()
+      private val composePresenterScope = composePresenterScopeFactory.createComposePresenterScope()
 
       // Expose the models for consumption.
-      val models = moleculeScope
-        .launchMoleculePresenter(
+      val models = composePresenterScope
+        .launchComposePresenter(
           presenter = myPresenter,
           input = Unit
         )
         .models
 
       override fun onCleared() {
-        moleculeScope.cancel()
+        composePresenterScope.cancel()
       }
     }
     ```
 
 !!! info
 
-    By default `MoleculeScope` uses the main thread for running presenters and
+    By default `ComposePresenterScope` uses the main thread for running presenters and
     [`RecompositionMode.ContextClock`](https://github.com/cashapp/molecule/blob/trunk/molecule-runtime/src/commonMain/kotlin/app/cash/molecule/RecompositionMode.kt),
     meaning a new model is produced only once per UI frame and further changes are conflated.
 
-    This behavior can be changed by creating a custom `MoleculeScope`, e.g. tests make use of this:
+    This behavior can be changed by creating a custom `ComposePresenterScope`, e.g. tests make use of this:
 
     ```kotlin
-    fun TestScope.moleculeScope(
+    fun TestScope.composePresenterScope(
       coroutineContext: CoroutineContext = EmptyCoroutineContext
-    ): MoleculeScope {
-      val scope = backgroundScope + CoroutineName("TestMoleculeScope") + coroutineContext
+    ): ComposePresenterScope {
+      val scope = backgroundScope + CoroutineName("TestComposePresenterScope") + coroutineContext
 
-      return MoleculeScope(scope, RecompositionMode.Immediate)
+      return ComposePresenterScope(scope, RecompositionMode.Immediate)
     }
     ```
 
@@ -365,7 +365,7 @@ Use `presentDetached()` when a child presenter should run in its own Molecule hi
 class ParentPresenter(
   private val busyPresenter: BusyPresenter,
   private val expensivePresenter: ExpensivePresenter,
-) : MoleculePresenter<Unit, ParentPresenter.Model> {
+) : ComposePresenter<Unit, ParentPresenter.Model> {
 
   @Composable
   override fun present(input: Unit): Model {
@@ -398,8 +398,8 @@ in that case, child presenter updates are driven by the detached hierarchy's own
 
 ## Testing
 
-A [`test()`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/testing/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/TestPresenter.kt)
-utility function is provided to make testing `MoleculePresenters` easy using the [Turbine](https://github.com/cashapp/turbine/)
+A [`test()`](https://github.com/vRallev/app-platform/blob/main/presenter-compose/testing/src/commonMain/kotlin/software/ralf/app/platform/presenter/compose/TestPresenter.kt)
+utility function is provided to make testing `ComposePresenters` easy using the [Turbine](https://github.com/cashapp/turbine/)
 library:
 
 ```kotlin
@@ -466,7 +466,7 @@ Platform in the application scope and can be injected:
 @Inject
 class RootPresenter(
   private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
-) : MoleculePresenter<Unit, Model> {
+) : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     return withCompositionLocal(
@@ -732,8 +732,8 @@ is called with their initial state. These presenters only remember their state, 
 
 The Compose runtime provides `rememberSaveable { }` and `SaveableStateHolder` as a solution to save and restore small
 pieces of UI state. App Platform provides the experimental
-[`ReturningSaveableStateHolder`](https://github.com/vRallev/app-platform/blob/main/presenter-molecule/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/molecule/saveable/ReturningSaveableStateHolder.kt)
-API for `@Composable` functions that return a value. This matters for `MoleculePresenter` functions, because a presenter
+[`ReturningSaveableStateHolder`](https://github.com/vRallev/app-platform/blob/main/presenter-compose/public/src/commonMain/kotlin/software/ralf/app/platform/presenter/compose/saveable/ReturningSaveableStateHolder.kt)
+API for `@Composable` functions that return a value. This matters for `ComposePresenter` functions, because a presenter
 doesn't render UI directly; it returns a model.
 
 `Presenters` wrapped with `ReturningSaveableStateHolder` can use `rememberSaveable { }` to restore state even after they
@@ -741,7 +741,7 @@ weren't part of the hierarchy anymore:
 
 ```kotlin
 import software.ralf.app.platform.ExperimentalAppPlatform
-import software.ralf.app.platform.presenter.molecule.saveable.rememberReturningSaveableStateHolder
+import software.ralf.app.platform.presenter.compose.saveable.rememberReturningSaveableStateHolder
 
 @OptIn(ExperimentalAppPlatform::class)
 @Composable
@@ -797,13 +797,13 @@ This pattern can be generalized:
 
 ```kotlin
 interface NavigationManager {
-  val currentPresenter: StateFlow<MoleculePresenter<Unit, BaseModel>>
+  val currentPresenter: StateFlow<ComposePresenter<Unit, BaseModel>>
 
-  fun navigateTo(presenter: MoleculePresenter<Unit, BaseModel>)
+  fun navigateTo(presenter: ComposePresenter<Unit, BaseModel>)
 }
 
 @Inject
-class NavigationPresenter(val navigationManager: NavigationManager) : MoleculePresenter<Unit, BaseModel> {
+class NavigationPresenter(val navigationManager: NavigationManager) : ComposePresenter<Unit, BaseModel> {
 
   @Compose
   fun present(input: Unit): BaseModel {
@@ -822,11 +822,11 @@ The easiest way to import it is the Gradle plugin option:
 
 ```groovy
 appPlatform {
-  enableMoleculePresenterBackstack true
+  enableComposePresenterBackstack true
 }
 ```
 
-This option adds the presenter backstack module and also enables Molecule presenters and Compose UI. The API keeps the
+This option adds the presenter backstack module and also enables Compose presenters and Compose UI. The API keeps the
 backstack in presenter code, while the renderer integration delegates rendering, back gestures, retained entries, and
 transitions to Navigation 3.
 
@@ -834,8 +834,8 @@ The Recipes app wraps the shared API in a small app-specific presenter:
 
 ```kotlin
 class CrossSlideBackstackPresenter(
-  private val initialPresenter: MoleculePresenter<Unit, out BaseModel>
-) : MoleculePresenter<Unit, CrossSlideBackstackPresenter.Model> {
+  private val initialPresenter: ComposePresenter<Unit, out BaseModel>
+) : ComposePresenter<Unit, CrossSlideBackstackPresenter.Model> {
   @Composable
   override fun present(input: Unit): Model {
     return presenterBackstack(initialPresenter) { backstack ->
@@ -977,7 +977,7 @@ class YourType
 
 public val LocalYourType: ProvidableCompositionLocal<YourType?> = compositionLocalOf { null }
 
-class ParentPresenter : MoleculePresenter<Unit, Model> {
+class ParentPresenter : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     val yourType = remember { YourType() }
@@ -990,7 +990,7 @@ class ParentPresenter : MoleculePresenter<Unit, Model> {
   }
 }
 
-class ChildPresenter : MoleculePresenter<Unit, Model> {
+class ChildPresenter : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     val yourType = checkNotNull(LocalYourType.current)
@@ -1010,7 +1010,7 @@ layer without depending on Compose Foundation's `TextFieldState`.
 
 ```kotlin
 @OptIn(ExperimentalAppPlatform::class)
-class SearchPresenter : MoleculePresenter<Unit, SearchPresenter.Model> {
+class SearchPresenter : ComposePresenter<Unit, SearchPresenter.Model> {
   @Composable
   override fun present(input: Unit): Model {
     val query = remember { PresenterTextFieldState() }
@@ -1070,8 +1070,8 @@ sealed interface SampleAppTemplate : Template {
 
 class SampleAppTemplatePresenter(
   private val appBarPresenter: AppBarPresenter,
-  private val rootPresenter: MoleculePresenter<Unit, BaseModel>,
-) : MoleculePresenter<Unit, SampleAppTemplate> {
+  private val rootPresenter: ComposePresenter<Unit, BaseModel>,
+) : ComposePresenter<Unit, SampleAppTemplate> {
   @Composable
   fun present(input: Unit): SampleAppTemplate {
     val contentModel = rootPresenter.present(Unit)
@@ -1092,7 +1092,7 @@ specific [`AppBarConfigModel`](https://github.com/vRallev/app-platform/blob/main
 interface, which provides the configuration for the app bar. Implementing this interface is optional:
 
 ```kotlin
-class MenuPresenter : MoleculePresenter<Unit, Model> {
+class MenuPresenter : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     ...
@@ -1354,7 +1354,7 @@ The root `Presenter` responsible for the `Presenter` backstack computes the `Mod
 @Composable
   override fun present(input: Unit): Model {
     val backstack = remember {
-      mutableStateListOf<MoleculePresenter<Unit, out BaseModel>>().apply {
+      mutableStateListOf<ComposePresenter<Unit, out BaseModel>>().apply {
         // There must be always one element.
         add(SwiftUiChildPresenter(index = 0, backstack = this))
       }

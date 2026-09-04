@@ -10,7 +10,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
 import kotlinx.coroutines.flow.collectLatest
 import software.ralf.app.platform.ExperimentalAppPlatform
-import software.ralf.app.platform.presenter.molecule.text.PresenterTextFieldState
+import software.ralf.app.platform.presenter.compose.text.PresenterTextFieldState
 
 /**
  * Remembers a Compose Foundation [TextFieldState] backed by [presenterState].

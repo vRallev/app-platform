@@ -10,8 +10,8 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import software.ralf.app.platform.presenter.molecule.backgesture.withBackGestureDispatcher
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.backgesture.withBackGestureDispatcher
+import software.ralf.app.platform.presenter.compose.test
 import software.ralf.app.platform.scope.runTestWithScope
 
 class UserPagePresenterImplTest {

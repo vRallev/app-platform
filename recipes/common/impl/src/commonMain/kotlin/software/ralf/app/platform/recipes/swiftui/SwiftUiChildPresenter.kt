@@ -10,13 +10,13 @@ import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.recipes.swiftui.SwiftUiChildPresenter.Model
 
 class SwiftUiChildPresenter(
   private val index: Int,
-  private val backstack: SnapshotStateList<MoleculePresenter<Unit, out BaseModel>>,
-) : MoleculePresenter<Unit, Model> {
+  private val backstack: SnapshotStateList<ComposePresenter<Unit, out BaseModel>>,
+) : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     val counter by

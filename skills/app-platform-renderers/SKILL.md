@@ -164,7 +164,7 @@ This supplies Compose compiler/runtime, Foundation, and the Compose renderer API
 
 For Android View renderers, `addPublicModuleDependencies(true)` supplies the renderer APIs alongside the app's Android plugin setup.
 
-For Metro-generated contributions, use `enableMetro(true)`. Add implementation dependencies at app assembly points, using `addImplModuleDependencies(true)` when relying on App Platform defaults. Enable `enableMoleculePresenterBackstack(true)` for the Navigation 3 backstack module; it also enables Molecule presenters and Compose UI.
+For Metro-generated contributions, use `enableMetro(true)`. Add implementation dependencies at app assembly points, using `addImplModuleDependencies(true)` when relying on App Platform defaults. Enable `enableComposePresenterBackstack(true)` for the Navigation 3 backstack module; it also enables Compose presenters and Compose UI.
 
 ## Tests
 

@@ -75,9 +75,9 @@ public open class BasePlugin : Plugin<Project> {
         "${APP_PLATFORM_GROUP}:presenter-backstack-nav3-testing" to
           ":presenter-backstack-nav3:testing",
         "${APP_PLATFORM_GROUP}:presenter-public" to ":presenter:public",
-        "${APP_PLATFORM_GROUP}:presenter-molecule-public" to ":presenter-molecule:public",
-        "${APP_PLATFORM_GROUP}:presenter-molecule-impl" to ":presenter-molecule:impl",
-        "${APP_PLATFORM_GROUP}:presenter-molecule-testing" to ":presenter-molecule:testing",
+        "${APP_PLATFORM_GROUP}:presenter-compose-public" to ":presenter-compose:public",
+        "${APP_PLATFORM_GROUP}:presenter-compose-impl" to ":presenter-compose:impl",
+        "${APP_PLATFORM_GROUP}:presenter-compose-testing" to ":presenter-compose:testing",
         "${APP_PLATFORM_GROUP}:renderer-public" to ":renderer:public",
         "${APP_PLATFORM_GROUP}:renderer-android-view-public" to ":renderer-android-view:public",
         "${APP_PLATFORM_GROUP}:renderer-compose-multiplatform-public" to

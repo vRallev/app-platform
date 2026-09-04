@@ -6,7 +6,7 @@ import assertk.assertions.isInstanceOf
 import kotlin.test.Test
 import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.test
 import software.ralf.app.platform.sample.login.LoginPresenter
 import software.ralf.app.platform.sample.user.FakeUserManager
 import software.ralf.app.platform.sample.user.UserPagePresenter
