@@ -15,14 +15,14 @@ import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope.BackstackChange.Action
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.ComposePresenter
+import software.ralf.app.platform.presenter.compose.test
 
 class TestPresenterBackstackScopePresenterTest {
   @Test
   fun `a presenter cannot be tested without the backstack scope wrapper`() = runTest {
     val presenter =
-      object : MoleculePresenter<Unit, BaseModel> {
+      object : ComposePresenter<Unit, BaseModel> {
         @Composable
         override fun present(input: Unit): BaseModel {
           LocalBackstackScope.requireNotNull()
@@ -39,7 +39,7 @@ class TestPresenterBackstackScopePresenterTest {
     data class Model(val scope: PresenterBackstackScope) : BaseModel
 
     val presenter =
-      object : MoleculePresenter<Unit, Model> {
+      object : ComposePresenter<Unit, Model> {
         @Composable
         override fun present(input: Unit): Model {
           return Model(LocalBackstackScope.requireNotNull())
@@ -54,10 +54,10 @@ class TestPresenterBackstackScopePresenterTest {
 
   @Test
   fun `the default fake does not add the receiver presenter to the backstack`() = runTest {
-    data class Model(val backstack: List<MoleculePresenter<Unit, out BaseModel>>) : BaseModel
+    data class Model(val backstack: List<ComposePresenter<Unit, out BaseModel>>) : BaseModel
 
     val presenter =
-      object : MoleculePresenter<Unit, Model> {
+      object : ComposePresenter<Unit, Model> {
         @Composable
         override fun present(input: Unit): Model {
           return Model(LocalBackstackScope.requireNotNull().backstack)
@@ -79,7 +79,7 @@ class TestPresenterBackstackScopePresenterTest {
     val scope = FakePresenterBackstackScope()
     val rootPresenter = scope.backstack.single()
     val presenter =
-      object : MoleculePresenter<Unit, Model> {
+      object : ComposePresenter<Unit, Model> {
         @Composable
         override fun present(input: Unit): Model {
           val backstackScope = LocalBackstackScope.requireNotNull()
@@ -108,7 +108,7 @@ class TestPresenterBackstackScopePresenterTest {
     val childPresenter = TestPresenter("child")
     val scope = FakePresenterBackstackScope(rootPresenter)
     val presenter =
-      object : MoleculePresenter<Unit, Model> {
+      object : ComposePresenter<Unit, Model> {
         @Composable
         override fun present(input: Unit): Model {
           val backstackScope = LocalBackstackScope.requireNotNull()
@@ -140,7 +140,7 @@ class TestPresenterBackstackScopePresenterTest {
     val childPresenter = TestPresenter("child")
     val scope = FakePresenterBackstackScope(rootPresenter)
     val presenter =
-      object : MoleculePresenter<Unit, Model> {
+      object : ComposePresenter<Unit, Model> {
         @Composable
         override fun present(input: Unit): Model {
           val backstackScope = LocalBackstackScope.requireNotNull()
@@ -164,7 +164,7 @@ class TestPresenterBackstackScopePresenterTest {
     val rootPresenter = TestPresenter("root")
     val scope = FakePresenterBackstackScope(rootPresenter)
     val presenter =
-      object : MoleculePresenter<Unit, Model> {
+      object : ComposePresenter<Unit, Model> {
         @Composable
         override fun present(input: Unit): Model {
           val backstackScope = LocalBackstackScope.requireNotNull()
@@ -186,7 +186,7 @@ class TestPresenterBackstackScopePresenterTest {
     }
   }
 
-  private class TestPresenter(private val id: String) : MoleculePresenter<Unit, BaseModel> {
+  private class TestPresenter(private val id: String) : ComposePresenter<Unit, BaseModel> {
     @Composable
     override fun present(input: Unit): BaseModel {
       return TestModel(id)

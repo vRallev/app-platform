@@ -7,9 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import kotlin.collections.plus
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
-internal class PresenterBackstackScopeImpl(initial: MoleculePresenter<Unit, out BaseModel>) :
+internal class PresenterBackstackScopeImpl(initial: ComposePresenter<Unit, out BaseModel>) :
   PresenterBackstackScope {
   private var nextKey = 0
   private val initialEntry = newEntry(initial)
@@ -27,7 +27,7 @@ internal class PresenterBackstackScopeImpl(initial: MoleculePresenter<Unit, out 
   val presenterBackstackEntries: List<PresenterBackstackEntry>
     get() = _lastBackstackChange.value.entries
 
-  override fun push(presenter: MoleculePresenter<Unit, out BaseModel>) {
+  override fun push(presenter: ComposePresenter<Unit, out BaseModel>) {
     val oldEntries = _lastBackstackChange.value.entries
     _lastBackstackChange.value =
       BackstackChangeImpl(
@@ -47,7 +47,7 @@ internal class PresenterBackstackScopeImpl(initial: MoleculePresenter<Unit, out 
     }
   }
 
-  override fun replaceTop(presenter: MoleculePresenter<Unit, out BaseModel>) {
+  override fun replaceTop(presenter: ComposePresenter<Unit, out BaseModel>) {
     val oldEntries = _lastBackstackChange.value.entries
     _lastBackstackChange.value =
       BackstackChangeImpl(
@@ -56,7 +56,7 @@ internal class PresenterBackstackScopeImpl(initial: MoleculePresenter<Unit, out 
       )
   }
 
-  private fun newEntry(presenter: MoleculePresenter<Unit, out BaseModel>): PresenterBackstackEntry {
+  private fun newEntry(presenter: ComposePresenter<Unit, out BaseModel>): PresenterBackstackEntry {
     return PresenterBackstackEntry(key = nextKey++, presenter = presenter)
   }
 
@@ -64,7 +64,7 @@ internal class PresenterBackstackScopeImpl(initial: MoleculePresenter<Unit, out 
     val entries: List<PresenterBackstackEntry>,
     override val action: PresenterBackstackScope.BackstackChange.Action,
   ) : PresenterBackstackScope.BackstackChange {
-    override val backstack: List<MoleculePresenter<Unit, out BaseModel>> = entries.map {
+    override val backstack: List<ComposePresenter<Unit, out BaseModel>> = entries.map {
       it.presenter
     }
   }
@@ -72,5 +72,5 @@ internal class PresenterBackstackScopeImpl(initial: MoleculePresenter<Unit, out 
 
 internal data class PresenterBackstackEntry(
   val key: Int,
-  val presenter: MoleculePresenter<Unit, out BaseModel>,
+  val presenter: ComposePresenter<Unit, out BaseModel>,
 )

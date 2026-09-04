@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.dp
 import me.tatarka.inject.annotations.Inject
 import software.ralf.app.platform.inject.ContributesRenderer
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.backgesture.BackGestureDispatcherPresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.ForwardBackPressEventsToPresenters
+import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.backgesture.ForwardBackPressEventsToPresenters
 import software.ralf.app.platform.recipes.appbar.AppBarConfig
 import software.ralf.app.platform.renderer.ComposeRenderer
 import software.ralf.app.platform.renderer.Renderer

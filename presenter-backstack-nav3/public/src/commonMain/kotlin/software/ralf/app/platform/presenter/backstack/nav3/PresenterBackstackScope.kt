@@ -12,9 +12,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.withCompositionLocal
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.saveable.ReturningSaveableStateHolder
-import software.ralf.app.platform.presenter.molecule.saveable.rememberReturningSaveableStateHolder
+import software.ralf.app.platform.presenter.compose.ComposePresenter
+import software.ralf.app.platform.presenter.compose.saveable.ReturningSaveableStateHolder
+import software.ralf.app.platform.presenter.compose.saveable.rememberReturningSaveableStateHolder
 
 /**
  * Receiver scope for [presenterBackstack]. [lastBackstackChange] observes the current stack and
@@ -27,7 +27,7 @@ public interface PresenterBackstackScope {
   public val lastBackstackChange: State<BackstackChange>
 
   /** Pushes a new presenter to the top of the backstack. */
-  public fun push(presenter: MoleculePresenter<Unit, out BaseModel>)
+  public fun push(presenter: ComposePresenter<Unit, out BaseModel>)
 
   /**
    * Removes the top presenter from the backstack.
@@ -38,13 +38,13 @@ public interface PresenterBackstackScope {
   public fun pop()
 
   /** Replaces the top presenter in the stack with [presenter]. */
-  public fun replaceTop(presenter: MoleculePresenter<Unit, out BaseModel>)
+  public fun replaceTop(presenter: ComposePresenter<Unit, out BaseModel>)
 
   /** Describes the current state of the backstack and the last operation applied to it. */
   public interface BackstackChange {
 
     /** The current presenter stack. This list always contains at least the initial presenter. */
-    public val backstack: List<MoleculePresenter<Unit, out BaseModel>>
+    public val backstack: List<ComposePresenter<Unit, out BaseModel>>
 
     /** The last action applied to the backstack. */
     public val action: Action
@@ -65,7 +65,7 @@ public interface PresenterBackstackScope {
 
 /** Convenience accessor for the current presenter stack. */
 @ExperimentalAppPlatform
-public val PresenterBackstackScope.backstack: List<MoleculePresenter<Unit, out BaseModel>>
+public val PresenterBackstackScope.backstack: List<ComposePresenter<Unit, out BaseModel>>
   get() = lastBackstackChange.value.backstack
 
 /**
@@ -108,7 +108,7 @@ public fun CompositionLocal<PresenterBackstackScope?>.requireNotNull(): Presente
  *
  * class WelcomePresenter(
  *   private val tutorialPresenter: TutorialPresenter,
- * ) : MoleculePresenter<Unit, WelcomePresenter.Model> {
+ * ) : ComposePresenter<Unit, WelcomePresenter.Model> {
  *   @Composable
  *   override fun present(input: Unit): Model {
  *     return presenterBackstack(tutorialPresenter) { backstack ->
@@ -146,7 +146,7 @@ public fun CompositionLocal<PresenterBackstackScope?>.requireNotNull(): Presente
  * ```kotlin
  * class TutorialPresenter(
  *   private val signInPresenter: SignInPresenter,
- * ) : MoleculePresenter<Unit, TutorialModel> {
+ * ) : ComposePresenter<Unit, TutorialModel> {
  *   @Composable
  *   override fun present(input: Unit): TutorialModel {
  *     val backstack = LocalBackstackScope.requireNotNull()
@@ -168,7 +168,7 @@ public fun CompositionLocal<PresenterBackstackScope?>.requireNotNull(): Presente
 @ExperimentalAppPlatform
 @Composable
 public fun <ModelT : BaseModel> presenterBackstack(
-  initialPresenter: MoleculePresenter<Unit, out BaseModel>,
+  initialPresenter: ComposePresenter<Unit, out BaseModel>,
   content: @Composable PresenterBackstackScope.(List<BaseModel>) -> ModelT,
 ): ModelT {
   val scope = remember { PresenterBackstackScopeImpl(initialPresenter) }

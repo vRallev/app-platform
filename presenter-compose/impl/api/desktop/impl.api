@@ -1,0 +1,85 @@
+public final class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactory : software/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory {
+	public static final field $stable I
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public fun createComposePresenterScope ()Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScope;
+	public fun createComposePresenterScopeFromCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScope;
+}
+
+public abstract interface class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryComponent {
+	public fun provideDesktopComposePresenterScopeFactory (Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+}
+
+public final class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryComponent$DefaultImpls {
+	public static fun provideDesktopComposePresenterScopeFactory (Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryComponent;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+}
+
+public abstract interface class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph {
+	public fun provideDesktopComposePresenterScopeFactory (Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+}
+
+public final class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$DefaultImpls {
+	public static fun provideDesktopComposePresenterScopeFactory (Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+}
+
+public abstract interface class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$MetroContributionToAppScope : software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph {
+}
+
+public final class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$MetroContributionToAppScope$DefaultImpls {
+	public static fun provideDesktopComposePresenterScopeFactory (Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$MetroContributionToAppScope;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+}
+
+public final class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$ProvideDesktopComposePresenterScopeFactoryMetroFactory : dev/zacsweers/metro/internal/Factory {
+	public static final field $stable I
+	public static final field Companion Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$ProvideDesktopComposePresenterScopeFactoryMetroFactory$Companion;
+	public synthetic fun <init> (Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph;Ldev/zacsweers/metro/Provider;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun create (Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$ProvideDesktopComposePresenterScopeFactoryMetroFactory;
+	public final fun declarationMirror (Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+	public synthetic fun invoke ()Ljava/lang/Object;
+	public final fun invoke ()Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+	public static final fun provideDesktopComposePresenterScopeFactory (Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+}
+
+public final class software/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$ProvideDesktopComposePresenterScopeFactoryMetroFactory$Companion {
+	public final fun create (Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph;Ldev/zacsweers/metro/Provider;)Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph$ProvideDesktopComposePresenterScopeFactoryMetroFactory;
+	public final fun provideDesktopComposePresenterScopeFactory (Lsoftware/ralf/app/platform/presenter/compose/DesktopComposePresenterScopeFactoryGraph;Lkotlin/jvm/functions/Function0;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory;
+}
+
+public abstract interface class software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterComponent {
+	public fun provideDefaultBackGestureDispatcherPresenter ()Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+}
+
+public final class software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterComponent$DefaultImpls {
+	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterComponent;)Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+}
+
+public abstract interface class software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph {
+	public fun provideDefaultBackGestureDispatcherPresenter ()Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+}
+
+public final class software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$DefaultImpls {
+	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+}
+
+public abstract interface class software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToAppScope : software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph {
+}
+
+public final class software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToAppScope$DefaultImpls {
+	public static fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$MetroContributionToAppScope;)Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+}
+
+public final class software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory : dev/zacsweers/metro/internal/Factory {
+	public static final field $stable I
+	public static final field Companion Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion;
+	public synthetic fun <init> (Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun create (Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory;
+	public final fun declarationMirror ()Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+	public synthetic fun invoke ()Ljava/lang/Object;
+	public final fun invoke ()Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+	public static final fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+}
+
+public final class software/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory$Companion {
+	public final fun create (Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph$ProvideDefaultBackGestureDispatcherPresenterMetroFactory;
+	public final fun provideDefaultBackGestureDispatcherPresenter (Lsoftware/ralf/app/platform/presenter/compose/backgesture/DefaultBackGestureDispatcherPresenterGraph;)Lsoftware/ralf/app/platform/presenter/compose/backgesture/BackGestureDispatcherPresenter;
+}
+

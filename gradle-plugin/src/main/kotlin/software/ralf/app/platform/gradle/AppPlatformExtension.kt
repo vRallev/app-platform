@@ -27,8 +27,8 @@ import software.ralf.app.platform.gradle.ModuleStructurePlugin.Companion.testing
  *   enableKotlinInject true // false is the default
  *   enableMetro true // false is the default
  *
- *   enableMoleculePresenters true // false is the default
- *   enableMoleculePresenterBackstack true // false is the default
+ *   enableComposePresenters true // false is the default
+ *   enableComposePresenterBackstack true // false is the default
  *   enableModuleStructure true // false is the default
  *   enableModuleStructure {
  *     enableDependencyCheck false // true is the default
@@ -81,46 +81,45 @@ constructor(objects: ObjectFactory, private val project: Project) {
 
   internal fun isMetroEnabled(): Property<Boolean> = enableMetro
 
-  private val enableMoleculePresenters: Property<Boolean> =
+  private val enableComposePresenters: Property<Boolean> =
     objects.property(Boolean::class.java).convention(false)
 
-  /** Adds the Molecule Gradle plugin as dependency and gives access to `MoleculePresenter`. */
-  public fun enableMoleculePresenters(enabled: Boolean) {
-    if (enabled == enableMoleculePresenters.get()) return
+  /** Adds Molecule and Compose compiler dependencies and gives access to `ComposePresenter`. */
+  public fun enableComposePresenters(enabled: Boolean) {
+    if (enabled == enableComposePresenters.get()) return
 
-    enableMoleculePresenters.set(enabled)
-    enableMoleculePresenters.disallowChanges()
+    enableComposePresenters.set(enabled)
+    enableComposePresenters.disallowChanges()
 
     if (enabled) {
       addPublicModuleDependencies(true)
-      project.enableMoleculePresenters()
+      project.enableComposePresenters()
     }
   }
 
-  internal fun isMoleculeEnabled(): Property<Boolean> = enableMoleculePresenters
+  internal fun isComposePresentersEnabled(): Property<Boolean> = enableComposePresenters
 
-  private val enableMoleculePresenterBackstack: Property<Boolean> =
+  private val enableComposePresenterBackstack: Property<Boolean> =
     objects.property(Boolean::class.java).convention(false)
 
   /**
-   * Adds the Navigation 3 presenter backstack module and enables Molecule presenters and Compose
-   * UI.
+   * Adds the Navigation 3 presenter backstack module and enables Compose presenters and Compose UI.
    */
-  public fun enableMoleculePresenterBackstack(enabled: Boolean) {
-    if (enabled == enableMoleculePresenterBackstack.get()) return
+  public fun enableComposePresenterBackstack(enabled: Boolean) {
+    if (enabled == enableComposePresenterBackstack.get()) return
 
-    enableMoleculePresenterBackstack.set(enabled)
-    enableMoleculePresenterBackstack.disallowChanges()
+    enableComposePresenterBackstack.set(enabled)
+    enableComposePresenterBackstack.disallowChanges()
 
     if (enabled) {
-      enableMoleculePresenters(true)
+      enableComposePresenters(true)
       enableComposeUi(true)
-      project.enableMoleculePresenterBackstack()
+      project.enableComposePresenterBackstack()
     }
   }
 
-  internal fun isMoleculePresenterBackstackEnabled(): Property<Boolean> =
-    enableMoleculePresenterBackstack
+  internal fun isComposePresenterBackstackEnabled(): Property<Boolean> =
+    enableComposePresenterBackstack
 
   private val enableComposeUi: Property<Boolean> =
     objects.property(Boolean::class.java).convention(false)
@@ -365,7 +364,7 @@ private fun Project.enableMetroCompilerPlugin() {
   }
 }
 
-private fun Project.enableMoleculePresenters() {
+private fun Project.enableComposePresenters() {
   plugins.apply(PluginIds.COMPOSE_COMPILER)
 
   plugins.withId(PluginIds.KOTLIN_MULTIPLATFORM) {
@@ -373,11 +372,11 @@ private fun Project.enableMoleculePresenters() {
       implementation("app.cash.molecule:molecule-runtime:$MOLECULE_VERSION")
       implementation("org.jetbrains.compose.runtime:runtime:$COMPOSE_MULTIPLATFORM_VERSION")
       implementation("androidx.compose.runtime:runtime-retain:$COMPOSE_MULTIPLATFORM_VERSION")
-      implementation("$APP_PLATFORM_GROUP:presenter-molecule-public:$APP_PLATFORM_VERSION")
+      implementation("$APP_PLATFORM_GROUP:presenter-compose-public:$APP_PLATFORM_VERSION")
     }
     testingSourceSets.forEach { sourceSetName ->
       kmpExtension.sourceSets.getByName(sourceSetName).dependencies {
-        implementation("$APP_PLATFORM_GROUP:presenter-molecule-testing:$APP_PLATFORM_VERSION")
+        implementation("$APP_PLATFORM_GROUP:presenter-compose-testing:$APP_PLATFORM_VERSION")
       }
     }
   }
@@ -394,18 +393,18 @@ private fun Project.enableMoleculePresenters() {
     )
     dependencies.add(
       "implementation",
-      "$APP_PLATFORM_GROUP:presenter-molecule-public:$APP_PLATFORM_VERSION",
+      "$APP_PLATFORM_GROUP:presenter-compose-public:$APP_PLATFORM_VERSION",
     )
     testingSourceSets.forEach { sourceSetName ->
       dependencies.add(
         sourceSetName,
-        "$APP_PLATFORM_GROUP:presenter-molecule-testing:$APP_PLATFORM_VERSION",
+        "$APP_PLATFORM_GROUP:presenter-compose-testing:$APP_PLATFORM_VERSION",
       )
     }
   }
 }
 
-private fun Project.enableMoleculePresenterBackstack() {
+private fun Project.enableComposePresenterBackstack() {
   plugins.withId(PluginIds.KOTLIN_MULTIPLATFORM) {
     kmpExtension.sourceSets.getByName("commonMain").dependencies {
       implementation("$APP_PLATFORM_GROUP:presenter-backstack-nav3-public:$APP_PLATFORM_VERSION")

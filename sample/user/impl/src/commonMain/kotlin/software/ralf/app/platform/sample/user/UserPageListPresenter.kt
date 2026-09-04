@@ -7,14 +7,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import dev.zacsweers.metro.Inject
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.sample.user.UserPageListPresenter.Input
 import software.ralf.app.platform.sample.user.UserPageListPresenter.Model
 
 /** Presenter to manage the list content of the list-detail layout. */
 @Inject
 class UserPageListPresenter(private val sessionTimeout: SessionTimeout) :
-  MoleculePresenter<Input, Model> {
+  ComposePresenter<Input, Model> {
 
   @Composable
   override fun present(input: Input): Model {

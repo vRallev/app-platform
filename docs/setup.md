@@ -25,11 +25,11 @@ are explained in more detail in many of the following sections.
       // false by default. Alternative DI option. Configures KSP and adds the kotlin-inject-anvil library as dependency.
       enableKotlinInject true
 
-      // false by default. Configures Molecule and provides access to the MoleculePresenter API.
-      enableMoleculePresenters true
+      // false by default. Configures Molecule and provides access to the ComposePresenter API.
+      enableComposePresenters true
 
-      // false by default. Adds the Navigation 3 presenter backstack module and enables Molecule presenters and Compose UI.
-      enableMoleculePresenterBackstack true
+      // false by default. Adds the Navigation 3 presenter backstack module and enables Compose presenters and Compose UI.
+      enableComposePresenterBackstack true
 
       // false by default. Adds the necessary dependencies to use Compose Multiplatform with Renderers.
       enableComposeUi true
@@ -60,11 +60,11 @@ are explained in more detail in many of the following sections.
       // false by default. Alternative DI option. Configures KSP and adds the kotlin-inject-anvil library as dependency.
       enableKotlinInject(true)
 
-      // false by default. Configures Molecule and provides access to the MoleculePresenter API.
-      enableMoleculePresenters(true)
+      // false by default. Configures Molecule and provides access to the ComposePresenter API.
+      enableComposePresenters(true)
 
-      // false by default. Adds the Navigation 3 presenter backstack module and enables Molecule presenters and Compose UI.
-      enableMoleculePresenterBackstack(true)
+      // false by default. Adds the Navigation 3 presenter backstack module and enables Compose presenters and Compose UI.
+      enableComposePresenterBackstack(true)
 
       // false by default. Adds the necessary dependencies to use Compose Multiplatform with Renderers.
       enableComposeUi(true)
@@ -77,7 +77,7 @@ are explained in more detail in many of the following sections.
 
 !!! note
 
-    All settings of App Platform are optional and opt-in, e.g. you can use Molecule Presenters without enabling
+    All settings of App Platform are optional and opt-in, e.g. you can use Compose Presenters without enabling
     the opinionated module structure. Compose UI can be enabled without using `Metro` or
     `kotlin-inject-anvil`. When you do want DI, Metro is the recommended default.
 
@@ -89,7 +89,7 @@ This repository includes project-neutral skills for coding agents working on app
 | --- | --- |
 | [Module structure](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-module-structure/SKILL.md) | Public, implementation, testing, and robot module boundaries; app assembly; and Gradle checks |
 | [Scopes](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-scope/SKILL.md) | App Platform lifetimes, coroutine scopes, and Metro graph integration |
-| [Presenters](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-presenters/SKILL.md) | `MoleculePresenter` models, state, composition, hosting, and template selection |
+| [Presenters](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-presenters/SKILL.md) | `ComposePresenter` models, state, composition, hosting, and template selection |
 | [Renderers](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-renderers/SKILL.md) | Compose and Android View renderers, factories, child rendering, and template layouts |
 | [Testing](https://github.com/vRallev/app-platform/blob/main/skills/app-platform-testing/SKILL.md) | Fakes, shared unit tests, optional Desktop renderer tests, and robot integration tests |
 
