@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Make the Metro compiler extension more resilient to Kotlin compiler upgrades by using Metro's compiler compat APIs.
+
 ### Deprecated
 
 ### Removed
