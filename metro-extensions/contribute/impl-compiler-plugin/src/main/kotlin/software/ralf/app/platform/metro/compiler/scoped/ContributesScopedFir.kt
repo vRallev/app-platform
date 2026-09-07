@@ -98,8 +98,12 @@ import software.ralf.app.platform.metro.compiler.fir.resolveTypeRef
  * binding methods. If the contributed class only implements `Scoped`, then `bindSuperType()` is
  * omitted and only the scoped multibinding is generated.
  */
-public class ContributesScopedFir(session: FirSession) :
-  MetroFirDeclarationGenerationExtension(session), MetroContributionHintExtension {
+public class ContributesScopedFir
+internal constructor(
+  session: FirSession,
+  private val compatContext: CompatContext,
+) : MetroFirDeclarationGenerationExtension(session), MetroContributionHintExtension {
+  public constructor(session: FirSession) : this(session, CompatContext.create())
 
   override fun FirDeclarationPredicateRegistrar.registerPredicates() {
     register(ContributesScopedIds.PREDICATE)
@@ -203,7 +207,7 @@ public class ContributesScopedFir(session: FirSession) :
         buildAnnotationCallWithArgument(
           classId = ClassIds.ORIGIN,
           argName = Name.identifier("value"),
-          argument = buildClassExpression(scopedOwner, session),
+          argument = buildClassExpression(scopedOwner, session, compatContext),
           containingSymbol = contributionSymbol,
           session = session,
         )
@@ -340,7 +344,7 @@ public class ContributesScopedFir(session: FirSession) :
           buildAnnotationCallWithArgument(
             ClassIds.SINGLE_IN,
             Name.identifier("scope"),
-            buildClassExpression(scopeClassId, session),
+            buildClassExpression(scopeClassId, session, compatContext, owner),
             functionSymbol,
             session,
           )
@@ -530,6 +534,6 @@ public class ContributesScopedFir(session: FirSession) :
       session: FirSession,
       options: MetroOptions,
       compatContext: CompatContext,
-    ): MetroFirDeclarationGenerationExtension = ContributesScopedFir(session)
+    ): MetroFirDeclarationGenerationExtension = ContributesScopedFir(session, compatContext)
   }
 }

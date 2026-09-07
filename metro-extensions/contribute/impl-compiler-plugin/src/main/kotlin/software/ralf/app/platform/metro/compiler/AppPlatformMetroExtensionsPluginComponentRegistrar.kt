@@ -1,10 +1,9 @@
 package software.ralf.app.platform.metro.compiler
 
 import com.google.auto.service.AutoService
-import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
+import dev.zacsweers.metro.compiler.compat.CompatContext
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
-import org.jetbrains.kotlin.fir.extensions.FirExtensionRegistrarAdapter
 import software.ralf.app.platform.metro.compiler.renderer.ContributesRendererIrExtension
 import software.ralf.app.platform.metro.compiler.robot.ContributesRobotIrExtension
 import software.ralf.app.platform.metro.compiler.scoped.ContributesScopedIrExtension
@@ -15,9 +14,23 @@ public class AppPlatformMetroExtensionsPluginComponentRegistrar : CompilerPlugin
   override val supportsK2: Boolean = true
 
   override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
-    FirExtensionRegistrarAdapter.registerExtension(AppPlatformMetroExtensionsPluginRegistrar())
-    IrGenerationExtension.registerExtension(ContributesRendererIrExtension())
-    IrGenerationExtension.registerExtension(ContributesRobotIrExtension())
-    IrGenerationExtension.registerExtension(ContributesScopedIrExtension())
+    val compatContext =
+      try {
+        CompatContext.create()
+      } catch (throwable: Throwable) {
+        System.err.println(
+          "[APP PLATFORM] Unable to load Kotlin compiler compatibility support; " +
+            "skipping compiler extensions."
+        )
+        throwable.printStackTrace()
+        return
+      }
+
+    with(compatContext) {
+      registerFirExtensionCompat(AppPlatformMetroExtensionsPluginRegistrar())
+      registerIrExtensionCompat(ContributesRendererIrExtension(compatContext))
+      registerIrExtensionCompat(ContributesRobotIrExtension())
+      registerIrExtensionCompat(ContributesScopedIrExtension())
+    }
   }
 }

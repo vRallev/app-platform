@@ -1,5 +1,6 @@
 package software.ralf.app.platform.metro.compiler.renderer
 
+import dev.zacsweers.metro.compiler.compat.CompatContext
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.lower.DeclarationIrBuilder
@@ -26,6 +27,7 @@ import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.util.primaryConstructor
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
+import org.jetbrains.kotlin.name.Name
 import software.ralf.app.platform.metro.compiler.ClassIds
 import software.ralf.app.platform.metro.compiler.Keys
 
@@ -64,16 +66,21 @@ import software.ralf.app.platform.metro.compiler.Keys
  * `@Binds` support.
  */
 @Suppress("DEPRECATION")
-internal class ContributesRendererIrExtension : IrGenerationExtension {
+internal class ContributesRendererIrExtension(private val compatContext: CompatContext) :
+  IrGenerationExtension {
   override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
-    moduleFragment.transformChildrenVoid(ContributesRendererIrTransformer(pluginContext))
+    moduleFragment.transformChildrenVoid(
+      ContributesRendererIrTransformer(pluginContext, compatContext)
+    )
   }
 }
 
 @Suppress("DEPRECATION")
 @OptIn(UnsafeDuringIrConstructionAPI::class)
-private class ContributesRendererIrTransformer(private val pluginContext: IrPluginContext) :
-  IrElementTransformerVoid() {
+private class ContributesRendererIrTransformer(
+  private val pluginContext: IrPluginContext,
+  private val compatContext: CompatContext,
+) : IrElementTransformerVoid() {
 
   override fun visitSimpleFunction(declaration: IrSimpleFunction): IrStatement {
     val origin = declaration.origin
@@ -146,10 +153,16 @@ private class ContributesRendererIrTransformer(private val pluginContext: IrPlug
         parentClass
       }
     val originAnnotation =
-      contributionClass.annotations.firstOrNull { annotation ->
-        annotation.symbol.owner.parentAsClass.name == ClassIds.ORIGIN.shortClassName
+      with(compatContext) {
+        contributionClass.annotationsCompat().firstOrNull { annotation ->
+          annotation.symbol.owner.parentAsClass.name == ClassIds.ORIGIN.shortClassName
+        }
       } ?: return null
-    val classReference = originAnnotation.arguments[0] as? IrClassReference ?: return null
+    val classReference =
+      with(compatContext) {
+        originAnnotation.getAnnotationArgumentCompat(Name.identifier("value"))
+      }
+        as? IrClassReference ?: return null
     return classReference.classType.classOrNull?.owner
   }
 

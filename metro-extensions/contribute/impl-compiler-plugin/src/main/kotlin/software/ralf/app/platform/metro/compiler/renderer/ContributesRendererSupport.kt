@@ -28,9 +28,8 @@ import org.jetbrains.kotlin.name.Name
 import software.ralf.app.platform.metro.compiler.ClassIds
 import software.ralf.app.platform.metro.compiler.fir.allSessions
 import software.ralf.app.platform.metro.compiler.fir.findAnnotation
-import software.ralf.app.platform.metro.compiler.fir.findClassLikeSymbolInContainingFile
-import software.ralf.app.platform.metro.compiler.fir.findClassLikeSymbolInPackageFiles
 import software.ralf.app.platform.metro.compiler.fir.findContainingFile
+import software.ralf.app.platform.metro.compiler.fir.findRegularClassSymbol
 import software.ralf.app.platform.metro.compiler.fir.hasAnnotation
 import software.ralf.app.platform.metro.compiler.fir.resolveClassIdArgument
 import software.ralf.app.platform.metro.compiler.fir.resolveClassReferenceArgument
@@ -173,15 +172,7 @@ private fun explicitRendererModelType(
     ?.takeIf { it.classId != ClassIds.UNIT }
     ?.let {
       val resolvedClassSymbol =
-        it.classSymbol
-          ?: (session.symbolProvider.getClassLikeSymbolByClassId(it.classId)
-            as? FirRegularClassSymbol)
-          ?: findClassLikeSymbolInContainingFile(classSymbol, it.classId, session)
-          ?: findClassLikeSymbolInPackageFiles(
-            classSymbol.classId.packageFqName,
-            it.classId,
-            session,
-          )
+        it.classSymbol ?: findRegularClassSymbol(it.classId, classSymbol, session)
       ResolvedModelClass(classId = it.classId, classSymbol = resolvedClassSymbol)
     }
 }

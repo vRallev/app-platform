@@ -103,8 +103,12 @@ import software.ralf.app.platform.metro.compiler.fir.resolveTypeRef
  * `includeSealedSubtypes` is enabled, the `Model` binding pair is generated once per collected
  * model subtype.
  */
-public class ContributesRendererFir(session: FirSession) :
-  MetroFirDeclarationGenerationExtension(session), MetroContributionHintExtension {
+public class ContributesRendererFir
+internal constructor(
+  session: FirSession,
+  private val compatContext: CompatContext,
+) : MetroFirDeclarationGenerationExtension(session), MetroContributionHintExtension {
+  public constructor(session: FirSession) : this(session, CompatContext.create())
 
   override fun FirDeclarationPredicateRegistrar.registerPredicates() {
     register(ContributesRendererIds.PREDICATE)
@@ -520,7 +524,8 @@ public class ContributesRendererFir(session: FirSession) :
         ?: error("Annotation class ${ClassIds.CONTRIBUTES_TO} not found on the classpath")
     annotationTypeRef = contributesToSymbol.defaultType().toFirResolvedTypeRef()
     argumentMapping = buildAnnotationArgumentMapping {
-      mapping[Name.identifier("scope")] = buildClassExpression(ClassIds.RENDERER_SCOPE, session)
+      mapping[Name.identifier("scope")] =
+        buildClassExpression(ClassIds.RENDERER_SCOPE, session, compatContext)
     }
   }
 
@@ -528,7 +533,7 @@ public class ContributesRendererFir(session: FirSession) :
     buildAnnotationCallWithArgument(
       classId = ClassIds.FOR_SCOPE,
       argName = Name.identifier("scope"),
-      argument = buildClassExpression(ClassIds.RENDERER_SCOPE, session),
+      argument = buildClassExpression(ClassIds.RENDERER_SCOPE, session, compatContext),
       containingSymbol = containingSymbol,
       session = session,
     )
@@ -540,7 +545,7 @@ public class ContributesRendererFir(session: FirSession) :
     buildAnnotationCallWithArgument(
       classId = ClassIds.ORIGIN,
       argName = Name.identifier("value"),
-      argument = buildClassExpression(owner, session),
+      argument = buildClassExpression(owner, session, compatContext),
       containingSymbol = containingSymbol,
       session = session,
     )
@@ -554,8 +559,8 @@ public class ContributesRendererFir(session: FirSession) :
       classId = ClassIds.RENDERER_KEY,
       argName = Name.identifier("value"),
       argument =
-        modelClass.classSymbol?.let { buildClassExpression(it, session) }
-          ?: buildClassExpression(modelClass.classId, session, owner),
+        modelClass.classSymbol?.let { buildClassExpression(it, session, compatContext) }
+          ?: buildClassExpression(modelClass.classId, session, compatContext, owner),
       containingSymbol = containingSymbol,
       session = session,
     )
@@ -566,6 +571,6 @@ public class ContributesRendererFir(session: FirSession) :
       session: FirSession,
       options: MetroOptions,
       compatContext: CompatContext,
-    ): MetroFirDeclarationGenerationExtension = ContributesRendererFir(session)
+    ): MetroFirDeclarationGenerationExtension = ContributesRendererFir(session, compatContext)
   }
 }
