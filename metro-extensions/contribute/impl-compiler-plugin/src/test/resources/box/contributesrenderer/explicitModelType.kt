@@ -1,16 +1,31 @@
+// MODULE: model
+// FILE: Model.kt
 package com.test
 
-import software.ralf.app.platform.inject.ContributesRenderer
-import software.ralf.app.platform.metro.compiler.support.UnusedRendererFactory
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.renderer.Renderer
-import software.ralf.app.platform.renderer.RendererGraph
 
-class Model : BaseModel
+class Model : BaseModel {
+  companion object
+}
 
 class Model2 : BaseModel
 
-@ContributesRenderer(Model::class)
+// FILE: ModelAlias.kt
+package com.test.alias
+
+typealias ModelAlias = com.test.Model
+
+// MODULE: app(model)
+// FILE: app.kt
+package com.test
+
+import com.test.alias.ModelAlias
+import software.ralf.app.platform.inject.ContributesRenderer
+import software.ralf.app.platform.metro.compiler.support.UnusedRendererFactory
+import software.ralf.app.platform.renderer.Renderer
+import software.ralf.app.platform.renderer.RendererGraph
+
+@ContributesRenderer(ModelAlias::class)
 class TestRenderer : Renderer<Model2> {
   override fun render(model: Model2) = Unit
 }

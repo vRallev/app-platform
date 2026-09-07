@@ -153,6 +153,36 @@ jobs:
           name: test-results-${{ github.job }}
           path: ./**/build/reports/
 
+  test-metro-compiler-compatibility:
+    name: test-metro-compiler-compatibility / Kotlin ${{ matrix.kotlin }}
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    strategy:
+      fail-fast: false
+      matrix:
+        kotlin: ['2.4.0', '2.4.10', '2.4.20-RC3']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      # Dump and diagnostic goldens remain tied to the repository's pinned compiler version.
+      - name: Test
+        run: ./gradlew :metro-extensions:contribute:impl-compiler-plugin:test -PkotlinVersion=${{ matrix.kotlin }} --tests 'software.ralf.app.platform.metro.compiler.runners.BoxTestGenerated*' --stacktrace --show-version
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: test-results-${{ github.job }}-${{ matrix.kotlin }}
+          path: ./**/build/reports/
+
   test-emulator-renderer-android-view:
     runs-on: ubuntu-latest
     timeout-minutes: 25

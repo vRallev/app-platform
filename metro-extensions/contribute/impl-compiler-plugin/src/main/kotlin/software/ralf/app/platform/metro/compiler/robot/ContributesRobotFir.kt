@@ -98,8 +98,12 @@ import software.ralf.app.platform.metro.compiler.fir.resolveTypeRef
  * No top-level graph interface is generated. If the robot class is already `@Inject`-constructible,
  * the nested declaration omits `provideTestRobot(...)` and only synthesizes the map-binding method.
  */
-public class ContributesRobotFir(session: FirSession) :
-  MetroFirDeclarationGenerationExtension(session), MetroContributionHintExtension {
+public class ContributesRobotFir
+internal constructor(
+  session: FirSession,
+  private val compatContext: CompatContext,
+) : MetroFirDeclarationGenerationExtension(session), MetroContributionHintExtension {
+  public constructor(session: FirSession) : this(session, CompatContext.create())
 
   override fun FirDeclarationPredicateRegistrar.registerPredicates() {
     register(ContributesRobotIds.PREDICATE)
@@ -406,7 +410,7 @@ public class ContributesRobotFir(session: FirSession) :
       }
       annotations += buildSimpleAnnotationCall(ClassIds.BINDS, functionSymbol, session)
       annotations += buildSimpleAnnotationCall(ClassIds.INTO_MAP, functionSymbol, session)
-      annotations += buildRobotKeyAnnotation(owner.classId)
+      annotations += buildRobotKeyAnnotation(owner)
     }
   }
 
@@ -521,18 +525,18 @@ public class ContributesRobotFir(session: FirSession) :
         ?: error("Annotation class ${ClassIds.ORIGIN} not found on the classpath")
     annotationTypeRef = originSymbol.defaultType().toFirResolvedTypeRef()
     argumentMapping = buildAnnotationArgumentMapping {
-      mapping[Name.identifier("value")] = buildClassExpression(owner, session)
+      mapping[Name.identifier("value")] = buildClassExpression(owner, session, compatContext)
     }
   }
 
-  private fun buildRobotKeyAnnotation(robotClassId: ClassId) = buildAnnotation {
+  private fun buildRobotKeyAnnotation(robotClass: FirClassSymbol<*>) = buildAnnotation {
     val robotKeySymbol =
       session.symbolProvider.getClassLikeSymbolByClassId(ClassIds.ROBOT_KEY)
         as? FirRegularClassSymbol
         ?: error("Annotation class ${ClassIds.ROBOT_KEY} not found on the classpath")
     annotationTypeRef = robotKeySymbol.defaultType().toFirResolvedTypeRef()
     argumentMapping = buildAnnotationArgumentMapping {
-      mapping[Name.identifier("value")] = buildClassExpression(robotClassId, session)
+      mapping[Name.identifier("value")] = buildClassExpression(robotClass, session, compatContext)
     }
   }
 
@@ -542,6 +546,6 @@ public class ContributesRobotFir(session: FirSession) :
       session: FirSession,
       options: MetroOptions,
       compatContext: CompatContext,
-    ): MetroFirDeclarationGenerationExtension = ContributesRobotFir(session)
+    ): MetroFirDeclarationGenerationExtension = ContributesRobotFir(session, compatContext)
   }
 }

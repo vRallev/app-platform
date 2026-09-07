@@ -17,6 +17,20 @@ configurations {
     }
 }
 
+def testKotlinVersion =
+        providers.gradleProperty('kotlinVersion').orElse(libs.versions.kotlin.asProvider())
+
+configurations
+        .matching { it.name in ['testCompileClasspath', 'testRuntimeClasspath'] }
+        .configureEach {
+            resolutionStrategy.eachDependency { details ->
+                if (details.requested.group == 'org.jetbrains.kotlin') {
+                    details.useVersion(testKotlinVersion.get())
+                    details.because('The compiler compatibility tests must use one Kotlin version')
+                }
+            }
+        }
+
 dependencies {
     compileOnly libs.kotlin.compiler.embeddable
     compileOnly libs.metro.compiler
