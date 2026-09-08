@@ -8,10 +8,12 @@ import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.containsOnly
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isNull
 import assertk.assertions.startsWith
 import com.tschuchort.compiletesting.JvmCompilationResult
 import com.tschuchort.compiletesting.KotlinCompilation.ExitCode.COMPILATION_ERROR
+import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.IntoMap
 import dev.zacsweers.metro.Provides
@@ -35,7 +37,7 @@ import software.ralf.test.TestRendererGraph
 class ContributesRendererProcessorTest {
 
   @Test
-  fun `a graph interface is generated in the lookup package for a contributed renderer`() {
+  fun `a binding container is generated in the lookup package for a contributed renderer`() {
     compile(
       """
       package software.ralf.test
@@ -56,6 +58,7 @@ class ContributesRendererProcessorTest {
       val generatedGraph = testRenderer.rendererGraph
 
       assertThat(generatedGraph.packageName).startsWith(METRO_LOOKUP_PACKAGE)
+      assertThat(generatedGraph).isAnnotatedWith(BindingContainer::class)
 
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
@@ -93,8 +96,9 @@ class ContributesRendererProcessorTest {
         assertThat(getAnnotation(RendererKey::class.java).value).isEqualTo(model)
       }
 
-      assertThat(graphInterface.newMetroGraph<TestRendererGraph>().renderers.keys)
-        .containsOnly(model)
+      val graph = graphInterface.newMetroGraph<TestRendererGraph>()
+      assertThat(generatedGraph.isAssignableFrom(graph.javaClass)).isFalse()
+      assertThat(graph.renderers.keys).containsOnly(model)
 
       assertThat(graphInterface.newMetroGraph<TestRendererGraph>().modelToRendererMapping.keys)
         .containsOnly(model)
@@ -105,7 +109,7 @@ class ContributesRendererProcessorTest {
   }
 
   @Test
-  fun `a graph interface is generated in the lookup package for a contributed renderer as inner class`() {
+  fun `a binding container is generated in the lookup package for a contributed renderer as inner class`() {
     compile(
       """
       package software.ralf.test
@@ -158,7 +162,7 @@ class ContributesRendererProcessorTest {
   }
 
   @Test
-  fun `a graph interface is generated in the lookup package for a contributed renderer with a model as inner class`() {
+  fun `a binding container is generated in the lookup package for a contributed renderer with a model as inner class`() {
     compile(
       """
       package software.ralf.test
@@ -623,7 +627,7 @@ class ContributesRendererProcessorTest {
   }
 
   @Test
-  fun `a graph interface is generated for constructor parameters without @Inject`() {
+  fun `a binding container is generated for constructor parameters without @Inject`() {
     compile(
       """
       package software.ralf.test

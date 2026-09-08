@@ -6,11 +6,13 @@ import assertk.assertThat
 import assertk.assertions.contains
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import com.tschuchort.compiletesting.JvmCompilationResult
 import com.tschuchort.compiletesting.KotlinCompilation.ExitCode.COMPILATION_ERROR
 import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.Provides
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
@@ -28,7 +30,7 @@ import software.ralf.app.platform.scope.Scoped
 class ContributesScopedProcessorTest {
 
   @Test
-  fun `a graph interface is generated`() {
+  fun `a binding container is generated`() {
     compile(
       """
       package software.ralf.test
@@ -68,6 +70,8 @@ class ContributesScopedProcessorTest {
       assertThat(scopedGraph.getAnnotation(ContributesTo::class.java).scope)
         .isEqualTo(AppScope::class)
 
+      assertThat(scopedGraph).isAnnotatedWith(BindingContainer::class)
+
       // The annotations for these functions are defined in other kotlinc generated classes.
       // Instead of relying on reflection, we verify them by running the Metro compiler and
       // instantiating the Metro graph below.
@@ -82,6 +86,7 @@ class ContributesScopedProcessorTest {
       }
 
       val graph = graphInterface.newMetroGraph<Any>()
+      assertThat(scopedGraph.isAssignableFrom(graph.javaClass)).isFalse()
 
       @Suppress("UNCHECKED_CAST")
       val scopedInstances =
@@ -102,7 +107,7 @@ class ContributesScopedProcessorTest {
   }
 
   @Test
-  fun `a graph interface is generated for an inner class`() {
+  fun `a binding container is generated for an inner class`() {
     compile(
       """
       package software.ralf.test
@@ -143,7 +148,7 @@ class ContributesScopedProcessorTest {
   }
 
   @Test
-  fun `a graph interface is generated for constructor parameters without @Inject`() {
+  fun `a binding container is generated for constructor parameters without @Inject`() {
     compile(
       """
       package software.ralf.test
@@ -186,7 +191,8 @@ class ContributesScopedProcessorTest {
     ) {
       val scopedGraph = testClass.graph
 
-      with(scopedGraph.declaredNonSyntheticMethods.single { it.name == "provideTestClass" }) {
+      val companion = scopedGraph.declaredClasses.single { it.simpleName == "Companion" }
+      with(companion.declaredNonSyntheticMethods.single { it.name == "provideTestClass" }) {
         assertThat(parameters.single().type).isEqualTo(String::class.java)
         assertThat(returnType).isEqualTo(testClass)
         assertThat(this).isAnnotatedWith(Provides::class)
@@ -213,7 +219,7 @@ class ContributesScopedProcessorTest {
   }
 
   @Test
-  fun `a graph interface skips provider for an @Inject secondary constructor`() {
+  fun `a binding container skips provider for an @Inject secondary constructor`() {
     compile(
       """
       package software.ralf.test
@@ -260,10 +266,7 @@ class ContributesScopedProcessorTest {
     ) {
       val scopedGraph = testClass.graph
 
-      assertThat(
-          scopedGraph.declaredNonSyntheticMethods.singleOrNull { it.name == "provideTestClass" }
-        )
-        .isNull()
+      assertThat(scopedGraph.declaredClasses.singleOrNull { it.simpleName == "Companion" }).isNull()
 
       val graph = graphInterface.newMetroGraph<Any>()
 
@@ -280,7 +283,7 @@ class ContributesScopedProcessorTest {
   }
 
   @Test
-  fun `a graph interface is generated when only Scoped is implemented`() {
+  fun `a binding container is generated when only Scoped is implemented`() {
     compile(
       """
       package software.ralf.test
