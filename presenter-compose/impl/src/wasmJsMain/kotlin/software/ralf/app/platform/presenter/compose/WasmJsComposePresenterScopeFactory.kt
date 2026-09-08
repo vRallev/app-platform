@@ -2,6 +2,7 @@ package software.ralf.app.platform.presenter.compose
 
 import app.cash.molecule.RecompositionMode
 import dev.zacsweers.metro.AppScope as MetroAppScope
+import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ContributesTo as MetroContributesTo
 import dev.zacsweers.metro.Provides as MetroProvides
 import dev.zacsweers.metro.SingleIn as MetroSingleIn
@@ -37,8 +38,8 @@ public interface WasmJsComposePresenterScopeFactoryComponent {
 
 /** Provides the [WasmJsComposePresenterScopeFactory] in the Metro graph. */
 @MetroContributesTo(MetroAppScope::class)
-@Suppress("CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
-public interface WasmJsComposePresenterScopeFactoryGraph {
+@BindingContainer
+public object WasmJsComposePresenterScopeFactoryGraph {
   /** Provides the [WasmJsComposePresenterScopeFactory] in the Metro graph as a singleton. */
   @MetroProvides
   @MetroSingleIn(MetroAppScope::class)

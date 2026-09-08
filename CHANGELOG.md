@@ -7,6 +7,7 @@
 ### Changed
 
 - Upgrade Metro to `1.4.3`.
+- **Breaking change:** Use Metro binding containers for presenter providers and KSP-generated renderer/scoped bindings; custom empty graphs implementing `RobotGraph` must include `RobotGraph.Bindings`.
 - **Breaking change:** Rename the Molecule-specific presenter API to Compose-focused names, including `MoleculePresenter` to `ComposePresenter`, its scope APIs, Gradle DSL options, and `:presenter-molecule:*` artifacts to `:presenter-compose:*`.
 
 ### Deprecated
