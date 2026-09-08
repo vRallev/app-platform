@@ -14,7 +14,7 @@ class TestRobot : Robot {
       @IntoMap
       @RobotKey(value = TestRobot::class)
       @CallableMetadata(callableName = "provideTestRobotIntoMap", propertyName = "", startOffset = 202, endOffset = 260)
-      fun provideTestRobotIntoMap2729140830_intomap(robot: TestRobot): Robot {
+      fun provideTestRobotIntoMap884116439_intomap(robot: TestRobot): Robot {
         return error(message = "Never called")
       }
 
