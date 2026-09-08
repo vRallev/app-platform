@@ -37,6 +37,7 @@ public interface IosComposePresenterScopeFactoryComponent {
 
 /** Provides the [IosComposePresenterScopeFactory] in the Metro graph. */
 @MetroContributesTo(MetroAppScope::class)
+@Suppress("CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
 public interface IosComposePresenterScopeFactoryGraph {
   /** Provides the [IosComposePresenterScopeFactory] in the Metro graph as a singleton. */
   @MetroProvides

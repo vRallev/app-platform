@@ -29,6 +29,7 @@ public interface DefaultBackGestureDispatcherPresenterComponent {
  * [BackGestureDispatcherPresenter] for more details.
  */
 @MetroContributesTo(MetroAppScope::class)
+@Suppress("CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
 public interface DefaultBackGestureDispatcherPresenterGraph {
   /** Provides a [BackGestureDispatcherPresenter] as singleton in the Metro graph. */
   @MetroProvides
