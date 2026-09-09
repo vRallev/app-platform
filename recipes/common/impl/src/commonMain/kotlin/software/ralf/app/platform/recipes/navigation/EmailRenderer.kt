@@ -33,9 +33,15 @@ import software.ralf.app.platform.renderer.text.rememberPresenterBackedTextField
 
 /** Renders the email entry step. */
 @ContributesRenderer
-class EmailRenderer : ComposeRenderer<LoginPresenter.Model.Email>() {
+class EmailRenderer : ComposeRenderer<EmailPresenter.Model>() {
   @Composable
-  override fun Compose(model: LoginPresenter.Model.Email, modifier: Modifier) {
+  override fun Compose(model: EmailPresenter.Model, modifier: Modifier) {
+    val content =
+      when (model) {
+        is EmailPresenter.Model.Content -> model
+        is EmailPresenter.Model.Done -> model.content
+      }
+
     Column(
       modifier = modifier.fillMaxSize().padding(24.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,14 +54,14 @@ class EmailRenderer : ComposeRenderer<LoginPresenter.Model.Email>() {
         )
         Spacer(Modifier.height(24.dp))
         OutlinedTextField(
-          state = rememberPresenterBackedTextFieldState(model.email),
+          state = rememberPresenterBackedTextFieldState(content.email),
           modifier = Modifier.fillMaxWidth(),
           label = { Text(stringResource(Res.string.email)) },
           supportingText = { Text(stringResource(Res.string.any_input_accepted)) },
           lineLimits = TextFieldLineLimits.SingleLine,
         )
         Spacer(Modifier.height(16.dp))
-        Button(onClick = model.onNext, modifier = Modifier.align(Alignment.End)) {
+        Button(onClick = content.onNext, modifier = Modifier.align(Alignment.End)) {
           Text(stringResource(Res.string.next))
         }
       }

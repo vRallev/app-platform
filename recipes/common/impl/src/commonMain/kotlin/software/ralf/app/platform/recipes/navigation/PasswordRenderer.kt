@@ -35,9 +35,16 @@ import software.ralf.app.platform.renderer.text.rememberPresenterBackedTextField
 
 /** Renders the password entry step. */
 @ContributesRenderer
-class PasswordRenderer : ComposeRenderer<LoginPresenter.Model.Password>() {
+class PasswordRenderer : ComposeRenderer<PasswordPresenter.Model>() {
   @Composable
-  override fun Compose(model: LoginPresenter.Model.Password, modifier: Modifier) {
+  override fun Compose(model: PasswordPresenter.Model, modifier: Modifier) {
+    val content =
+      when (model) {
+        is PasswordPresenter.Model.Content -> model
+        is PasswordPresenter.Model.Back -> model.content
+        is PasswordPresenter.Model.Done -> model.content
+      }
+
     Column(
       modifier = modifier.fillMaxSize().padding(24.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,7 +57,7 @@ class PasswordRenderer : ComposeRenderer<LoginPresenter.Model.Password>() {
         )
         Spacer(Modifier.height(24.dp))
         OutlinedSecureTextField(
-          state = rememberPresenterBackedTextFieldState(model.password),
+          state = rememberPresenterBackedTextFieldState(content.password),
           modifier = Modifier.fillMaxWidth(),
           label = { Text(stringResource(Res.string.password)) },
           supportingText = { Text(stringResource(Res.string.any_input_accepted)) },
@@ -60,10 +67,10 @@ class PasswordRenderer : ComposeRenderer<LoginPresenter.Model.Password>() {
           modifier = Modifier.align(Alignment.End),
           horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-          OutlinedButton(onClick = model.onBack) {
+          OutlinedButton(onClick = content.onBack) {
             Text(stringResource(Res.string.back))
           }
-          Button(onClick = model.onDone) { Text(stringResource(Res.string.done)) }
+          Button(onClick = content.onDone) { Text(stringResource(Res.string.done)) }
         }
       }
     }
