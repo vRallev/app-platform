@@ -3,6 +3,7 @@
 package software.ralf.app.platform.recipes.retained
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -14,13 +15,12 @@ import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.LocalBackstackScope
 import software.ralf.app.platform.presenter.backstack.nav3.requireNotNull
 import software.ralf.app.platform.presenter.compose.ComposePresenter
-import software.ralf.app.platform.presenter.compose.text.PresenterTextFieldState
 import software.ralf.app.platform.presenter.compose.withLocalRetainedValuesStore
 
-/** Hosts the email and password presenters and interprets their navigation outputs. */
-class RetainedStatePresenter : ComposePresenter<Unit, RetainedStatePresenter.Model> {
+/** Hosts the email and password presenters in separate retained scopes. */
+class RetainedStatePresenter : ComposePresenter<Unit, BaseModel> {
   @Composable
-  override fun present(input: Unit): Model {
+  override fun present(input: Unit): BaseModel {
     val backstack = LocalBackstackScope.requireNotNull()
     var step by remember { mutableStateOf(Step.Email) }
     val emailRetainedValuesStore = key(Step.Email) { retainManagedRetainedValuesStore() }
@@ -30,21 +30,33 @@ class RetainedStatePresenter : ComposePresenter<Unit, RetainedStatePresenter.Mod
       Step.Email ->
         withLocalRetainedValuesStore(emailRetainedValuesStore) {
           val emailPresenter = remember { EmailPresenter() }
-          val emailModel = emailPresenter.present(Unit)
-
-          Model.Email(email = emailModel.email, onNext = { step = Step.Password })
+          when (val model = emailPresenter.present(Unit)) {
+            is EmailPresenter.Model.Content -> model
+            is EmailPresenter.Model.Done -> {
+              LaunchedEffect(Unit) { step = Step.Password }
+              model
+            }
+          }
         }
 
       Step.Password ->
         withLocalRetainedValuesStore(passwordRetainedValuesStore) {
           val passwordPresenter = remember { PasswordPresenter() }
-          val passwordModel = passwordPresenter.present(Unit)
+          when (val model = passwordPresenter.present(Unit)) {
+            is PasswordPresenter.Model.Content -> model
+            is PasswordPresenter.Model.Back -> {
+              LaunchedEffect(Unit) { step = Step.Email }
+              model
+            }
 
-          Model.Password(
-            password = passwordModel.password,
-            onBack = { step = Step.Email },
-            onDone = { backstack.pop() },
-          )
+            is PasswordPresenter.Model.Done -> {
+              LaunchedEffect(Unit) {
+                // Leave this screen
+                backstack.pop()
+              }
+              model
+            }
+          }
         }
     }
   }
@@ -52,26 +64,5 @@ class RetainedStatePresenter : ComposePresenter<Unit, RetainedStatePresenter.Mod
   private enum class Step {
     Email,
     Password,
-  }
-
-  /** A retained credential-entry step and its navigation outputs. */
-  sealed interface Model : BaseModel {
-    /** The email step. */
-    data class Email(
-      /** The presenter-owned email text. */
-      val email: PresenterTextFieldState,
-      /** Advances to the password step. */
-      val onNext: () -> Unit,
-    ) : Model
-
-    /** The password step. */
-    data class Password(
-      /** The presenter-owned password text. */
-      val password: PresenterTextFieldState,
-      /** Returns to the email step. */
-      val onBack: () -> Unit,
-      /** Completes this presenter. */
-      val onDone: () -> Unit,
-    ) : Model
   }
 }

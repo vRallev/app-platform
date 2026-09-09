@@ -2,13 +2,17 @@
 
 package software.ralf.app.platform.recipes.retained
 
+import app.cash.turbine.ReceiveTurbine
 import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.isEqualTo
+import assertk.assertions.isSameInstanceAs
 import kotlin.test.Test
 import kotlin.test.assertIs
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.ExperimentalAppPlatform
+import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.FakePresenterBackstackScope
 import software.ralf.app.platform.presenter.backstack.nav3.withPresenterBackstackScope
 import software.ralf.app.platform.presenter.compose.test
@@ -16,29 +20,57 @@ import software.ralf.app.platform.recipes.landing.LandingPresenter
 
 class RetainedStatePresenterTest {
   @Test
+  fun `email presenter reports completion through its model`() = runTest {
+    EmailPresenter().test(this) {
+      val content = assertIs<EmailPresenter.Model.Content>(awaitItem())
+
+      content.onNext()
+
+      val done = assertIs<EmailPresenter.Model.Done>(awaitItem())
+      assertThat(done.content.email).isSameInstanceAs(content.email)
+    }
+  }
+
+  @Test
+  fun `password presenter reports both completion outcomes through its model`() = runTest {
+    PasswordPresenter().test(this) {
+      val content = assertIs<PasswordPresenter.Model.Content>(awaitItem())
+      content.onBack()
+      assertIs<PasswordPresenter.Model.Back>(awaitItem())
+    }
+
+    PasswordPresenter().test(this) {
+      val content = assertIs<PasswordPresenter.Model.Content>(awaitItem())
+      content.onDone()
+      assertIs<PasswordPresenter.Model.Done>(awaitItem())
+    }
+  }
+
+  @Test
   fun `email and password values are retained while moving between steps`() = runTest {
     val presenter = RetainedStatePresenter()
 
     presenter.withPresenterBackstackScope().test(this) {
-      val emailModel = assertIs<RetainedStatePresenter.Model.Email>(awaitItem())
+      val emailModel = awaitModel<EmailPresenter.Model.Content>()
       emailModel.email.replaceText("email value")
       emailModel.onNext()
 
-      val passwordModel = assertIs<RetainedStatePresenter.Model.Password>(awaitItem())
+      val passwordModel = awaitModel<PasswordPresenter.Model.Content>()
       passwordModel.password.replaceText("password value")
       passwordModel.onBack()
 
-      val restoredEmailModel = assertIs<RetainedStatePresenter.Model.Email>(awaitItem())
+      val restoredEmailModel = awaitModel<EmailPresenter.Model.Content>()
       assertThat(restoredEmailModel.email.value).isEqualTo("email value")
       restoredEmailModel.onNext()
 
-      val restoredPasswordModel = assertIs<RetainedStatePresenter.Model.Password>(awaitItem())
+      val restoredPasswordModel = awaitModel<PasswordPresenter.Model.Content>()
       assertThat(restoredPasswordModel.password.value).isEqualTo("password value")
     }
   }
 
   @Test
   fun `done returns to the recipe landing screen`() = runTest {
+    val testScope = this
     val landingPresenter = LandingPresenter()
     val backstack = FakePresenterBackstackScope(landingPresenter)
 
@@ -50,10 +82,22 @@ class RetainedStatePresenterTest {
       assertIs<RetainedStatePresenter>(backstack.lastBackstackChange.value.backstack.last())
 
     retainedStatePresenter.withPresenterBackstackScope(backstack).test(this) {
-      assertIs<RetainedStatePresenter.Model.Email>(awaitItem()).onNext()
-      assertIs<RetainedStatePresenter.Model.Password>(awaitItem()).onDone()
+      awaitModel<EmailPresenter.Model.Content>().onNext()
+      awaitModel<PasswordPresenter.Model.Content>().onDone()
+      awaitModel<PasswordPresenter.Model.Done>()
+      testScope.runCurrent()
     }
 
     assertThat(backstack.lastBackstackChange.value.backstack).containsExactly(landingPresenter)
+  }
+
+  private suspend inline fun <reified ModelT : BaseModel> ReceiveTurbine<BaseModel>.awaitModel():
+    ModelT {
+    while (true) {
+      val model = awaitItem()
+      if (model is ModelT) {
+        return model
+      }
+    }
   }
 }
