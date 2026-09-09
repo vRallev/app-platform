@@ -15,6 +15,10 @@ appPlatform {
     enableComposePresenterBackstack true
 }
 
+appPlatformBuildSrc {
+    enableAndroidResources true
+}
+
 dependencies {
     commonMainImplementation compose.components.resources
     commonMainImplementation compose.material3

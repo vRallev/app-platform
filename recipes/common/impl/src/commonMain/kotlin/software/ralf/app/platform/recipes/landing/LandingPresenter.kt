@@ -13,6 +13,7 @@ import software.ralf.app.platform.recipes.appbar.menu.MenuPresenter
 import software.ralf.app.platform.recipes.backstack.presenter.BackstackChildPresenter
 import software.ralf.app.platform.recipes.landing.LandingPresenter.Model
 import software.ralf.app.platform.recipes.nav3.Navigation3HomePresenter
+import software.ralf.app.platform.recipes.retained.RetainedStatePresenter
 
 /** The presenter that is responsible to show the content of the landing page in the Recipes app. */
 @Inject
@@ -34,6 +35,10 @@ class LandingPresenter : ComposePresenter<Unit, Model> {
         Event.Navigation3 -> {
           backstack.push(Navigation3HomePresenter())
         }
+
+        Event.RetainedPresenterState -> {
+          backstack.push(RetainedStatePresenter())
+        }
       }
     }
   }
@@ -54,5 +59,8 @@ class LandingPresenter : ComposePresenter<Unit, Model> {
 
     /** Show the presenter highlighting navigation3 integration. */
     data object Navigation3 : Event
+
+    /** Show the recipe highlighting retained state in child presenters. */
+    data object RetainedPresenterState : Event
   }
 }

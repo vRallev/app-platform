@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import app_platform.recipes.common.`impl`.generated.resources.Res
+import app_platform.recipes.common.`impl`.generated.resources.retained_presenter_state
+import org.jetbrains.compose.resources.stringResource
 import software.ralf.app.platform.inject.ContributesRenderer
 import software.ralf.app.platform.recipes.landing.LandingPresenter.Model
 import software.ralf.app.platform.renderer.ComposeRenderer
@@ -36,6 +39,12 @@ class LandingRenderer : ComposeRenderer<Model>() {
         modifier = Modifier.padding(top = 12.dp),
       ) {
         Text("Navigation3")
+      }
+      Button(
+        onClick = { model.onEvent(LandingPresenter.Event.RetainedPresenterState) },
+        modifier = Modifier.padding(top = 12.dp),
+      ) {
+        Text(stringResource(Res.string.retained_presenter_state))
       }
     }
   }
