@@ -9,4 +9,6 @@ appPlatformBuildSrc {
 
 dependencies {
     commonMainApi project(':scope:public')
+
+    commonTestImplementation libs.kotlin.inject.runtime.kmp
 }

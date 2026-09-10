@@ -1,6 +1,7 @@
 package software.ralf.app.platform.gradle
 
 import com.android.build.api.variant.HasTestFixtures
+import com.android.build.api.variant.TestComponent
 import java.io.File
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
@@ -34,6 +35,9 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
   /** Whether the checked compile classpath belongs to test fixtures. */
   @get:Input public abstract val testFixtures: Property<Boolean>
 
+  /** Whether the checked compile classpath belongs to a test compilation. */
+  @get:Input public abstract val testCompilation: Property<Boolean>
+
   /** An empty output makes the task work with up-to-date checks. */
   @Suppress("unused") @get:OutputFile @get:Optional public abstract var ignoredOutputFile: File
 
@@ -42,12 +46,14 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
     group = "Verification"
     allowLibraryImplToImplDependencies.convention(false)
     testFixtures.convention(false)
+    testCompilation.convention(false)
   }
 
   @TaskAction
   @PublishedApi
   internal fun checkDependencies() {
     val moduleType = modulePath.moduleType
+    val testOnlyClasspath = testFixtures.get() || testCompilation.get()
 
     if (moduleType == ModuleType.PUBLIC) {
       checkOnlyPublicModule()
@@ -55,10 +61,10 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
     if (moduleType != ModuleType.APP && moduleType != ModuleType.IMPL_ROBOTS) {
       checkNoImplImport(moduleType)
     }
-    if (moduleType != ModuleType.TESTING && !moduleType.isRobotsModule && !testFixtures.get()) {
+    if (moduleType != ModuleType.TESTING && !moduleType.isRobotsModule && !testOnlyClasspath) {
       checkNoTestingImport()
     }
-    if (!moduleType.isRobotsModule) {
+    if (!moduleType.isRobotsModule && !testCompilation.get()) {
       checkNoRobotsImport()
     }
     if (moduleType != ModuleType.APP) {
@@ -69,7 +75,8 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
   private fun checkOnlyPublicModule() {
     val forbiddenDependencies = moduleCompileClasspath.filter {
       it.moduleType != ModuleType.PUBLIC &&
-        !(testFixtures.get() && it.moduleType == ModuleType.TESTING)
+        !((testFixtures.get() || testCompilation.get()) && it.moduleType == ModuleType.TESTING) &&
+        !(testCompilation.get() && it.moduleType.isRobotsModule)
     }
 
     if (forbiddenDependencies.isNotEmpty()) {
@@ -164,6 +171,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
 
   public companion object {
     /** Registers the task in the given project. */
+    @Suppress("LongMethod")
     public fun Project.registerModuleStructureDependencyCheckTask() {
       val baseTaskName = "checkModuleStructureDependencies"
       val baseTask =
@@ -183,6 +191,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
         taskSuffix: String,
         configuration: () -> Configuration,
         isTestFixtures: Boolean = false,
+        isTestCompilation: Boolean = false,
       ) {
         val checkTask =
           tasks.register(
@@ -197,19 +206,17 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
               appPlatform.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed()
             )
             task.testFixtures.set(isTestFixtures)
+            task.testCompilation.set(isTestCompilation)
             task.moduleCompileClasspath =
               configuration()
                 .allDependencies
                 .mapNotNull { dependency ->
                   when (dependency) {
-                    is ExternalDependency -> {
-                      "${dependency.group}:${dependency.name}:${dependency.version}"
-                        .takeIf { dependency.name.moduleTypeFromArtifactId() != ModuleType.UNKNOWN }
-                    }
+                    is ExternalDependency -> dependency.moduleNotation(isTestCompilation)
 
                     is ProjectDependency -> {
                       dependency.path.takeIf {
-                        it.moduleTypeFromProjectPath() != ModuleType.UNKNOWN
+                        it != path && it.moduleTypeFromProjectPath() != ModuleType.UNKNOWN
                       }
                     }
 
@@ -229,6 +236,14 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
             configuration = { variant.compileConfiguration },
           )
 
+          variant.nestedComponents.filterIsInstance<TestComponent>().forEach { testComponent ->
+            registerForConfiguration(
+              taskSuffix = "android${testComponent.name.capitalize()}",
+              configuration = { testComponent.compileConfiguration },
+              isTestCompilation = true,
+            )
+          }
+
           val testFixtures = (variant as? HasTestFixtures)?.testFixtures
           if (testFixtures != null) {
             registerForConfiguration(
@@ -241,16 +256,23 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
       }
 
       plugins.withId(PluginIds.KOTLIN_MULTIPLATFORM) {
-        fun KotlinTarget.registerMainCompilation() {
+        fun KotlinTarget.registerCompilations() {
           compilations.configureEach { compilation ->
-            // We only care about main.
-            if (compilation.name != "main") return@configureEach
+            // KGP has no public test-compilation marker. This repository uses *Test names.
+            val isTestCompilation = compilation.name == "test" || compilation.name.endsWith("Test")
+            if (compilation.name != "main" && !isTestCompilation) return@configureEach
 
             registerForConfiguration(
-              taskSuffix = name,
+              taskSuffix =
+                if (compilation.name == "main") {
+                  name
+                } else {
+                  "$name${compilation.name.capitalize()}"
+                },
               configuration = {
                 configurations.getByName(compilation.compileDependencyConfigurationName)
               },
+              isTestCompilation = isTestCompilation,
             )
           }
         }
@@ -258,14 +280,14 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
         kmpExtension.targets.configureEach { target ->
           if (target.name == "android") {
             // Legacy Android variants are registered above. The Android-KMP plugin does not expose
-            // those variants, so register its KMP main compilation instead.
+            // those variants, so register its KMP compilations instead.
             plugins.withId(PluginIds.ANDROID_KMP_LIBRARY) {
-              target.registerMainCompilation()
+              target.registerCompilations()
             }
             return@configureEach
           }
 
-          target.registerMainCompilation()
+          target.registerCompilations()
         }
       }
 
@@ -275,6 +297,12 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
           configuration = { configurations.getByName("compileClasspath") },
         )
 
+        registerForConfiguration(
+          taskSuffix = "jvmTest",
+          configuration = { configurations.getByName("testCompileClasspath") },
+          isTestCompilation = true,
+        )
+
         plugins.withId("java-test-fixtures") {
           registerForConfiguration(
             taskSuffix = "jvmTestFixtures",
@@ -282,6 +310,18 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
             isTestFixtures = true,
           )
         }
+      }
+    }
+
+    private fun ExternalDependency.moduleNotation(testCompilation: Boolean): String? {
+      val moduleType = name.moduleTypeFromArtifactId()
+      return when {
+        moduleType == ModuleType.UNKNOWN -> null
+        // This test tool contains "internal" as an unrelated part of its artifact name.
+        testCompilation &&
+          group == "org.jetbrains.kotlin" &&
+          name == "kotlin-compiler-internal-test-framework" -> null
+        else -> "$group:$name:$version"
       }
     }
   }

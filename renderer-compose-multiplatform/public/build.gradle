@@ -25,7 +25,6 @@ dependencies {
     commonTestImplementation libs.metro.runtime
 
     androidDeviceTestImplementation project(':metro:public')
-    androidDeviceTestImplementation project(':presenter-compose:impl')
     androidDeviceTestImplementation libs.androidx.activity.compose
     androidDeviceTestImplementation libs.androidx.test.espresso
     androidDeviceTestImplementation libs.compose.ui.test.junit4
