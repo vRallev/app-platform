@@ -152,6 +152,12 @@ internal class ContributesRendererProcessor(
           TypeSpec.interfaceBuilder(graphClassName)
             .addOriginatingKSFile(clazz.requireContainingFile())
             .addMetroOriginAnnotation(clazz)
+            // Preserve the generated graph interface API for consumers using warnings as errors.
+            .addAnnotation(
+              AnnotationSpec.builder(Suppress::class)
+                .addMember("%S", "CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
+                .build()
+            )
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", rendererScope)

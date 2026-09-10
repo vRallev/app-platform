@@ -39,6 +39,7 @@ public interface AndroidComposePresenterScopeFactoryComponent {
 
 /** Provides the [AndroidComposePresenterScopeFactory] in the Metro graph. */
 @MetroContributesTo(MetroAppScope::class)
+@Suppress("CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
 public interface AndroidComposePresenterScopeFactoryGraph {
   /** Provides the [AndroidComposePresenterScopeFactory] in the Metro graph as a singleton. */
   @MetroProvides

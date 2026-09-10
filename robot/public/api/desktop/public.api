@@ -15,7 +15,7 @@ public abstract interface class software/ralf/app/platform/robot/RobotGraph {
 }
 
 public abstract class software/ralf/app/platform/robot/RobotGraph$BindsMirror {
-	public final fun robots_property4205200196 ()Ljava/util/Map;
+	public final fun robots_property995712408 ()Ljava/util/Map;
 }
 
 public final class software/ralf/app/platform/robot/RobotKt {

@@ -35,6 +35,7 @@ public interface LinuxComposePresenterScopeFactoryComponent {
 
 /** Provides the [LinuxComposePresenterScopeFactory] in the Metro graph. */
 @MetroContributesTo(MetroAppScope::class)
+@Suppress("CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
 public interface LinuxComposePresenterScopeFactoryGraph {
   /** Provides the [LinuxComposePresenterScopeFactory] in the Metro graph as a singleton. */
   @MetroProvides
