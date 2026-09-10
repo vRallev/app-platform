@@ -17,6 +17,7 @@ class AppPlatformExtensionTest {
 
     assertThat(extension.isModuleStructureEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isTrue()
+    assertThat(extension.moduleStructureOptions().isTestDependencyCheckEnabled().get()).isTrue()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isFalse()
   }
@@ -28,12 +29,14 @@ class AppPlatformExtensionTest {
     extension.enableModuleStructure(
       Action { options ->
         options.enableDependencyCheck(false)
+        options.enableTestDependencyCheck(false)
         options.allowLibraryImplToImplDependencies(true)
       }
     )
 
     assertThat(extension.isModuleStructureEnabled().get()).isTrue()
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
+    assertThat(extension.moduleStructureOptions().isTestDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }
@@ -46,11 +49,13 @@ class AppPlatformExtensionTest {
     extension.enableModuleStructure(
       Action { options ->
         options.enableDependencyCheck(false)
+        options.enableTestDependencyCheck(false)
         options.allowLibraryImplToImplDependencies(true)
       }
     )
 
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
+    assertThat(extension.moduleStructureOptions().isTestDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }
@@ -65,6 +70,7 @@ class AppPlatformExtensionTest {
         """
         appPlatform.enableModuleStructure {
           enableDependencyCheck false
+          enableTestDependencyCheck false
           allowLibraryImplToImplDependencies true
         }
         """
@@ -73,6 +79,7 @@ class AppPlatformExtensionTest {
 
     assertThat(extension.isModuleStructureEnabled().get()).isTrue()
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
+    assertThat(extension.moduleStructureOptions().isTestDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }

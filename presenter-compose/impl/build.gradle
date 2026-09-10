@@ -12,8 +12,15 @@ appPlatformBuildSrc {
     kotlinWarningsAsErrors false
 }
 
+appPlatform {
+    enableModuleStructure {
+        enableTestDependencyCheck false
+    }
+}
+
 dependencies {
     commonMainApi project(':scope:public')
 
+    commonTestImplementation project(':kotlin-inject:impl')
     commonTestImplementation libs.kotlin.inject.runtime.kmp
 }

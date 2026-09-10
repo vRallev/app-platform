@@ -14,7 +14,7 @@
 
 ### Fixed
 
-- Enforce module structure dependency rules for Android, JVM, and multiplatform test compilations.
+- Enforce module structure dependency rules for Android, JVM, and multiplatform test compilations with a per-module opt-out.
 
 ### Security
 

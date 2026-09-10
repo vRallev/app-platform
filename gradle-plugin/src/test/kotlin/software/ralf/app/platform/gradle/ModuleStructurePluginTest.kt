@@ -136,6 +136,24 @@ class ModuleStructurePluginTest {
   }
 
   @Test
+  fun `JVM test dependency checks can be disabled independently`() {
+    val project = createImplModule()
+    project.plugins.apply("java-test-fixtures")
+
+    project.appPlatform.enableModuleStructure(
+      Action { options -> options.enableTestDependencyCheck(false) }
+    )
+    project.evaluate()
+
+    val mainTask = project.dependencyCheckTask()
+    val testTask = project.testDependencyCheckTask()
+    val testFixturesTask = project.testFixturesDependencyCheckTask()
+    assertThat(mainTask.onlyIf.isSatisfiedBy(mainTask)).isTrue()
+    assertThat(testTask.onlyIf.isSatisfiedBy(testTask)).isFalse()
+    assertThat(testFixturesTask.onlyIf.isSatisfiedBy(testFixturesTask)).isTrue()
+  }
+
+  @Test
   fun `the lifecycle check task depends on module structure checks`() {
     val project = createImplModule()
     project.plugins.apply(LifecycleBasePlugin::class.java)
@@ -252,6 +270,36 @@ class ModuleStructurePluginTest {
   }
 
   @Test
+  fun `multiplatform test dependency checks can be disabled independently`() {
+    val project = createModule(name = "impl")
+    project.plugins.apply(PluginIds.KOTLIN_MULTIPLATFORM)
+    project.kmpExtension.jvm()
+    project.plugins.apply(AppPlatformPlugin::class.java)
+
+    project.appPlatform.enableModuleStructure(
+      Action { options -> options.enableTestDependencyCheck(false) }
+    )
+    project.evaluate()
+
+    val mainTask =
+      project.tasks
+        .named(
+          "checkModuleStructureDependenciesJvm",
+          ModuleStructureDependencyCheckTask::class.java,
+        )
+        .get()
+    val testTask =
+      project.tasks
+        .named(
+          "checkModuleStructureDependenciesJvmTest",
+          ModuleStructureDependencyCheckTask::class.java,
+        )
+        .get()
+    assertThat(mainTask.onlyIf.isSatisfiedBy(mainTask)).isTrue()
+    assertThat(testTask.onlyIf.isSatisfiedBy(testTask)).isFalse()
+  }
+
+  @Test
   fun `Android test compilation cannot depend on an impl module`() {
     val project = createModule(name = "impl")
     project.createLibrary("other-library", "impl")
@@ -269,6 +317,32 @@ class ModuleStructurePluginTest {
         .get()
     assertThat(task.testCompilation.get()).isTrue()
     assertFailure { task.checkDependencies() }.isInstanceOf<GradleException>()
+  }
+
+  @Test
+  fun `Android test dependency checks can be disabled independently`() {
+    val project = createModule(name = "impl")
+    project.plugins.apply(AppPlatformPlugin::class.java)
+    project.appPlatform.moduleStructureOptions().enableTestDependencyCheck(false)
+    project.registerModuleStructureDependencyCheckTask()
+    project.plugins.apply(PluginIds.ANDROID_LIBRARY)
+
+    val mainTask =
+      project.tasks
+        .named(
+          "checkModuleStructureDependenciesAndroidDebug",
+          ModuleStructureDependencyCheckTask::class.java,
+        )
+        .get()
+    val testTask =
+      project.tasks
+        .named(
+          "checkModuleStructureDependenciesAndroidDebugUnitTest",
+          ModuleStructureDependencyCheckTask::class.java,
+        )
+        .get()
+    assertThat(mainTask.onlyIf.isSatisfiedBy(mainTask)).isTrue()
+    assertThat(testTask.onlyIf.isSatisfiedBy(testTask)).isFalse()
   }
 
   @Test

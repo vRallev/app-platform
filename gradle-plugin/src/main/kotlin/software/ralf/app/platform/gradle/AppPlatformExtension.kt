@@ -32,6 +32,7 @@ import software.ralf.app.platform.gradle.ModuleStructurePlugin.Companion.testing
  *   enableModuleStructure true // false is the default
  *   enableModuleStructure {
  *     enableDependencyCheck false // true is the default
+ *     enableTestDependencyCheck false // true is the default
  *     allowLibraryImplToImplDependencies true // false is the default
  *   }
  *   enableComposeUi true // false is the default

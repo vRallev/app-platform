@@ -46,6 +46,7 @@ public class software/ralf/app/platform/gradle/ModuleStructureOptions {
 	public fun <init> (Lorg/gradle/api/model/ObjectFactory;)V
 	public final fun allowLibraryImplToImplDependencies (Z)V
 	public final fun enableDependencyCheck (Z)V
+	public final fun enableTestDependencyCheck (Z)V
 }
 
 public class software/ralf/app/platform/gradle/ModuleStructurePlugin : org/gradle/api/Plugin {

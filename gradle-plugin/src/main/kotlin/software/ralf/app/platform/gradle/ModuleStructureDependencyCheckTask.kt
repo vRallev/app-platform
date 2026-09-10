@@ -180,6 +180,8 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
           it.group = "Verification"
         }
       val dependencyChecksEnabled = appPlatform.moduleStructureOptions().isDependencyCheckEnabled()
+      val testDependencyChecksEnabled =
+        appPlatform.moduleStructureOptions().isTestDependencyCheckEnabled()
 
       plugins.withType(LifecycleBasePlugin::class.java).configureEach {
         tasks.named(LifecycleBasePlugin.CHECK_TASK_NAME).configure {
@@ -198,9 +200,11 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
             "$baseTaskName${taskSuffix.capitalize()}",
             ModuleStructureDependencyCheckTask::class.java,
           ) { task ->
-            task.onlyIf("Module structure dependency checks are enabled") {
-              dependencyChecksEnabled.get()
-            }
+            task.onlyIfDependencyChecksAreEnabled(
+              dependencyChecksEnabled = dependencyChecksEnabled,
+              testDependencyChecksEnabled = testDependencyChecksEnabled,
+              isTestCompilation = isTestCompilation,
+            )
             task.modulePath = path
             task.allowLibraryImplToImplDependencies.set(
               appPlatform.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed()
@@ -309,6 +313,19 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
             configuration = { configurations.getByName("testFixturesCompileClasspath") },
             isTestFixtures = true,
           )
+        }
+      }
+    }
+
+    private fun ModuleStructureDependencyCheckTask.onlyIfDependencyChecksAreEnabled(
+      dependencyChecksEnabled: Property<Boolean>,
+      testDependencyChecksEnabled: Property<Boolean>,
+      isTestCompilation: Boolean,
+    ) {
+      onlyIf("Module structure dependency checks are enabled") { dependencyChecksEnabled.get() }
+      if (isTestCompilation) {
+        onlyIf("Module structure test dependency checks are enabled") {
+          testDependencyChecksEnabled.get()
         }
       }
     }

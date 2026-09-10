@@ -317,6 +317,28 @@ conventions, and Android namespace:
     }
     ```
 
+A module can disable checks for ordinary test compilations while retaining production and test fixture checks:
+
+=== "build.gradle"
+
+    ```groovy
+    appPlatform {
+      enableModuleStructure {
+        enableTestDependencyCheck false
+      }
+    }
+    ```
+
+=== "build.gradle.kts"
+
+    ```kotlin
+    appPlatform {
+      enableModuleStructure {
+        enableTestDependencyCheck(false)
+      }
+    }
+    ```
+
 By default, `:impl` modules cannot depend on other `:impl` modules. This can be relaxed for dependencies within
 the same library while preserving the cross-library boundary:
 
