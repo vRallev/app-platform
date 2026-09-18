@@ -4,6 +4,8 @@
 
 ### Added
 
+- Add `Scope.destroyAndWait()` to destroy a scope and its children and wait for their coroutine cleanup to finish.
+
 ### Changed
 
 - Upgrade Metro to `1.4.4`.

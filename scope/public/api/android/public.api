@@ -65,6 +65,7 @@ public final class software/ralf/app/platform/scope/coroutine/CoroutineScopeServ
 	public static final fun addCoroutineScopeScoped (Lsoftware/ralf/app/platform/scope/Scope$Builder;Lsoftware/ralf/app/platform/scope/coroutine/CoroutineScopeScoped;)V
 	public static final fun coroutineScope (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;)Lkotlinx/coroutines/CoroutineScope;
 	public static synthetic fun coroutineScope$default (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lkotlinx/coroutines/CoroutineScope;
+	public static final fun destroyAndWait (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun launch (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
 	public static synthetic fun launch$default (Lsoftware/ralf/app/platform/scope/Scope;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
 }

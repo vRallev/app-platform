@@ -8,11 +8,13 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.runBlocking
 import software.ralf.app.platform.robot.composeRobot
 import software.ralf.app.platform.robot.internal.RobotInternals
 import software.ralf.app.platform.robot.waitUntilCatching
 import software.ralf.app.platform.sample.login.LoginRobot
 import software.ralf.app.platform.sample.user.UserPageRobot
+import software.ralf.app.platform.scope.coroutine.destroyAndWait
 
 @OptIn(ExperimentalTestApi::class)
 class LoginUiTest {
@@ -33,10 +35,11 @@ class LoginUiTest {
   }
 
   @AfterTest
-  fun after() {
+  fun after() = runBlocking {
     RobotInternals.setRootScopeProvider(null)
 
-    // Good hygiene to clean everything up.
+    // Wait for background cleanup from outside the scope being destroyed.
+    desktopApp.rootScope.destroyAndWait()
     desktopApp.destroy()
   }
 

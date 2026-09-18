@@ -302,6 +302,21 @@ override fun onEnterScope(scope: Scope) {
 }
 ```
 
+### Waiting for destruction
+
+`destroy()` cancels coroutines but can return before their cleanup finishes. Use `destroyAndWait()`
+to wait for coroutine scopes added with `addCoroutineScopeScoped()` in this scope and its children,
+including all their child jobs. Scopes without a coroutine scope are also destroyed.
+
+```kotlin
+// Call from a coroutine outside userScope and its children.
+userScope.destroyAndWait()
+// Coroutine cleanup has finished.
+```
+
+Call this before the scope is destroyed. The wait is cancellable: if the caller is canceled, the scope
+stays destroyed, but coroutine cleanup may still be running.
+
 ## `Scoped`
 
 Service objects can tie themselves to the lifecycle of a scope by implementing the
