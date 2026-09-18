@@ -3,7 +3,6 @@ package software.ralf.app.platform.presenter.compose
 import app.cash.molecule.DisplayLinkClock
 import app.cash.molecule.RecompositionMode
 import dev.zacsweers.metro.AppScope as MetroAppScope
-import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ContributesTo as MetroContributesTo
 import dev.zacsweers.metro.Provides as MetroProvides
 import dev.zacsweers.metro.SingleIn as MetroSingleIn
@@ -38,8 +37,8 @@ public interface IosComposePresenterScopeFactoryComponent {
 
 /** Provides the [IosComposePresenterScopeFactory] in the Metro graph. */
 @MetroContributesTo(MetroAppScope::class)
-@BindingContainer
-public object IosComposePresenterScopeFactoryGraph {
+@Suppress("CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
+public interface IosComposePresenterScopeFactoryGraph {
   /** Provides the [IosComposePresenterScopeFactory] in the Metro graph as a singleton. */
   @MetroProvides
   @MetroSingleIn(MetroAppScope::class)

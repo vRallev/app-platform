@@ -1,7 +1,6 @@
 package software.ralf.app.platform.presenter.compose.backgesture
 
 import dev.zacsweers.metro.AppScope as MetroAppScope
-import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ContributesTo as MetroContributesTo
 import dev.zacsweers.metro.Provides as MetroProvides
 import dev.zacsweers.metro.SingleIn as MetroSingleIn
@@ -30,8 +29,8 @@ public interface DefaultBackGestureDispatcherPresenterComponent {
  * [BackGestureDispatcherPresenter] for more details.
  */
 @MetroContributesTo(MetroAppScope::class)
-@BindingContainer
-public object DefaultBackGestureDispatcherPresenterGraph {
+@Suppress("CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
+public interface DefaultBackGestureDispatcherPresenterGraph {
   /** Provides a [BackGestureDispatcherPresenter] as singleton in the Metro graph. */
   @MetroProvides
   @MetroSingleIn(MetroAppScope::class)

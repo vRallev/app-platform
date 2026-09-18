@@ -306,14 +306,6 @@ Robots can be contributed to the application scope or any child scope. Robot loo
 and searches its children automatically. If multiple sibling scope instances provide the requested robot, lookup
 fails because the intended scope instance would be ambiguous.
 
-Metro's `RobotGraph` exposes the robot map; `RobotGraph.Bindings` allows it to be empty.
-App-scope graphs include both automatically. Custom empty graphs must include the container:
-
-```kotlin
-@DependencyGraph(bindingContainers = [RobotGraph.Bindings::class])
-interface EmptyRobotGraph : RobotGraph
-```
-
 ??? info "Generated code"
 
     The `@ContributesRobot` annotation generates following code.

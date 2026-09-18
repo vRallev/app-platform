@@ -23,7 +23,7 @@ class RobotGraphTest {
   }
 
   @Test
-  fun `custom graphs can include the empty robot map binding`() {
+  fun `custom graphs inherit the empty robot map binding without explicit wiring`() {
     val graph = createGraph<EmptyCustomGraph>()
 
     assertThat(graph.robots).isEmpty()
@@ -45,8 +45,7 @@ class RobotGraphTest {
 
   @DependencyGraph(AppScope::class) interface EmptyAppGraph
 
-  @DependencyGraph(bindingContainers = [RobotGraph.Bindings::class])
-  interface EmptyCustomGraph : RobotGraph
+  @DependencyGraph interface EmptyCustomGraph : RobotGraph
 
   @DependencyGraph
   interface ChildGraph : RobotGraph {
