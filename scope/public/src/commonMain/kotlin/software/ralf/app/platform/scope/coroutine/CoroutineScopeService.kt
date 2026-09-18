@@ -5,13 +5,14 @@ import kotlin.coroutines.EmptyCoroutineContext
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import software.ralf.app.platform.scope.Scoped
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import software.ralf.app.platform.scope.Scope
 
-private const val COROUTINE_SCOPE_KEY = "coroutineScope"
+internal const val COROUTINE_SCOPE_KEY = "coroutineScope"
 
 private val Scope.coroutineScopeScoped: CoroutineScopeScoped
   get() {
@@ -34,6 +35,23 @@ private val Scope.coroutineScopeScoped: CoroutineScopeScoped
  * The [CoroutineScope] uses IO dispatcher by default and launched jobs run on a background thread.
  *
  * Jobs created by this scope don't need to be canceled.
+ *
+ * **Note:** During builder or batch registration of multiple [Scoped] instances with [Scope.register],
+ * work using this scope's dispatcher waits for the batch to finish registering. Passing a
+ * dispatcher in [context] preserves this wait; replacing it in a later `launch` or `async`
+ * call bypasses it:
+ * ```kotlin
+ * //
+ * override fun onEnterScope(scope: Scope) {
+ *   // Both calls wait until all Scoped instances are registered and all onEnterScope() functions
+ *   // have been called before running the lambda.
+ *   scope.launch(otherDispatcher) { }
+ *   scope.coroutineScope(otherDisatpcher) { }
+ *
+ *   // Does not wait until all on Scoped instances have been registered.
+ *   scope.coroutineScope().launch(otherDispatcher) { }
+ * }
+ * ```
  */
 public fun Scope.coroutineScope(context: CoroutineContext = EmptyCoroutineContext): CoroutineScope {
   return coroutineScopeScoped.createChild(context)
