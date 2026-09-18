@@ -105,9 +105,6 @@ platform-specific source set or launcher module to provide platform-specific typ
 
 ### Platform implementations
 
-App Platform's generated Metro renderer and scoped bindings use `@BindingContainer`.
-Containers supply bindings without becoming graph supertypes.
-
 Metro makes it simple to provide platform specific implementations for abstract APIs without needing
 to use `expect / actual` declarations or any specific wiring. Since the final object graphs live in
 platform-specific source sets or modules, all contributions for a platform are automatically picked up.
