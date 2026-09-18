@@ -8,6 +8,7 @@
 
 ### Changed
 
+- **Breaking change:** Use Metro binding containers for presenter providers and KSP-generated bindings; custom empty `RobotGraph`s must include `RobotGraph.Bindings`. Recompile consumers.
 - Upgrade Android Compose to `1.12.1`, KSP to `2.3.12`, and KotlinPoet to `2.4.0`.
 - Upgrade Metro to `1.4.4`.
 - **Breaking change:** Rename the Molecule-specific presenter API to Compose-focused names, including `MoleculePresenter` to `ComposePresenter`, its scope APIs, Gradle DSL options, and `:presenter-molecule:*` artifacts to `:presenter-compose:*`.

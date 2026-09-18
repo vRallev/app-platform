@@ -24,6 +24,7 @@ import com.squareup.kotlinpoet.ksp.toAnnotationSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
+import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.Binds
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.ContributesTo
@@ -43,6 +44,7 @@ import software.ralf.app.platform.metro.addMetroOriginAnnotation
  * package app.platform.inject.metro.software.ralf.test
  *
  * @ContributesTo(scope = AbcScope::class)
+ * @BindingContainer
  * public interface TestClassGraph {
  *
  *   @Binds
@@ -90,12 +92,7 @@ internal class ContributesScopedProcessor(
           TypeSpec.interfaceBuilder(graphClassName)
             .addOriginatingKSFile(clazz.requireContainingFile())
             .addMetroOriginAnnotation(clazz)
-            // Preserve the generated graph interface API for consumers using warnings as errors.
-            .addAnnotation(
-              AnnotationSpec.builder(Suppress::class)
-                .addMember("%S", "CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
-                .build()
-            )
+            .addAnnotation(BindingContainer::class)
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", scopeClassName)
@@ -103,18 +100,22 @@ internal class ContributesScopedProcessor(
             )
             .apply {
               if (!clazz.hasInjectAnnotation()) {
-                addFunction(
-                  FunSpec.builder("provide${clazz.innerClassNames()}")
-                    .addAnnotation(Provides::class)
-                    .addAnnotations(
-                      clazz.annotations
-                        .filter { it.isMetroScopeAnnotation() }
-                        .map { it.toAnnotationSpec() }
-                        .toList()
+                addType(
+                  TypeSpec.companionObjectBuilder()
+                    .addFunction(
+                      FunSpec.builder("provide${clazz.innerClassNames()}")
+                        .addAnnotation(Provides::class)
+                        .addAnnotations(
+                          clazz.annotations
+                            .filter { it.isMetroScopeAnnotation() }
+                            .map { it.toAnnotationSpec() }
+                            .toList()
+                        )
+                        .returns(clazz.toClassName())
+                        .addParameters(clazz.constructorParameters().map { it.toParameterSpec() })
+                        .addCode(clazz.constructorCall())
+                        .build()
                     )
-                    .returns(clazz.toClassName())
-                    .addParameters(clazz.constructorParameters().map { it.toParameterSpec() })
-                    .addCode(clazz.constructorCall())
                     .build()
                 )
               }

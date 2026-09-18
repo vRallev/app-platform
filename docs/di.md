@@ -105,6 +105,12 @@ platform-specific source set or launcher module to provide platform-specific typ
 
 ### Platform implementations
 
+App Platform's Metro presenter providers and generated renderer/scoped bindings use `@BindingContainer`.
+Containers supply bindings without becoming graph supertypes. Presenter provider types such as
+`DesktopComposePresenterScopeFactoryGraph` are now objects; inject their provided types instead of casting
+the graph to a provider interface. Recompile consumers after upgrading.
+The sample's `AppGraph.Bindings` shows how to separate bindings from graph accessors.
+
 Metro makes it simple to provide platform specific implementations for abstract APIs without needing
 to use `expect / actual` declarations or any specific wiring. Since the final object graphs live in
 platform-specific source sets or modules, all contributions for a platform are automatically picked up.

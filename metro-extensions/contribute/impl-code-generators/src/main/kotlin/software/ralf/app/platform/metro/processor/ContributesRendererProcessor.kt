@@ -30,6 +30,7 @@ import com.squareup.kotlinpoet.ksp.toAnnotationSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
+import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Inject
@@ -46,8 +47,8 @@ import software.ralf.app.platform.renderer.metro.RendererKey
 /**
  * Generates the code for [ContributesRenderer].
  *
- * In the lookup package [METRO_LOOKUP_PACKAGE] a new interface is generated with a provider method
- * for the renderer, e.g.
+ * In the lookup package [METRO_LOOKUP_PACKAGE] a binding container is generated with a provider
+ * method for the renderer, e.g.
  *
  * ```
  * package software.ralf.test
@@ -61,7 +62,8 @@ import software.ralf.app.platform.renderer.metro.RendererKey
  * package $METRO_LOOKUP_PACKAGE.software.ralf.test
  *
  * @ContributesTo(RendererScope::class)
- * interface TestRendererGraph {
+ * @BindingContainer
+ * object TestRendererGraph {
  *     @Provides
  *     @IntoMap
  *     @RendererKey(Model::class)
@@ -110,12 +112,12 @@ internal class ContributesRendererProcessor(
         checkNoZeroArgInjectConstructor(it)
         checkSingleConstructorOrInject(it)
       }
-      .forEach { generateGraphInterface(it) }
+      .forEach { generateBindingContainer(it) }
 
     return emptyList()
   }
 
-  private fun generateGraphInterface(clazz: KSClassDeclaration) {
+  private fun generateBindingContainer(clazz: KSClassDeclaration) {
     val packageName = "${METRO_LOOKUP_PACKAGE}.${clazz.packageName.asString()}"
     val graphClassName = ClassName(packageName, "${clazz.innerClassNames()}Graph")
 
@@ -149,15 +151,10 @@ internal class ContributesRendererProcessor(
     val fileSpec =
       FileSpec.builder(graphClassName)
         .addType(
-          TypeSpec.interfaceBuilder(graphClassName)
+          TypeSpec.objectBuilder(graphClassName)
             .addOriginatingKSFile(clazz.requireContainingFile())
             .addMetroOriginAnnotation(clazz)
-            // Preserve the generated graph interface API for consumers using warnings as errors.
-            .addAnnotation(
-              AnnotationSpec.builder(Suppress::class)
-                .addMember("%S", "CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
-                .build()
-            )
+            .addAnnotation(BindingContainer::class)
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", rendererScope)
