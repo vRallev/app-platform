@@ -14,3 +14,5 @@ runs:
     # This is needed to accept the Android license, see https://issuetracker.google.com/issues/193118030
     - name: Accept Android SDK License
       uses: android-actions/setup-android@v3
+      with:
+        packages: 'platform-tools'
