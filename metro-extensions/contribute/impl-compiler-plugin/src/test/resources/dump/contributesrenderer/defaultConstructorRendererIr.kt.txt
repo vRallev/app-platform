@@ -23,7 +23,7 @@ class TestRenderer : Renderer<Model> {
       @IntoMap
       @RendererKey(value = Model::class)
       @CallableMetadata(callableName = "provideComTestTestRendererModel", propertyName = "", startOffset = 284, endOffset = 388)
-      fun provideComTestTestRendererModel2248969044_intomap(renderer: TestRenderer): Renderer<*> {
+      fun provideComTestTestRendererModel1500528963_intomap(renderer: TestRenderer): Renderer<*> {
         return error(message = "Never called")
       }
 

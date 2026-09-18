@@ -39,8 +39,8 @@ public abstract interface class software/ralf/app/platform/renderer/RendererGrap
 }
 
 public abstract class software/ralf/app/platform/renderer/RendererGraph$BindsMirror {
-	public final fun modelToRendererMapping_property6075157704205200196 ()Ljava/util/Map;
-	public final fun renderers_property4205200196 ()Ljava/util/Map;
+	public final fun modelToRendererMapping_property2182260457995712408 ()Ljava/util/Map;
+	public final fun renderers_property995712408 ()Ljava/util/Map;
 }
 
 public abstract interface class software/ralf/app/platform/renderer/RendererGraph$Factory {

@@ -7,6 +7,7 @@ import kotlin.reflect.KClass
 
 /** Graph that provides all contributed [Robot] instances from the Metro dependency graph. */
 @ContributesTo(AppScope::class)
+@Suppress("CONTRIBUTES_TO_COULD_BE_BINDING_CONTAINER")
 public interface RobotGraph {
   /** All [Robot]s provided in the Metro dependency graph. */
   @Multibinds(allowEmpty = true) public val robots: Map<KClass<*>, () -> Robot>
