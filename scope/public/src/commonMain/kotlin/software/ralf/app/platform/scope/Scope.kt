@@ -106,8 +106,8 @@ public fun Scope.parents(includeSelf: Boolean = false): Sequence<Scope> =
  *
  * If a `CoroutineScope` has been added with [addCoroutineScopeScoped], then coroutines launched
  * from within [Scoped.onEnterScope] wait until all [scopedInstances] have been registered and their
- * [Scoped.onEnterScope] function has been called unless the dispatcher is overridden for the
- * `Job`. This avoids race conditions with async coroutines:
+ * [Scoped.onEnterScope] function has been called unless the dispatcher is overridden for the `Job`.
+ * This avoids race conditions with async coroutines:
  * ```kotlin
  * scope.register(multipleScopedInstances)
  *

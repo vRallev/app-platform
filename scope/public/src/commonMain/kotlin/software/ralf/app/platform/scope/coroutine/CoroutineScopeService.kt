@@ -5,12 +5,12 @@ import kotlin.coroutines.EmptyCoroutineContext
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import software.ralf.app.platform.scope.Scoped
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import software.ralf.app.platform.scope.Scope
+import software.ralf.app.platform.scope.Scoped
 
 internal const val COROUTINE_SCOPE_KEY = "coroutineScope"
 
@@ -36,10 +36,10 @@ private val Scope.coroutineScopeScoped: CoroutineScopeScoped
  *
  * Jobs created by this scope don't need to be canceled.
  *
- * **Note:** During builder or batch registration of multiple [Scoped] instances with [Scope.register],
- * work using this scope's dispatcher waits for the batch to finish registering. Passing a
- * dispatcher in [context] preserves this wait; replacing it in a later `launch` or `async`
- * call bypasses it:
+ * **Note:** During builder or batch registration of multiple [Scoped] instances with
+ * [Scope.register], work using this scope's dispatcher waits for the batch to finish registering.
+ * Passing a dispatcher in [context] preserves this wait; replacing it in a later `launch` or
+ * `async` call bypasses it:
  * ```kotlin
  * //
  * override fun onEnterScope(scope: Scope) {
