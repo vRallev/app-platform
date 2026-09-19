@@ -18,7 +18,7 @@ import software.ralf.app.platform.listdetail.presenternavigation.DefaultBackstac
 import software.ralf.app.platform.listdetail.screen.ScreenSize
 import software.ralf.app.platform.listdetail.screen.ScreenSizeProvider
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.test
 import software.ralf.app.platform.presenter.template.ModelDelegate
 
 class ListDetailPresenterImplTest {

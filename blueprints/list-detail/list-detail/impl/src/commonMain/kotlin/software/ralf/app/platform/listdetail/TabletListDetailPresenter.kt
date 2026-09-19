@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import dev.zacsweers.metro.Inject
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 /**
  * Expanded-screen presentation that emits list and detail state simultaneously.
@@ -17,7 +17,7 @@ import software.ralf.app.platform.presenter.molecule.MoleculePresenter
 class TabletListDetailPresenter(
   private val listPresenter: CharacterListPresenter,
   private val detailPresenterFactory: CharacterDetailPresenter.Factory,
-) : MoleculePresenter<TabletListDetailPresenter.Input, TabletListDetailPresenter.Model> {
+) : ComposePresenter<TabletListDetailPresenter.Input, TabletListDetailPresenter.Model> {
   @Composable
   override fun present(input: Input): Model {
     val selectionState = input.selectionState

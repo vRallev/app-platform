@@ -7,7 +7,7 @@ import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackModel
 import software.ralf.app.platform.presenter.backstack.nav3.presenterBackstack
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 /**
  * Default renderer-facing representation of an App Platform presenter backstack.
@@ -22,7 +22,7 @@ data class DefaultBackstackModel(
 /** Presents [initialPresenter] in a backstack that pops its current entry on back. */
 @Composable
 fun presenterBackstackDefault(
-  initialPresenter: MoleculePresenter<Unit, out BaseModel>
+  initialPresenter: ComposePresenter<Unit, out BaseModel>
 ): DefaultBackstackModel {
   return presenterBackstack(initialPresenter) { backstack ->
     DefaultBackstackModel(backstack = backstack, onBack = { pop() })

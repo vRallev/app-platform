@@ -5,12 +5,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import dev.zacsweers.metro.Inject
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 /** Converts the repository's observable data into immutable character-list render state. */
 @Inject
 class CharacterListPresenter(private val repository: CharacterRepository) :
-  MoleculePresenter<CharacterListPresenter.Input, CharacterListPresenter.Model> {
+  ComposePresenter<CharacterListPresenter.Input, CharacterListPresenter.Model> {
   @Composable
   override fun present(input: Input): Model {
     val characters by repository.characters.collectAsState()

@@ -27,8 +27,8 @@ import software.ralf.app.platform.listdetail.screen.LocalScreenSize
 import software.ralf.app.platform.listdetail.screen.ScreenSize
 import software.ralf.app.platform.listdetail.theme.AppTheme
 import software.ralf.app.platform.listdetail.theme.ListDetailTheme
-import software.ralf.app.platform.presenter.molecule.backgesture.BackGestureDispatcherPresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.ForwardBackPressEventsToPresenters
+import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.backgesture.ForwardBackPressEventsToPresenters
 import software.ralf.app.platform.renderer.ComposeRenderer
 import software.ralf.app.platform.renderer.RendererFactory
 import software.ralf.app.platform.renderer.getComposeRenderer

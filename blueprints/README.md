@@ -11,7 +11,7 @@ It includes:
 
 - Pre-configured `build.gradle.kts` files for Kotlin Multiplatform
 - Android + iOS + Desktop + WASM targets with Compose UI enabled
-- App Platform integrations like Molecule presenters and Metro dependency injection
+- App Platform integrations like Compose presenters and Metro dependency injection
 - A working module structure with navigation and templates
 
 ## 📁 [`list-detail/`](list-detail/)
@@ -21,7 +21,7 @@ It includes:
 
 - Android, iOS, Desktop, and WASM targets with shared Compose UI
 - Adaptive phone and tablet layouts with single-pane navigation and two-pane presentation
-- Molecule presenters, Metro dependency injection, and model-driven renderers
+- Compose presenters, Metro dependency injection, and model-driven renderers
 - Navigation 3 and shared-element transitions between the list and detail screens
 - Reusable feature modules, fakes, and UI-test robots
 - Pre-configured Groovy Gradle build files and standalone CI workflows

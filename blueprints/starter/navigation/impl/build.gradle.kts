@@ -13,7 +13,7 @@ appPlatform {
   enableComposeUi(true)
   enableModuleStructure(true)
   enableMetro(true)
-  enableMoleculePresenters(true)
+  enableComposePresenters(true)
 }
 
 kotlin {

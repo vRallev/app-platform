@@ -5,7 +5,7 @@ import assertk.assertions.isEqualTo
 import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class NavigationHeaderPresenterTest {

@@ -31,7 +31,7 @@ third-party images, or runtime image URLs.
 
 App Platform separates state production from rendering:
 
-- A `MoleculePresenter<Input, Model>` is a composable state machine. It reads observable state,
+- A `ComposePresenter<Input, Model>` is a composable state machine. It reads observable state,
   composes child presenters, and emits immutable render models with explicitly named callbacks.
 - A `Renderer<Model>` turns one model type into platform UI.
 - `RendererFactory` resolves renderers by the runtime model type, allowing parents to compose
@@ -44,7 +44,7 @@ The runtime flow is:
 ```mermaid
 flowchart TD
   entrypoint["Platform entrypoint"] --> appGraph["Application and platform Metro graph"]
-  appGraph --> provider["TemplateProvider and MoleculeScope"]
+  appGraph --> provider["TemplateProvider and ComposePresenterScope"]
   provider --> templatePresenter["AppTemplatePresenter"]
   templatePresenter --> rootPresenter["AppRootPresenter"]
   rootPresenter --> adaptivePresenter["ListDetailPresenterImpl"]
@@ -100,7 +100,7 @@ and a platform-specific final Metro graph. The application owns the App Platform
 its app-scoped dependencies.
 
 [`TemplateProvider`](app-framework/impl/src/commonMain/kotlin/software/ralf/app/platform/listdetail/TemplateProvider.kt)
-creates an independently cancellable `MoleculeScope` and launches this presenter chain:
+creates an independently cancellable `ComposePresenterScope` and launches this presenter chain:
 
 ```mermaid
 flowchart LR
@@ -283,7 +283,7 @@ The sample deliberately separates state by lifetime:
 | Window measurements | `DefaultScreenSizeProvider` in App scope | Application graph |
 | Current character selection | `ListDetailPresenterImpl` composition | Presented list-detail feature |
 | Phone navigation entries | Presenter backstack | Active phone presentation |
-| Template model stream | `TemplateProvider` and its `MoleculeScope` | Platform UI host |
+| Template model stream | `TemplateProvider` and its `ComposePresenterScope` | Platform UI host |
 
 Android retains its `TemplateProvider` in `MainActivityViewModel`, so the presenter stream survives
 Activity recreation. Desktop and web own it in their app runtime objects. iOS remembers it inside
@@ -310,7 +310,7 @@ headless Desktop integration tests.
 ### Presenter tests
 
 Presenter tests run without platform UI. `FakeCharacterRepository` provides deterministic data,
-while App Platform's Molecule test utilities collect emitted models. These tests verify:
+while App Platform's Compose presenter test utilities collect emitted models. These tests verify:
 
 - Adaptive delegation to phone and tablet presenters.
 - Phone selection, detail push, and back navigation.
@@ -348,8 +348,8 @@ feature robot module and provides:
 - `DesktopUiTestRule`, which creates a fresh `DesktopApp`, installs its root scope for robot
   lookup, renders at a controlled phone or tablet size, and tears down the application.
 - `DesktopHeadlessTestRule`, which starts the same production-backed test graph and root template
-  stream, reports a controlled phone or tablet size, and uses an immediate test-owned Molecule
-  scope to observe templates without rendering a Compose scene or polling for state.
+  stream, reports a controlled phone or tablet size, and uses an immediate test-owned Compose
+  presenter scope to observe templates without rendering a Compose scene or polling for state.
 
 Production app modules depend on these modules only from test configurations. Robot code and test
 graphs therefore never enter application artifacts.

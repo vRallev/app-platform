@@ -5,9 +5,9 @@ import androidx.compose.runtime.withCompositionLocal
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.BackGestureDispatcherPresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.LocalBackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
+import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.backgesture.LocalBackGestureDispatcherPresenter
 
 /**
  * Adapts a root feature presenter into the application template stream.
@@ -18,8 +18,8 @@ import software.ralf.app.platform.presenter.molecule.backgesture.LocalBackGestur
 @AssistedInject
 class AppTemplatePresenter(
   private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
-  @Assisted private val rootPresenter: MoleculePresenter<Unit, *>,
-) : MoleculePresenter<Unit, AppTemplate> {
+  @Assisted private val rootPresenter: ComposePresenter<Unit, *>,
+) : ComposePresenter<Unit, AppTemplate> {
   @Composable
   override fun present(input: Unit): AppTemplate {
     return withCompositionLocal(
@@ -33,6 +33,6 @@ class AppTemplatePresenter(
   @AssistedFactory
   interface Factory {
     /** Creates the application template presenter for [rootPresenter]. */
-    fun createAppTemplatePresenter(rootPresenter: MoleculePresenter<Unit, *>): AppTemplatePresenter
+    fun createAppTemplatePresenter(rootPresenter: ComposePresenter<Unit, *>): AppTemplatePresenter
   }
 }

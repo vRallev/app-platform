@@ -11,7 +11,7 @@ plugins {
 
 appPlatform {
   enableModuleStructure(true)
-  enableMoleculePresenters(true)
+  enableComposePresenters(true)
 }
 
 kotlin {

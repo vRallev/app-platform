@@ -5,7 +5,7 @@ plugins {
 appPlatform {
   enableComposeUi true
   enableMetro true
-  enableMoleculePresenters true
+  enableComposePresenters true
   addImplModuleDependencies true
 }
 
@@ -13,4 +13,9 @@ dependencies {
   implementation project(':app-framework:impl')
 
   androidTestImplementation project(':app-framework:impl-ui-test-robots')
+
+  constraints {
+    // Android tests inherit strict versions from the app runtime.
+    implementation libs.androidx.concurrent.futures
+  }
 }

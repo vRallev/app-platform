@@ -13,7 +13,7 @@ appPlatform {
   enableComposeUi(true)
   enableMetro(true)
   enableModuleStructure(true)
-  enableMoleculePresenters(true)
+  enableComposePresenters(true)
   addImplModuleDependencies(true)
 }
 

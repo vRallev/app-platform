@@ -12,7 +12,7 @@ plugins {
 appPlatform {
   enableModuleStructure(true)
   enableMetro(true)
-  enableMoleculePresenters(true)
+  enableComposePresenters(true)
 }
 
 kotlin {

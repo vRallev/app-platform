@@ -6,7 +6,7 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.presenter.template.ModelDelegate
 import software.ralf.app.platform.presenter.template.toTemplate
 
@@ -17,8 +17,8 @@ import software.ralf.app.platform.presenter.template.toTemplate
  * Inject [Factory] to create a new instance of [AppTemplatePresenter].
  */
 @AssistedInject
-class AppTemplatePresenter(@Assisted private val rootPresenter: MoleculePresenter<Unit, *>) :
-  MoleculePresenter<Unit, AppTemplate> {
+class AppTemplatePresenter(@Assisted private val rootPresenter: ComposePresenter<Unit, *>) :
+  ComposePresenter<Unit, AppTemplate> {
   @Composable
   override fun present(input: Unit): AppTemplate {
     return withCompositionLocals {
@@ -35,6 +35,6 @@ class AppTemplatePresenter(@Assisted private val rootPresenter: MoleculePresente
      * [presenter] can override the template by either returning [AppTemplate] directly or making
      * its [BaseModel] type implement [ModelDelegate].
      */
-    fun createAppTemplatePresenter(rootPresenter: MoleculePresenter<Unit, *>): AppTemplatePresenter
+    fun createAppTemplatePresenter(rootPresenter: ComposePresenter<Unit, *>): AppTemplatePresenter
   }
 }

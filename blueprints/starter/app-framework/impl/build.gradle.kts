@@ -21,7 +21,7 @@ appPlatform {
   enableModuleStructure {
     enableDependencyCheck(false)
   }
-  enableMoleculePresenters(true)
+  enableComposePresenters(true)
   addImplModuleDependencies(true)
 }
 

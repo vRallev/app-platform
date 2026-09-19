@@ -11,7 +11,7 @@ import dev.zacsweers.metro.AssistedInject
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.LocalBackstackScope
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 /**
  * Presents live detail state for one character ID.
@@ -25,7 +25,7 @@ class CharacterDetailPresenter(
   private val repository: CharacterRepository,
   @Assisted private val characterId: String,
   @Assisted private val showBackButton: Boolean,
-) : MoleculePresenter<Unit, CharacterDetailPresenter.Model> {
+) : ComposePresenter<Unit, CharacterDetailPresenter.Model> {
   @Composable
   override fun present(input: Unit): Model {
     val backstackScope = LocalBackstackScope.current

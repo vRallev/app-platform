@@ -3,5 +3,5 @@ plugins {
 }
 
 appPlatform {
-  enableMoleculePresenterBackstack true
+  enableComposePresenterBackstack true
 }

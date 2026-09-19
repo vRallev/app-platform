@@ -7,7 +7,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class NavigationDetailPresenterTest {

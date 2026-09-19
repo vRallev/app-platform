@@ -1,7 +1,7 @@
 package software.ralf.app.platform.template.navigation
 
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 /**
  * Presenter responsible for the state of the top navigation bar (header).
@@ -9,7 +9,7 @@ import software.ralf.app.platform.presenter.molecule.MoleculePresenter
  * This typically controls high-level UI elements such as titles, toggle buttons, or contextual
  * actions that affect the overall screen.
  */
-interface NavigationHeaderPresenter : MoleculePresenter<Unit, NavigationHeaderPresenter.Model> {
+interface NavigationHeaderPresenter : ComposePresenter<Unit, NavigationHeaderPresenter.Model> {
   data class Model(val clickedCount: Int, val onEvent: (Event) -> Unit) : BaseModel
 
   /** Events that can be triggered by the UI layer (Renderer) and processed by the Presenter. */

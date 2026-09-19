@@ -5,7 +5,7 @@ import assertk.assertThat
 import assertk.assertions.isInstanceOf
 import kotlin.test.Test
 import kotlinx.coroutines.test.runTest
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.test
 import software.ralf.app.platform.template.templates.AppTemplate
 
 class NavigationPresenterImplTest {

@@ -8,7 +8,7 @@ This template demonstrates:
 
 - Kotlin Multiplatform targeting Android, iOS, WebAssembly (WASM), and Desktop (JVM)
 - [App Platform](https://github.com/vRallev/app-platform) conventions for Metro DI, state, rendering, and navigation
-- Molecule-powered presenters
+- Compose presenters powered by Molecule
 - Scoped dependency injection using Metro graphs, `@ContributesBinding`, `@SingleIn`, `@ContributesScoped`, and `@ContributesRenderer`
 - Reactive state with `StateFlow`
 - Compose UI for Android, Desktop, and WASM
@@ -18,7 +18,7 @@ This template demonstrates:
 
 - `ExampleRepository`: A simple `StateFlow`-based repository that emits data
 - `ExampleValueGenerator`: A scoped class that updates the repository with random values every 3 seconds
-- `NavigationHeaderPresenter` and `NavigationDetailPresenter`: Molecule presenters driving the top bar and content UI
+- `NavigationHeaderPresenter` and `NavigationDetailPresenter`: Compose presenters driving the top bar and content UI
 - `NavigationHeaderRenderer` and `NavigationDetailRenderer`: A ComposeRenderer showing example state
 
 ## Modules

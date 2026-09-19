@@ -11,7 +11,7 @@ import software.ralf.app.platform.listdetail.presenternavigation.presenterBackst
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.LocalBackstackScope
 import software.ralf.app.platform.presenter.backstack.nav3.requireNotNull
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.presenter.template.ModelDelegate
 
 /**
@@ -24,13 +24,13 @@ import software.ralf.app.platform.presenter.template.ModelDelegate
 class PhoneListDetailPresenter(
   private val listPresenter: CharacterListPresenter,
   private val detailPresenterFactory: CharacterDetailPresenter.Factory,
-) : MoleculePresenter<PhoneListDetailPresenter.Input, PhoneListDetailPresenter.Model> {
+) : ComposePresenter<PhoneListDetailPresenter.Input, PhoneListDetailPresenter.Model> {
   @Composable
   override fun present(input: Input): Model {
     val selectionState = input.selectionState
     val initialPresenter =
       remember(this, selectionState) {
-        object : MoleculePresenter<Unit, CharacterListPresenter.Model> {
+        object : ComposePresenter<Unit, CharacterListPresenter.Model> {
           @Composable
           override fun present(input: Unit): CharacterListPresenter.Model {
             return presentListModel(selectionState)

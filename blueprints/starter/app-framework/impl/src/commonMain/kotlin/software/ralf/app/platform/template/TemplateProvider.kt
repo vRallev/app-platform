@@ -5,9 +5,9 @@ import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.StateFlow
-import software.ralf.app.platform.presenter.molecule.MoleculeScope
-import software.ralf.app.platform.presenter.molecule.MoleculeScopeFactory
-import software.ralf.app.platform.presenter.molecule.launchMoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenterScope
+import software.ralf.app.platform.presenter.compose.ComposePresenterScopeFactory
+import software.ralf.app.platform.presenter.compose.launchComposePresenter
 import software.ralf.app.platform.template.navigation.NavigationPresenter
 import software.ralf.app.platform.template.templates.AppTemplate
 import software.ralf.app.platform.template.templates.AppTemplatePresenter
@@ -23,12 +23,12 @@ import software.ralf.app.platform.template.templates.AppTemplatePresenter
 class TemplateProvider(
   presenter: NavigationPresenter,
   templatePresenterFactory: AppTemplatePresenter.Factory,
-  @Assisted private val moleculeScope: MoleculeScope,
+  @Assisted private val composePresenterScope: ComposePresenterScope,
 ) {
   /** The templates that should be rendered in the UI. */
   val templates: StateFlow<AppTemplate> by lazy {
-    moleculeScope
-      .launchMoleculePresenter(
+    composePresenterScope
+      .launchComposePresenter(
         presenter = templatePresenterFactory.createAppTemplatePresenter(presenter),
         input = Unit,
       )
@@ -37,7 +37,7 @@ class TemplateProvider(
 
   /** Releases all resources and stops [templates] from updating further. */
   fun cancel() {
-    moleculeScope.cancel()
+    composePresenterScope.cancel()
   }
 
   /**
@@ -46,14 +46,14 @@ class TemplateProvider(
    */
   @AssistedFactory
   fun interface InternalFactory {
-    /** Create a new instance of [TemplateProvider] with the given [MoleculeScope]. */
-    fun create(moleculeScope: MoleculeScope): TemplateProvider
+    /** Create a new instance of [TemplateProvider] with the given [ComposePresenterScope]. */
+    fun create(composePresenterScope: ComposePresenterScope): TemplateProvider
   }
 
   /** Factory class to create a new instance of [TemplateProvider]. */
   @Inject
   class Factory(
-    private val moleculeScopeFactory: MoleculeScopeFactory,
+    private val composePresenterScopeFactory: ComposePresenterScopeFactory,
     private val templateProviderFactory: InternalFactory,
   ) {
     /**
@@ -61,7 +61,9 @@ class TemplateProvider(
      * instance not needed anymore to avoid leaking resources.
      */
     fun createTemplateProvider(): TemplateProvider {
-      return templateProviderFactory.create(moleculeScopeFactory.createMoleculeScope())
+      return templateProviderFactory.create(
+        composePresenterScopeFactory.createComposePresenterScope()
+      )
     }
   }
 }

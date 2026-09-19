@@ -7,7 +7,7 @@ plugins {
 appPlatform {
   enableComposeUi true
   enableMetro true
-  enableMoleculePresenters true
+  enableComposePresenters true
   addImplModuleDependencies true
 }
 

@@ -10,7 +10,7 @@ import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.listdetail.screen.DefaultScreenSizeProvider
 import software.ralf.app.platform.listdetail.screen.ScreenSize
 import software.ralf.app.platform.listdetail.templates.AppTemplate
-import software.ralf.app.platform.presenter.molecule.moleculeScope
+import software.ralf.app.platform.presenter.compose.composePresenterScope
 import software.ralf.app.platform.scope.di.metro.metroDependencyGraph
 
 /**
@@ -18,8 +18,9 @@ import software.ralf.app.platform.scope.di.metro.metroDependencyGraph
  *
  * Each test starts a fresh application, production-backed Metro graph, and root presenter stream.
  * The production window preset is reported directly to the screen-size provider before the stream
- * starts. A test-owned Molecule scope produces template emissions under the test scheduler,
- * allowing tests to exercise either adaptive presentation without a Compose scene or polling.
+ * starts. A test-owned Compose presenter scope produces template emissions under the test
+ * scheduler, allowing tests to exercise either adaptive presentation without a Compose scene or
+ * polling.
  */
 class DesktopHeadlessTestRule {
   /** Runs [block] against the templates produced for the production phone window preset. */
@@ -42,7 +43,7 @@ class DesktopHeadlessTestRule {
 
       val graph = application.rootScope.metroDependencyGraph<Graph>()
       graph.screenSizeProvider.update(ScreenSize.from(windowSize.width, windowSize.height))
-      val templateProvider = graph.templateProviderInternalFactory.create(moleculeScope())
+      val templateProvider = graph.templateProviderInternalFactory.create(composePresenterScope())
 
       try {
         templateProvider.templates.test { block() }

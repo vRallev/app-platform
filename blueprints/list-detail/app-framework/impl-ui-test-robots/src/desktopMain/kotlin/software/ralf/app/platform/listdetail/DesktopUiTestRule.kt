@@ -13,7 +13,7 @@ import software.ralf.app.platform.robot.internal.RobotInternals
 /**
  * Desktop integration-test fixture that renders the production application at a controlled size.
  *
- * A fresh application, root scope, Metro graph, and Molecule presenter stream are created for each
+ * A fresh application, root scope, Metro graph, and Compose presenter stream are created for each
  * test and destroyed after the Compose test scene closes.
  */
 class DesktopUiTestRule {
