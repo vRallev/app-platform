@@ -10,11 +10,11 @@ appPlatformBuildSrc {
 
 dependencies {
     commonMainApi project(':di-common:public')
-    commonMainApi project(':presenter-molecule:public')
+    commonMainApi project(':presenter-compose:public')
     commonMainApi project(':renderer-compose-multiplatform:public')
 
     commonMainApi libs.navigation3.runtime
     commonMainApi libs.navigation3.ui
 
-    commonTestImplementation project(':presenter-molecule:testing')
+    commonTestImplementation project(':presenter-compose:testing')
 }

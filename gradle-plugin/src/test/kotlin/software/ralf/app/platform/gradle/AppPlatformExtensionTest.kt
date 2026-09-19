@@ -17,6 +17,7 @@ class AppPlatformExtensionTest {
 
     assertThat(extension.isModuleStructureEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isTrue()
+    assertThat(extension.moduleStructureOptions().isTestDependencyCheckEnabled().get()).isTrue()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isFalse()
   }
@@ -28,12 +29,14 @@ class AppPlatformExtensionTest {
     extension.enableModuleStructure(
       Action { options ->
         options.enableDependencyCheck(false)
+        options.enableTestDependencyCheck(false)
         options.allowLibraryImplToImplDependencies(true)
       }
     )
 
     assertThat(extension.isModuleStructureEnabled().get()).isTrue()
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
+    assertThat(extension.moduleStructureOptions().isTestDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }
@@ -46,11 +49,13 @@ class AppPlatformExtensionTest {
     extension.enableModuleStructure(
       Action { options ->
         options.enableDependencyCheck(false)
+        options.enableTestDependencyCheck(false)
         options.allowLibraryImplToImplDependencies(true)
       }
     )
 
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
+    assertThat(extension.moduleStructureOptions().isTestDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }
@@ -65,6 +70,7 @@ class AppPlatformExtensionTest {
         """
         appPlatform.enableModuleStructure {
           enableDependencyCheck false
+          enableTestDependencyCheck false
           allowLibraryImplToImplDependencies true
         }
         """
@@ -73,13 +79,26 @@ class AppPlatformExtensionTest {
 
     assertThat(extension.isModuleStructureEnabled().get()).isTrue()
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
+    assertThat(extension.moduleStructureOptions().isTestDependencyCheckEnabled().get()).isFalse()
     assertThat(extension.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed().get())
       .isTrue()
   }
 
-  private fun createExtension(): AppPlatformExtension {
+  @Test
+  fun `Compose presenter backstack enables Compose presenters and Compose UI`() {
+    val extension = createExtension(PluginIds.KOTLIN_JVM)
+
+    extension.enableComposePresenterBackstack(true)
+
+    assertThat(extension.isComposePresenterBackstackEnabled().get()).isTrue()
+    assertThat(extension.isComposePresentersEnabled().get()).isTrue()
+    assertThat(extension.isComposeUiEnabled().get()).isTrue()
+  }
+
+  private fun createExtension(pluginId: String? = null): AppPlatformExtension {
     val rootProject = ProjectBuilder.builder().withName("root").build()
     val moduleProject = ProjectBuilder.builder().withName("impl").withParent(rootProject).build()
+    pluginId?.let { moduleProject.plugins.apply(it) }
     moduleProject.plugins.apply(AppPlatformPlugin::class.java)
     return moduleProject.extensions.getByType(AppPlatformExtension::class.java)
   }

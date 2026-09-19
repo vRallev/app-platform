@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.BackGestureDispatcherPresenter
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.ComposePresenter
+import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.test
 import software.ralf.app.platform.presenter.template.ModelDelegate
 import software.ralf.app.platform.presenter.template.Template
 import software.ralf.app.platform.sample.template.SampleAppTemplate.FullScreenTemplate
@@ -37,7 +37,7 @@ class SampleAppTemplatePresenterTest {
   }
 
   private class TestPresenter(private val trigger: StateFlow<Template?>) :
-    MoleculePresenter<Unit, Model> {
+    ComposePresenter<Unit, Model> {
     @Composable
     override fun present(input: Unit): Model {
       return Model(trigger.collectAsState().value)

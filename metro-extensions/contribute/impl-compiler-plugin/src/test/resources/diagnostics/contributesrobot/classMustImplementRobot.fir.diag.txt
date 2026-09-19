@@ -1,1 +1,0 @@
-/classMustImplementRobot.kt:(144,174): error: In order to use @ContributesRobot, MissingRobot must implement software.ralf.app.platform.robot.Robot.

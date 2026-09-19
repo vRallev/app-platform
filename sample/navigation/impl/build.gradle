@@ -10,7 +10,7 @@ plugins {
 appPlatform {
     enableMetro true
     enableModuleStructure true
-    enableMoleculePresenters true
+    enableComposePresenters true
 }
 
 dependencies {

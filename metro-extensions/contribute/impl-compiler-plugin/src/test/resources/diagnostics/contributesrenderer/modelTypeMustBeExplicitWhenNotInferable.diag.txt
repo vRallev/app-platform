@@ -1,0 +1,1 @@
+/modelTypeMustBeExplicitWhenNotInferable.kt:15:1: error: Couldn't find BaseModel type for TestRenderer. Consider adding an explicit parameter.Found: com.test.Model1, com.test.Model2

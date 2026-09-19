@@ -134,6 +134,76 @@ class AppPlatformPluginDependencyTest {
     )
   }
 
+  @Test
+  fun `KMP Compose presenter dependency wiring uses renamed artifacts`() {
+    val project = createProject(name = "impl")
+    project.plugins.apply(PluginIds.KOTLIN_MULTIPLATFORM)
+    project.plugins.apply(AppPlatformPlugin::class.java)
+
+    project.appPlatform.enableComposePresenters(true)
+    project.appPlatform.addImplModuleDependencies(true)
+
+    project.evaluate()
+
+    project.assertHasDependency(
+      "commonMainImplementation",
+      appPlatformDependency("presenter-compose-public"),
+    )
+    project.assertHasDependency(
+      "commonTestImplementation",
+      appPlatformDependency("presenter-compose-testing"),
+    )
+    project.assertHasDependency(
+      "commonMainImplementation",
+      appPlatformDependency("presenter-compose-impl"),
+    )
+  }
+
+  @Test
+  fun `JVM Compose presenter backstack dependency wiring uses renamed artifacts`() {
+    val project = createProject(name = "impl")
+    project.plugins.apply(PluginIds.KOTLIN_JVM)
+    project.plugins.apply(AppPlatformPlugin::class.java)
+
+    project.appPlatform.enableComposePresenterBackstack(true)
+    project.appPlatform.addImplModuleDependencies(true)
+
+    project.evaluate()
+
+    project.assertHasDependency(
+      "implementation",
+      appPlatformDependency("presenter-compose-public"),
+    )
+    project.assertHasDependency(
+      "testImplementation",
+      appPlatformDependency("presenter-compose-testing"),
+    )
+    project.assertHasDependency(
+      "implementation",
+      appPlatformDependency("presenter-compose-impl"),
+    )
+    project.assertHasDependency(
+      "implementation",
+      appPlatformDependency("presenter-backstack-nav3-public"),
+    )
+    project.assertHasDependency(
+      "testImplementation",
+      appPlatformDependency("presenter-backstack-nav3-testing"),
+    )
+  }
+
+  @Test
+  fun `native framework exports renamed Compose presenter artifacts`() {
+    val exportedDependencies = AppPlatformPlugin.exportedDependencies()
+
+    assertThat(exportedDependencies).contains(appPlatformDependency("presenter-compose-public"))
+    assertThat(exportedDependencies).contains(appPlatformDependency("presenter-compose-impl"))
+    assertThat(exportedDependencies)
+      .doesNotContain(appPlatformDependency("presenter-molecule-public"))
+    assertThat(exportedDependencies)
+      .doesNotContain(appPlatformDependency("presenter-molecule-impl"))
+  }
+
   private fun createProject(name: String): Project {
     val rootProject = ProjectBuilder.builder().withName("root").build()
     return ProjectBuilder.builder().withName(name).withParent(rootProject).build()

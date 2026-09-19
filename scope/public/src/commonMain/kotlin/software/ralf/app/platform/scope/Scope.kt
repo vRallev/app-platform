@@ -1,5 +1,9 @@
 package software.ralf.app.platform.scope
 
+import software.ralf.app.platform.scope.coroutine.COROUTINE_SCOPE_KEY
+import software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped
+import software.ralf.app.platform.scope.coroutine.addCoroutineScopeScoped
+
 /**
  * Scopes define the boundary our software components operate in. A scope is a space with a
  * well-defined lifecycle that can be created and torn down. Scopes host other service objects and
@@ -98,10 +102,39 @@ public fun Scope.parents(includeSelf: Boolean = false): Sequence<Scope> =
 /**
  * Registers [scopedInstances] to be notified when this scope is destroyed. Since this scope has
  * been already created at this point in time, [Scoped.onEnterScope] will be called immediately for
- * all instance.
+ * all instances.
+ *
+ * If a `CoroutineScope` has been added with [addCoroutineScopeScoped], then coroutines launched
+ * from within [Scoped.onEnterScope] wait until all [scopedInstances] have been registered and their
+ * [Scoped.onEnterScope] function has been called unless the dispatcher is overridden for the `Job`.
+ * This avoids race conditions with async coroutines:
+ * ```kotlin
+ * scope.register(multipleScopedInstances)
+ *
+ * class MyScoped : Scoped {
+ *   override fun onEnterScope(scope: Scope) {
+ *     // Both calls wait until all Scoped instances from multipleScopedInstances are registered
+ *     // and all onEnterScope() functions have been called before dispatching and running the
+ *     // lambda.
+ *     scope.launch(otherDispatcher) { }
+ *     scope.coroutineScope(otherDisatpcher) { }
+ *
+ *     // Does not wait until all on Scoped instances have been registered.
+ *     scope.coroutineScope().launch(otherDispatcher) { }
+ *   }
+ * }
+ * ```
  */
 public fun Scope.register(scopedInstances: Iterable<Scoped>) {
-  scopedInstances.forEach { register(it) }
+  // The service is available before callbacks start, even if its own registration comes last.
+  val registration = getService<CoroutineScopeScoped>(COROUTINE_SCOPE_KEY)?.registration
+  registration?.begin()
+  try {
+    scopedInstances.forEach { register(it) }
+  } finally {
+    // A throwing callback must not leave previously launched coroutines waiting indefinitely.
+    registration?.end()
+  }
 }
 
 /** Registers [scopedInstances] to be notified when this scope is created and destroyed. */

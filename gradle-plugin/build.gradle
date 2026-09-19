@@ -59,6 +59,7 @@ dependencies {
     lintChecks libs.androidx.lint.gradle
 
     testImplementation gradleTestKit()
+    testImplementation libs.android.gradle.plugin.api
     testImplementation libs.assertk
     testImplementation libs.kotlin.multiplatform.gradle.plugin
     testImplementation libs.kotlin.test.junit5

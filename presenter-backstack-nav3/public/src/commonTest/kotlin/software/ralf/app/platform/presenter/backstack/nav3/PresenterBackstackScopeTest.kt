@@ -15,8 +15,8 @@ import kotlinx.coroutines.test.runTest
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope.BackstackChange.Action
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.ComposePresenter
+import software.ralf.app.platform.presenter.compose.test
 
 class PresenterBackstackScopeTest {
   @Test
@@ -130,9 +130,9 @@ class PresenterBackstackScopeTest {
   }
 
   private fun createScopeSnapshotPresenter(
-    initialPresenter: MoleculePresenter<Unit, out BaseModel>
-  ): MoleculePresenter<Unit, ScopeSnapshotModel> {
-    return object : MoleculePresenter<Unit, ScopeSnapshotModel> {
+    initialPresenter: ComposePresenter<Unit, out BaseModel>
+  ): ComposePresenter<Unit, ScopeSnapshotModel> {
+    return object : ComposePresenter<Unit, ScopeSnapshotModel> {
       @Composable
       override fun present(input: Unit): ScopeSnapshotModel {
         return presenterBackstack(initialPresenter) { modelBackstack ->
@@ -149,9 +149,9 @@ class PresenterBackstackScopeTest {
   }
 
   private fun createPresenterBackstackModelPresenter(
-    initialPresenter: MoleculePresenter<Unit, out BaseModel>
-  ): MoleculePresenter<Unit, PresenterBackstackModel> {
-    return object : MoleculePresenter<Unit, PresenterBackstackModel> {
+    initialPresenter: ComposePresenter<Unit, out BaseModel>
+  ): ComposePresenter<Unit, PresenterBackstackModel> {
+    return object : ComposePresenter<Unit, PresenterBackstackModel> {
       @Composable
       override fun present(input: Unit): PresenterBackstackModel {
         return presenterBackstack(initialPresenter) { modelBackstack ->
@@ -161,12 +161,12 @@ class PresenterBackstackScopeTest {
     }
   }
 
-  private class FixedPresenter(private val model: BaseModel) : MoleculePresenter<Unit, BaseModel> {
+  private class FixedPresenter(private val model: BaseModel) : ComposePresenter<Unit, BaseModel> {
     @Composable override fun present(input: Unit): BaseModel = model
   }
 
-  private class PushPresenter(private val childPresenter: MoleculePresenter<Unit, out BaseModel>) :
-    MoleculePresenter<Unit, BaseModel> {
+  private class PushPresenter(private val childPresenter: ComposePresenter<Unit, out BaseModel>) :
+    ComposePresenter<Unit, BaseModel> {
     @Composable
     override fun present(input: Unit): BaseModel {
       val backstackScope = LocalBackstackScope.requireNotNull()
@@ -174,7 +174,7 @@ class PresenterBackstackScopeTest {
     }
   }
 
-  private class SaveableStatefulPresenter : MoleculePresenter<Unit, BaseModel> {
+  private class SaveableStatefulPresenter : ComposePresenter<Unit, BaseModel> {
     @Composable
     override fun present(input: Unit): BaseModel {
       var value by rememberSaveable { mutableStateOf("Initial") }
@@ -185,7 +185,7 @@ class PresenterBackstackScopeTest {
   private data class ScopeSnapshotModel(
     val scope: PresenterBackstackScope,
     val localScope: PresenterBackstackScope,
-    val backstack: List<MoleculePresenter<Unit, out BaseModel>>,
+    val backstack: List<ComposePresenter<Unit, out BaseModel>>,
     val modelBackstack: List<BaseModel>,
     val action: Action,
   ) : BaseModel

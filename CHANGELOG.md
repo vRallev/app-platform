@@ -4,9 +4,17 @@
 
 ### Added
 
+- Add `Scope.destroyAndWait()` to destroy a scope and its children and wait for their coroutine cleanup to finish.
+
 ### Changed
 
 - Make the Metro compiler extension more resilient to Kotlin compiler upgrades by using Metro's compiler compat APIs.
+- Use Metro binding containers for presenter implementation providers.
+- Use Metro binding containers for KSP-generated renderer and scoped bindings.
+- Upgrade Android Compose to `1.12.1`, KSP to `2.3.12`, and KotlinPoet to `2.4.0`.
+- Upgrade Metro to `1.4.4`.
+- **Breaking change:** Rename the Molecule-specific presenter API to Compose-focused names, including `MoleculePresenter` to `ComposePresenter`, its scope APIs, Gradle DSL options, and `:presenter-molecule:*` artifacts to `:presenter-compose:*`.
+- Start launched coroutines from `Scoped.onEnterScope` after all `Scoped` instances have been registered to avoid asynchronous race conditions. 
 
 ### Deprecated
 
@@ -14,10 +22,18 @@
 
 ### Fixed
 
+- Enforce module structure dependency rules for Android, JVM, and multiplatform test compilations with a per-module opt-out.
+
 ### Security
 
 ### Other Notes & Contributions
 
+
+## [0.1.5] - 2026-09-07
+
+### Changed
+
+- **Breaking change:** Upgrade Kotlin to `2.4.20`. This is a breaking change if you use Metro over kotlin-inject. Recompile your source code with Kotlin 2.4.20. 
 
 ## [0.1.4] - 2026-09-03
 
@@ -315,7 +331,8 @@
 
 - Initial release.
 
-[Unreleased]: https://github.com/vRallev/app-platform/compare/0.1.4...HEAD
+[Unreleased]: https://github.com/vRallev/app-platform/compare/0.1.5...HEAD
+[0.1.5]: https://github.com/vRallev/app-platform/compare/0.1.5
 [0.1.4]: https://github.com/vRallev/app-platform/compare/0.1.4
 [0.1.3]: https://github.com/vRallev/app-platform/compare/0.1.3
 [0.1.2]: https://github.com/vRallev/app-platform/compare/0.1.2

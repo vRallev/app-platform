@@ -87,8 +87,8 @@ public open class AppPlatformPlugin : Plugin<Project> {
     }
 
     val implementationDependencies = buildSet {
-      if (appPlatform.isMoleculeEnabled().get()) {
-        add("$APP_PLATFORM_GROUP:presenter-molecule-impl:$APP_PLATFORM_VERSION")
+      if (appPlatform.isComposePresentersEnabled().get()) {
+        add("$APP_PLATFORM_GROUP:presenter-compose-impl:$APP_PLATFORM_VERSION")
       }
       if (appPlatform.isKotlinInjectEnabled().get()) {
         add("$APP_PLATFORM_GROUP:kotlin-inject-impl:$APP_PLATFORM_VERSION")
@@ -125,8 +125,8 @@ public open class AppPlatformPlugin : Plugin<Project> {
           "metro-impl",
           "metro-public",
           "presenter-backstack-nav3-public",
-          "presenter-molecule-impl",
-          "presenter-molecule-public",
+          "presenter-compose-impl",
+          "presenter-compose-public",
           "presenter-public",
           "renderer-compose-multiplatform-public",
           "renderer-public",

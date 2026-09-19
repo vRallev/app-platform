@@ -1,17 +1,17 @@
 public final class software/ralf/app/platform/presenter/backstack/nav3/FakePresenterBackstackScope : software/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope {
 	public static final field $stable I
 	public fun <init> ()V
-	public fun <init> (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;)V
-	public synthetic fun <init> (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;)V
+	public synthetic fun <init> (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getLastBackstackChange ()Landroidx/compose/runtime/State;
 	public final fun getRecordedBackstackChanges ()Lkotlinx/coroutines/flow/StateFlow;
 	public fun pop ()V
-	public fun push (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;)V
-	public fun replaceTop (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;)V
+	public fun push (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;)V
+	public fun replaceTop (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;)V
 }
 
 public final class software/ralf/app/platform/presenter/backstack/nav3/TestPresenterBackstackScopePresenterKt {
-	public static final fun withPresenterBackstackScope (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;
-	public static synthetic fun withPresenterBackstackScope$default (Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope;ILjava/lang/Object;)Lsoftware/ralf/app/platform/presenter/molecule/MoleculePresenter;
+	public static final fun withPresenterBackstackScope (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;
+	public static synthetic fun withPresenterBackstackScope$default (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lsoftware/ralf/app/platform/presenter/backstack/nav3/PresenterBackstackScope;ILjava/lang/Object;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;
 }
 

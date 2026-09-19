@@ -1,0 +1,110 @@
+// FILE: defaultConstructorRobotIr.kt
+package com.test
+
+@ContributesRobot(scope = AppScope::class)
+class TestRobot : Robot {
+  @BindingContainer
+  @ContributesTo(scope = AppScope::class)
+  @Origin(value = TestRobot::class)
+  interface RobotContribution {
+    @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
+    @ComptimeOnly
+    abstract class BindsMirror {
+      @Binds
+      @IntoMap
+      @RobotKey(value = TestRobot::class)
+      @CallableMetadata(callableName = "provideTestRobotIntoMap", propertyName = "", startOffset = 202, endOffset = 260)
+      fun provideTestRobotIntoMap884116439_intomap(robot: TestRobot): Robot {
+        return error(message = "Never called")
+      }
+
+    }
+
+    companion object Companion {
+      @CallableMetadata(callableName = "provideTestRobot", propertyName = "", startOffset = 202, endOffset = 260, newInstanceName = "provideTestRobot")
+      object ProvideTestRobotMetroFactory : Factory<TestRobot> {
+        private constructor() /* primary */ {
+          super/*Any*/()
+          /* <init>() */
+
+        }
+
+        @HiddenFromObjC
+        @JvmStatic
+        @JsStatic
+        fun create(): ProvideTestRobotMetroFactory {
+          return ProvideTestRobotMetroFactory
+        }
+
+        @HiddenFromObjC
+        @JvmStatic
+        @JsStatic
+        fun provideTestRobot(): TestRobot {
+          return Companion.provideTestRobot()
+        }
+
+        @ComptimeOnly
+        @HiddenFromObjC
+        fun declarationMirror(): TestRobot {
+          return error(message = "Never called")
+        }
+
+        @HiddenFromObjC
+        override operator fun invoke(): TestRobot {
+          return ProvideTestRobotMetroFactory.provideTestRobot()
+        }
+
+      }
+
+      private constructor() /* primary */ {
+        super/*Any*/()
+        /* <init>() */
+
+      }
+
+      @Provides
+      open fun provideTestRobot(): TestRobot {
+        return TestRobot()
+      }
+
+    }
+
+    @Binds
+    @IntoMap
+    @RobotKey(value = TestRobot::class)
+    @ComptimeOnly
+    fun provideTestRobotIntoMap(robot: TestRobot): Robot {
+      return error(message = "Never called")
+    }
+
+  }
+
+  @ContributesTo(scope = AppScope::class)
+  @Origin(value = TestRobot::class)
+  interface RobotGraphContribution : RobotGraph {
+  }
+
+  constructor() /* primary */ {
+    super/*Any*/()
+    /* <init>() */
+
+  }
+
+}
+
+// FILE: comTestTestRobotRobotContributionDev_zacsweers_metro_AppScope.kt
+package metro.hints
+
+@Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
+fun dev_zacsweers_metro_AppScope(contributed: RobotContribution) {
+  return error(message = "Never called")
+}
+
+// FILE: comTestTestRobotRobotGraphContributionDev_zacsweers_metro_AppScope.kt
+package metro.hints
+
+@Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
+fun dev_zacsweers_metro_AppScope(contributed: RobotGraphContribution) {
+  return error(message = "Never called")
+}
+

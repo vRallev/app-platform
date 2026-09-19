@@ -13,7 +13,7 @@ import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope.BackstackChange
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope.BackstackChange.Action
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 /**
  * Test fake for [PresenterBackstackScope].
@@ -27,7 +27,7 @@ import software.ralf.app.platform.presenter.molecule.MoleculePresenter
  * test needs to call [pop]: create the fake with the default root, [push] the presenter under test,
  * then invoke the model callback. If the presenter under test is the root entry, [pop] is a no-op.
  *
- * [lastBackstackChange] is backed by Compose snapshot state so Molecule presenters that read
+ * [lastBackstackChange] is backed by Compose snapshot state so Compose presenters that read
  * `lastBackstackChange.value` recompose when the fake changes. The state uses referential equality
  * because every recorded mutation represents a new backstack change, even when the resulting
  * presenter list and action match the previous change.
@@ -66,8 +66,8 @@ import software.ralf.app.platform.presenter.molecule.MoleculePresenter
  */
 @ExperimentalAppPlatform
 public class FakePresenterBackstackScope(
-  rootPresenter: MoleculePresenter<Unit, out BaseModel> =
-    object : MoleculePresenter<Unit, BaseModel> {
+  rootPresenter: ComposePresenter<Unit, out BaseModel> =
+    object : ComposePresenter<Unit, BaseModel> {
       @Composable
       override fun present(input: Unit): BaseModel {
         return object : BaseModel {}
@@ -92,7 +92,7 @@ public class FakePresenterBackstackScope(
    */
   public val recordedBackstackChanges: StateFlow<List<BackstackChange>> = _recordedBackstackChanges
 
-  override fun push(presenter: MoleculePresenter<Unit, out BaseModel>) {
+  override fun push(presenter: ComposePresenter<Unit, out BaseModel>) {
     updateBackstack(backstack = backstack + presenter, action = Action.PUSH)
   }
 
@@ -102,12 +102,12 @@ public class FakePresenterBackstackScope(
     }
   }
 
-  override fun replaceTop(presenter: MoleculePresenter<Unit, out BaseModel>) {
+  override fun replaceTop(presenter: ComposePresenter<Unit, out BaseModel>) {
     updateBackstack(backstack = backstack.dropLast(1) + presenter, action = Action.REPLACE)
   }
 
   private fun updateBackstack(
-    backstack: List<MoleculePresenter<Unit, out BaseModel>>,
+    backstack: List<ComposePresenter<Unit, out BaseModel>>,
     action: Action,
   ) {
     val backstackChange = BackstackChangeImpl(backstack = backstack.toList(), action = action)
@@ -116,7 +116,7 @@ public class FakePresenterBackstackScope(
   }
 
   private class BackstackChangeImpl(
-    override val backstack: List<MoleculePresenter<Unit, out BaseModel>>,
+    override val backstack: List<ComposePresenter<Unit, out BaseModel>>,
     override val action: Action,
   ) : BackstackChange
 }

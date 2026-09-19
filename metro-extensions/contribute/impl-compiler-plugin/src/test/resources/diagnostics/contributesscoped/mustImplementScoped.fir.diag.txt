@@ -1,1 +1,0 @@
-/mustImplementScoped.kt:(201,236): error: In order to use @ContributesScoped, TestClass must implement software.ralf.app.platform.scope.Scoped.

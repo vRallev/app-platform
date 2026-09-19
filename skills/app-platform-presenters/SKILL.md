@@ -1,17 +1,17 @@
 ---
 name: app-platform-presenters
-description: Build and test App Platform MoleculePresenters. Use when changing models, state, parent and child presenters, template selection or delegation, tests, or Gradle and host setup.
+description: Build and test App Platform ComposePresenters. Use when changing models, state, parent and child presenters, template selection or delegation, tests, or Gradle and host setup.
 ---
 
-# App Platform Molecule Presenters
+# App Platform Compose Presenters
 
-`MoleculePresenter` uses the Compose runtime to turn inputs and injected data into a `BaseModel`. The UI or a parent presenter reads the model and sends events through its callbacks. Compose UI is optional.
+`ComposePresenter` uses the Compose runtime to turn inputs and injected data into a `BaseModel`. The UI or a parent presenter reads the model and sends events through its callbacks. Compose UI is optional.
 
 Before editing, identify the inputs, model, events, how long state must last, and who starts and stops the root. Follow the project's module, DI, and build choices. Check its App Platform version before using `ExperimentalAppPlatform` APIs. Examples omit imports; resolve unfamiliar APIs from existing code or matching public docs.
 
 ## Models
 
-- Implement `MoleculePresenter<InputT, ModelT>` with `ModelT : BaseModel`. Include all state and callbacks the consumer needs.
+- Implement `ComposePresenter<InputT, ModelT>` with `ModelT : BaseModel`. Include all state and callbacks the consumer needs.
 - Expose immutable model snapshots, preferably data classes or sealed types. Use `val` properties and immutable values, and return a new model when state changes. Keep equality and public types stable to satisfy `BaseModel`.
 - Prefer presenter interfaces with implementations supplied through DI. Put shared contracts and models in `:public`, implementations in `:impl`, and assemble them in the app. Keep implementations used by generated graphs across modules public.
 - Nest `Model` under its presenter. Put `present()` first, then helpers, the companion object, and nested types, with `Model` last.
@@ -19,7 +19,7 @@ Before editing, identify the inputs, model, events, how long state must last, an
 
   ```kotlin
   // :public
-  interface SearchPresenter : MoleculePresenter<String, SearchPresenter.Model> {
+  interface SearchPresenter : ComposePresenter<String, SearchPresenter.Model> {
     interface Model : BaseModel {
       val query: String
     }
@@ -44,7 +44,7 @@ Before editing, identify the inputs, model, events, how long state must last, an
 - When consumers only pass a model along, hide its type with a generic interface:
 
   ```kotlin
-  interface CatalogPresenter<ModelT : BaseModel> : MoleculePresenter<Unit, ModelT>
+  interface CatalogPresenter<ModelT : BaseModel> : ComposePresenter<Unit, ModelT>
   ```
 
   Consumers can use `CatalogPresenter<*>`. Parents that return different child models can use `BaseModel`.
@@ -62,7 +62,7 @@ Keep mutable state, caches, scopes, and effects inside `present()`. Presenter fi
 Use `remember` for local state and Compose runtime APIs such as `collectAsState` or `produceState` for changing data:
 
 ```kotlin
-interface CounterPresenter : MoleculePresenter<Unit, CounterPresenter.Model> {
+interface CounterPresenter : ComposePresenter<Unit, CounterPresenter.Model> {
   data class Model(
     val count: Int,
     val onIncrement: () -> Unit,
@@ -101,7 +101,7 @@ Use `presentDetached()` only for costly child presenters. It can briefly pair ne
 
 For push and pop navigation, use experimental `presenterBackstack(initialPresenter) { models -> ... }`. Wrap its models in an app-specific `PresenterBackstackModel` with `onBack = { pop() }`. The helper provides `LocalBackstackScope`; children read `LocalBackstackScope.requireNotNull()` and call `push()`, `pop()`, or `replaceTop()` from model callbacks. The stack holds presenter instances, keeps every entry in composition, and ignores a pop at the root.
 
-Use `PresenterBackstackRenderer` for Navigation 3 UI. Set `appPlatform { enableMoleculePresenterBackstack(true) }` to add the module and enable Molecule presenters and Compose UI. See the [backstack guide](https://vrallev.github.io/app-platform/presenter/#presenter-backstack) for rendering and tests with a fake scope.
+Use `PresenterBackstackRenderer` for Navigation 3 UI. Set `appPlatform { enableComposePresenterBackstack(true) }` to add the module and enable Compose presenters and Compose UI. See the [backstack guide](https://vrallev.github.io/app-platform/presenter/#presenter-backstack) for rendering and tests with a fake scope.
 
 ## Template selection
 
@@ -122,8 +122,8 @@ Wrap the root presenter in a template presenter. `toTemplate` follows `ModelDele
 
 ```kotlin
 class AppTemplatePresenter(
-  private val rootPresenter: MoleculePresenter<Unit, *>,
-) : MoleculePresenter<Unit, AppTemplate> {
+  private val rootPresenter: ComposePresenter<Unit, *>,
+) : ComposePresenter<Unit, AppTemplate> {
   @Composable
   override fun present(input: Unit): AppTemplate {
     return rootPresenter.present(Unit).toTemplate<AppTemplate> {
@@ -172,21 +172,21 @@ In a Compose host, remember the root and call `present()` directly if the host's
 
 ```kotlin
 class PresenterHost<ModelT : BaseModel>(
-  moleculeScopeFactory: MoleculeScopeFactory,
-  rootPresenter: MoleculePresenter<Unit, ModelT>,
+  composePresenterScopeFactory: ComposePresenterScopeFactory,
+  rootPresenter: ComposePresenter<Unit, ModelT>,
 ) {
-  private val moleculeScope = moleculeScopeFactory.createMoleculeScope()
-  val models = moleculeScope.launchMoleculePresenter(rootPresenter, Unit).model
+  private val composePresenterScope = composePresenterScopeFactory.createComposePresenterScope()
+  val models = composePresenterScope.launchComposePresenter(rootPresenter, Unit).model
 
   fun close() {
-    moleculeScope.cancel()
+    composePresenterScope.cancel()
   }
 }
 ```
 
 The factory applies platform defaults. Launching returns `Presenter<ModelT>`, with a `StateFlow` at `.model`. Pass a `StateFlow` input when the host needs to change it.
 
-Call the host's `close()` from its owner's cleanup, such as `ViewModel.onCleared()` or window cleanup. Stopping collection does not stop the presenters. Canceling a `MoleculeScope` also cancels the wrapped coroutine scope, so use a scope the host owns.
+Call the host's `close()` from its owner's cleanup, such as `ViewModel.onCleared()` or window cleanup. Stopping collection does not stop the presenters. Canceling a `ComposePresenterScope` also cancels the wrapped coroutine scope, so use a scope the host owns.
 
 ## Keep state after a child leaves
 
@@ -263,7 +263,7 @@ plugins {
 }
 
 appPlatform {
-  enableMoleculePresenters(true)
+  enableComposePresenters(true)
 }
 ```
 
@@ -271,7 +271,7 @@ This adds the Compose compiler, runtime, Molecule, presenter API, and test helpe
 
 Bind presenter interfaces to implementations through the app's existing DI setup. For Metro, use `enableMetro(true)`.
 
-In modules that build the app, `addImplModuleDependencies(true)` supplies defaults such as `MoleculeScopeFactory`. Keep `:impl` dependencies out of feature API modules and check that the app's DI graph builds.
+In modules that build the app, `addImplModuleDependencies(true)` supplies defaults such as `ComposePresenterScopeFactory`. Keep `:impl` dependencies out of feature API modules and check that the app's DI graph builds.
 
 The presenter option does not set Android's `isReturnDefaultValues`. Configure it in shared test setup if needed for Android stubs. Use Robolectric only for tests of real Android behavior.
 

@@ -1,10 +1,10 @@
 package software.ralf.app.platform.sample.login
 
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 /** A presenter to render the login screen. */
-interface LoginPresenter : MoleculePresenter<Unit, LoginPresenter.Model> {
+interface LoginPresenter : ComposePresenter<Unit, LoginPresenter.Model> {
   /** The state of the login screen. */
   data class Model(
     /** Whether login is currently in progress. */

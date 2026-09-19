@@ -30,31 +30,6 @@ FILE: defaultConstructorRendererIr.kt
                     super<R|kotlin/Any|>()
                 }
 
-                @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) @R|dev/zacsweers/metro/internal/CallableMetadata|(callableName = String(provideComTestTestRenderer), propertyName = String(), startOffset = Int(284), endOffset = Int(388), newInstanceName = String(provideComTestTestRenderer)) public final object ProvideComTestTestRendererMetroFactory : R|kotlin/Any| {
-                    private constructor(): R|com/test/TestRenderer.RendererContribution.Companion.ProvideComTestTestRendererMetroFactory| {
-                        super<R|kotlin/Any|>()
-                    }
-
-                }
-
-                @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) @R|dev/zacsweers/metro/internal/CallableMetadata|(callableName = String(provideComTestTestRendererModelKey), propertyName = String(), startOffset = Int(284), endOffset = Int(388), newInstanceName = String(provideComTestTestRendererModelKey)) public final object ProvideComTestTestRendererModelKeyMetroFactory : R|kotlin/Any| {
-                    private constructor(): R|com/test/TestRenderer.RendererContribution.Companion.ProvideComTestTestRendererModelKeyMetroFactory| {
-                        super<R|kotlin/Any|>()
-                    }
-
-                }
-
-            }
-
-            @R|kotlin/Deprecated|(message = String(This synthesized declaration should not be used directly), level = Q|kotlin/DeprecationLevel|.R|kotlin/DeprecationLevel.HIDDEN|) public abstract class BindsMirror : R|kotlin/Any| {
-                private constructor(): R|com/test/TestRenderer.RendererContribution.BindsMirror| {
-                    super<R|kotlin/Any|>()
-                }
-
-                private constructor(): R|com/test/TestRenderer.RendererContribution.BindsMirror| {
-                    super<R|kotlin/Any|>()
-                }
-
             }
 
         }

@@ -6,10 +6,13 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.job
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import software.ralf.app.platform.scope.Scope
+import software.ralf.app.platform.scope.Scoped
 
-private const val COROUTINE_SCOPE_KEY = "coroutineScope"
+internal const val COROUTINE_SCOPE_KEY = "coroutineScope"
 
 private val Scope.coroutineScopeScoped: CoroutineScopeScoped
   get() {
@@ -32,6 +35,23 @@ private val Scope.coroutineScopeScoped: CoroutineScopeScoped
  * The [CoroutineScope] uses IO dispatcher by default and launched jobs run on a background thread.
  *
  * Jobs created by this scope don't need to be canceled.
+ *
+ * **Note:** During builder or batch registration of multiple [Scoped] instances with
+ * [Scope.register], work using this scope's dispatcher waits for the batch to finish registering.
+ * Passing a dispatcher in [context] preserves this wait; replacing it in a later `launch` or
+ * `async` call bypasses it:
+ * ```kotlin
+ * //
+ * override fun onEnterScope(scope: Scope) {
+ *   // Both calls wait until all Scoped instances are registered and all onEnterScope() functions
+ *   // have been called before running the lambda.
+ *   scope.launch(otherDispatcher) { }
+ *   scope.coroutineScope(otherDisatpcher) { }
+ *
+ *   // Does not wait until all on Scoped instances have been registered.
+ *   scope.coroutineScope().launch(otherDispatcher) { }
+ * }
+ * ```
  */
 public fun Scope.coroutineScope(context: CoroutineContext = EmptyCoroutineContext): CoroutineScope {
   return coroutineScopeScoped.createChild(context)
@@ -61,4 +81,29 @@ public fun Scope.launch(
   block: suspend CoroutineScope.() -> Unit,
 ): Job {
   return coroutineScope(context).launch(block = block)
+}
+
+/**
+ * Destroys this scope and its children, then waits for their coroutine jobs to finish, including
+ * suspending cleanup. Waits for coroutine scopes added with [addCoroutineScopeScoped] and all their
+ * child jobs. Scopes without a coroutine scope are also destroyed.
+ *
+ * Call from a coroutine outside the scopes being destroyed. The wait is cancellable; if the caller
+ * is canceled, destruction still takes effect but coroutine cleanup may not have finished.
+ *
+ * This scope must not already be destroyed.
+ */
+public suspend fun Scope.destroyAndWait() {
+  val jobs =
+    generateSequence(listOf(this)) { scopes ->
+        scopes.flatMap { it.children() }.takeIf { it.isNotEmpty() }
+      }
+      .flatten()
+      .mapNotNull { scope ->
+        scope.getService<CoroutineScopeScoped>(COROUTINE_SCOPE_KEY)?.coroutineContext?.job
+      }
+      .toList()
+
+  destroy()
+  jobs.joinAll()
 }

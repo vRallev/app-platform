@@ -1,0 +1,27 @@
+public final class software/ralf/app/platform/presenter/compose/FakeComposePresenterScopeFactory : software/ralf/app/platform/presenter/compose/ComposePresenterScopeFactory {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/coroutines/CoroutineScope;)V
+	public fun createComposePresenterScope ()Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScope;
+	public fun createComposePresenterScopeFromCoroutineScope (Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScope;
+}
+
+public final class software/ralf/app/platform/presenter/compose/TestComposePresenterScopeKt {
+	public static final fun composePresenterScope (Lkotlinx/coroutines/test/TestScope;Lkotlin/coroutines/CoroutineContext;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScope;
+	public static synthetic fun composePresenterScope$default (Lkotlinx/coroutines/test/TestScope;Lkotlin/coroutines/CoroutineContext;ILjava/lang/Object;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenterScope;
+}
+
+public final class software/ralf/app/platform/presenter/compose/TestPresenterKt {
+	public static final fun test (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/test/TestScope;Lkotlinx/coroutines/flow/StateFlow;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun test$default (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/test/TestScope;Lkotlinx/coroutines/flow/StateFlow;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun test-FHKeTTw (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/test/TestScope;Lkotlin/coroutines/CoroutineContext;Lkotlin/time/Duration;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun test-FHKeTTw$default (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/test/TestScope;Lkotlin/coroutines/CoroutineContext;Lkotlin/time/Duration;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun test-Zzr-CC0 (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/test/TestScope;Ljava/lang/Object;Lkotlin/coroutines/CoroutineContext;Lkotlin/time/Duration;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun test-Zzr-CC0$default (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/test/TestScope;Ljava/lang/Object;Lkotlin/coroutines/CoroutineContext;Lkotlin/time/Duration;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class software/ralf/app/platform/presenter/compose/backgesture/TestBackGestureDispatcherPresenterKt {
+	public static final fun withBackGestureDispatcher (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/flow/SharedFlow;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;
+	public static final fun withBackGestureDispatcherUnit (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/flow/SharedFlow;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;
+	public static synthetic fun withBackGestureDispatcherUnit$default (Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;Lkotlinx/coroutines/flow/SharedFlow;ILjava/lang/Object;)Lsoftware/ralf/app/platform/presenter/compose/ComposePresenter;
+}
+

@@ -10,7 +10,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
-import software.ralf.app.platform.presenter.molecule.test
+import software.ralf.app.platform.presenter.compose.test
 import software.ralf.app.platform.sample.user.FakeUserManager
 
 class LoginPresenterImplTest {

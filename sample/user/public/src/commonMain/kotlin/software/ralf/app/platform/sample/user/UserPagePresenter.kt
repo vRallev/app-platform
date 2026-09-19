@@ -1,12 +1,12 @@
 package software.ralf.app.platform.sample.user
 
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.presenter.template.ModelDelegate
 import software.ralf.app.platform.sample.user.UserPagePresenter.Model
 
 /** Presenter to render user details on screen. */
-interface UserPagePresenter : MoleculePresenter<Unit, Model> {
+interface UserPagePresenter : ComposePresenter<Unit, Model> {
 
   /**
    * The state of the user page. Note that the actual implementation class implements

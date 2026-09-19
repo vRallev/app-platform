@@ -8,7 +8,7 @@ import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.LocalBackstackScope
 import software.ralf.app.platform.presenter.backstack.nav3.requireNotNull
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.recipes.appbar.menu.MenuPresenter
 import software.ralf.app.platform.recipes.backstack.presenter.BackstackChildPresenter
 import software.ralf.app.platform.recipes.landing.LandingPresenter.Model
@@ -16,7 +16,7 @@ import software.ralf.app.platform.recipes.nav3.Navigation3HomePresenter
 
 /** The presenter that is responsible to show the content of the landing page in the Recipes app. */
 @Inject
-class LandingPresenter : MoleculePresenter<Unit, Model> {
+class LandingPresenter : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {
     val backstack = LocalBackstackScope.requireNotNull()

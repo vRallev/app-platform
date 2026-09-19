@@ -23,7 +23,7 @@ import software.ralf.app.platform.presenter.BaseModel
 // This separate base interface is needed for several implementations that cannot extend the
 // abstract ComposeRenderer class. It also helps to distinguish between the normal Renderer API
 // vs this BaseComposeRenderer API. Note that BaseComposeRenderer is not extending the Renderer
-// interface. This distinction is similar to Presenter and MoleculePresenter.
+// interface. This distinction is similar to Presenter and ComposePresenter.
 public interface BaseComposeRenderer<in ModelT : BaseModel> {
   /** Render the given [model] on screen using Compose UI with the provided [modifier]. */
   // Android Lint will complain that this function should start with an uppercase letter, but

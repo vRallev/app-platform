@@ -2,13 +2,13 @@ public class software/ralf/app/platform/gradle/AppPlatformExtension {
 	public fun <init> (Lorg/gradle/api/model/ObjectFactory;Lorg/gradle/api/Project;)V
 	public final fun addImplModuleDependencies (Z)V
 	public final fun addPublicModuleDependencies (Z)V
+	public final fun enableComposePresenterBackstack (Z)V
+	public final fun enableComposePresenters (Z)V
 	public final fun enableComposeUi (Z)V
 	public final fun enableKotlinInject (Z)V
 	public final fun enableMetro (Z)V
 	public final fun enableModuleStructure (Lorg/gradle/api/Action;)V
 	public final fun enableModuleStructure (Z)V
-	public final fun enableMoleculePresenterBackstack (Z)V
-	public final fun enableMoleculePresenters (Z)V
 }
 
 public class software/ralf/app/platform/gradle/AppPlatformPlugin : org/gradle/api/Plugin {
@@ -31,6 +31,7 @@ public abstract class software/ralf/app/platform/gradle/ModuleStructureDependenc
 	public abstract fun getIgnoredOutputFile ()Ljava/io/File;
 	public abstract fun getModuleCompileClasspath ()Ljava/util/Set;
 	public abstract fun getModulePath ()Ljava/lang/String;
+	public abstract fun getTestCompilation ()Lorg/gradle/api/provider/Property;
 	public abstract fun getTestFixtures ()Lorg/gradle/api/provider/Property;
 	public abstract fun setIgnoredOutputFile (Ljava/io/File;)V
 	public abstract fun setModuleCompileClasspath (Ljava/util/Set;)V
@@ -45,6 +46,7 @@ public class software/ralf/app/platform/gradle/ModuleStructureOptions {
 	public fun <init> (Lorg/gradle/api/model/ObjectFactory;)V
 	public final fun allowLibraryImplToImplDependencies (Z)V
 	public final fun enableDependencyCheck (Z)V
+	public final fun enableTestDependencyCheck (Z)V
 }
 
 public class software/ralf/app/platform/gradle/ModuleStructurePlugin : org/gradle/api/Plugin {

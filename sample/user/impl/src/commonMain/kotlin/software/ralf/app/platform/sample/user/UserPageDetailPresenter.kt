@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import dev.zacsweers.metro.Inject
 import kotlin.time.Duration
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 import software.ralf.app.platform.sample.template.animation.AnimationContentKey
 import software.ralf.app.platform.sample.user.UserPageDetailPresenter.Input
 import software.ralf.app.platform.sample.user.UserPageDetailPresenter.Model
@@ -19,7 +19,7 @@ import software.ralf.app.platform.sample.user.UserPageDetailPresenter.Model
 /** Presenter to manage the detail content of the list-detail layout. */
 @Inject
 class UserPageDetailPresenter(private val sessionTimeout: SessionTimeout) :
-  MoleculePresenter<Input, Model> {
+  ComposePresenter<Input, Model> {
 
   @Composable
   override fun present(input: Input): Model {

@@ -9,6 +9,9 @@ public open class ModuleStructureOptions @Inject constructor(objects: ObjectFact
   private val enableDependencyCheck: Property<Boolean> =
     objects.property(Boolean::class.java).convention(true)
 
+  private val enableTestDependencyCheck: Property<Boolean> =
+    objects.property(Boolean::class.java).convention(true)
+
   private val allowLibraryImplToImplDependencies: Property<Boolean> =
     objects.property(Boolean::class.java).convention(false)
 
@@ -16,6 +19,12 @@ public open class ModuleStructureOptions @Inject constructor(objects: ObjectFact
   public fun enableDependencyCheck(enable: Boolean) {
     enableDependencyCheck.set(enable)
     enableDependencyCheck.finalizeValueOnRead()
+  }
+
+  /** Enables or disables dependency rule enforcement for ordinary test compilations. */
+  public fun enableTestDependencyCheck(enable: Boolean) {
+    enableTestDependencyCheck.set(enable)
+    enableTestDependencyCheck.finalizeValueOnRead()
   }
 
   /**
@@ -28,6 +37,8 @@ public open class ModuleStructureOptions @Inject constructor(objects: ObjectFact
   }
 
   internal fun isDependencyCheckEnabled(): Property<Boolean> = enableDependencyCheck
+
+  internal fun isTestDependencyCheckEnabled(): Property<Boolean> = enableTestDependencyCheck
 
   internal fun isLibraryImplToImplDependenciesAllowed(): Property<Boolean> =
     allowLibraryImplToImplDependencies

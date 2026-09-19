@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.withCompositionLocal
 import me.tatarka.inject.annotations.Inject
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.BackGestureDispatcherPresenter
-import software.ralf.app.platform.presenter.molecule.backgesture.LocalBackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
+import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
+import software.ralf.app.platform.presenter.compose.backgesture.LocalBackGestureDispatcherPresenter
 import software.ralf.app.platform.presenter.template.toTemplate
 import software.ralf.app.platform.recipes.appbar.AppBarConfig
 import software.ralf.app.platform.recipes.appbar.AppBarConfigModel
@@ -21,7 +21,7 @@ import software.ralf.app.platform.recipes.landing.LandingPresenter
 class RootPresenter(
   private val landingPresenter: LandingPresenter,
   private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
-) : MoleculePresenter<Unit, RecipesAppTemplate> {
+) : ComposePresenter<Unit, RecipesAppTemplate> {
   @Composable
   override fun present(input: Unit): RecipesAppTemplate {
     return withCompositionLocal(

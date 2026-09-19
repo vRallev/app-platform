@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.withCompositionLocal
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.presenter.BaseModel
-import software.ralf.app.platform.presenter.molecule.MoleculePresenter
+import software.ralf.app.platform.presenter.compose.ComposePresenter
 
 /**
  * Wraps the receiver presenter with another presenter to provide a [PresenterBackstackScope] as
@@ -52,12 +52,12 @@ import software.ralf.app.platform.presenter.molecule.MoleculePresenter
  * ```
  */
 @ExperimentalAppPlatform
-public fun <InputT : Any, ModelT : BaseModel> MoleculePresenter<InputT, ModelT>
+public fun <InputT : Any, ModelT : BaseModel> ComposePresenter<InputT, ModelT>
   .withPresenterBackstackScope(
   scope: PresenterBackstackScope = FakePresenterBackstackScope()
-): MoleculePresenter<InputT, ModelT> {
+): ComposePresenter<InputT, ModelT> {
   val delegate = this
-  return object : MoleculePresenter<InputT, ModelT> {
+  return object : ComposePresenter<InputT, ModelT> {
     @Composable
     override fun present(input: InputT): ModelT {
       return withCompositionLocal(LocalBackstackScope provides scope) {

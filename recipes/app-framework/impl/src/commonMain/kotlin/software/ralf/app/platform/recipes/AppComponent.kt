@@ -6,7 +6,7 @@ import software.amazon.lastmile.kotlin.inject.anvil.AppScope
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesTo
 import software.amazon.lastmile.kotlin.inject.anvil.ForScope
 import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
-import software.ralf.app.platform.presenter.molecule.MoleculeScopeFactory
+import software.ralf.app.platform.presenter.compose.ComposePresenterScopeFactory
 import software.ralf.app.platform.recipes.swiftui.SwiftUiHomePresenter
 import software.ralf.app.platform.scope.Scoped
 import software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped
@@ -35,5 +35,5 @@ interface AppComponent {
   val swiftUiHomePresenter: SwiftUiHomePresenter
 
   /** Factory needed to launch presenters from native. */
-  val moleculeScopeFactory: MoleculeScopeFactory
+  val composePresenterScopeFactory: ComposePresenterScopeFactory
 }

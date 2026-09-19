@@ -103,10 +103,23 @@ class ModuleStructureDependencyCheckTaskTest {
       .isInstanceOf<GradleException>()
   }
 
+  @Test
+  fun `external internal dependency remains forbidden in test compilations`() {
+    assertFailure {
+      checkDependencies(
+        modulePath = ":library:impl",
+        moduleCompileClasspath = setOf("com.example:other-internal:1.0"),
+        testCompilation = true,
+      )
+    }
+      .isInstanceOf<GradleException>()
+  }
+
   private fun checkDependencies(
     modulePath: String,
     moduleCompileClasspath: Set<String>,
     allowLibraryImplToImplDependencies: Boolean? = null,
+    testCompilation: Boolean? = null,
   ) {
     val project = ProjectBuilder.builder().build()
     val task =
@@ -120,6 +133,7 @@ class ModuleStructureDependencyCheckTaskTest {
     task.modulePath = modulePath
     task.moduleCompileClasspath = moduleCompileClasspath
     allowLibraryImplToImplDependencies?.let(task.allowLibraryImplToImplDependencies::set)
+    testCompilation?.let(task.testCompilation::set)
     task.checkDependencies()
   }
 }
