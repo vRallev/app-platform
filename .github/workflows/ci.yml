@@ -174,7 +174,7 @@ jobs:
 
       # Dump and diagnostic goldens remain tied to the repository's pinned compiler version.
       - name: Test
-        run: ./gradlew :metro-extensions:contribute:impl-compiler-plugin:test -PkotlinVersion=${{ matrix.kotlin }} --tests 'software.ralf.app.platform.metro.compiler.runners.BoxTestGenerated*' --stacktrace --show-version
+        run: ./gradlew :metro-extensions:contribute:impl-compiler-plugin:test -Papp.platform.kotlinVersion=${{ matrix.kotlin }} --tests 'software.ralf.app.platform.metro.compiler.runners.BoxTestGenerated*' --stacktrace --show-version
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
