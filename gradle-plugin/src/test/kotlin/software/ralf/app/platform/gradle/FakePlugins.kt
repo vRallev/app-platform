@@ -1,5 +1,7 @@
 package software.ralf.app.platform.gradle
 
+import com.android.build.api.dsl.BuildFeatures
+import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.TestComponent
 import com.android.build.api.variant.Variant
@@ -67,6 +69,14 @@ private fun Project.addSinglePlatformConfigurations() {
 
 @Suppress("CyclomaticComplexMethod")
 private fun Project.addFakeAndroidComponents() {
+  val buildFeatures =
+    fake(BuildFeatures::class.java) { _, method, _ -> method.defaultReturnValue() }
+  val android =
+    fake(CommonExtension::class.java) { _, method, _ ->
+      if (method.name == "getBuildFeatures") buildFeatures else method.defaultReturnValue()
+    }
+  extensions.add(CommonExtension::class.java, "android", android)
+
   val mainCompileClasspath =
     configurations.maybeCreate("debugCompileClasspath").apply {
       extendsFrom(configurations.getByName("implementation"))

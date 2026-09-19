@@ -29,13 +29,6 @@ public open class AndroidAppPlugin : Plugin<Project> {
 
     appPlatformGradlePlugin.enableModuleStructure(true)
     releaseTask.configure { it.dependsOn("checkModuleStructureDependencies") }
-
-    // Android test runtimes inherit strict versions from the app runtime. Align this dependency
-    // with the newer version brought in by the shared robot modules.
-    dependencies.constraints.add(
-      "implementation",
-      libs.findLibrary("androidx.concurrent.futures").get().get().toString(),
-    )
   }
 
   private fun Project.configureKotlin() {

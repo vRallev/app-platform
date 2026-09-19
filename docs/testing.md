@@ -29,6 +29,10 @@ are functioning and tests don’t need to be repeated.
     in a similar way. The sample now uses Metro throughout, while `kotlin-inject-anvil` remains
     available as the alternative path.
 
+For Android app modules, `enableComposeUi(true)` adds a `concurrent-futures` version constraint
+to align the app runtime with App Platform's instrumented-test dependencies. The constraint allows
+newer versions and only applies when the dependency is present.
+
 ## Fakes
 
 Unit tests build the foundation of the testing pyramid. They verify the smallest components of our app, which

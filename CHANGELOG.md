@@ -22,6 +22,7 @@
 
 ### Fixed
 
+- Align `concurrent-futures` for Android Compose apps and instrumented tests automatically.
 - Enforce module structure dependency rules for Android, JVM, and multiplatform test compilations with a per-module opt-out.
 
 ### Security

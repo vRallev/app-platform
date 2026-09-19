@@ -1,6 +1,7 @@
 package software.ralf.app.platform.gradle
 
 import com.google.devtools.ksp.gradle.KspExtension
+import gradle_plugin.BuildConfig.ANDROIDX_CONCURRENT_FUTURES_VERSION
 import gradle_plugin.BuildConfig.ANDROID_COMPOSE_VERSION
 import gradle_plugin.BuildConfig.APP_PLATFORM_GROUP
 import gradle_plugin.BuildConfig.APP_PLATFORM_VERSION
@@ -482,6 +483,12 @@ private fun Project.enableComposeUi() {
 
     if (isAppModule()) {
       dependencies.add("androidTestImplementation", robotComposeDependency)
+      dependencies.constraints.add(
+        "implementation",
+        "androidx.concurrent:concurrent-futures:$ANDROIDX_CONCURRENT_FUTURES_VERSION",
+      ) {
+        it.because("Android test dependencies must use the version selected by the app runtime")
+      }
     }
   }
 }

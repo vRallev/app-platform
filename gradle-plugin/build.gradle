@@ -33,6 +33,7 @@ buildConfig {
     buildConfigField(String, 'APP_PLATFORM_VERSION', property('VERSION_NAME'))
     buildConfigField(String, 'MOLECULE_VERSION', libs.versions.molecule.get())
     buildConfigField(String, 'ANDROID_COMPOSE_VERSION', libs.versions.android.compose.version.get())
+    buildConfigField(String, 'ANDROIDX_CONCURRENT_FUTURES_VERSION', libs.versions.androidx.concurrent.futures.get())
     buildConfigField(String, 'COMPOSE_MULTIPLATFORM_VERSION', libs.versions.compose.multiplatform.get())
 }
 
