@@ -72,6 +72,12 @@ This template demonstrates:
 
 > This runs the desktop Compose app using the JVM target.
 
+## Tests
+
+```bash
+./gradlew desktopTest testAndroidHostTest iosSimulatorArm64Test wasmJsTest
+```
+
 ## Configuration
 
 You can modify app behavior by editing:

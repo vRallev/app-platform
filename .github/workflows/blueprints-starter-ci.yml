@@ -63,8 +63,8 @@ jobs:
         uses: ./.github/actions/setup-action
         with:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - name: Build Android
-        run: ./gradlew :app:android:assembleDebug
+      - name: Build Android and run host tests
+        run: ./gradlew :app:android:assembleDebug testAndroidHostTest
 
   build-desktop-starter-app:
     runs-on: ubuntu-latest
