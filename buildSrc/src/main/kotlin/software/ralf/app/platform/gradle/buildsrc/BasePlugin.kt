@@ -5,8 +5,6 @@ import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
-import org.jetbrains.kotlin.gradle.targets.web.yarn.BaseYarnRootExtension
-import org.jetbrains.kotlin.gradle.targets.web.yarn.CommonYarnPlugin
 import software.ralf.app.platform.gradle.buildsrc.AppPlatformExtension.Companion.appPlatformGradlePlugin
 
 public open class BasePlugin : Plugin<Project> {
@@ -21,7 +19,6 @@ public open class BasePlugin : Plugin<Project> {
     target.addAppPlatformGradlePlugin()
     target.runTestsInHeadlessMode()
     target.configureLogOutput()
-    target.upgradeYarnDependencies()
   }
 
   private fun Project.createReleaseTask() {
@@ -114,22 +111,6 @@ public open class BasePlugin : Plugin<Project> {
         appPlatformGradlePlugin.enableModuleStructure(true)
 
         releaseTask.dependsOn("checkModuleStructureDependencies")
-      }
-    }
-  }
-
-  private fun Project.upgradeYarnDependencies() {
-    plugins.withType(CommonYarnPlugin::class.java).configureEach {
-      with(extensions.getByType(BaseYarnRootExtension::class.java)) {
-        resolution("webpack-dev-server", "5.2.5")
-        resolution("fast-uri", "3.1.2")
-        resolution("picomatch", "2.3.2")
-        resolution("path-to-regexp", "0.1.13")
-        resolution("ws", "8.21.0")
-        resolution("ajv", "8.20.0")
-        resolution("qs", "6.15.2")
-        resolution("http-proxy-middleware", "2.0.10")
-        resolution("uuid", "11.1.1")
       }
     }
   }
