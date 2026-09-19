@@ -8,6 +8,7 @@ import androidx.compose.ui.window.ComposeUIViewController
 import platform.UIKit.UIViewController
 import software.ralf.app.platform.renderer.ComposeRendererFactory
 import software.ralf.app.platform.renderer.Renderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.scope.RootScopeProvider
 import software.ralf.app.platform.scope.di.metro.metroDependencyGraph
 
@@ -42,6 +43,5 @@ fun mainViewController(rootScopeProvider: RootScopeProvider): UIViewController =
     // Render templates using our Renderer runtime.
     val template by templateProvider.templates.collectAsState()
 
-    val renderer = factory.getRenderer(template::class)
-    renderer.renderCompose(template)
+    factory.renderCompose(template)
   }

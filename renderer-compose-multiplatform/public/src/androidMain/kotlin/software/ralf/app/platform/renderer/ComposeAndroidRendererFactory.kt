@@ -56,8 +56,7 @@ public sealed interface ComposeAndroidRendererFactory : RendererFactory {
      *     setContent {
      *         val model by models.collectAsState()
      *
-     *         val renderer = rendererFactory.getComposeRenderer(model)
-     *         renderer.renderCompose(model)
+     *         rendererFactory.renderCompose(model)
      *     }
      * }
      * ```

@@ -4,6 +4,8 @@
 
 ### Added
 
+- Add `RendererFactory.renderCompose()` to look up and render a model in one call, with optional modifier and renderer ID.
+
 ### Changed
 
 ### Deprecated

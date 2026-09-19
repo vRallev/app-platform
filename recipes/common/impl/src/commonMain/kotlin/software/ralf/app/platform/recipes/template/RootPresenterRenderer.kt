@@ -37,7 +37,7 @@ import software.ralf.app.platform.recipes.appbar.AppBarConfig
 import software.ralf.app.platform.renderer.ComposeRenderer
 import software.ralf.app.platform.renderer.Renderer
 import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 
 /**
  * A Compose renderer implementation for templates used in the recipes application.
@@ -63,8 +63,7 @@ class RootPresenterRenderer(
   private fun FullScreen(template: RecipesAppTemplate.FullScreenTemplate) {
     CenterAlignedTopAppBar(template.appBarConfig) {
       Box(modifier = Modifier.padding(it)) {
-        val renderer = rendererFactory.getComposeRenderer(template.model)
-        renderer.renderCompose(template.model)
+        rendererFactory.renderCompose(template.model)
       }
     }
   }

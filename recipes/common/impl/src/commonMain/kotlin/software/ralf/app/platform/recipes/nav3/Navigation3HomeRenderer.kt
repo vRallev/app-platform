@@ -10,7 +10,7 @@ import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackRenderer
 import software.ralf.app.platform.recipes.nav3.Navigation3HomePresenter.Model
 import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 
 /** Renderer that integrates the presenter backstack with Navigation 3. */
 @Inject
@@ -19,6 +19,6 @@ class Navigation3HomeRenderer(private val rendererFactory: RendererFactory) :
   PresenterBackstackRenderer<Model>() {
   @Composable
   override fun ComposeBackstackEntry(model: BaseModel) {
-    rendererFactory.getComposeRenderer(model).renderCompose(model)
+    rendererFactory.renderCompose(model)
   }
 }

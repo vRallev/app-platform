@@ -19,7 +19,7 @@ import software.ralf.app.platform.presenter.compose.backgesture.ForwardBackPress
 import software.ralf.app.platform.renderer.ComposeRenderer
 import software.ralf.app.platform.renderer.Renderer
 import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.sample.template.animation.LocalAnimatedVisibilityScope
 import software.ralf.app.platform.sample.template.animation.LocalSharedTransitionScope
 
@@ -70,18 +70,17 @@ class ComposeSampleAppTemplateRenderer(
 
   @Composable
   private fun FullScreen(template: SampleAppTemplate.FullScreenTemplate) {
-    val renderer = rendererFactory.getComposeRenderer(template.model)
-    renderer.renderCompose(template.model)
+    rendererFactory.renderCompose(template.model)
   }
 
   @Composable
   private fun ListDetail(template: SampleAppTemplate.ListDetailTemplate) {
     Row {
       Column(Modifier.weight(1f)) {
-        rendererFactory.getComposeRenderer(template.list).renderCompose(template.list)
+        rendererFactory.renderCompose(template.list)
       }
       Column(Modifier.weight(2f)) {
-        rendererFactory.getComposeRenderer(template.detail).renderCompose(template.detail)
+        rendererFactory.renderCompose(template.detail)
       }
     }
   }

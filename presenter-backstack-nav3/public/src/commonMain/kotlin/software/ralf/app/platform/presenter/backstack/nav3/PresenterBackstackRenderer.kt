@@ -33,7 +33,7 @@ import software.ralf.app.platform.renderer.ComposeRenderer
  * ) : PresenterBackstackRenderer<MyBackstackModel>() {
  *   @Composable
  *   override fun ComposeBackstackEntry(model: BaseModel) {
- *     rendererFactory.getComposeRenderer(model).renderCompose(model)
+ *     rendererFactory.renderCompose(model)
  *   }
  * }
  * ```
@@ -119,7 +119,7 @@ public abstract class PresenterBackstackRenderer<in ModelT : PresenterBackstackM
    * ```kotlin
    * @Composable
    * override fun ComposeBackstackEntry(model: BaseModel) {
-   *   rendererFactory.getComposeRenderer(model).renderCompose(model)
+   *   rendererFactory.renderCompose(model)
    * }
    * ```
    */

@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesTo
 import software.ralf.app.platform.renderer.ComposeRendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.scope.RootScopeProvider
 import software.ralf.app.platform.scope.Scope
 import software.ralf.app.platform.scope.di.metro.metroDependencyGraph
@@ -35,8 +35,7 @@ class DesktopApp(private val graph: (RootScopeProvider) -> AppGraph) : RootScope
 
     val factory = remember { ComposeRendererFactory(demoApplication) }
 
-    val renderer = factory.getComposeRenderer(template)
-    renderer.renderCompose(template)
+    factory.renderCompose(template)
   }
 
   /** Cancels and releases all resources. */

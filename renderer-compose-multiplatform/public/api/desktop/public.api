@@ -35,6 +35,7 @@ public final class software/ralf/app/platform/renderer/ComposeRendererFactoryKt 
 	public static final fun getComposeRenderer (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lsoftware/ralf/app/platform/presenter/BaseModel;I)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
 	public static synthetic fun getComposeRenderer$default (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lkotlin/reflect/KClass;IILjava/lang/Object;)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
 	public static synthetic fun getComposeRenderer$default (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lsoftware/ralf/app/platform/presenter/BaseModel;IILjava/lang/Object;)Lsoftware/ralf/app/platform/renderer/BaseComposeRenderer;
+	public static final fun renderCompose (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;ILandroidx/compose/runtime/Composer;II)V
 }
 
 public final class software/ralf/app/platform/renderer/text/PresenterBackedTextFieldStateKt {

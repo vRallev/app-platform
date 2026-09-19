@@ -110,7 +110,7 @@ class ComposeAndroidRendererFactoryDeviceTest {
       activity.setContent {
         val composeModel = composeModels.collectAsState().value
         if (composeModel != null) {
-          factory.getComposeRenderer(composeModel).renderCompose(composeModel)
+          factory.renderCompose(composeModel)
         }
       }
     }
@@ -147,7 +147,7 @@ class ComposeAndroidRendererFactoryDeviceTest {
       activity.setContent {
         val viewModel = viewModels.collectAsState().value
         if (viewModel != null) {
-          factory.getComposeRenderer(viewModel).renderCompose(viewModel)
+          factory.renderCompose(viewModel)
         }
       }
     }
@@ -252,7 +252,7 @@ class ComposeAndroidRendererFactoryDeviceTest {
       activity.setContent {
         val composeModel = composeModels.collectAsState().value
         if (composeModel != null) {
-          factory.getComposeRenderer(composeModel).renderCompose(composeModel)
+          factory.renderCompose(composeModel)
         }
       }
     }
@@ -410,13 +410,11 @@ class ComposeAndroidRendererFactoryDeviceTest {
         BasicText(text = "Compose test: ${model.value}", modifier = Modifier.testTag("testCompose"))
 
         if (model.viewModel != null) {
-          val renderer = rendererFactory.getComposeRenderer(model.viewModel)
-          renderer.renderCompose(model.viewModel)
+          rendererFactory.renderCompose(model.viewModel)
         }
 
         if (model.composeModel != null) {
-          val renderer = rendererFactory.getComposeRenderer(model.composeModel, rendererId = 1)
-          renderer.renderCompose(model.composeModel)
+          rendererFactory.renderCompose(model.composeModel, rendererId = 1)
         }
       }
     }

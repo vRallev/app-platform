@@ -1,5 +1,7 @@
 package software.ralf.app.platform.renderer
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import kotlin.reflect.KClass
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.scope.RootScopeProvider
@@ -71,6 +73,21 @@ public fun <T : BaseModel> RendererFactory.getComposeRenderer(
   model: T,
   rendererId: Int = 0,
 ): BaseComposeRenderer<T> = getComposeRenderer(model::class, rendererId)
+
+/**
+ * Renders [model] with the cached [BaseComposeRenderer] from this factory.
+ *
+ * Use a distinct [rendererId] to cache separate renderers for the same model type.
+ */
+@Suppress("ComposableNaming")
+@Composable
+public fun <T : BaseModel> RendererFactory.renderCompose(
+  model: T,
+  modifier: Modifier = Modifier,
+  rendererId: Int = 0,
+) {
+  getComposeRenderer(model, rendererId).renderCompose(model, modifier)
+}
 
 private fun <T : BaseModel> Renderer<T>.asBaseComposeRenderer(): BaseComposeRenderer<T> {
   check(this is BaseComposeRenderer<*>) {

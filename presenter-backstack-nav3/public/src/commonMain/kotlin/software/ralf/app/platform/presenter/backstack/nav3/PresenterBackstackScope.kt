@@ -134,9 +134,7 @@ public fun CompositionLocal<PresenterBackstackScope?>.requireNotNull(): Presente
  * ) : ComposeRenderer<WelcomePresenter.Model>() {
  *   @Composable
  *   override fun Compose(model: WelcomePresenter.Model, modifier: Modifier) {
- *     rendererFactory
- *       .getComposeRenderer(model.contentModel)
- *       .renderCompose(model.contentModel, modifier)
+ *     rendererFactory.renderCompose(model.contentModel, modifier)
  *   }
  * }
  * ```

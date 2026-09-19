@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import software.amazon.lastmile.kotlin.inject.anvil.AppScope
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesTo
 import software.ralf.app.platform.renderer.ComposeRendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.scope.RootScopeProvider
 import software.ralf.app.platform.scope.Scope
 import software.ralf.app.platform.scope.di.kotlinInjectComponent
@@ -33,8 +33,7 @@ class DesktopApp(private val component: (RootScopeProvider) -> AppComponent) : R
 
     val factory = remember { ComposeRendererFactory(demoApplication) }
 
-    val renderer = factory.getComposeRenderer(template)
-    renderer.renderCompose(template)
+    factory.renderCompose(template)
   }
 
   /** Cancels and releases all resources. */

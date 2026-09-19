@@ -264,6 +264,9 @@ Based on a `Model` instance or `Model` type a `RendererFactory` can create a new
 `getRenderer()` function creates a `Renderer` only once and caches the instance after that. This makes the caller side
 simpler. Whenever a new `Model` is available get the `Renderer` for the `Model` and render the content on screen.
 
+`RendererFactory.renderCompose(model, modifier, rendererId)` looks up the cached Compose renderer and renders the model.
+Both `modifier` and `rendererId` are optional. Use a distinct `rendererId` for a separate cached renderer.
+
 ```kotlin title="iOS Compose Multiplatform"
 fun mainViewController(rootScopeProvider: RootScopeProvider): UIViewController =
   ComposeUIViewController {
@@ -272,8 +275,7 @@ fun mainViewController(rootScopeProvider: RootScopeProvider): UIViewController =
 
     val model = presenter.present(Unit)
 
-    val renderer = factory.getComposeRenderer(model)
-    renderer.renderCompose(model, modifier = Modifier.fillMaxSize())
+    rendererFactory.renderCompose(model, modifier = Modifier.fillMaxSize())
   }
 ```
 
@@ -321,8 +323,7 @@ class SampleRenderer(
   @Composable
   override fun Compose(model: Model, modifier: Modifier) {
     Column(modifier = modifier) {
-      val childRenderer = rendererFactory.getComposeRenderer(model.childModel)
-      childRenderer.renderCompose(model.childModel)
+      rendererFactory.renderCompose(model.childModel)
     }
   }
 }

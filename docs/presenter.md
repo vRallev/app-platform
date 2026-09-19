@@ -925,7 +925,7 @@ class CrossSlideBackstackRenderer(
 ) : PresenterBackstackRenderer<CrossSlideBackstackPresenter.Model>() {
   @Composable
   override fun ComposeBackstackEntry(model: BaseModel) {
-    rendererFactory.getComposeRenderer(model).renderCompose(model)
+    rendererFactory.renderCompose(model)
   }
 }
 ```
@@ -1185,7 +1185,7 @@ class Navigation3HomeRenderer(
 ) : PresenterBackstackRenderer<Navigation3HomePresenter.Model>() {
   @Composable
   override fun ComposeBackstackEntry(model: BaseModel) {
-    rendererFactory.getComposeRenderer(model).renderCompose(model)
+    rendererFactory.renderCompose(model)
   }
 }
 ```
@@ -1220,11 +1220,11 @@ the renderer-level navigation container and back gesture integration.
             entryProvider {
               entry<List> {
                 val model = listPresenter.present(Unit)
-                rendererFactory.getComposeRenderer(model).renderCompose(model)
+                rendererFactory.renderCompose(model)
               }
               entry<Detail> {
                 val model = detailPresenter.present(Unit)
-                rendererFactory.getComposeRenderer(model).renderCompose(model)
+                rendererFactory.renderCompose(model)
               }
             },
         )

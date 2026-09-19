@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import software.ralf.app.platform.renderer.ComposeAndroidRendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.scope.RootScopeProvider
 
 /**
@@ -32,8 +32,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       val template by viewModel.templates.collectAsState()
 
-      val renderer = rendererFactory.getComposeRenderer(template)
-      renderer.renderCompose(template)
+      rendererFactory.renderCompose(template)
     }
   }
 }

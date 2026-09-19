@@ -67,7 +67,7 @@ class PageRenderer(
   @Composable
   override fun Compose(model: PagePresenter.Model, modifier: Modifier) {
     Box(modifier = modifier) {
-      rendererFactory.getComposeRenderer(model.content).renderCompose(model.content)
+      rendererFactory.renderCompose(model.content)
     }
   }
 }
@@ -101,7 +101,7 @@ class AppTemplateRenderer(
 
   @Composable
   private fun Render(model: BaseModel, modifier: Modifier = Modifier) {
-    rendererFactory.getComposeRenderer(model).renderCompose(model, modifier)
+    rendererFactory.renderCompose(model, modifier)
   }
 }
 ```
@@ -112,7 +112,7 @@ Templates use the normal rendering pipeline. Keep one renderer factory for the h
 
 ```kotlin
 val template by templates.collectAsState()
-rendererFactory.getComposeRenderer(template).renderCompose(template)
+rendererFactory.renderCompose(template)
 ```
 
 With App Platform's module structure, put template renderers in `:impl` and platform-specific renderers in their target source sets. Keep renderer factory construction and implementation selection at app assembly.

@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import software.amazon.lastmile.kotlin.inject.anvil.AppScope
 import software.amazon.lastmile.kotlin.inject.anvil.ContributesTo
 import software.ralf.app.platform.renderer.ComposeRendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.scope.RootScopeProvider
 import software.ralf.app.platform.scope.Scope
 import software.ralf.app.platform.scope.di.kotlinInjectComponent
@@ -29,7 +29,7 @@ class WasmJsApp(private val component: (RootScopeProvider) -> AppComponent) : Ro
     val template by templateProvider.templates.collectAsState()
     val rendererFactory = remember { ComposeRendererFactory(demoApplication) }
 
-    rendererFactory.getComposeRenderer(template).renderCompose(template)
+    rendererFactory.renderCompose(template)
   }
 
   /** Releases presenter and application resources. */

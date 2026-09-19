@@ -101,18 +101,17 @@ class ComposeSampleAppTemplateRenderer(
 
   @Composable
   private fun FullScreen(template: SampleAppTemplate.FullScreenTemplate) {
-    val renderer = rendererFactory.getComposeRenderer(template.model)
-    renderer.renderCompose(template.model)
+    rendererFactory.renderCompose(template.model)
   }
 
   @Composable
   private fun ListDetail(template: SampleAppTemplate.ListDetailTemplate) {
     Row {
       Column {
-        rendererFactory.getComposeRenderer(template.list).renderCompose(template.list)
+        rendererFactory.renderCompose(template.list)
       }
       Column {
-        rendererFactory.getComposeRenderer(template.detail).renderCompose(template.detail)
+        rendererFactory.renderCompose(template.detail)
       }
     }
   }
@@ -135,7 +134,7 @@ fun mainViewController(rootScopeProvider: RootScopeProvider): UIViewController =
     }
 
     val template = templatePresenter.present(Unit)
-    factory.getComposeRenderer(template).renderCompose(template)
+    factory.renderCompose(template)
   }
 
 @ContributesTo(AppScope::class)
