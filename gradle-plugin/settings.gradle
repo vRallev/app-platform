@@ -24,3 +24,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = 'gradle-plugin'
+
+include 'module-structure'
+include 'plugin'

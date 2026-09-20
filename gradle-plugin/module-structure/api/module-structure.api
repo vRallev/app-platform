@@ -1,0 +1,25 @@
+public final class software/ralf/app/platform/gradle/ModuleType : java/lang/Enum {
+	public static final field APP Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field IMPL Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field IMPL_ROBOTS Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field INTERNAL Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field INTERNAL_ROBOTS Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field PUBLIC Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field PUBLIC_ROBOTS Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field TESTING Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static final field UNKNOWN Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getUseTestDependenciesInMain ()Z
+	public final fun isRobotsModule ()Z
+	public static fun valueOf (Ljava/lang/String;)Lsoftware/ralf/app/platform/gradle/ModuleType;
+	public static fun values ()[Lsoftware/ralf/app/platform/gradle/ModuleType;
+}
+
+public final class software/ralf/app/platform/gradle/ModuleTypeFromArtifactIdKt {
+	public static final fun moduleTypeFromArtifactId (Ljava/lang/String;)Lsoftware/ralf/app/platform/gradle/ModuleType;
+}
+
+public final class software/ralf/app/platform/gradle/ModuleTypeFromProjectPathKt {
+	public static final fun moduleTypeFromProjectPath (Ljava/lang/String;)Lsoftware/ralf/app/platform/gradle/ModuleType;
+}
+

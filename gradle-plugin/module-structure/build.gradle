@@ -1,0 +1,54 @@
+plugins {
+    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.maven.publish
+    alias libs.plugins.detekt
+}
+
+mavenPublishing {
+    pom {
+        name = "App Platform Module Structure"
+    }
+}
+
+dependencies {
+    testImplementation libs.assertk
+    testImplementation libs.kotlin.test.junit5
+}
+
+test {
+    useJUnitPlatform()
+}
+
+java {
+    sourceCompatibility = libs.versions.jvm.gradle.plugin.get()
+    targetCompatibility = libs.versions.jvm.gradle.plugin.get()
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(libs.versions.jvm.gradle.plugin.get()))
+        allWarningsAsErrors.set(true)
+    }
+
+    explicitApi()
+}
+
+tasks.withType(dev.detekt.gradle.Detekt).configureEach {
+    it.jvmTarget.set(libs.versions.jvm.gradle.plugin.get())
+    it.setSource(layout.files("src"))
+}
+
+//noinspection UnnecessaryQualifiedReference
+tasks.withType(dev.detekt.gradle.DetektCreateBaselineTask).configureEach {
+    it.jvmTarget.set(libs.versions.jvm.gradle.plugin.get())
+    it.setSource(layout.files("src"))
+}
+
+detekt {
+    config.from(rootProject.file('../gradle/detekt-config.yml'))
+    buildUponDefaultConfig.set(true)
+}
+
+tasks.register('release') {
+    dependsOn('build', 'check', 'detekt', 'apiCheck')
+}

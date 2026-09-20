@@ -5,6 +5,7 @@
 ### Added
 
 - Add `RendererFactory.renderCompose()` to look up and render a model in one call, with optional modifier and renderer ID.
+- Publish module classification APIs in `software.ralf.app.platform:module-structure`.
 
 ### Changed
 

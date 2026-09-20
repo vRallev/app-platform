@@ -1,6 +1,6 @@
 includeBuild('../gradle-plugin') {
     dependencySubstitution {
-        substitute module("$GROUP:gradle-plugin") using project(':')
+        substitute module("$GROUP:gradle-plugin") using project(':plugin')
     }
 }
 
