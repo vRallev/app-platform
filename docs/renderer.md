@@ -83,27 +83,20 @@ class LoginRenderer : ViewRenderer<Model>() {
 this value to their root composable, matching the usual Compose convention for UI-emitting functions. This lets parents
 and platform entrypoints attach layout, testing, accessibility, or pointer-input behavior at the renderer boundary.
 
-Renderers are composable and can build hierarchies similar to `Presenters`. The parent renderer is responsible for
-calling `render()` on the child renderer:
+Renderers can build hierarchies similar to `Presenters`. In Compose, a parent renderer calls `Render()`
+to look up the renderer for a child model and render it:
 
 ```kotlin
-data class ParentModel(
-  val childModel: ChildModel
-): BaseModel
+data class ParentModel(val childModel: ChildModel) : BaseModel
 
-class ParentRenderer(
-  private val childRenderer: ChildRenderer
-): Renderer<ParentModel> {
-  override fun render(model: ParentModel) {
-    childRenderer.render(model.childModel)
+@ContributesRenderer
+class ParentRenderer : ComposeRenderer<ParentModel>() {
+  @Composable
+  override fun Compose(model: ParentModel, modifier: Modifier) {
+    Render(model.childModel, modifier = modifier)
   }
 }
 ```
-
-!!! note
-
-    Injecting concrete child `Renderers` is possible, but less common. More frequently `RendererFactory` is injected
-    to obtain a `Renderer` instance for a `Model`.
 
 A `Renderer` sends events back to the `Presenter` through the `onEvent` lambda on a Model.
 
@@ -324,25 +317,35 @@ class SampleRenderer : ComposeRenderer<Model>() {
 }
 ```
 
-`ComposeRendererFactory` and `ComposeAndroidRendererFactory` provide `LocalRendererFactory` when a
-renderer enters a composition. Nested renderers inherit it. Existing root calls such as
-`rendererFactory.renderCompose(model)` need no extra setup. `Render(model, modifier, rendererId)`
-uses the factory's existing cache.
+`Render()` uses `LocalRendererFactory`, which `ComposeRendererFactory` and `ComposeAndroidRendererFactory`
+provide automatically.
 
-`LocalRendererFactory.current` is `null` outside a renderer tree. Tests, previews, and directly
-constructed or directly injected renderers can provide a factory explicitly:
+Android View renderers inject `RendererFactory` through their constructor and pass the child's container
+to `getRenderer()`:
 
 ```kotlin
-CompositionLocalProvider(LocalRendererFactory provides testFactory) {
-  renderer.renderCompose(model)
+@ContributesRenderer
+class ParentViewRenderer(
+  private val rendererFactory: RendererFactory,
+) : ViewRenderer<ParentModel>() {
+  private lateinit var childContainer: FrameLayout
+
+  override fun inflate(
+    activity: Activity,
+    parent: ViewGroup,
+    layoutInflater: LayoutInflater,
+    initialModel: ParentModel,
+  ): View {
+    return FrameLayout(activity).also { childContainer = it }
+  }
+
+  override fun renderModel(model: ParentModel) {
+    val renderer = rendererFactory.getRenderer(model.childModel::class, childContainer)
+    renderer.render(model.childModel)
+  }
 }
 ```
 
-An existing local takes precedence over a renderer's factory. Separate renderer trees have separate
-factories. Manually constructed leaf renderers need no factory; `Render()` reports an error if none
-is available.
-
-Constructor injection of `RendererFactory` remains supported, including for Android View renderers.
 A renderer with a single constructor does not need `@Inject`.
 
 ## Android support
