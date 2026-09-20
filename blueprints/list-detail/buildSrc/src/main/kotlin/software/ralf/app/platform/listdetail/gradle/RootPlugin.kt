@@ -7,10 +7,12 @@ import software.ralf.app.platform.gradle.AppPlatformExtension
 public open class RootPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     target.plugins.apply(BasePlugin::class.java)
-    target.plugins.apply(Plugins.APP_PLATFORM)
-    target.extensions
-      .getByType(AppPlatformExtension::class.java)
-      .enableModuleStructureNestingCheck(true)
-    target.releaseTask.configure { it.dependsOn("checkModuleStructureNesting") }
+    target.configureAppPlatform()
+  }
+
+  private fun Project.configureAppPlatform() {
+    plugins.apply(Plugins.APP_PLATFORM)
+    extensions.getByType(AppPlatformExtension::class.java).enableModuleStructureNestingCheck(true)
+    releaseTask.configure { it.dependsOn("checkModuleStructureNesting") }
   }
 }
