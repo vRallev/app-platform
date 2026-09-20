@@ -58,6 +58,8 @@ class ComposeAndroidRendererFactoryTest {
           object : RendererGraph.Factory {
             override fun createRendererGraph(factory: RendererFactory): RendererGraph {
               return object : RendererGraph {
+                override val rendererFactory: RendererFactory = factory
+
                 override val renderers: Map<KClass<out BaseModel>, () -> Renderer<*>> =
                   mapOf(
                     ComposeModel::class to { TestComposeRenderer() },

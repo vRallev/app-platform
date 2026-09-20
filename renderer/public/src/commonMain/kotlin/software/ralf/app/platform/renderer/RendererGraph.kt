@@ -14,6 +14,9 @@ import software.ralf.app.platform.presenter.BaseModel
 @GraphExtension(RendererScope::class)
 @SingleIn(RendererScope::class)
 public interface RendererGraph {
+  /** The factory that created this graph. */
+  public val rendererFactory: RendererFactory
+
   /** All [Renderer]s provided in the dependency graph. */
   @Multibinds(allowEmpty = true) public val renderers: Map<KClass<out BaseModel>, () -> Renderer<*>>
 

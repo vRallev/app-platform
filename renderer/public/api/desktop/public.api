@@ -35,6 +35,7 @@ public final class software/ralf/app/platform/renderer/RendererFactoryKt {
 
 public abstract interface class software/ralf/app/platform/renderer/RendererGraph {
 	public abstract fun getModelToRendererMapping ()Ljava/util/Map;
+	public abstract fun getRendererFactory ()Lsoftware/ralf/app/platform/renderer/RendererFactory;
 	public abstract fun getRenderers ()Ljava/util/Map;
 }
 

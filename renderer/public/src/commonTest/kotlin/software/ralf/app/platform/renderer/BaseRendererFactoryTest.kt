@@ -169,6 +169,8 @@ class BaseRendererFactoryTest {
                 object : RendererGraph.Factory {
                   override fun createRendererGraph(factory: RendererFactory): RendererGraph =
                     object : RendererGraph {
+                      override val rendererFactory: RendererFactory = factory
+
                       override val renderers: Map<KClass<out BaseModel>, () -> Renderer<*>> =
                         metroRenderers
                       override val modelToRendererMapping:

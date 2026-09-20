@@ -451,11 +451,15 @@ class ComposeAndroidRendererFactoryDeviceTest {
     }
   }
 
-  private inner class TestRendererGraph(private val rendererFactory: () -> RendererFactory) :
-    RendererGraph {
+  private inner class TestRendererGraph(
+    private val rendererFactoryProvider: () -> RendererFactory
+  ) : RendererGraph {
+    override val rendererFactory: RendererFactory
+      get() = rendererFactoryProvider()
+
     override val renderers: Map<KClass<out BaseModel>, () -> Renderer<*>> =
       mapOf(
-        ViewModel::class to { TestViewRenderer(rendererFactory()) },
+        ViewModel::class to { TestViewRenderer(rendererFactory) },
         ComposeModel::class to { TestComposeRenderer() },
       )
     override val modelToRendererMapping: Map<KClass<out BaseModel>, KClass<out Renderer<*>>> =
