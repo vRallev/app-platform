@@ -12,26 +12,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import dev.zacsweers.metro.Inject
 import org.jetbrains.compose.resources.stringResource
 import software.ralf.app.platform.inject.ContributesRenderer
 import software.ralf.app.platform.listdetail.list.detail.`impl`.generated.resources.Res
 import software.ralf.app.platform.listdetail.list.detail.`impl`.generated.resources.no_characters_available
 import software.ralf.app.platform.listdetail.theme.AppTheme
 import software.ralf.app.platform.renderer.ComposeRenderer
-import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.Render
 
 /**
  * Two-pane renderer with a fixed-width list and flexible detail pane.
  *
- * Child models are rendered through [RendererFactory], keeping this layout independent of their
- * concrete Compose renderers.
+ * Child models are rendered with [Render], keeping this layout independent of their concrete
+ * Compose renderers.
  */
-@Inject
 @ContributesRenderer
-class TabletListDetailRenderer(private val rendererFactory: RendererFactory) :
-  ComposeRenderer<TabletListDetailPresenter.Model>() {
+class TabletListDetailRenderer : ComposeRenderer<TabletListDetailPresenter.Model>() {
   @Composable
   override fun Compose(model: TabletListDetailPresenter.Model, modifier: Modifier) {
     Row(modifier.fillMaxSize().testTag("tabletListDetail")) {
@@ -39,9 +35,7 @@ class TabletListDetailRenderer(private val rendererFactory: RendererFactory) :
         modifier = Modifier.width(384.dp).fillMaxSize(),
         color = AppTheme.colorScheme.surface,
       ) {
-        rendererFactory
-          .getComposeRenderer(model.listModel)
-          .renderCompose(model.listModel, Modifier.fillMaxSize())
+        Render(model.listModel, Modifier.fillMaxSize())
       }
       VerticalDivider()
       Box(Modifier.weight(1f).fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -53,9 +47,7 @@ class TabletListDetailRenderer(private val rendererFactory: RendererFactory) :
               style = AppTheme.typography.bodyLarge,
             )
           is TabletListDetailPresenter.Model.Content ->
-            rendererFactory
-              .getComposeRenderer(model.detailModel)
-              .renderCompose(model.detailModel, Modifier.fillMaxSize())
+            Render(model.detailModel, Modifier.fillMaxSize())
         }
       }
     }

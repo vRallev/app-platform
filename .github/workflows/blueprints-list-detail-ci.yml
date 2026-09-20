@@ -50,7 +50,7 @@ jobs:
         with:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - name: Check module boundaries
-        run: ./gradlew checkModuleStructureDependencies
+        run: ./gradlew checkModuleStructureDependencies checkModuleStructureNesting
 
   detekt:
     runs-on: ubuntu-latest

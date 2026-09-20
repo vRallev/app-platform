@@ -12,7 +12,7 @@ This template demonstrates:
 - Scoped dependency injection using Metro graphs, `@ContributesBinding`, `@SingleIn`, `@ContributesScoped`, and `@ContributesRenderer`
 - Reactive state with `StateFlow`
 - Compose UI for Android, Desktop, and WASM
-- Modular code structure for feature separation
+- Modular code structure with dependency and nesting checks
 
 ## Features
 
@@ -20,6 +20,8 @@ This template demonstrates:
 - `ExampleValueGenerator`: A scoped class that updates the repository with random values every 3 seconds
 - `NavigationHeaderPresenter` and `NavigationDetailPresenter`: Compose presenters driving the top bar and content UI
 - `NavigationHeaderRenderer` and `NavigationDetailRenderer`: A ComposeRenderer showing example state
+
+Platform entry points call `RendererFactory.renderCompose()`. Parent renderers use `Render()` to render child models through the automatically provided `LocalRendererFactory`.
 
 ## Modules
 
@@ -76,6 +78,7 @@ This template demonstrates:
 
 ```bash
 ./gradlew desktopTest testAndroidHostTest iosSimulatorArm64Test wasmJsTest
+./gradlew checkModuleStructureDependencies checkModuleStructureNesting
 ```
 
 ## Configuration

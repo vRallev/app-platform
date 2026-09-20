@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import software.ralf.app.platform.renderer.ComposeAndroidRendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.scope.RootScopeProvider
 
 /** Android entry point that renders the shared template stream. */
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       val template by viewModel.templates.collectAsState()
-      rendererFactory.getComposeRenderer(template).renderCompose(template)
+      rendererFactory.renderCompose(template)
     }
   }
 }

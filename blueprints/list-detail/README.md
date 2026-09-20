@@ -89,7 +89,8 @@ where implementations meet.
 | `buildSrc` | Convention plugins for targets, dependencies, formatting, Detekt, packaging, and module checks |
 
 Only application modules should assemble concrete `impl` modules. The
-`checkModuleStructureDependencies` task verifies these boundaries.
+`checkModuleStructureDependencies` task verifies these boundaries, and `checkModuleStructureNesting`
+rejects libraries nested inside other libraries.
 
 ## Presenter composition
 
@@ -170,8 +171,7 @@ Selecting a row performs two actions:
 2. Push an assisted `CharacterDetailPresenter` with `showBackButton = true`.
 
 The system back gesture and detail toolbar button both pop the backstack. The phone model delegates
-to `DefaultBackstackModel`, and `DefaultBackstackRenderer` renders each Navigation 3 entry through
-`RendererFactory`.
+to `DefaultBackstackModel`, and `DefaultBackstackRenderer` renders each Navigation 3 entry with `Render()`.
 
 ### Tablet landscape presentation
 
@@ -198,8 +198,9 @@ the phone presentation.
 ## Rendering and themes
 
 Concrete renderers use `@ContributesRenderer`, allowing Metro to register them with App Platform's
-`RendererFactory`. Parent renderers accept `BaseModel` children and resolve their renderers at
-runtime. This is used by the app template, presenter backstack, and tablet split layout.
+`RendererFactory`. Platform entry points call `RendererFactory.renderCompose()`, which supplies
+`LocalRendererFactory` automatically. The app template, presenter backstack, and tablet split layout
+use `Render()` for `BaseModel` children without injecting a factory.
 
 `ComposeAppTemplateRenderer` owns application-wide rendering concerns:
 
@@ -265,7 +266,7 @@ AnimatedContent(targetState = model.content) { content ->
   CompositionLocalProvider(
     LocalAnimatedVisibilityScope provides this,
   ) {
-    rendererFactory.getComposeRenderer(content).renderCompose(content)
+    Render(content)
   }
 }
 ```
@@ -415,8 +416,7 @@ architectural layer.
 - Keep integration-test classes in their platform app source sets; share robot operations rather
   than complete test scenarios.
 - Put localized text and feature images in `commonMain/composeResources`.
-- Add a new renderer with `@ContributesRenderer`; resolve polymorphic children through
-  `RendererFactory`.
+- Add a new renderer with `@ContributesRenderer`; render polymorphic children with `Render()`.
 - Let the nearest parent presenter translate a child model callback into navigation or state
   changes.
 - Add another adaptive presentation behind `ListDetailPresenterImpl` rather than teaching leaf
@@ -497,7 +497,7 @@ Select an iOS simulator and run the `iosApp` scheme. The Xcode build phase build
 ```bash
 ./gradlew -p buildSrc release
 ./gradlew detekt
-./gradlew checkModuleStructureDependencies
+./gradlew checkModuleStructureDependencies checkModuleStructureNesting
 ./gradlew testDebugUnitTest testAndroidHostTest desktopTest wasmJsTest
 ./gradlew :app:desktop:desktopTest
 ./gradlew :app:android:emulatorCheck

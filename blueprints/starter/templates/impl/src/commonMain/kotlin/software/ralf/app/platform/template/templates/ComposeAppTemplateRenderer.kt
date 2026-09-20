@@ -10,23 +10,18 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import dev.zacsweers.metro.Inject
 import software.ralf.app.platform.inject.ContributesRenderer
 import software.ralf.app.platform.renderer.ComposeRenderer
-import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.Render
 
 /**
  * A Compose renderer implementation for templates used in the sample application.
  *
- * [rendererFactory] is used to get the [software.ralf.app.platform.renderer.Renderer] for the
- * [software.ralf.app.platform.presenter.BaseModel] wrapped in the template.
+ * [Render] resolves child renderers from the factory provided by the platform entry point.
  */
 @OptIn(ExperimentalSharedTransitionApi::class)
-@Inject
 @ContributesRenderer
-class ComposeAppTemplateRenderer(private val rendererFactory: RendererFactory) :
-  ComposeRenderer<AppTemplate>() {
+class ComposeAppTemplateRenderer : ComposeRenderer<AppTemplate>() {
   @Composable
   override fun Compose(model: AppTemplate, modifier: Modifier) {
     MaterialTheme {
@@ -41,18 +36,17 @@ class ComposeAppTemplateRenderer(private val rendererFactory: RendererFactory) :
 
   @Composable
   private fun FullScreen(template: AppTemplate.FullScreenTemplate) {
-    val renderer = rendererFactory.getComposeRenderer(template.model)
-    renderer.renderCompose(template.model)
+    Render(template.model)
   }
 
   @Composable
   private fun HeaderDetail(template: AppTemplate.HeaderDetailTemplate) {
     Column {
       Row(Modifier.Companion.weight(1f)) {
-        rendererFactory.getComposeRenderer(template.header).renderCompose(template.header)
+        Render(template.header)
       }
       Row(Modifier.Companion.weight(5f)) {
-        rendererFactory.getComposeRenderer(template.detail).renderCompose(template.detail)
+        Render(template.detail)
       }
     }
   }

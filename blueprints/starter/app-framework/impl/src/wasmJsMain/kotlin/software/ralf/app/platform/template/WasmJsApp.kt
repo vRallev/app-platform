@@ -5,7 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import software.ralf.app.platform.renderer.ComposeRendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.scope.RootScopeProvider
 import software.ralf.app.platform.scope.Scope
 import software.ralf.app.platform.scope.di.metro.metroDependencyGraph
@@ -28,7 +28,7 @@ class WasmJsApp(private val graph: (RootScopeProvider) -> AppGraph) : RootScopeP
     val template by templateProvider.templates.collectAsState()
     val rendererFactory = remember { ComposeRendererFactory(application) }
 
-    rendererFactory.getComposeRenderer(template).renderCompose(template)
+    rendererFactory.renderCompose(template)
   }
 
   /** Releases presenter and application resources. */

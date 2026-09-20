@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.window.ComposeUIViewController
 import platform.UIKit.UIViewController
 import software.ralf.app.platform.renderer.ComposeRendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.renderCompose
 import software.ralf.app.platform.scope.RootScopeProvider
 import software.ralf.app.platform.scope.di.metro.metroDependencyGraph
 
@@ -27,5 +27,5 @@ fun mainViewController(rootScopeProvider: RootScopeProvider): UIViewController =
     val rendererFactory = remember { ComposeRendererFactory(rootScopeProvider) }
     val template by templateProvider.templates.collectAsState()
 
-    rendererFactory.getComposeRenderer(template).renderCompose(template)
+    rendererFactory.renderCompose(template)
   }

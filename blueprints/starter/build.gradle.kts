@@ -7,3 +7,5 @@ plugins {
   alias(libs.plugins.metro) apply false
   alias(libs.plugins.appPlatform)
 }
+
+appPlatform { enableModuleStructureNestingCheck(true) }

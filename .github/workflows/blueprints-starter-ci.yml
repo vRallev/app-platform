@@ -78,5 +78,7 @@ jobs:
         uses: ./.github/actions/setup-action
         with:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Check module boundaries
+        run: ./gradlew checkModuleStructureDependencies checkModuleStructureNesting
       - name: Build Desktop binary
         run: ./gradlew :app:desktop:desktopMainClasses

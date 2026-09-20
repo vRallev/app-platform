@@ -30,8 +30,7 @@ import software.ralf.app.platform.listdetail.theme.ListDetailTheme
 import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
 import software.ralf.app.platform.presenter.compose.backgesture.ForwardBackPressEventsToPresenters
 import software.ralf.app.platform.renderer.ComposeRenderer
-import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.getComposeRenderer
+import software.ralf.app.platform.renderer.Render
 
 /**
  * Compose renderer for the application's outer template layer.
@@ -43,7 +42,6 @@ import software.ralf.app.platform.renderer.getComposeRenderer
 @Inject
 @ContributesRenderer
 class ComposeAppTemplateRenderer(
-  private val rendererFactory: RendererFactory,
   private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
   private val screenSizeProvider: DefaultScreenSizeProvider,
 ) : ComposeRenderer<AppTemplate>() {
@@ -87,9 +85,7 @@ class ComposeAppTemplateRenderer(
     when (template) {
       is AppTemplate.FullScreenTemplate -> {
         Box(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
-          rendererFactory
-            .getComposeRenderer(template.model)
-            .renderCompose(template.model, Modifier.fillMaxSize())
+          Render(template.model, Modifier.fillMaxSize())
         }
       }
     }
