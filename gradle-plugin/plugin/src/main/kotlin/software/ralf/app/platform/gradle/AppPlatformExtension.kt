@@ -18,6 +18,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.NATIVE_COMPILER_PLUGIN_CLASSPATH_CONFIGURATION_NAME
 import org.jetbrains.kotlin.gradle.plugin.PLUGIN_CLASSPATH_CONFIGURATION_NAME
+import software.ralf.app.platform.gradle.ModuleStructureNestingCheckTask.Companion.registerModuleStructureNestingCheckTask
 import software.ralf.app.platform.gradle.ModuleStructurePlugin.Companion.testingSourceSets
 
 /**
@@ -35,6 +36,11 @@ import software.ralf.app.platform.gradle.ModuleStructurePlugin.Companion.testing
  *     enableTestDependencyCheck false // true is the default
  *     allowLibraryImplToImplDependencies true // false is the default
  *   }
+ *   enableModuleStructureNestingCheck true // false is the default
+ *   enableModuleStructureNestingCheck { // Checks this project's subtree
+ *     allowNestedLibrariesIn ":features:legacy"
+ *     enableLibraryNestingCheck false // true is the default
+ *   }
  *   enableComposeUi true // false is the default
  *
  *   addPublicModuleDependencies true // false is the default
@@ -46,6 +52,11 @@ import software.ralf.app.platform.gradle.ModuleStructurePlugin.Companion.testing
 public open class AppPlatformExtension
 @Inject
 constructor(objects: ObjectFactory, private val project: Project) {
+  private val enableModuleStructureNestingCheck: Property<Boolean> =
+    objects.property(Boolean::class.java).convention(false)
+  private val moduleStructureNestingCheckOptions: ModuleStructureNestingCheckOptions =
+    objects.newInstance(ModuleStructureNestingCheckOptions::class.java)
+
   private val enableKotlinInject: Property<Boolean> =
     objects.property(Boolean::class.java).convention(false)
 
@@ -195,6 +206,28 @@ constructor(objects: ObjectFactory, private val project: Project) {
   internal fun isModuleStructureEnabled(): Property<Boolean> = enableModuleStructure
 
   internal fun moduleStructureOptions(): ModuleStructureOptions = moduleStructureOptions
+
+  /**
+   * Registers `checkModuleStructureNesting` to check library nesting within this project's subtree.
+   * Can be enabled on the root project or a folder project independently of
+   * [enableModuleStructure].
+   */
+  public fun enableModuleStructureNestingCheck(enable: Boolean) {
+    if (enable == enableModuleStructureNestingCheck.get()) return
+
+    enableModuleStructureNestingCheck.set(enable)
+    enableModuleStructureNestingCheck.disallowChanges()
+
+    if (enable) {
+      project.registerModuleStructureNestingCheckTask(moduleStructureNestingCheckOptions)
+    }
+  }
+
+  /** Enables nesting validation for this project's subtree and configures its exceptions. */
+  public fun enableModuleStructureNestingCheck(action: Action<ModuleStructureNestingCheckOptions>) {
+    action.execute(moduleStructureNestingCheckOptions)
+    enableModuleStructureNestingCheck(true)
+  }
 
   internal companion object {
     internal val Project.appPlatform: AppPlatformExtension

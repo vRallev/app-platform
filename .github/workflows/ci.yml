@@ -405,7 +405,7 @@ jobs:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: Module Structure Check
-        run: ./gradlew checkModuleStructureDependencies --stacktrace --show-version --continue
+        run: ./gradlew checkModuleStructureDependencies checkModuleStructureNesting --stacktrace --show-version --continue
 
   publish-maven-local:
     runs-on: ubuntu-latest

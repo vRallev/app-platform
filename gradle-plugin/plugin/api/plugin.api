@@ -9,6 +9,8 @@ public class software/ralf/app/platform/gradle/AppPlatformExtension {
 	public final fun enableMetro (Z)V
 	public final fun enableModuleStructure (Lorg/gradle/api/Action;)V
 	public final fun enableModuleStructure (Z)V
+	public final fun enableModuleStructureNestingCheck (Lorg/gradle/api/Action;)V
+	public final fun enableModuleStructureNestingCheck (Z)V
 }
 
 public class software/ralf/app/platform/gradle/AppPlatformPlugin : org/gradle/api/Plugin {
@@ -40,6 +42,13 @@ public abstract class software/ralf/app/platform/gradle/ModuleStructureDependenc
 
 public final class software/ralf/app/platform/gradle/ModuleStructureDependencyCheckTask$Companion {
 	public final fun registerModuleStructureDependencyCheckTask (Lorg/gradle/api/Project;)V
+}
+
+public class software/ralf/app/platform/gradle/ModuleStructureNestingCheckOptions {
+	public fun <init> (Lorg/gradle/api/model/ObjectFactory;)V
+	public final fun allowNestedLibrariesIn (Ljava/lang/Iterable;)V
+	public final fun allowNestedLibrariesIn ([Ljava/lang/String;)V
+	public final fun enableLibraryNestingCheck (Z)V
 }
 
 public class software/ralf/app/platform/gradle/ModuleStructureOptions {

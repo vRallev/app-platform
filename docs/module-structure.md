@@ -371,6 +371,41 @@ With this setting enabled, several checks and features are enabled:
 * A Gradle task `:checkModuleStructureDependencies` is registered, which verifies production, test, and test fixture compile classpaths. The `:check` Gradle task automatically depends on `:checkModuleStructureDependencies`.
 * A consistent API for an [`Project.artifactId`](https://github.com/vRallev/app-platform/blob/main/gradle-plugin/plugin/src/main/kotlin/software/ralf/app/platform/gradle/ModuleStructurePlugin.kt#L125-L135) is available, e.g. for `:my-module:public` it would return `my-module-public`.
 
+### Nesting validation
+
+Enable `enableModuleStructureNestingCheck` on the root project or a folder project to check its subtree:
+`:abc:public` and `:abc:impl` are allowed, but adding `:abc:def:public` fails.
+
+Use `enableModuleStructureNestingCheck(true)` for the defaults, or configure exceptions and opt-out.
+Exceptions use exact, absolute library paths within the checked subtree.
+
+=== "build.gradle"
+
+    ```groovy
+    appPlatform {
+      enableModuleStructureNestingCheck {
+        allowNestedLibrariesIn ':legacy', ':migration'
+        // Or disable nesting checks:
+        // enableLibraryNestingCheck false
+      }
+    }
+    ```
+
+=== "build.gradle.kts"
+
+    ```kotlin
+    appPlatform {
+      enableModuleStructureNestingCheck {
+        allowNestedLibrariesIn(":legacy", ":migration")
+        // Or disable nesting checks:
+        // enableLibraryNestingCheck(false)
+      }
+    }
+    ```
+
+Run `./gradlew checkModuleStructureDependencies checkModuleStructureNesting` to check dependencies and nesting.
+For a folder project, use its task path, e.g. `./gradlew :features:checkModuleStructureNesting`.
+
 ??? example "Sample"
 
     The sample application doesn't set the Android namespace anywhere. Instead, it relies on the default from
