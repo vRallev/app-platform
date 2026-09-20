@@ -12,17 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.scene.Scene
 import androidx.navigation3.ui.NavDisplay
-import me.tatarka.inject.annotations.Inject
 import software.ralf.app.platform.ExperimentalAppPlatform
 import software.ralf.app.platform.inject.ContributesRenderer
 import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackRenderer
-import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.renderCompose
+import software.ralf.app.platform.renderer.Render
 
-@Inject
 @ContributesRenderer
-class CrossSlideBackstackRenderer(private val rendererFactory: RendererFactory) :
+class CrossSlideBackstackRenderer :
   PresenterBackstackRenderer<CrossSlideBackstackPresenter.Model>() {
   @Composable
   override fun PresenterNavDisplay(
@@ -48,7 +45,7 @@ class CrossSlideBackstackRenderer(private val rendererFactory: RendererFactory) 
 
   @Composable
   override fun ComposeBackstackEntry(model: BaseModel) {
-    rendererFactory.renderCompose(model)
+    Render(model)
   }
 
   private fun AnimatedContentTransitionScope<Scene<Int>>.crossSlideTransition(

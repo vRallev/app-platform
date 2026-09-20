@@ -31,7 +31,6 @@ import software.ralf.app.platform.renderer.ComposeRenderer
  * @Inject
  * @ContributesRenderer
  * class RootPresenterRenderer(
- *   private val rendererFactory: RendererFactory,
  *   private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
  * ) : ComposeRenderer<Model>() {
  *

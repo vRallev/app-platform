@@ -10,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -124,6 +125,24 @@ class ComposeAndroidRendererFactoryDeviceTest {
   }
 
   @Test
+  fun an_existing_factory_overrides_the_android_compose_adapter() {
+    val model = ComposeModel(1, composeModel = ComposeModel(2))
+    val renderer = factory.getComposeRenderer(model)
+    factory = ComposeAndroidRendererFactory.createForComposeUi(testApplication)
+
+    composeTestRule.runOnUiThread {
+      activity.setContent {
+        CompositionLocalProvider(LocalRendererFactory provides factory) {
+          renderer.renderCompose(model)
+        }
+      }
+    }
+
+    composeTestRule.onNodeWithText("Compose test: 1").assertIsDisplayed()
+    composeTestRule.onNodeWithText("Compose test: 2").assertIsDisplayed()
+  }
+
+  @Test
   fun a_view_renderer_renders_content_on_screen() {
     repeat(10) {
       composeTestRule.runOnUiThread {
@@ -196,6 +215,18 @@ class ComposeAndroidRendererFactoryDeviceTest {
     }
 
     assertThat(createdRenderers).isEqualTo(2)
+  }
+
+  @Test
+  fun a_view_renderer_can_embed_compose_with_a_child_using_the_local_factory() {
+    composeTestRule.runOnUiThread {
+      val model = ViewModel(1, composeModel = ComposeModel(2, composeModel = ComposeModel(3)))
+      factory.getRenderer(model).render(model)
+    }
+
+    composeTestRule.onNodeWithText("Compose test: 2").assertIsDisplayed()
+    composeTestRule.onNodeWithText("Compose test: 3").assertIsDisplayed()
+    assertThat(createdRenderers).isEqualTo(3)
   }
 
   @Test
@@ -397,8 +428,7 @@ class ComposeAndroidRendererFactoryDeviceTest {
     }
   }
 
-  private inner class TestComposeRenderer(private val rendererFactory: RendererFactory) :
-    ComposeRenderer<ComposeModel>() {
+  private inner class TestComposeRenderer : ComposeRenderer<ComposeModel>() {
 
     init {
       createdRenderers++
@@ -406,15 +436,16 @@ class ComposeAndroidRendererFactoryDeviceTest {
 
     @Composable
     override fun Compose(model: ComposeModel, modifier: Modifier) {
+      assertThat(LocalRendererFactory.current).isSameInstanceAs(factory)
       Column {
         BasicText(text = "Compose test: ${model.value}", modifier = Modifier.testTag("testCompose"))
 
         if (model.viewModel != null) {
-          rendererFactory.renderCompose(model.viewModel)
+          Render(model.viewModel)
         }
 
         if (model.composeModel != null) {
-          rendererFactory.renderCompose(model.composeModel, rendererId = 1)
+          Render(model.composeModel, rendererId = 1)
         }
       }
     }
@@ -425,7 +456,7 @@ class ComposeAndroidRendererFactoryDeviceTest {
     override val renderers: Map<KClass<out BaseModel>, () -> Renderer<*>> =
       mapOf(
         ViewModel::class to { TestViewRenderer(rendererFactory()) },
-        ComposeModel::class to { TestComposeRenderer(rendererFactory()) },
+        ComposeModel::class to { TestComposeRenderer() },
       )
     override val modelToRendererMapping: Map<KClass<out BaseModel>, KClass<out Renderer<*>>> =
       mapOf(

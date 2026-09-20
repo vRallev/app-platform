@@ -30,25 +30,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import me.tatarka.inject.annotations.Inject
 import software.ralf.app.platform.inject.ContributesRenderer
-import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
 import software.ralf.app.platform.presenter.compose.backgesture.ForwardBackPressEventsToPresenters
 import software.ralf.app.platform.recipes.appbar.AppBarConfig
 import software.ralf.app.platform.renderer.ComposeRenderer
-import software.ralf.app.platform.renderer.Renderer
-import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.renderCompose
+import software.ralf.app.platform.renderer.Render
 
-/**
- * A Compose renderer implementation for templates used in the recipes application.
- *
- * [rendererFactory] is used to get the [Renderer] for the [BaseModel] wrapped in the template.
- */
+/** A Compose renderer implementation for templates used in the recipes application. */
 @Inject
 @ContributesRenderer
 class RootPresenterRenderer(
-  private val rendererFactory: RendererFactory,
-  private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
+  private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter
 ) : ComposeRenderer<RecipesAppTemplate>() {
   @Composable
   override fun Compose(model: RecipesAppTemplate, modifier: Modifier) {
@@ -63,7 +55,7 @@ class RootPresenterRenderer(
   private fun FullScreen(template: RecipesAppTemplate.FullScreenTemplate) {
     CenterAlignedTopAppBar(template.appBarConfig) {
       Box(modifier = Modifier.padding(it)) {
-        rendererFactory.renderCompose(template.model)
+        Render(template.model)
       }
     }
   }

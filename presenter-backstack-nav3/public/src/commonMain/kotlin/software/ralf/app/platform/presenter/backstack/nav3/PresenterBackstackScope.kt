@@ -129,12 +129,10 @@ public fun CompositionLocal<PresenterBackstackScope?>.requireNotNull(): Presente
  *   data class Model(val contentModel: MyBackstackModel) : BaseModel
  * }
  *
- * class WelcomeRenderer(
- *   private val rendererFactory: RendererFactory,
- * ) : ComposeRenderer<WelcomePresenter.Model>() {
+ * class WelcomeRenderer : ComposeRenderer<WelcomePresenter.Model>() {
  *   @Composable
  *   override fun Compose(model: WelcomePresenter.Model, modifier: Modifier) {
- *     rendererFactory.renderCompose(model.contentModel, modifier)
+ *     Render(model.contentModel, modifier)
  *   }
  * }
  * ```

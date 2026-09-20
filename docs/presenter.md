@@ -920,12 +920,10 @@ Navigation 3 keys for model entries, keeps popped models available while exit tr
 
 ```kotlin
 @ContributesRenderer
-class CrossSlideBackstackRenderer(
-  private val rendererFactory: RendererFactory,
-) : PresenterBackstackRenderer<CrossSlideBackstackPresenter.Model>() {
+class CrossSlideBackstackRenderer : PresenterBackstackRenderer<CrossSlideBackstackPresenter.Model>() {
   @Composable
   override fun ComposeBackstackEntry(model: BaseModel) {
-    rendererFactory.renderCompose(model)
+    Render(model)
   }
 }
 ```
@@ -1180,12 +1178,10 @@ stable Navigation 3 key, invokes the individual renderer for each model, and for
 model's `onBack` callback:
 
 ```kotlin
-class Navigation3HomeRenderer(
-  private val rendererFactory: RendererFactory,
-) : PresenterBackstackRenderer<Navigation3HomePresenter.Model>() {
+class Navigation3HomeRenderer : PresenterBackstackRenderer<Navigation3HomePresenter.Model>() {
   @Composable
   override fun ComposeBackstackEntry(model: BaseModel) {
-    rendererFactory.renderCompose(model)
+    Render(model)
   }
 }
 ```
@@ -1207,7 +1203,6 @@ the renderer-level navigation container and back gesture integration.
     class Navigation3Renderer(
       private val listPresenter: ListPresenter,
       private val detailPresenter: DetailPresenter,
-      private val rendererFactory: RendererFactory,
     ) : ComposeRenderer<Model>() {
       @Composable
       override fun Compose(model: Model, modifier: Modifier) {
@@ -1220,11 +1215,11 @@ the renderer-level navigation container and back gesture integration.
             entryProvider {
               entry<List> {
                 val model = listPresenter.present(Unit)
-                rendererFactory.renderCompose(model)
+                Render(model)
               }
               entry<Detail> {
                 val model = detailPresenter.present(Unit)
-                rendererFactory.renderCompose(model)
+                Render(model)
               }
             },
         )

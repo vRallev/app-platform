@@ -51,6 +51,8 @@ import software.ralf.app.platform.presenter.BaseModel
 public abstract class ComposeRenderer<in ModelT : BaseModel> :
   BaseComposeRenderer<ModelT>, Renderer<ModelT> {
 
+  internal var owningRendererFactory: RendererFactory? = null
+
   @Deprecated(
     message = "ComposeRenderers must invoke renderCompose(model)",
     level = DeprecationLevel.HIDDEN,
@@ -61,11 +63,7 @@ public abstract class ComposeRenderer<in ModelT : BaseModel> :
 
   @Composable
   final override fun renderCompose(model: ModelT, modifier: Modifier) {
-    // This function seems redundant and implementations could implement it instead of the
-    // separate Compose() function. However, it will allow us to intercept rendering calls
-    // in the platform for future use cases. Compare this with ViewRenderer.render() and
-    // ViewRenderer.renderModel().
-    Compose(model, modifier)
+    ProvideRendererFactory(owningRendererFactory) { Compose(model, modifier) }
   }
 
   /** Render the given [model] on screen using Compose UI. */

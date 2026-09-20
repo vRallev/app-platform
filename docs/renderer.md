@@ -308,37 +308,42 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-### Injecting `RendererFactory`
+### Rendering child models
 
-The `RendererFactory` is provided in the generated renderer graph or component, meaning it can be
-injected by any `Renderer`. This allows you to create child renderers without knowing the concrete
-type of the model and injecting the child renderers ahead of time:
+Compose renderers can call `Render()` without injecting a factory:
 
 ```kotlin
 @ContributesRenderer
-class SampleRenderer(
-  private val rendererFactory: RendererFactory
-) : ComposeRenderer<Model>() {
-
+class SampleRenderer : ComposeRenderer<Model>() {
   @Composable
   override fun Compose(model: Model, modifier: Modifier) {
     Column(modifier = modifier) {
-      rendererFactory.renderCompose(model.childModel)
+      Render(model.childModel)
     }
   }
 }
 ```
 
-??? example "Sample"
+`ComposeRendererFactory` and `ComposeAndroidRendererFactory` provide `LocalRendererFactory` when a
+renderer enters a composition. Nested renderers inherit it. Existing root calls such as
+`rendererFactory.renderCompose(model)` need no extra setup. `Render(model, modifier, rendererId)`
+uses the factory's existing cache.
 
-    The sample app injects `RendererFactory` in [`ComposeSampleAppTemplateRenderer`](https://github.com/vRallev/app-platform/blob/main/sample/templates/impl/src/commonMain/kotlin/software/ralf/app/platform/sample/template/ComposeSampleAppTemplateRenderer.kt)
-    to create `Renderers` dynamically for unknown `Model` types. There is also an [Android sample implementation](https://github.com/vRallev/app-platform/blob/main/sample/templates/impl/src/androidMain/kotlin/software/ralf/app/platform/sample/template/AndroidSampleAppTemplateRenderer.kt).
+`LocalRendererFactory.current` is `null` outside a renderer tree. Tests, previews, and directly
+constructed or directly injected renderers can provide a factory explicitly:
 
-!!! note
+```kotlin
+CompositionLocalProvider(LocalRendererFactory provides testFactory) {
+  renderer.renderCompose(model)
+}
+```
 
-    A `Renderer` with a single constructor does not need `@Inject`. Constructor parameters like
-    `rendererFactory` are injected through the generated provider. Add `@Inject` only when the
-    renderer has multiple constructors and one must be selected explicitly.
+An existing local takes precedence over a renderer's factory. Separate renderer trees have separate
+factories. Manually constructed leaf renderers need no factory; `Render()` reports an error if none
+is available.
+
+Constructor injection of `RendererFactory` remains supported, including for Android View renderers.
+A renderer with a single constructor does not need `@Inject`.
 
 ## Android support
 

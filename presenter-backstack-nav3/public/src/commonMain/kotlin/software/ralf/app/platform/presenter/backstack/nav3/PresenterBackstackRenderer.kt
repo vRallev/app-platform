@@ -28,12 +28,10 @@ import software.ralf.app.platform.renderer.ComposeRenderer
  * ) : PresenterBackstackModel
  *
  * @ContributesRenderer(MyBackstackModel::class)
- * class MyBackstackRenderer(
- *   private val rendererFactory: RendererFactory,
- * ) : PresenterBackstackRenderer<MyBackstackModel>() {
+ * class MyBackstackRenderer : PresenterBackstackRenderer<MyBackstackModel>() {
  *   @Composable
  *   override fun ComposeBackstackEntry(model: BaseModel) {
- *     rendererFactory.renderCompose(model)
+ *     Render(model)
  *   }
  * }
  * ```
@@ -115,11 +113,11 @@ public abstract class PresenterBackstackRenderer<in ModelT : PresenterBackstackM
    *
    * This is called for the active destination and for any popped destination that Navigation 3
    * keeps composed while an exit transition finishes. A typical implementation delegates to
-   * `RendererFactory`:
+   * `Render()`:
    * ```kotlin
    * @Composable
    * override fun ComposeBackstackEntry(model: BaseModel) {
-   *   rendererFactory.renderCompose(model)
+   *   Render(model)
    * }
    * ```
    */

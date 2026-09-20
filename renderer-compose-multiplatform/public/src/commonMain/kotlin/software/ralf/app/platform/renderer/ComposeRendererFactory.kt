@@ -14,7 +14,9 @@ public class ComposeRendererFactory(rootScopeProvider: RootScopeProvider) :
   BaseRendererFactory(rootScopeProvider) {
 
   override fun <T : BaseModel> createRenderer(modelType: KClass<out T>): ComposeRenderer<T> {
-    return super.createRenderer(modelType).asComposeRenderer(modelType)
+    return super.createRenderer(modelType).asComposeRenderer(modelType).also {
+      it.owningRendererFactory = this
+    }
   }
 
   override fun <T : BaseModel> getRenderer(

@@ -19,7 +19,7 @@ public sealed interface ComposeAndroidRendererFactory : RendererFactory {
   private class ComposeAndroidRendererFactoryComposeUi(rootScopeProvider: RootScopeProvider) :
     BaseRendererFactory(rootScopeProvider), ComposeAndroidRendererFactory {
     override fun <T : BaseModel> createRenderer(modelType: KClass<out T>): Renderer<T> {
-      return wrapRenderer(super.createRenderer(modelType), modelType)
+      return wrapRenderer(super.createRenderer(modelType), modelType, this)
     }
   }
 
@@ -29,7 +29,7 @@ public sealed interface ComposeAndroidRendererFactory : RendererFactory {
     parent: ViewGroup,
   ) : AndroidRendererFactory(rootScopeProvider, activity, parent), ComposeAndroidRendererFactory {
     override fun <T : BaseModel> createRenderer(modelType: KClass<out T>): Renderer<T> {
-      return wrapRenderer(super.createRenderer(modelType), modelType)
+      return wrapRenderer(super.createRenderer(modelType), modelType, this)
     }
   }
 
@@ -106,6 +106,7 @@ public sealed interface ComposeAndroidRendererFactory : RendererFactory {
     private fun <T : BaseModel> wrapRenderer(
       renderer: Renderer<T>,
       modelType: KClass<out T>,
+      factory: RendererFactory,
     ): Renderer<T> {
       check(renderer !is ComposeWithinAndroidViewRenderer) {
         "Trying to wrap a render that has been wrapped already for model $modelType."
@@ -119,7 +120,7 @@ public sealed interface ComposeAndroidRendererFactory : RendererFactory {
         // Wrap a ComposeRenderer to support embedding it in an Android View hierarchy.
         is BaseComposeRenderer<*> ->
           @Suppress("UNCHECKED_CAST")
-          ComposeWithinAndroidViewRenderer(renderer as BaseComposeRenderer<T>)
+          ComposeWithinAndroidViewRenderer(renderer as BaseComposeRenderer<T>, factory)
 
         // Wrap a ViewRenderer to support embedding it in a Compose UI hierarchy.
         is BaseAndroidViewRenderer -> AndroidViewWithinComposeRenderer(renderer)

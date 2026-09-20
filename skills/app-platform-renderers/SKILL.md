@@ -57,21 +57,21 @@ For missing-renderer errors, check the actual model type, contribution generatio
 
 ## Child renderers
 
-Inject `RendererFactory` to render child models without depending on concrete child renderers. For a `PagePresenter.Model` with `content: BaseModel`:
+Use `Render()` in Compose renderers to render child models. Compose renderer factories provide `LocalRendererFactory` automatically; nested renderers inherit it. For a `PagePresenter.Model` with `content: BaseModel`:
 
 ```kotlin
 @ContributesRenderer
-class PageRenderer(
-  private val rendererFactory: RendererFactory,
-) : ComposeRenderer<PagePresenter.Model>() {
+class PageRenderer : ComposeRenderer<PagePresenter.Model>() {
   @Composable
   override fun Compose(model: PagePresenter.Model, modifier: Modifier) {
     Box(modifier = modifier) {
-      rendererFactory.renderCompose(model.content)
+      Render(model.content)
     }
   }
 }
 ```
+
+Provide `LocalRendererFactory` explicitly in tests or previews that construct a renderer directly and render children. Existing local values override automatic factory provision. Android View renderers can still inject `RendererFactory`.
 
 Always pass the current child model. In repeated Compose content, key children by stable item identity so remembered UI state follows the right item.
 
@@ -83,9 +83,7 @@ The template renderer lays out the semantic slots and resolves every current chi
 
 ```kotlin
 @ContributesRenderer
-class AppTemplateRenderer(
-  private val rendererFactory: RendererFactory,
-) : ComposeRenderer<AppTemplate>() {
+class AppTemplateRenderer : ComposeRenderer<AppTemplate>() {
   @Composable
   override fun Compose(model: AppTemplate, modifier: Modifier) {
     Box(modifier = modifier) {
@@ -97,11 +95,6 @@ class AppTemplateRenderer(
         }
       }
     }
-  }
-
-  @Composable
-  private fun Render(model: BaseModel, modifier: Modifier = Modifier) {
-    rendererFactory.renderCompose(model, modifier)
   }
 }
 ```

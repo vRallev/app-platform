@@ -47,6 +47,14 @@ public final class software/ralf/app/platform/renderer/ComposeRendererFactoryKt 
 	public static final fun renderCompose (Lsoftware/ralf/app/platform/renderer/RendererFactory;Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;ILandroidx/compose/runtime/Composer;II)V
 }
 
+public final class software/ralf/app/platform/renderer/LocalRendererFactoryKt {
+	public static final fun getLocalRendererFactory ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class software/ralf/app/platform/renderer/RenderKt {
+	public static final fun Render (Lsoftware/ralf/app/platform/presenter/BaseModel;Landroidx/compose/ui/Modifier;ILandroidx/compose/runtime/Composer;II)V
+}
+
 public final class software/ralf/app/platform/renderer/text/PresenterBackedTextFieldStateKt {
 	public static final fun rememberPresenterBackedTextFieldState (Lsoftware/ralf/app/platform/presenter/compose/text/PresenterTextFieldState;Landroidx/compose/runtime/Composer;I)Landroidx/compose/foundation/text/input/TextFieldState;
 }

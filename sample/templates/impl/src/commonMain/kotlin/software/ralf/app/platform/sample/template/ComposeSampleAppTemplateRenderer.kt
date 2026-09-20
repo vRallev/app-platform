@@ -13,26 +13,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import software.ralf.app.platform.inject.ContributesRenderer
-import software.ralf.app.platform.presenter.BaseModel
 import software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter
 import software.ralf.app.platform.presenter.compose.backgesture.ForwardBackPressEventsToPresenters
 import software.ralf.app.platform.renderer.ComposeRenderer
-import software.ralf.app.platform.renderer.Renderer
-import software.ralf.app.platform.renderer.RendererFactory
-import software.ralf.app.platform.renderer.renderCompose
+import software.ralf.app.platform.renderer.Render
 import software.ralf.app.platform.sample.template.animation.LocalAnimatedVisibilityScope
 import software.ralf.app.platform.sample.template.animation.LocalSharedTransitionScope
 
-/**
- * A Compose renderer implementation for templates used in the sample application.
- *
- * [rendererFactory] is used to get the [Renderer] for the [BaseModel] wrapped in the template.
- */
+/** A Compose renderer implementation for templates used in the sample application. */
 @OptIn(ExperimentalSharedTransitionApi::class)
 @ContributesRenderer
 class ComposeSampleAppTemplateRenderer(
-  private val rendererFactory: RendererFactory,
-  private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
+  private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter
 ) : ComposeRenderer<SampleAppTemplate>() {
 
   @Composable
@@ -70,17 +62,17 @@ class ComposeSampleAppTemplateRenderer(
 
   @Composable
   private fun FullScreen(template: SampleAppTemplate.FullScreenTemplate) {
-    rendererFactory.renderCompose(template.model)
+    Render(template.model)
   }
 
   @Composable
   private fun ListDetail(template: SampleAppTemplate.ListDetailTemplate) {
     Row {
       Column(Modifier.weight(1f)) {
-        rendererFactory.renderCompose(template.list)
+        Render(template.list)
       }
       Column(Modifier.weight(2f)) {
-        rendererFactory.renderCompose(template.detail)
+        Render(template.detail)
       }
     }
   }

@@ -81,13 +81,11 @@ data class Model(
     ```
 
 The `TemplateRenderer` receives the specific `Template`, lays out necessary containers and renders individual
-models in these layers. The renderer often injects `RendererFactory` to create renderers for the models, e.g.
+models in these layers. Compose renderers use `Render()` for child models, e.g.
 
 ```kotlin
 @ContributesRenderer
-class ComposeSampleAppTemplateRenderer(
-  private val rendererFactory: RendererFactory
-) : ComposeRenderer<SampleAppTemplate>() {
+class ComposeSampleAppTemplateRenderer : ComposeRenderer<SampleAppTemplate>() {
 
   @Composable
   override fun Compose(model: SampleAppTemplate, modifier: Modifier) {
@@ -101,17 +99,17 @@ class ComposeSampleAppTemplateRenderer(
 
   @Composable
   private fun FullScreen(template: SampleAppTemplate.FullScreenTemplate) {
-    rendererFactory.renderCompose(template.model)
+    Render(template.model)
   }
 
   @Composable
   private fun ListDetail(template: SampleAppTemplate.ListDetailTemplate) {
     Row {
       Column {
-        rendererFactory.renderCompose(template.list)
+        Render(template.list)
       }
       Column {
-        rendererFactory.renderCompose(template.detail)
+        Render(template.detail)
       }
     }
   }

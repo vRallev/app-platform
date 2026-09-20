@@ -9,10 +9,11 @@ import software.ralf.app.platform.presenter.BaseModel
  * Android View hierarchy.
  */
 internal class ComposeWithinAndroidViewRenderer<in ModelT : BaseModel>(
-  private val composeRenderer: BaseComposeRenderer<ModelT>
+  private val composeRenderer: BaseComposeRenderer<ModelT>,
+  private val rendererFactory: RendererFactory,
 ) : BaseComposeWithinAndroidViewRenderer<ModelT>() {
   @Composable
   override fun Compose(model: ModelT) {
-    composeRenderer.renderCompose(model)
+    ProvideRendererFactory(rendererFactory) { composeRenderer.renderCompose(model) }
   }
 }
