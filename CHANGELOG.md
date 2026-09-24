@@ -4,6 +4,8 @@
 
 ### Added
 
+- Add a `start` parameter to `Scope.launch()` to choose a `CoroutineStart` mode; previously compiled callers must recompile.
+
 ### Changed
 
 - Upgrade Metro to `1.4.5`.

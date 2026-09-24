@@ -270,6 +270,15 @@ override fun onEnterScope(scope: Scope) {
 
 1.  `scope.launch` is a convenience function for `scope.coroutineScope().launch`.
 
+Pass `start` to choose a `CoroutineStart` mode; the default is `CoroutineStart.DEFAULT`.
+`UNDISPATCHED` runs immediately until the first suspension, even during `Scoped` registration:
+
+```kotlin
+scope.launch(start = CoroutineStart.UNDISPATCHED) {
+  someFlow.collect { ... }
+}
+```
+
 Since the `CoroutineScope` is part of the Metro or `kotlin-inject-anvil` object graph, the `CoroutineScope` can be
 injected in the constructor as well:
 

@@ -215,8 +215,9 @@ class ScopeRegistrationTest {
           }
           current.coroutineScope().launch(Dispatchers.Unconfined) { bypassed++ }
           current.coroutineScope().launch(start = CoroutineStart.UNDISPATCHED) { bypassed++ }
+          current.launch(start = CoroutineStart.UNDISPATCHED) { bypassed++ }
           assertThat(count).isEqualTo(0)
-          assertThat(bypassed).isEqualTo(2)
+          assertThat(bypassed).isEqualTo(3)
         }
       )
     )

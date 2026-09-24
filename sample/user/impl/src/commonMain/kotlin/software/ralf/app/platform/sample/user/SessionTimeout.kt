@@ -4,6 +4,7 @@ import dev.zacsweers.metro.SingleIn
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -50,7 +51,8 @@ class SessionTimeout(private val userManager: UserManager, animationHelper: Anim
       }
     }
 
-    scope.launch {
+    // Subscribe before onEnterScope returns.
+    scope.launch(start = CoroutineStart.UNDISPATCHED) {
       sessionTimeout.first { it == Duration.ZERO }
       userManager.logout()
     }

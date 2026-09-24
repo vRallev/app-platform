@@ -4,6 +4,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
@@ -72,15 +73,18 @@ public fun Scope.Builder.addCoroutineScopeScoped(coroutineScope: CoroutineScopeS
  * therefore doesn't need to be canceled. However, it's generally good practice to stop and cancel
  * ongoing background work eargerly.
  *
- * This is a short version of `coroutineScope().launch { }`.
+ * This is a short version of `coroutineScope(context).launch(start = start) { }`.
+ * [CoroutineStart.UNDISPATCHED] runs immediately until the first suspension, bypassing the wait for
+ * [Scoped] registration.
  *
  * See [coroutineScope] for more details.
  */
 public fun Scope.launch(
   context: CoroutineContext = EmptyCoroutineContext,
+  start: CoroutineStart = CoroutineStart.DEFAULT,
   block: suspend CoroutineScope.() -> Unit,
 ): Job {
-  return coroutineScope(context).launch(block = block)
+  return coroutineScope(context).launch(start = start, block = block)
 }
 
 /**
