@@ -107,7 +107,10 @@ public fun Scope.parents(includeSelf: Boolean = false): Sequence<Scope> =
  * If a `CoroutineScope` has been added with [addCoroutineScopeScoped], then coroutines launched
  * from within [Scoped.onEnterScope] wait until all [scopedInstances] have been registered and their
  * [Scoped.onEnterScope] function has been called unless the dispatcher is overridden for the `Job`.
- * This avoids race conditions with async coroutines:
+ * `CoroutineStart.UNDISPATCHED` also bypasses this wait: the coroutine runs immediately on the
+ * calling thread until its first suspension. Later dispatched resumptions still wait for
+ * registration to finish.
+ *
  * ```kotlin
  * scope.register(multipleScopedInstances)
  *
@@ -117,10 +120,13 @@ public fun Scope.parents(includeSelf: Boolean = false): Sequence<Scope> =
  *     // and all onEnterScope() functions have been called before dispatching and running the
  *     // lambda.
  *     scope.launch(otherDispatcher) { }
- *     scope.coroutineScope(otherDisatpcher) { }
+ *     scope.coroutineScope(otherDispatcher).launch { }
  *
- *     // Does not wait until all on Scoped instances have been registered.
+ *     // Does not wait until all Scoped instances have been registered.
  *     scope.coroutineScope().launch(otherDispatcher) { }
+ *
+ *     // Runs immediately until its first suspension.
+ *     scope.launch(start = CoroutineStart.UNDISPATCHED) { }
  *   }
  * }
  * ```

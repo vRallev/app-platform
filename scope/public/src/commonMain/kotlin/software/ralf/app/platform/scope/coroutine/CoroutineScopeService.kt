@@ -40,17 +40,24 @@ private val Scope.coroutineScopeScoped: CoroutineScopeScoped
  * **Note:** During builder or batch registration of multiple [Scoped] instances with
  * [Scope.register], work using this scope's dispatcher waits for the batch to finish registering.
  * Passing a dispatcher in [context] preserves this wait; replacing it in a later `launch` or
- * `async` call bypasses it:
+ * `async` call bypasses it.
+ *
+ * `CoroutineStart.UNDISPATCHED` also bypasses this wait: the coroutine runs immediately on the
+ * calling thread until its first suspension. Later dispatched resumptions still wait for
+ * registration to finish.
+ *
  * ```kotlin
- * //
  * override fun onEnterScope(scope: Scope) {
  *   // Both calls wait until all Scoped instances are registered and all onEnterScope() functions
  *   // have been called before running the lambda.
  *   scope.launch(otherDispatcher) { }
- *   scope.coroutineScope(otherDisatpcher) { }
+ *   scope.coroutineScope(otherDispatcher).launch { }
  *
- *   // Does not wait until all on Scoped instances have been registered.
+ *   // Does not wait until all Scoped instances have been registered.
  *   scope.coroutineScope().launch(otherDispatcher) { }
+ *
+ *   // Runs immediately until its first suspension.
+ *   scope.launch(start = CoroutineStart.UNDISPATCHED) { }
  * }
  * ```
  */
