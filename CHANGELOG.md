@@ -6,6 +6,7 @@
 
 ### Changed
 
+- Upgrade Metro to `1.4.5`.
 - Upgrade both blueprints to App Platform `0.2.1`, use the new Compose rendering helpers, and validate module nesting.
 
 ### Deprecated
