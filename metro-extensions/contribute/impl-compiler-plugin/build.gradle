@@ -169,10 +169,10 @@ tasks.register('generateTests', JavaExec) {
     jvmArgs('-Xss1m')
 }
 
-// We don't need the apiCheck in this module.
-tasks.named('apiCheck').configure {
+// Skip ABI validation for compiler tooling.
+tasks.named('checkKotlinAbi').configure {
     it.enabled = false
 }
-tasks.named('apiDump').configure {
+tasks.named('updateKotlinAbi').configure {
     it.enabled = false
 }

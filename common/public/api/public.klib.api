@@ -1,0 +1,11 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:common-public>
+open annotation class software.ralf.app.platform/ExperimentalAppPlatform : kotlin/Annotation { // software.ralf.app.platform/ExperimentalAppPlatform|null[0]
+    constructor <init>() // software.ralf.app.platform/ExperimentalAppPlatform.<init>|<init>(){}[0]
+}

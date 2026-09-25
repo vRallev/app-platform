@@ -319,7 +319,7 @@ jobs:
         run: ./gradlew :sample:app:web:wasmJsBrowserDistribution
 
   binary-compatibility-check:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 25
 
     steps:
@@ -329,9 +329,10 @@ jobs:
         uses: ./.github/actions/setup-action
         with:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          select-xcode-26: "true"
 
-      - name: API check
-        run: ./gradlew apiCheck --stacktrace --show-version --continue
+      - name: ABI check
+        run: ./gradlew checkKotlinAbi :gradle-plugin:module-structure:checkKotlinAbi :gradle-plugin:plugin:checkKotlinAbi --stacktrace --show-version --continue
 
   ktfmt:
     runs-on: ubuntu-latest

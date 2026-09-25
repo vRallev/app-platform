@@ -1,0 +1,22 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Alias: native => [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:scope-testing>
+final fun (software.ralf.app.platform.scope/Scope.Companion).software.ralf.app.platform.scope/buildTestScope(kotlinx.coroutines.test/TestScope, kotlin/String = ..., kotlin.coroutines/CoroutineContext = ..., kotlin/Function1<software.ralf.app.platform.scope/Scope.Builder, kotlin/Unit>? = ...): software.ralf.app.platform.scope/Scope // software.ralf.app.platform.scope/buildTestScope|buildTestScope@software.ralf.app.platform.scope.Scope.Companion(kotlinx.coroutines.test.TestScope;kotlin.String;kotlin.coroutines.CoroutineContext;kotlin.Function1<software.ralf.app.platform.scope.Scope.Builder,kotlin.Unit>?){}[0]
+
+// Targets: [native]
+final fun software.ralf.app.platform.scope/runTestWithScope(kotlin.coroutines/CoroutineContext = ..., kotlin/Function1<software.ralf.app.platform.scope/Scope.Builder, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction2<kotlinx.coroutines.test/TestScope, software.ralf.app.platform.scope/Scope, kotlin/Unit>) // software.ralf.app.platform.scope/runTestWithScope|runTestWithScope(kotlin.coroutines.CoroutineContext;kotlin.Function1<software.ralf.app.platform.scope.Scope.Builder,kotlin.Unit>?;kotlin.coroutines.SuspendFunction2<kotlinx.coroutines.test.TestScope,software.ralf.app.platform.scope.Scope,kotlin.Unit>){}[0]
+
+// Targets: [native]
+final fun software.ralf.app.platform.scope/runTestWithScoped(software.ralf.app.platform.scope/Scoped, kotlin.coroutines/CoroutineContext = ..., kotlin/Function1<software.ralf.app.platform.scope/Scope.Builder, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction2<kotlinx.coroutines.test/TestScope, software.ralf.app.platform.scope/Scope, kotlin/Unit>) // software.ralf.app.platform.scope/runTestWithScoped|runTestWithScoped(software.ralf.app.platform.scope.Scoped;kotlin.coroutines.CoroutineContext;kotlin.Function1<software.ralf.app.platform.scope.Scope.Builder,kotlin.Unit>?;kotlin.coroutines.SuspendFunction2<kotlinx.coroutines.test.TestScope,software.ralf.app.platform.scope.Scope,kotlin.Unit>){}[0]
+
+// Targets: [wasmJs]
+final fun software.ralf.app.platform.scope/runTestWithScope(kotlin.coroutines/CoroutineContext = ..., kotlin/Function1<software.ralf.app.platform.scope/Scope.Builder, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction2<kotlinx.coroutines.test/TestScope, software.ralf.app.platform.scope/Scope, kotlin/Unit>): kotlinx.coroutines.test.internal/JsPromiseInterfaceForTesting // software.ralf.app.platform.scope/runTestWithScope|runTestWithScope(kotlin.coroutines.CoroutineContext;kotlin.Function1<software.ralf.app.platform.scope.Scope.Builder,kotlin.Unit>?;kotlin.coroutines.SuspendFunction2<kotlinx.coroutines.test.TestScope,software.ralf.app.platform.scope.Scope,kotlin.Unit>){}[0]
+
+// Targets: [wasmJs]
+final fun software.ralf.app.platform.scope/runTestWithScoped(software.ralf.app.platform.scope/Scoped, kotlin.coroutines/CoroutineContext = ..., kotlin/Function1<software.ralf.app.platform.scope/Scope.Builder, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction2<kotlinx.coroutines.test/TestScope, software.ralf.app.platform.scope/Scope, kotlin/Unit>): kotlinx.coroutines.test.internal/JsPromiseInterfaceForTesting // software.ralf.app.platform.scope/runTestWithScoped|runTestWithScoped(software.ralf.app.platform.scope.Scoped;kotlin.coroutines.CoroutineContext;kotlin.Function1<software.ralf.app.platform.scope.Scope.Builder,kotlin.Unit>?;kotlin.coroutines.SuspendFunction2<kotlinx.coroutines.test.TestScope,software.ralf.app.platform.scope.Scope,kotlin.Unit>){}[0]

@@ -198,11 +198,17 @@ These are the main root-level quality gates used by GitHub Actions:
 ./gradlew desktopTest
 ./gradlew linuxX64Test
 ./gradlew wasmJsTest
-./gradlew apiCheck
+./gradlew checkKotlinAbi :gradle-plugin:module-structure:checkKotlinAbi :gradle-plugin:plugin:checkKotlinAbi
 ./ktfmt.sh --dry-run --set-exit-if-changed
 ./gradlew detekt
 ./gradlew lint lintAndroidMain
 ./gradlew checkModuleStructureDependencies
+```
+
+ABI validation uses Kotlin's built-in validator. Run on macOS with Xcode to cover iOS targets. Review changes before updating the checked-in `api/` baselines:
+
+```bash
+./gradlew updateKotlinAbi :gradle-plugin:module-structure:updateKotlinAbi :gradle-plugin:plugin:updateKotlinAbi
 ```
 
 ### Sample app tests by platform
@@ -267,7 +273,7 @@ Test data conventions for this module:
 - `diagnostics/`: compiler error tests with inline diagnostic markers plus `.fir.diag.txt` golden files.
 - `dump/`: compiler dump tests with `.fir.txt` goldens, plus `.fir.kt.txt` files for IR text dumps.
 
-`apiCheck` and `apiDump` are disabled for this module, so do not use them as validation commands here.
+`checkKotlinAbi` and `updateKotlinAbi` are disabled for this module, so do not use them as validation commands here.
 
 ### Where tests live
 

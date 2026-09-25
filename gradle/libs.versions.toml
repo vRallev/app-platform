@@ -49,7 +49,6 @@ kotlin-hierarchy = "1.1"
 kotlin-inject = "0.9.0"
 kotlin-inject-anvil = "0.1.7"
 kotlin-poet = "2.4.0"
-kotlinx-binaryCompatibilityValidator = "0.18.2"
 ktfmt = "0.64"
 ksp = "2.3.12"
 maven-publish = "0.37.0"
@@ -122,7 +121,6 @@ kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref =
 kotlin-script-runtime = { module = "org.jetbrains.kotlin:kotlin-script-runtime", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
-kotlinx-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "kotlinx-binaryCompatibilityValidator" }
 kotlin-poet = { module = "com.squareup:kotlinpoet", version.ref = "kotlin-poet" }
 kotlin-poet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlin-poet" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing", version.ref = "ksp" }
@@ -152,7 +150,6 @@ build-config = { id = "com.github.gmazzo.buildconfig", version.ref = "build-conf
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 kotlin-hierarchy = { id = "io.github.terrakok.kmp-hierarchy", version.ref = "kotlin-hierarchy" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinx-binaryCompatibilityValidator" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 metro = { id = "dev.zacsweers.metro", version.ref = "metro" }

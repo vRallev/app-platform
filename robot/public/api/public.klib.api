@@ -1,0 +1,45 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Alias: native => [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:robot-public>
+abstract interface software.ralf.app.platform.robot/Robot { // software.ralf.app.platform.robot/Robot|null[0]
+    open fun close() // software.ralf.app.platform.robot/Robot.close|close(){}[0]
+}
+
+abstract interface software.ralf.app.platform.robot/RobotComponent { // software.ralf.app.platform.robot/RobotComponent|null[0]
+    abstract val robots // software.ralf.app.platform.robot/RobotComponent.robots|{}robots[0]
+        abstract fun <get-robots>(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.robot/Robot>, kotlin/Function0<software.ralf.app.platform.robot/Robot>> // software.ralf.app.platform.robot/RobotComponent.robots.<get-robots>|<get-robots>(){}[0]
+}
+
+abstract interface software.ralf.app.platform.robot/RobotGraph { // software.ralf.app.platform.robot/RobotGraph|null[0]
+    abstract val robots // software.ralf.app.platform.robot/RobotGraph.robots|{}robots[0]
+        abstract fun <get-robots>(): kotlin.collections/Map<kotlin.reflect/KClass<*>, kotlin/Function0<software.ralf.app.platform.robot/Robot>> // software.ralf.app.platform.robot/RobotGraph.robots.<get-robots>|<get-robots>(){}[0]
+
+    abstract class BindsMirror { // software.ralf.app.platform.robot/RobotGraph.BindsMirror|null[0]
+        final fun robots_property995712408(): kotlin.collections/Map<kotlin.reflect/KClass<*>, kotlin/Function0<software.ralf.app.platform.robot/Robot>> // software.ralf.app.platform.robot/RobotGraph.BindsMirror.robots_property995712408|robots_property995712408(){}[0]
+    }
+}
+
+final object software.ralf.app.platform.robot.internal/RobotInternals { // software.ralf.app.platform.robot.internal/RobotInternals|null[0]
+    final fun setRootScopeProvider(software.ralf.app.platform.scope/RootScopeProvider?) // software.ralf.app.platform.robot.internal/RobotInternals.setRootScopeProvider|setRootScopeProvider(software.ralf.app.platform.scope.RootScopeProvider?){}[0]
+}
+
+final val software.ralf.app.platform.robot/allRobots // software.ralf.app.platform.robot/allRobots|@software.ralf.app.platform.scope.Scope{}allRobots[0]
+    final fun (software.ralf.app.platform.scope/Scope).<get-allRobots>(): kotlin.collections/Map<kotlin.reflect/KClass<*>, kotlin/Function0<software.ralf.app.platform.robot/Robot>> // software.ralf.app.platform.robot/allRobots.<get-allRobots>|<get-allRobots>@software.ralf.app.platform.scope.Scope(){}[0]
+
+final fun (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.robot/findRobotFactory(kotlin.reflect/KClass<*>): kotlin/Function0<software.ralf.app.platform.robot/Robot>? // software.ralf.app.platform.robot/findRobotFactory|findRobotFactory@software.ralf.app.platform.scope.Scope(kotlin.reflect.KClass<*>){}[0]
+final inline fun <#A: reified software.ralf.app.platform.robot/Robot> software.ralf.app.platform.robot/robot(software.ralf.app.platform.scope/Scope = ..., noinline kotlin/Function1<#A, kotlin/Unit>) // software.ralf.app.platform.robot/robot|robot(software.ralf.app.platform.scope.Scope;kotlin.Function1<0:0,kotlin.Unit>){0§<software.ralf.app.platform.robot.Robot>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any> software.ralf.app.platform.robot/waitFor(kotlin/String, kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.coroutines/SuspendFunction0<#A?>): #A // software.ralf.app.platform.robot/waitFor|waitFor(kotlin.String;kotlin.time.Duration;kotlin.time.Duration;kotlin.coroutines.SuspendFunction0<0:0?>){0§<kotlin.Any>}[0]
+
+// Targets: [native]
+final fun software.ralf.app.platform.robot/waitUntil(kotlin/String, kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.coroutines/SuspendFunction0<kotlin/Boolean>) // software.ralf.app.platform.robot/waitUntil|waitUntil(kotlin.String;kotlin.time.Duration;kotlin.time.Duration;kotlin.coroutines.SuspendFunction0<kotlin.Boolean>){}[0]
+
+// Targets: [native]
+final fun software.ralf.app.platform.robot/waitUntilCatching(kotlin/String, kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.coroutines/SuspendFunction0<kotlin/Unit>) // software.ralf.app.platform.robot/waitUntilCatching|waitUntilCatching(kotlin.String;kotlin.time.Duration;kotlin.time.Duration;kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]

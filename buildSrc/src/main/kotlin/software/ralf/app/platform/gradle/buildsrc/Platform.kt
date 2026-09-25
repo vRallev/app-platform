@@ -18,13 +18,22 @@ internal sealed interface Platform {
 
   abstract class Native : Platform {
     protected abstract val project: Project
+    abstract val target: KotlinNativeTarget
+
+    override fun configurePlatform() {
+      target.compilations.named("main").configure { compilation ->
+        compilation.compileTaskProvider.configure { task ->
+          task.compilerOptions.moduleName.set(project.klibModuleName)
+        }
+      }
+    }
   }
 
   abstract class Ios : Native() {
 
-    abstract val target: KotlinNativeTarget
-
     override fun configurePlatform() {
+      super.configurePlatform()
+
       val minimumIosDeploymentTarget =
         project.libs.findVersion("ios.deploymentTarget").get().requiredVersion
 
@@ -109,12 +118,11 @@ internal sealed interface Platform {
     }
   }
 
-  private abstract class Linux : Platform {
-
-    abstract val project: Project
-    abstract val target: KotlinNativeTarget
+  private abstract class Linux : Native() {
 
     override fun configurePlatform() {
+      super.configurePlatform()
+
       target.binaries { sharedLib { baseName = project.safePathString.capitalize() } }
     }
   }
@@ -151,7 +159,15 @@ internal sealed interface Platform {
 
     override fun configurePlatform() {
       @Suppress("OPT_IN_USAGE")
-      project.kmpExtension.wasmJs { browser { outputModuleName.set(project.safePathString) } }
+      project.kmpExtension.wasmJs {
+        browser { outputModuleName.set(project.safePathString) }
+
+        compilations.named("main").configure { compilation ->
+          compilation.compileTaskProvider.configure { task ->
+            task.compilerOptions.freeCompilerArgs.add("-Xir-module-name=${project.klibModuleName}")
+          }
+        }
+      }
 
       project.plugins.withId(Plugins.COMPOSE_MULTIPLATFORM) {
         @Suppress("OPT_IN_USAGE") project.kmpExtension.wasmJs { binaries.executable() }
@@ -160,6 +176,10 @@ internal sealed interface Platform {
   }
 
   companion object {
+
+    // ABI validation merges Wasm and native dumps, which must share a Klib module name.
+    private val Project.klibModuleName: String
+      get() = "app-platform:$safePathString"
 
     private val projectsUsingCompose =
       setOf(

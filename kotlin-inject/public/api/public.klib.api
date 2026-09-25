@@ -1,0 +1,15 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:kotlin-inject-public>
+final const val software.ralf.app.platform.scope.di/DI_COMPONENT_KEY // software.ralf.app.platform.scope.di/DI_COMPONENT_KEY|{}DI_COMPONENT_KEY[0]
+    final fun <get-DI_COMPONENT_KEY>(): kotlin/String // software.ralf.app.platform.scope.di/DI_COMPONENT_KEY.<get-DI_COMPONENT_KEY>|<get-DI_COMPONENT_KEY>(){}[0]
+
+final fun (software.ralf.app.platform.scope/Scope.Builder).software.ralf.app.platform.scope.di/addDiComponent(kotlin/Any) // software.ralf.app.platform.scope.di/addDiComponent|addDiComponent@software.ralf.app.platform.scope.Scope.Builder(kotlin.Any){}[0]
+final fun (software.ralf.app.platform.scope/Scope.Builder).software.ralf.app.platform.scope.di/addKotlinInjectComponent(kotlin/Any) // software.ralf.app.platform.scope.di/addKotlinInjectComponent|addKotlinInjectComponent@software.ralf.app.platform.scope.Scope.Builder(kotlin.Any){}[0]
+final inline fun <#A: reified kotlin/Any> (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.scope.di/diComponent(): #A // software.ralf.app.platform.scope.di/diComponent|diComponent@software.ralf.app.platform.scope.Scope(){0§<kotlin.Any>}[0]
+final inline fun <#A: reified kotlin/Any> (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.scope.di/kotlinInjectComponent(): #A // software.ralf.app.platform.scope.di/kotlinInjectComponent|kotlinInjectComponent@software.ralf.app.platform.scope.Scope(){0§<kotlin.Any>}[0]

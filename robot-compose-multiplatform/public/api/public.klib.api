@@ -1,0 +1,29 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:robot-compose-multiplatform-public>
+abstract interface software.ralf.app.platform.robot/ComposeInteractionsProvider { // software.ralf.app.platform.robot/ComposeInteractionsProvider|null[0]
+    abstract val semanticsNodeInteractionsProvider // software.ralf.app.platform.robot/ComposeInteractionsProvider.semanticsNodeInteractionsProvider|{}semanticsNodeInteractionsProvider[0]
+        abstract fun <get-semanticsNodeInteractionsProvider>(): androidx.compose.ui.test/SemanticsNodeInteractionsProvider // software.ralf.app.platform.robot/ComposeInteractionsProvider.semanticsNodeInteractionsProvider.<get-semanticsNodeInteractionsProvider>|<get-semanticsNodeInteractionsProvider>(){}[0]
+}
+
+abstract class software.ralf.app.platform.robot/ComposeRobot : software.ralf.app.platform.robot/Robot { // software.ralf.app.platform.robot/ComposeRobot|null[0]
+    constructor <init>() // software.ralf.app.platform.robot/ComposeRobot.<init>|<init>(){}[0]
+
+    final val compose // software.ralf.app.platform.robot/ComposeRobot.compose|{}compose[0]
+        final fun <get-compose>(): androidx.compose.ui.test/SemanticsNodeInteractionsProvider // software.ralf.app.platform.robot/ComposeRobot.compose.<get-compose>|<get-compose>(){}[0]
+
+    final var interactionsProvider // software.ralf.app.platform.robot/ComposeRobot.interactionsProvider|{}interactionsProvider[0]
+        final fun <get-interactionsProvider>(): androidx.compose.ui.test/SemanticsNodeInteractionsProvider // software.ralf.app.platform.robot/ComposeRobot.interactionsProvider.<get-interactionsProvider>|<get-interactionsProvider>(){}[0]
+        final fun <set-interactionsProvider>(androidx.compose.ui.test/SemanticsNodeInteractionsProvider) // software.ralf.app.platform.robot/ComposeRobot.interactionsProvider.<set-interactionsProvider>|<set-interactionsProvider>(androidx.compose.ui.test.SemanticsNodeInteractionsProvider){}[0]
+}
+
+final val software.ralf.app.platform.robot/software_ralf_app_platform_robot_ComposeRobot$stableprop // software.ralf.app.platform.robot/software_ralf_app_platform_robot_ComposeRobot$stableprop|#static{}software_ralf_app_platform_robot_ComposeRobot$stableprop[0]
+
+final fun software.ralf.app.platform.robot/software_ralf_app_platform_robot_ComposeRobot$stableprop_getter(): kotlin/Int // software.ralf.app.platform.robot/software_ralf_app_platform_robot_ComposeRobot$stableprop_getter|software_ralf_app_platform_robot_ComposeRobot$stableprop_getter(){}[0]
+final inline fun <#A: reified software.ralf.app.platform.robot/Robot> (androidx.compose.ui.test/SemanticsNodeInteractionsProvider).software.ralf.app.platform.robot/composeRobot(software.ralf.app.platform.scope/Scope = ..., noinline kotlin/Function1<#A, kotlin/Unit>) // software.ralf.app.platform.robot/composeRobot|composeRobot@androidx.compose.ui.test.SemanticsNodeInteractionsProvider(software.ralf.app.platform.scope.Scope;kotlin.Function1<0:0,kotlin.Unit>){0§<software.ralf.app.platform.robot.Robot>}[0]
+final inline fun <#A: reified software.ralf.app.platform.robot/Robot> (software.ralf.app.platform.robot/ComposeInteractionsProvider).software.ralf.app.platform.robot/composeRobot(software.ralf.app.platform.scope/Scope = ..., noinline kotlin/Function1<#A, kotlin/Unit>) // software.ralf.app.platform.robot/composeRobot|composeRobot@software.ralf.app.platform.robot.ComposeInteractionsProvider(software.ralf.app.platform.scope.Scope;kotlin.Function1<0:0,kotlin.Unit>){0§<software.ralf.app.platform.robot.Robot>}[0]

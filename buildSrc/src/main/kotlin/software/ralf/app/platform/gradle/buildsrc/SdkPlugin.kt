@@ -1,9 +1,9 @@
 package software.ralf.app.platform.gradle.buildsrc
 
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import kotlinx.validation.ApiValidationExtension
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import software.ralf.app.platform.gradle.ModuleStructurePlugin.Companion.artifactId
 
 internal object SdkPlugin {
@@ -48,24 +48,20 @@ internal object SdkPlugin {
     }
   }
 
+  @OptIn(ExperimentalAbiValidation::class)
   private fun Project.configureBinaryCompatibility() {
-    // This plugin ensures that binary changes are committed as a human readable text file
-    // in the repository.
-    plugins.apply(Plugins.BINARY_COMPAT_VALIDATOR)
+    extensions.getByType(KotlinBaseExtension::class.java).abiValidation {
+      it.keepLocallyUnsupportedTargets.set(!ci)
 
-    releaseTask.configure { it.dependsOn("apiCheck") }
+      // These packages only contain generated hints consumed by compiler plugins.
+      it.filters.exclude.byNames.addAll(
+        "app.platform.inject.**",
+        "amazon.lastmile.inject.**",
+        "metro.hints.**",
+      )
+    }
 
-    val apiValidation = extensions.getByType(ApiValidationExtension::class.java)
-
-    // Klib doesn't work in CI right now and this creates mismatch between local and CI builds.
-    // Disable the experimental feature for now.
-    @Suppress("OPT_IN_USAGE")
-    apiValidation.klib.enabled = false
-
-    // These packages only contain generated code that is picked up by compiler plugins.
-    // They don't need to be part of the API dumps.
-    apiValidation.ignoredPackages +=
-      setOf("app.platform.inject", "amazon.lastmile.inject", "metro.hints")
+    releaseTask.configure { it.dependsOn("checkKotlinAbi") }
   }
 
   private fun Project.configureExplicitApi() {

@@ -2,7 +2,6 @@ plugins {
     alias libs.plugins.kotlin.jvm
     alias libs.plugins.maven.publish
     alias libs.plugins.detekt
-    alias libs.plugins.kotlinx.binaryCompatibilityValidator
 }
 
 mavenPublishing {
@@ -32,6 +31,7 @@ kotlin {
     }
 
     explicitApi()
+    abiValidation()
 }
 
 tasks.withType(dev.detekt.gradle.Detekt).configureEach {
@@ -51,5 +51,5 @@ detekt {
 }
 
 tasks.register('release') {
-    dependsOn('build', 'check', 'detekt', 'apiCheck')
+    dependsOn('build', 'check', 'detekt', 'checkKotlinAbi')
 }

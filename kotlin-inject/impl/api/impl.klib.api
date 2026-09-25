@@ -1,0 +1,22 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:kotlin-inject-impl>
+abstract interface software.ralf.app.platform.presenter/PresenterCoroutineScopeComponent { // software.ralf.app.platform.presenter/PresenterCoroutineScopeComponent|null[0]
+    open fun providePresenterCoroutineScope(kotlinx.coroutines/CoroutineScope, kotlinx.coroutines/CoroutineDispatcher): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.presenter/PresenterCoroutineScopeComponent.providePresenterCoroutineScope|providePresenterCoroutineScope(kotlinx.coroutines.CoroutineScope;kotlinx.coroutines.CoroutineDispatcher){}[0]
+}
+
+abstract interface software.ralf.app.platform.scope.coroutine/AppScopeCoroutineScopeComponent { // software.ralf.app.platform.scope.coroutine/AppScopeCoroutineScopeComponent|null[0]
+    open fun provideAppCoroutineScope(software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.scope.coroutine/AppScopeCoroutineScopeComponent.provideAppCoroutineScope|provideAppCoroutineScope(software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped){}[0]
+    open fun provideAppScopeCoroutineScopeScoped(kotlinx.coroutines/CoroutineDispatcher): software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped // software.ralf.app.platform.scope.coroutine/AppScopeCoroutineScopeComponent.provideAppScopeCoroutineScopeScoped|provideAppScopeCoroutineScopeScoped(kotlinx.coroutines.CoroutineDispatcher){}[0]
+}
+
+abstract interface software.ralf.app.platform.scope.coroutine/CoroutineDispatcherComponent { // software.ralf.app.platform.scope.coroutine/CoroutineDispatcherComponent|null[0]
+    open fun provideDefaultCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine/CoroutineDispatcherComponent.provideDefaultCoroutineDispatcher|provideDefaultCoroutineDispatcher(){}[0]
+    open fun provideIoCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine/CoroutineDispatcherComponent.provideIoCoroutineDispatcher|provideIoCoroutineDispatcher(){}[0]
+    open fun provideMainCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine/CoroutineDispatcherComponent.provideMainCoroutineDispatcher|provideMainCoroutineDispatcher(){}[0]
+}

@@ -1,0 +1,23 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:presenter-public>
+abstract interface <#A: software.ralf.app.platform.presenter/BaseModel> software.ralf.app.platform.presenter/Presenter { // software.ralf.app.platform.presenter/Presenter|null[0]
+    abstract val model // software.ralf.app.platform.presenter/Presenter.model|{}model[0]
+        abstract fun <get-model>(): kotlinx.coroutines.flow/StateFlow<#A> // software.ralf.app.platform.presenter/Presenter.model.<get-model>|<get-model>(){}[0]
+}
+
+abstract interface software.ralf.app.platform.presenter.template/ModelDelegate { // software.ralf.app.platform.presenter.template/ModelDelegate|null[0]
+    abstract fun delegate(): software.ralf.app.platform.presenter/BaseModel // software.ralf.app.platform.presenter.template/ModelDelegate.delegate|delegate(){}[0]
+}
+
+abstract interface software.ralf.app.platform.presenter.template/Template : software.ralf.app.platform.presenter/BaseModel // software.ralf.app.platform.presenter.template/Template|null[0]
+
+abstract interface software.ralf.app.platform.presenter/BaseModel // software.ralf.app.platform.presenter/BaseModel|null[0]
+
+final inline fun <#A: reified software.ralf.app.platform.presenter.template/Template> (software.ralf.app.platform.presenter/BaseModel).software.ralf.app.platform.presenter.template/toTemplate(kotlin/Function1<software.ralf.app.platform.presenter/BaseModel, #A>): #A // software.ralf.app.platform.presenter.template/toTemplate|toTemplate@software.ralf.app.platform.presenter.BaseModel(kotlin.Function1<software.ralf.app.platform.presenter.BaseModel,0:0>){0§<software.ralf.app.platform.presenter.template.Template>}[0]
+final inline fun <#A: software.ralf.app.platform.presenter/BaseModel> (kotlinx.coroutines.flow/Flow<#A>).software.ralf.app.platform.presenter/stateInPresenter(kotlinx.coroutines/CoroutineScope, crossinline kotlin/Function0<#A>): kotlinx.coroutines.flow/StateFlow<#A> // software.ralf.app.platform.presenter/stateInPresenter|stateInPresenter@kotlinx.coroutines.flow.Flow<0:0>(kotlinx.coroutines.CoroutineScope;kotlin.Function0<0:0>){0§<software.ralf.app.platform.presenter.BaseModel>}[0]

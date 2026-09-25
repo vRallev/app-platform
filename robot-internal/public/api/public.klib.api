@@ -1,0 +1,19 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Alias: native => [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:robot-internal-public>
+final val software.ralf.app.platform.robot.internal/rootScope // software.ralf.app.platform.robot.internal/rootScope|{}rootScope[0]
+    final fun <get-rootScope>(): software.ralf.app.platform.scope/Scope // software.ralf.app.platform.robot.internal/rootScope.<get-rootScope>|<get-rootScope>(){}[0]
+
+final var software.ralf.app.platform.robot.internal/rootScopeProvider // software.ralf.app.platform.robot.internal/rootScopeProvider|{}rootScopeProvider[0]
+    final fun <get-rootScopeProvider>(): software.ralf.app.platform.scope/RootScopeProvider? // software.ralf.app.platform.robot.internal/rootScopeProvider.<get-rootScopeProvider>|<get-rootScopeProvider>(){}[0]
+    final fun <set-rootScopeProvider>(software.ralf.app.platform.scope/RootScopeProvider?) // software.ralf.app.platform.robot.internal/rootScopeProvider.<set-rootScopeProvider>|<set-rootScopeProvider>(software.ralf.app.platform.scope.RootScopeProvider?){}[0]
+
+// Targets: [native]
+final val software.ralf.app.platform.robot.internal/defaultRootScope // software.ralf.app.platform.robot.internal/defaultRootScope|{}defaultRootScope[0]
+    final fun <get-defaultRootScope>(): software.ralf.app.platform.scope/Scope? // software.ralf.app.platform.robot.internal/defaultRootScope.<get-defaultRootScope>|<get-defaultRootScope>(){}[0]

@@ -1,0 +1,64 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:scope-public>
+abstract interface software.ralf.app.platform.scope/RootScopeProvider { // software.ralf.app.platform.scope/RootScopeProvider|null[0]
+    abstract val rootScope // software.ralf.app.platform.scope/RootScopeProvider.rootScope|{}rootScope[0]
+        abstract fun <get-rootScope>(): software.ralf.app.platform.scope/Scope // software.ralf.app.platform.scope/RootScopeProvider.rootScope.<get-rootScope>|<get-rootScope>(){}[0]
+}
+
+abstract interface software.ralf.app.platform.scope/Scope { // software.ralf.app.platform.scope/Scope|null[0]
+    abstract val name // software.ralf.app.platform.scope/Scope.name|{}name[0]
+        abstract fun <get-name>(): kotlin/String // software.ralf.app.platform.scope/Scope.name.<get-name>|<get-name>(){}[0]
+    abstract val parent // software.ralf.app.platform.scope/Scope.parent|{}parent[0]
+        abstract fun <get-parent>(): software.ralf.app.platform.scope/Scope? // software.ralf.app.platform.scope/Scope.parent.<get-parent>|<get-parent>(){}[0]
+
+    abstract fun <#A1: kotlin/Any> getService(kotlin/String): #A1? // software.ralf.app.platform.scope/Scope.getService|getService(kotlin.String){0§<kotlin.Any>}[0]
+    abstract fun buildChild(kotlin/String, kotlin/Function1<software.ralf.app.platform.scope/Scope.Builder, kotlin/Unit>? = ...): software.ralf.app.platform.scope/Scope // software.ralf.app.platform.scope/Scope.buildChild|buildChild(kotlin.String;kotlin.Function1<software.ralf.app.platform.scope.Scope.Builder,kotlin.Unit>?){}[0]
+    abstract fun children(): kotlin.collections/Set<software.ralf.app.platform.scope/Scope> // software.ralf.app.platform.scope/Scope.children|children(){}[0]
+    abstract fun destroy() // software.ralf.app.platform.scope/Scope.destroy|destroy(){}[0]
+    abstract fun isDestroyed(): kotlin/Boolean // software.ralf.app.platform.scope/Scope.isDestroyed|isDestroyed(){}[0]
+    abstract fun register(software.ralf.app.platform.scope/Scoped) // software.ralf.app.platform.scope/Scope.register|register(software.ralf.app.platform.scope.Scoped){}[0]
+
+    final class Builder { // software.ralf.app.platform.scope/Scope.Builder|null[0]
+        final fun addService(kotlin/String, kotlin/Any) // software.ralf.app.platform.scope/Scope.Builder.addService|addService(kotlin.String;kotlin.Any){}[0]
+        final fun register(software.ralf.app.platform.scope/Scoped) // software.ralf.app.platform.scope/Scope.Builder.register|register(software.ralf.app.platform.scope.Scoped){}[0]
+    }
+
+    final object Companion { // software.ralf.app.platform.scope/Scope.Companion|null[0]
+        final fun buildRootScope(kotlin/String = ..., kotlin/Function1<software.ralf.app.platform.scope/Scope.Builder, kotlin/Unit>? = ...): software.ralf.app.platform.scope/Scope // software.ralf.app.platform.scope/Scope.Companion.buildRootScope|buildRootScope(kotlin.String;kotlin.Function1<software.ralf.app.platform.scope.Scope.Builder,kotlin.Unit>?){}[0]
+    }
+}
+
+abstract interface software.ralf.app.platform.scope/Scoped { // software.ralf.app.platform.scope/Scoped|null[0]
+    open fun onEnterScope(software.ralf.app.platform.scope/Scope) // software.ralf.app.platform.scope/Scoped.onEnterScope|onEnterScope(software.ralf.app.platform.scope.Scope){}[0]
+    open fun onExitScope() // software.ralf.app.platform.scope/Scoped.onExitScope|onExitScope(){}[0]
+
+    final object Companion { // software.ralf.app.platform.scope/Scoped.Companion|null[0]
+        final val NO_OP // software.ralf.app.platform.scope/Scoped.Companion.NO_OP|{}NO_OP[0]
+            final fun <get-NO_OP>(): software.ralf.app.platform.scope/Scoped // software.ralf.app.platform.scope/Scoped.Companion.NO_OP.<get-NO_OP>|<get-NO_OP>(){}[0]
+    }
+}
+
+final class software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped : kotlinx.coroutines/CoroutineScope, software.ralf.app.platform.scope/Scoped { // software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped|null[0]
+    constructor <init>(kotlin.coroutines/CoroutineContext) // software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped.<init>|<init>(kotlin.coroutines.CoroutineContext){}[0]
+
+    final val coroutineContext // software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped.coroutineContext|{}coroutineContext[0]
+        final fun <get-coroutineContext>(): kotlin.coroutines/CoroutineContext // software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped.coroutineContext.<get-coroutineContext>|<get-coroutineContext>(){}[0]
+
+    final fun createChild(kotlin.coroutines/CoroutineContext = ...): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped.createChild|createChild(kotlin.coroutines.CoroutineContext){}[0]
+    final fun onExitScope() // software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped.onExitScope|onExitScope(){}[0]
+}
+
+final fun (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.scope.coroutine/coroutineScope(kotlin.coroutines/CoroutineContext = ...): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.scope.coroutine/coroutineScope|coroutineScope@software.ralf.app.platform.scope.Scope(kotlin.coroutines.CoroutineContext){}[0]
+final fun (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.scope.coroutine/launch(kotlin.coroutines/CoroutineContext = ..., kotlinx.coroutines/CoroutineStart = ..., kotlin.coroutines/SuspendFunction1<kotlinx.coroutines/CoroutineScope, kotlin/Unit>): kotlinx.coroutines/Job // software.ralf.app.platform.scope.coroutine/launch|launch@software.ralf.app.platform.scope.Scope(kotlin.coroutines.CoroutineContext;kotlinx.coroutines.CoroutineStart;kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope,kotlin.Unit>){}[0]
+final fun (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.scope/onExit(kotlin/Function0<kotlin/Unit>) // software.ralf.app.platform.scope/onExit|onExit@software.ralf.app.platform.scope.Scope(kotlin.Function0<kotlin.Unit>){}[0]
+final fun (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.scope/parents(kotlin/Boolean = ...): kotlin.sequences/Sequence<software.ralf.app.platform.scope/Scope> // software.ralf.app.platform.scope/parents|parents@software.ralf.app.platform.scope.Scope(kotlin.Boolean){}[0]
+final fun (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.scope/register(kotlin.collections/Iterable<software.ralf.app.platform.scope/Scoped>) // software.ralf.app.platform.scope/register|register@software.ralf.app.platform.scope.Scope(kotlin.collections.Iterable<software.ralf.app.platform.scope.Scoped>){}[0]
+final fun (software.ralf.app.platform.scope/Scope.Builder).software.ralf.app.platform.scope.coroutine/addCoroutineScopeScoped(software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped) // software.ralf.app.platform.scope.coroutine/addCoroutineScopeScoped|addCoroutineScopeScoped@software.ralf.app.platform.scope.Scope.Builder(software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped){}[0]
+final fun (software.ralf.app.platform.scope/Scope.Builder).software.ralf.app.platform.scope/register(kotlin.collections/Iterable<software.ralf.app.platform.scope/Scoped>) // software.ralf.app.platform.scope/register|register@software.ralf.app.platform.scope.Scope.Builder(kotlin.collections.Iterable<software.ralf.app.platform.scope.Scoped>){}[0]
+final suspend fun (software.ralf.app.platform.scope/Scope).software.ralf.app.platform.scope.coroutine/destroyAndWait() // software.ralf.app.platform.scope.coroutine/destroyAndWait|destroyAndWait@software.ralf.app.platform.scope.Scope(){}[0]

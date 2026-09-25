@@ -1,0 +1,174 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Alias: apple => [iosArm64, iosSimulatorArm64]
+// Alias: linux => [linuxArm64, linuxX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:presenter-compose-impl>
+abstract interface software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterComponent { // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterComponent|null[0]
+    open fun provideDefaultBackGestureDispatcherPresenter(): software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterComponent.provideDefaultBackGestureDispatcherPresenter|provideDefaultBackGestureDispatcherPresenter(){}[0]
+}
+
+final object software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph { // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph|null[0]
+    final fun provideDefaultBackGestureDispatcherPresenter(): software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph.provideDefaultBackGestureDispatcherPresenter|provideDefaultBackGestureDispatcherPresenter(){}[0]
+
+    final object ProvideDefaultBackGestureDispatcherPresenterMetroFactory : dev.zacsweers.metro.internal/Factory<software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter> { // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph.ProvideDefaultBackGestureDispatcherPresenterMetroFactory|null[0]
+        final fun create(): software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph.ProvideDefaultBackGestureDispatcherPresenterMetroFactory // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph.ProvideDefaultBackGestureDispatcherPresenterMetroFactory.create|create(){}[0]
+        final fun declarationMirror(): software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph.ProvideDefaultBackGestureDispatcherPresenterMetroFactory.declarationMirror|declarationMirror(){}[0]
+        final fun invoke(): software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph.ProvideDefaultBackGestureDispatcherPresenterMetroFactory.invoke|invoke(){}[0]
+        final fun provideDefaultBackGestureDispatcherPresenter(): software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter // software.ralf.app.platform.presenter.compose.backgesture/DefaultBackGestureDispatcherPresenterGraph.ProvideDefaultBackGestureDispatcherPresenterMetroFactory.provideDefaultBackGestureDispatcherPresenter|provideDefaultBackGestureDispatcherPresenter(){}[0]
+    }
+}
+
+final val software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph$stableprop // software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph$stableprop|#static{}software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph$stableprop[0]
+final val software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph_ProvideDefaultBackGestureDispatcherPresenterMetroFactory$stableprop // software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph_ProvideDefaultBackGestureDispatcherPresenterMetroFactory$stableprop|#static{}software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph_ProvideDefaultBackGestureDispatcherPresenterMetroFactory$stableprop[0]
+
+final fun software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph$stableprop_getter|software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph$stableprop_getter(){}[0]
+final fun software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph_ProvideDefaultBackGestureDispatcherPresenterMetroFactory$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph_ProvideDefaultBackGestureDispatcherPresenterMetroFactory$stableprop_getter|software_ralf_app_platform_presenter_compose_backgesture_DefaultBackGestureDispatcherPresenterGraph_ProvideDefaultBackGestureDispatcherPresenterMetroFactory$stableprop_getter(){}[0]
+
+// Targets: [apple]
+abstract interface software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryComponent { // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryComponent|null[0]
+    open fun provideIosComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryComponent.provideIosComposePresenterScopeFactory|provideIosComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+}
+
+// Targets: [apple]
+final class software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactory : software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory { // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactory|null[0]
+    constructor <init>(kotlin/Function0<kotlinx.coroutines/CoroutineScope>) // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactory.<init>|<init>(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+
+    final fun createComposePresenterScope(): software.ralf.app.platform.presenter.compose/ComposePresenterScope // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactory.createComposePresenterScope|createComposePresenterScope(){}[0]
+    final fun createComposePresenterScopeFromCoroutineScope(kotlinx.coroutines/CoroutineScope, kotlin.coroutines/CoroutineContext): software.ralf.app.platform.presenter.compose/ComposePresenterScope // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactory.createComposePresenterScopeFromCoroutineScope|createComposePresenterScopeFromCoroutineScope(kotlinx.coroutines.CoroutineScope;kotlin.coroutines.CoroutineContext){}[0]
+}
+
+// Targets: [apple]
+final object software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph { // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph|null[0]
+    final fun provideIosComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.provideIosComposePresenterScopeFactory|provideIosComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+
+    final class ProvideIosComposePresenterScopeFactoryMetroFactory : dev.zacsweers.metro.internal/Factory<software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory> { // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.ProvideIosComposePresenterScopeFactoryMetroFactory|null[0]
+        final fun declarationMirror(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.ProvideIosComposePresenterScopeFactoryMetroFactory.declarationMirror|declarationMirror(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+        final fun invoke(): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.ProvideIosComposePresenterScopeFactoryMetroFactory.invoke|invoke(){}[0]
+
+        final object Companion { // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.ProvideIosComposePresenterScopeFactoryMetroFactory.Companion|null[0]
+            constructor <init>() // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.ProvideIosComposePresenterScopeFactoryMetroFactory.Companion.<init>|<init>(){}[0]
+
+            final fun create(dev.zacsweers.metro/Provider<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.ProvideIosComposePresenterScopeFactoryMetroFactory // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.ProvideIosComposePresenterScopeFactoryMetroFactory.Companion.create|create(dev.zacsweers.metro.Provider<kotlinx.coroutines.CoroutineScope>){}[0]
+            final fun provideIosComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/IosComposePresenterScopeFactoryGraph.ProvideIosComposePresenterScopeFactoryMetroFactory.Companion.provideIosComposePresenterScopeFactory|provideIosComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+        }
+    }
+}
+
+// Targets: [apple]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactory$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactory$stableprop|#static{}software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactory$stableprop[0]
+
+// Targets: [apple]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph$stableprop|#static{}software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph$stableprop[0]
+
+// Targets: [apple]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph_ProvideIosComposePresenterScopeFactoryMetroFactory$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph_ProvideIosComposePresenterScopeFactoryMetroFactory$stableprop|#static{}software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph_ProvideIosComposePresenterScopeFactoryMetroFactory$stableprop[0]
+
+// Targets: [apple]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactory$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactory$stableprop_getter|software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactory$stableprop_getter(){}[0]
+
+// Targets: [apple]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph$stableprop_getter|software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph$stableprop_getter(){}[0]
+
+// Targets: [apple]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph_ProvideIosComposePresenterScopeFactoryMetroFactory$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph_ProvideIosComposePresenterScopeFactoryMetroFactory$stableprop_getter|software_ralf_app_platform_presenter_compose_IosComposePresenterScopeFactoryGraph_ProvideIosComposePresenterScopeFactoryMetroFactory$stableprop_getter(){}[0]
+
+// Targets: [linux]
+abstract interface software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryComponent { // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryComponent|null[0]
+    open fun provideLinuxComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryComponent.provideLinuxComposePresenterScopeFactory|provideLinuxComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+}
+
+// Targets: [linux]
+final class software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactory : software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory { // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactory|null[0]
+    constructor <init>(kotlin/Function0<kotlinx.coroutines/CoroutineScope>) // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactory.<init>|<init>(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+
+    final fun createComposePresenterScope(): software.ralf.app.platform.presenter.compose/ComposePresenterScope // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactory.createComposePresenterScope|createComposePresenterScope(){}[0]
+    final fun createComposePresenterScopeFromCoroutineScope(kotlinx.coroutines/CoroutineScope, kotlin.coroutines/CoroutineContext): software.ralf.app.platform.presenter.compose/ComposePresenterScope // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactory.createComposePresenterScopeFromCoroutineScope|createComposePresenterScopeFromCoroutineScope(kotlinx.coroutines.CoroutineScope;kotlin.coroutines.CoroutineContext){}[0]
+}
+
+// Targets: [linux]
+final object software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph { // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph|null[0]
+    final fun provideLinuxComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.provideLinuxComposePresenterScopeFactory|provideLinuxComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+
+    final class ProvideLinuxComposePresenterScopeFactoryMetroFactory : dev.zacsweers.metro.internal/Factory<software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory> { // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.ProvideLinuxComposePresenterScopeFactoryMetroFactory|null[0]
+        final fun declarationMirror(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.ProvideLinuxComposePresenterScopeFactoryMetroFactory.declarationMirror|declarationMirror(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+        final fun invoke(): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.ProvideLinuxComposePresenterScopeFactoryMetroFactory.invoke|invoke(){}[0]
+
+        final object Companion { // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.ProvideLinuxComposePresenterScopeFactoryMetroFactory.Companion|null[0]
+            constructor <init>() // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.ProvideLinuxComposePresenterScopeFactoryMetroFactory.Companion.<init>|<init>(){}[0]
+
+            final fun create(dev.zacsweers.metro/Provider<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.ProvideLinuxComposePresenterScopeFactoryMetroFactory // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.ProvideLinuxComposePresenterScopeFactoryMetroFactory.Companion.create|create(dev.zacsweers.metro.Provider<kotlinx.coroutines.CoroutineScope>){}[0]
+            final fun provideLinuxComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/LinuxComposePresenterScopeFactoryGraph.ProvideLinuxComposePresenterScopeFactoryMetroFactory.Companion.provideLinuxComposePresenterScopeFactory|provideLinuxComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+        }
+    }
+}
+
+// Targets: [linux]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactory$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactory$stableprop|#static{}software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactory$stableprop[0]
+
+// Targets: [linux]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph$stableprop|#static{}software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph$stableprop[0]
+
+// Targets: [linux]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph_ProvideLinuxComposePresenterScopeFactoryMetroFactory$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph_ProvideLinuxComposePresenterScopeFactoryMetroFactory$stableprop|#static{}software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph_ProvideLinuxComposePresenterScopeFactoryMetroFactory$stableprop[0]
+
+// Targets: [linux]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactory$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactory$stableprop_getter|software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactory$stableprop_getter(){}[0]
+
+// Targets: [linux]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph$stableprop_getter|software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph$stableprop_getter(){}[0]
+
+// Targets: [linux]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph_ProvideLinuxComposePresenterScopeFactoryMetroFactory$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph_ProvideLinuxComposePresenterScopeFactoryMetroFactory$stableprop_getter|software_ralf_app_platform_presenter_compose_LinuxComposePresenterScopeFactoryGraph_ProvideLinuxComposePresenterScopeFactoryMetroFactory$stableprop_getter(){}[0]
+
+// Targets: [wasmJs]
+abstract interface software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryComponent { // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryComponent|null[0]
+    open fun provideWasmJsComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryComponent.provideWasmJsComposePresenterScopeFactory|provideWasmJsComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+}
+
+// Targets: [wasmJs]
+final class software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactory : software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory { // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactory|null[0]
+    constructor <init>(kotlin/Function0<kotlinx.coroutines/CoroutineScope>) // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactory.<init>|<init>(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+
+    final fun createComposePresenterScope(): software.ralf.app.platform.presenter.compose/ComposePresenterScope // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactory.createComposePresenterScope|createComposePresenterScope(){}[0]
+    final fun createComposePresenterScopeFromCoroutineScope(kotlinx.coroutines/CoroutineScope, kotlin.coroutines/CoroutineContext): software.ralf.app.platform.presenter.compose/ComposePresenterScope // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactory.createComposePresenterScopeFromCoroutineScope|createComposePresenterScopeFromCoroutineScope(kotlinx.coroutines.CoroutineScope;kotlin.coroutines.CoroutineContext){}[0]
+}
+
+// Targets: [wasmJs]
+final object software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph { // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph|null[0]
+    final fun provideWasmJsComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.provideWasmJsComposePresenterScopeFactory|provideWasmJsComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+
+    final class ProvideWasmJsComposePresenterScopeFactoryMetroFactory : dev.zacsweers.metro.internal/Factory<software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory> { // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.ProvideWasmJsComposePresenterScopeFactoryMetroFactory|null[0]
+        final fun declarationMirror(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.ProvideWasmJsComposePresenterScopeFactoryMetroFactory.declarationMirror|declarationMirror(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+        final fun invoke(): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.ProvideWasmJsComposePresenterScopeFactoryMetroFactory.invoke|invoke(){}[0]
+
+        final object Companion { // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.ProvideWasmJsComposePresenterScopeFactoryMetroFactory.Companion|null[0]
+            constructor <init>() // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.ProvideWasmJsComposePresenterScopeFactoryMetroFactory.Companion.<init>|<init>(){}[0]
+
+            final fun create(dev.zacsweers.metro/Provider<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.ProvideWasmJsComposePresenterScopeFactoryMetroFactory // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.ProvideWasmJsComposePresenterScopeFactoryMetroFactory.Companion.create|create(dev.zacsweers.metro.Provider<kotlinx.coroutines.CoroutineScope>){}[0]
+            final fun provideWasmJsComposePresenterScopeFactory(kotlin/Function0<kotlinx.coroutines/CoroutineScope>): software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory // software.ralf.app.platform.presenter.compose/WasmJsComposePresenterScopeFactoryGraph.ProvideWasmJsComposePresenterScopeFactoryMetroFactory.Companion.provideWasmJsComposePresenterScopeFactory|provideWasmJsComposePresenterScopeFactory(kotlin.Function0<kotlinx.coroutines.CoroutineScope>){}[0]
+        }
+    }
+}
+
+// Targets: [wasmJs]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactory$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactory$stableprop|#static{}software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactory$stableprop[0]
+
+// Targets: [wasmJs]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph$stableprop|#static{}software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph$stableprop[0]
+
+// Targets: [wasmJs]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph_ProvideWasmJsComposePresenterScopeFactoryMetroFactory$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph_ProvideWasmJsComposePresenterScopeFactoryMetroFactory$stableprop|#static{}software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph_ProvideWasmJsComposePresenterScopeFactoryMetroFactory$stableprop[0]
+
+// Targets: [wasmJs]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactory$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactory$stableprop_getter|software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactory$stableprop_getter(){}[0]
+
+// Targets: [wasmJs]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph$stableprop_getter|software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph$stableprop_getter(){}[0]
+
+// Targets: [wasmJs]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph_ProvideWasmJsComposePresenterScopeFactoryMetroFactory$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph_ProvideWasmJsComposePresenterScopeFactoryMetroFactory$stableprop_getter|software_ralf_app_platform_presenter_compose_WasmJsComposePresenterScopeFactoryGraph_ProvideWasmJsComposePresenterScopeFactoryMetroFactory$stableprop_getter(){}[0]

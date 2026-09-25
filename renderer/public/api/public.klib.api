@@ -1,0 +1,57 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:renderer-public>
+abstract interface <#A: in software.ralf.app.platform.presenter/BaseModel> software.ralf.app.platform.renderer/Renderer { // software.ralf.app.platform.renderer/Renderer|null[0]
+    abstract fun render(#A) // software.ralf.app.platform.renderer/Renderer.render|render(1:0){}[0]
+}
+
+abstract interface software.ralf.app.platform.renderer/RendererComponent { // software.ralf.app.platform.renderer/RendererComponent|null[0]
+    abstract val modelToRendererMapping // software.ralf.app.platform.renderer/RendererComponent.modelToRendererMapping|{}modelToRendererMapping[0]
+        abstract fun <get-modelToRendererMapping>(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.presenter/BaseModel>, kotlin.reflect/KClass<out software.ralf.app.platform.renderer/Renderer<*>>> // software.ralf.app.platform.renderer/RendererComponent.modelToRendererMapping.<get-modelToRendererMapping>|<get-modelToRendererMapping>(){}[0]
+    abstract val renderers // software.ralf.app.platform.renderer/RendererComponent.renderers|{}renderers[0]
+        abstract fun <get-renderers>(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.presenter/BaseModel>, kotlin/Function0<software.ralf.app.platform.renderer/Renderer<*>>> // software.ralf.app.platform.renderer/RendererComponent.renderers.<get-renderers>|<get-renderers>(){}[0]
+
+    abstract interface Parent { // software.ralf.app.platform.renderer/RendererComponent.Parent|null[0]
+        abstract fun rendererComponent(software.ralf.app.platform.renderer/RendererFactory): software.ralf.app.platform.renderer/RendererComponent // software.ralf.app.platform.renderer/RendererComponent.Parent.rendererComponent|rendererComponent(software.ralf.app.platform.renderer.RendererFactory){}[0]
+    }
+}
+
+abstract interface software.ralf.app.platform.renderer/RendererFactory { // software.ralf.app.platform.renderer/RendererFactory|null[0]
+    abstract fun <#A1: software.ralf.app.platform.presenter/BaseModel> createRenderer(kotlin.reflect/KClass<out #A1>): software.ralf.app.platform.renderer/Renderer<#A1> // software.ralf.app.platform.renderer/RendererFactory.createRenderer|createRenderer(kotlin.reflect.KClass<out|0:0>){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+    abstract fun <#A1: software.ralf.app.platform.presenter/BaseModel> getRenderer(kotlin.reflect/KClass<out #A1>, kotlin/Int = ...): software.ralf.app.platform.renderer/Renderer<#A1> // software.ralf.app.platform.renderer/RendererFactory.getRenderer|getRenderer(kotlin.reflect.KClass<out|0:0>;kotlin.Int){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+}
+
+abstract interface software.ralf.app.platform.renderer/RendererGraph { // software.ralf.app.platform.renderer/RendererGraph|null[0]
+    abstract val modelToRendererMapping // software.ralf.app.platform.renderer/RendererGraph.modelToRendererMapping|{}modelToRendererMapping[0]
+        abstract fun <get-modelToRendererMapping>(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.presenter/BaseModel>, kotlin.reflect/KClass<out software.ralf.app.platform.renderer/Renderer<*>>> // software.ralf.app.platform.renderer/RendererGraph.modelToRendererMapping.<get-modelToRendererMapping>|<get-modelToRendererMapping>(){}[0]
+    abstract val rendererFactory // software.ralf.app.platform.renderer/RendererGraph.rendererFactory|{}rendererFactory[0]
+        abstract fun <get-rendererFactory>(): software.ralf.app.platform.renderer/RendererFactory // software.ralf.app.platform.renderer/RendererGraph.rendererFactory.<get-rendererFactory>|<get-rendererFactory>(){}[0]
+    abstract val renderers // software.ralf.app.platform.renderer/RendererGraph.renderers|{}renderers[0]
+        abstract fun <get-renderers>(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.presenter/BaseModel>, kotlin/Function0<software.ralf.app.platform.renderer/Renderer<*>>> // software.ralf.app.platform.renderer/RendererGraph.renderers.<get-renderers>|<get-renderers>(){}[0]
+
+    abstract interface Factory { // software.ralf.app.platform.renderer/RendererGraph.Factory|null[0]
+        abstract fun createRendererGraph(software.ralf.app.platform.renderer/RendererFactory): software.ralf.app.platform.renderer/RendererGraph // software.ralf.app.platform.renderer/RendererGraph.Factory.createRendererGraph|createRendererGraph(software.ralf.app.platform.renderer.RendererFactory){}[0]
+    }
+
+    abstract class BindsMirror { // software.ralf.app.platform.renderer/RendererGraph.BindsMirror|null[0]
+        final fun modelToRendererMapping_property2182260457995712408(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.presenter/BaseModel>, kotlin.reflect/KClass<out software.ralf.app.platform.renderer/Renderer<*>>> // software.ralf.app.platform.renderer/RendererGraph.BindsMirror.modelToRendererMapping_property2182260457995712408|modelToRendererMapping_property2182260457995712408(){}[0]
+        final fun renderers_property995712408(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.presenter/BaseModel>, kotlin/Function0<software.ralf.app.platform.renderer/Renderer<*>>> // software.ralf.app.platform.renderer/RendererGraph.BindsMirror.renderers_property995712408|renderers_property995712408(){}[0]
+    }
+}
+
+abstract class software.ralf.app.platform.renderer/RendererScope // software.ralf.app.platform.renderer/RendererScope|null[0]
+
+open class software.ralf.app.platform.renderer/BaseRendererFactory : software.ralf.app.platform.renderer/RendererFactory { // software.ralf.app.platform.renderer/BaseRendererFactory|null[0]
+    constructor <init>(software.ralf.app.platform.scope/RootScopeProvider) // software.ralf.app.platform.renderer/BaseRendererFactory.<init>|<init>(software.ralf.app.platform.scope.RootScopeProvider){}[0]
+
+    open fun <#A1: software.ralf.app.platform.presenter/BaseModel> createRenderer(kotlin.reflect/KClass<out #A1>): software.ralf.app.platform.renderer/Renderer<#A1> // software.ralf.app.platform.renderer/BaseRendererFactory.createRenderer|createRenderer(kotlin.reflect.KClass<out|0:0>){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+    open fun <#A1: software.ralf.app.platform.presenter/BaseModel> getRenderer(kotlin.reflect/KClass<out #A1>, kotlin/Int): software.ralf.app.platform.renderer/Renderer<#A1> // software.ralf.app.platform.renderer/BaseRendererFactory.getRenderer|getRenderer(kotlin.reflect.KClass<out|0:0>;kotlin.Int){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+}
+
+final fun <#A: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.renderer/RendererFactory).software.ralf.app.platform.renderer/createRenderer(#A): software.ralf.app.platform.renderer/Renderer<#A> // software.ralf.app.platform.renderer/createRenderer|createRenderer@software.ralf.app.platform.renderer.RendererFactory(0:0){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.renderer/RendererFactory).software.ralf.app.platform.renderer/getRenderer(#A, kotlin/Int = ...): software.ralf.app.platform.renderer/Renderer<#A> // software.ralf.app.platform.renderer/getRenderer|getRenderer@software.ralf.app.platform.renderer.RendererFactory(0:0;kotlin.Int){0§<software.ralf.app.platform.presenter.BaseModel>}[0]

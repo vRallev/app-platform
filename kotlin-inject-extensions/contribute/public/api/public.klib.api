@@ -1,0 +1,33 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:kotlin-inject-extensions-contribute-public>
+open annotation class software.ralf.app.platform.inject.mock/ContributesMockImpl : kotlin/Annotation { // software.ralf.app.platform.inject.mock/ContributesMockImpl|null[0]
+    constructor <init>(kotlin.reflect/KClass<*>, kotlin.reflect/KClass<*> = ...) // software.ralf.app.platform.inject.mock/ContributesMockImpl.<init>|<init>(kotlin.reflect.KClass<*>;kotlin.reflect.KClass<*>){}[0]
+
+    final val boundType // software.ralf.app.platform.inject.mock/ContributesMockImpl.boundType|{}boundType[0]
+        final fun <get-boundType>(): kotlin.reflect/KClass<*> // software.ralf.app.platform.inject.mock/ContributesMockImpl.boundType.<get-boundType>|<get-boundType>(){}[0]
+    final val scope // software.ralf.app.platform.inject.mock/ContributesMockImpl.scope|{}scope[0]
+        final fun <get-scope>(): kotlin.reflect/KClass<*> // software.ralf.app.platform.inject.mock/ContributesMockImpl.scope.<get-scope>|<get-scope>(){}[0]
+}
+
+open annotation class software.ralf.app.platform.inject.mock/ContributesRealImpl : kotlin/Annotation { // software.ralf.app.platform.inject.mock/ContributesRealImpl|null[0]
+    constructor <init>(kotlin.reflect/KClass<*>, kotlin.reflect/KClass<*> = ...) // software.ralf.app.platform.inject.mock/ContributesRealImpl.<init>|<init>(kotlin.reflect.KClass<*>;kotlin.reflect.KClass<*>){}[0]
+
+    final val boundType // software.ralf.app.platform.inject.mock/ContributesRealImpl.boundType|{}boundType[0]
+        final fun <get-boundType>(): kotlin.reflect/KClass<*> // software.ralf.app.platform.inject.mock/ContributesRealImpl.boundType.<get-boundType>|<get-boundType>(){}[0]
+    final val scope // software.ralf.app.platform.inject.mock/ContributesRealImpl.scope|{}scope[0]
+        final fun <get-scope>(): kotlin.reflect/KClass<*> // software.ralf.app.platform.inject.mock/ContributesRealImpl.scope.<get-scope>|<get-scope>(){}[0]
+}
+
+open annotation class software.ralf.app.platform.inject.mock/MockMode : kotlin/Annotation { // software.ralf.app.platform.inject.mock/MockMode|null[0]
+    constructor <init>() // software.ralf.app.platform.inject.mock/MockMode.<init>|<init>(){}[0]
+}
+
+open annotation class software.ralf.app.platform.inject.mock/RealImpl : kotlin/Annotation { // software.ralf.app.platform.inject.mock/RealImpl|null[0]
+    constructor <init>() // software.ralf.app.platform.inject.mock/RealImpl.<init>|<init>(){}[0]
+}

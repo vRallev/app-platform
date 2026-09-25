@@ -1,0 +1,92 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:presenter-compose-public>
+abstract fun interface <#A: kotlin/Any, #B: software.ralf.app.platform.presenter/BaseModel> software.ralf.app.platform.presenter.compose/ComposePresenter { // software.ralf.app.platform.presenter.compose/ComposePresenter|null[0]
+    abstract fun present(#A, androidx.compose.runtime/Composer?, kotlin/Int): #B // software.ralf.app.platform.presenter.compose/ComposePresenter.present|present(1:0;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+}
+
+abstract interface software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter { // software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter|null[0]
+    abstract val listenersCount // software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter.listenersCount|{}listenersCount[0]
+        abstract fun <get-listenersCount>(): kotlinx.coroutines.flow/StateFlow<kotlin/Int> // software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter.listenersCount.<get-listenersCount>|<get-listenersCount>(){}[0]
+
+    abstract fun PredictiveBackHandlerPresenter(kotlin/Boolean, kotlin.coroutines/SuspendFunction1<kotlinx.coroutines.flow/Flow<software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter>, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int) // software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter.PredictiveBackHandlerPresenter|PredictiveBackHandlerPresenter(kotlin.Boolean;kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.flow.Flow<software.ralf.app.platform.presenter.compose.backgesture.BackEventPresenter>,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+    abstract suspend fun onPredictiveBack(kotlinx.coroutines.flow/Flow<software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter>) // software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter.onPredictiveBack|onPredictiveBack(kotlinx.coroutines.flow.Flow<software.ralf.app.platform.presenter.compose.backgesture.BackEventPresenter>){}[0]
+
+    final object Companion { // software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter.Companion|null[0]
+        final fun createNewInstance(): software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter // software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter.Companion.createNewInstance|createNewInstance(){}[0]
+    }
+}
+
+abstract interface software.ralf.app.platform.presenter.compose.saveable/ReturningSaveableStateHolder { // software.ralf.app.platform.presenter.compose.saveable/ReturningSaveableStateHolder|null[0]
+    abstract fun <#A1: kotlin/Any?> SaveableStateProvider(kotlin/Any, kotlin/Function2<androidx.compose.runtime/Composer, kotlin/Int, #A1>, androidx.compose.runtime/Composer?, kotlin/Int): #A1 // software.ralf.app.platform.presenter.compose.saveable/ReturningSaveableStateHolder.SaveableStateProvider|SaveableStateProvider(kotlin.Any;kotlin.Function2<androidx.compose.runtime.Composer,kotlin.Int,0:0>;androidx.compose.runtime.Composer?;kotlin.Int){0§<kotlin.Any?>}[0]
+    abstract fun removeState(kotlin/Any) // software.ralf.app.platform.presenter.compose.saveable/ReturningSaveableStateHolder.removeState|removeState(kotlin.Any){}[0]
+}
+
+abstract interface software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory { // software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory|null[0]
+    abstract fun createComposePresenterScope(): software.ralf.app.platform.presenter.compose/ComposePresenterScope // software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory.createComposePresenterScope|createComposePresenterScope(){}[0]
+    abstract fun createComposePresenterScopeFromCoroutineScope(kotlinx.coroutines/CoroutineScope, kotlin.coroutines/CoroutineContext = ...): software.ralf.app.platform.presenter.compose/ComposePresenterScope // software.ralf.app.platform.presenter.compose/ComposePresenterScopeFactory.createComposePresenterScopeFromCoroutineScope|createComposePresenterScopeFromCoroutineScope(kotlinx.coroutines.CoroutineScope;kotlin.coroutines.CoroutineContext){}[0]
+}
+
+final class software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter { // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter|null[0]
+    constructor <init>(kotlin/Float, kotlin/Float, kotlin/Float, kotlin/Int) // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.<init>|<init>(kotlin.Float;kotlin.Float;kotlin.Float;kotlin.Int){}[0]
+
+    final val progress // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.progress|{}progress[0]
+        final fun <get-progress>(): kotlin/Float // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.progress.<get-progress>|<get-progress>(){}[0]
+    final val swipeEdge // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.swipeEdge|{}swipeEdge[0]
+        final fun <get-swipeEdge>(): kotlin/Int // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.swipeEdge.<get-swipeEdge>|<get-swipeEdge>(){}[0]
+    final val touchX // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.touchX|{}touchX[0]
+        final fun <get-touchX>(): kotlin/Float // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.touchX.<get-touchX>|<get-touchX>(){}[0]
+    final val touchY // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.touchY|{}touchY[0]
+        final fun <get-touchY>(): kotlin/Float // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.touchY.<get-touchY>|<get-touchY>(){}[0]
+
+    final object Companion { // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.Companion|null[0]
+        final const val EDGE_LEFT // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.Companion.EDGE_LEFT|{}EDGE_LEFT[0]
+            final fun <get-EDGE_LEFT>(): kotlin/Int // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.Companion.EDGE_LEFT.<get-EDGE_LEFT>|<get-EDGE_LEFT>(){}[0]
+        final const val EDGE_RIGHT // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.Companion.EDGE_RIGHT|{}EDGE_RIGHT[0]
+            final fun <get-EDGE_RIGHT>(): kotlin/Int // software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter.Companion.EDGE_RIGHT.<get-EDGE_RIGHT>|<get-EDGE_RIGHT>(){}[0]
+    }
+}
+
+final class software.ralf.app.platform.presenter.compose.text/PresenterTextFieldState : androidx.compose.runtime/State<kotlin/String> { // software.ralf.app.platform.presenter.compose.text/PresenterTextFieldState|null[0]
+    constructor <init>(kotlin/String = ...) // software.ralf.app.platform.presenter.compose.text/PresenterTextFieldState.<init>|<init>(kotlin.String){}[0]
+
+    final val value // software.ralf.app.platform.presenter.compose.text/PresenterTextFieldState.value|{}value[0]
+        final fun <get-value>(): kotlin/String // software.ralf.app.platform.presenter.compose.text/PresenterTextFieldState.value.<get-value>|<get-value>(){}[0]
+
+    final fun clearText() // software.ralf.app.platform.presenter.compose.text/PresenterTextFieldState.clearText|clearText(){}[0]
+    final fun replaceText(kotlin/String) // software.ralf.app.platform.presenter.compose.text/PresenterTextFieldState.replaceText|replaceText(kotlin.String){}[0]
+}
+
+final class software.ralf.app.platform.presenter.compose/ComposePresenterScope { // software.ralf.app.platform.presenter.compose/ComposePresenterScope|null[0]
+    constructor <init>(kotlinx.coroutines/CoroutineScope, app.cash.molecule/RecompositionMode) // software.ralf.app.platform.presenter.compose/ComposePresenterScope.<init>|<init>(kotlinx.coroutines.CoroutineScope;app.cash.molecule.RecompositionMode){}[0]
+
+    final val coroutineScope // software.ralf.app.platform.presenter.compose/ComposePresenterScope.coroutineScope|{}coroutineScope[0]
+        final fun <get-coroutineScope>(): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.presenter.compose/ComposePresenterScope.coroutineScope.<get-coroutineScope>|<get-coroutineScope>(){}[0]
+    final val recompositionMode // software.ralf.app.platform.presenter.compose/ComposePresenterScope.recompositionMode|{}recompositionMode[0]
+        final fun <get-recompositionMode>(): app.cash.molecule/RecompositionMode // software.ralf.app.platform.presenter.compose/ComposePresenterScope.recompositionMode.<get-recompositionMode>|<get-recompositionMode>(){}[0]
+
+    final fun cancel() // software.ralf.app.platform.presenter.compose/ComposePresenterScope.cancel|cancel(){}[0]
+}
+
+final val software.ralf.app.platform.presenter.compose.backgesture/LocalBackGestureDispatcherPresenter // software.ralf.app.platform.presenter.compose.backgesture/LocalBackGestureDispatcherPresenter|{}LocalBackGestureDispatcherPresenter[0]
+    final fun <get-LocalBackGestureDispatcherPresenter>(): androidx.compose.runtime/ProvidableCompositionLocal<software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter?> // software.ralf.app.platform.presenter.compose.backgesture/LocalBackGestureDispatcherPresenter.<get-LocalBackGestureDispatcherPresenter>|<get-LocalBackGestureDispatcherPresenter>(){}[0]
+final val software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_BackEventPresenter$stableprop // software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_BackEventPresenter$stableprop|#static{}software_ralf_app_platform_presenter_compose_backgesture_BackEventPresenter$stableprop[0]
+final val software.ralf.app.platform.presenter.compose.text/software_ralf_app_platform_presenter_compose_text_PresenterTextFieldState$stableprop // software.ralf.app.platform.presenter.compose.text/software_ralf_app_platform_presenter_compose_text_PresenterTextFieldState$stableprop|#static{}software_ralf_app_platform_presenter_compose_text_PresenterTextFieldState$stableprop[0]
+final val software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_ComposePresenterScope$stableprop // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_ComposePresenterScope$stableprop|#static{}software_ralf_app_platform_presenter_compose_ComposePresenterScope$stableprop[0]
+
+final fun (software.ralf.app.platform.presenter.compose/ComposePresenter<*, *>).software.ralf.app.platform.presenter.compose.backgesture/BackHandlerPresenter(kotlin/Boolean, kotlin/Function0<kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // software.ralf.app.platform.presenter.compose.backgesture/BackHandlerPresenter|BackHandlerPresenter@software.ralf.app.platform.presenter.compose.ComposePresenter<*,*>(kotlin.Boolean;kotlin.Function0<kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun (software.ralf.app.platform.presenter.compose/ComposePresenter<*, *>).software.ralf.app.platform.presenter.compose.backgesture/PredictiveBackHandlerPresenter(kotlin/Boolean, kotlin.coroutines/SuspendFunction1<kotlinx.coroutines.flow/Flow<software.ralf.app.platform.presenter.compose.backgesture/BackEventPresenter>, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // software.ralf.app.platform.presenter.compose.backgesture/PredictiveBackHandlerPresenter|PredictiveBackHandlerPresenter@software.ralf.app.platform.presenter.compose.ComposePresenter<*,*>(kotlin.Boolean;kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.flow.Flow<software.ralf.app.platform.presenter.compose.backgesture.BackEventPresenter>,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun <#A: kotlin/Any, #B: software.ralf.app.platform.presenter/BaseModel> (kotlinx.coroutines/CoroutineScope).software.ralf.app.platform.presenter.compose/launchComposePresenter(software.ralf.app.platform.presenter.compose/ComposePresenter<#A, #B>, kotlinx.coroutines.flow/StateFlow<#A>, app.cash.molecule/RecompositionMode): software.ralf.app.platform.presenter/Presenter<#B> // software.ralf.app.platform.presenter.compose/launchComposePresenter|launchComposePresenter@kotlinx.coroutines.CoroutineScope(software.ralf.app.platform.presenter.compose.ComposePresenter<0:0,0:1>;kotlinx.coroutines.flow.StateFlow<0:0>;app.cash.molecule.RecompositionMode){0§<kotlin.Any>;1§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: kotlin/Any, #B: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.presenter.compose/ComposePresenter<#A, #B>).software.ralf.app.platform.presenter.compose/presentDetached(#A, app.cash.molecule/RecompositionMode?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): #B // software.ralf.app.platform.presenter.compose/presentDetached|presentDetached@software.ralf.app.platform.presenter.compose.ComposePresenter<0:0,0:1>(0:0;app.cash.molecule.RecompositionMode?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any>;1§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: kotlin/Any, #B: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.presenter.compose/ComposePresenterScope).software.ralf.app.platform.presenter.compose/launchComposePresenter(software.ralf.app.platform.presenter.compose/ComposePresenter<#A, #B>, #A): software.ralf.app.platform.presenter/Presenter<#B> // software.ralf.app.platform.presenter.compose/launchComposePresenter|launchComposePresenter@software.ralf.app.platform.presenter.compose.ComposePresenterScope(software.ralf.app.platform.presenter.compose.ComposePresenter<0:0,0:1>;0:0){0§<kotlin.Any>;1§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: kotlin/Any, #B: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.presenter.compose/ComposePresenterScope).software.ralf.app.platform.presenter.compose/launchComposePresenter(software.ralf.app.platform.presenter.compose/ComposePresenter<#A, #B>, kotlinx.coroutines.flow/StateFlow<#A>): software.ralf.app.platform.presenter/Presenter<#B> // software.ralf.app.platform.presenter.compose/launchComposePresenter|launchComposePresenter@software.ralf.app.platform.presenter.compose.ComposePresenterScope(software.ralf.app.platform.presenter.compose.ComposePresenter<0:0,0:1>;kotlinx.coroutines.flow.StateFlow<0:0>){0§<kotlin.Any>;1§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: kotlin/Any?> software.ralf.app.platform.presenter.compose/withLocalRetainedValuesStore(androidx.compose.runtime.retain/RetainedValuesStore, kotlin/Function2<androidx.compose.runtime/Composer, kotlin/Int, #A>, androidx.compose.runtime/Composer?, kotlin/Int): #A // software.ralf.app.platform.presenter.compose/withLocalRetainedValuesStore|withLocalRetainedValuesStore(androidx.compose.runtime.retain.RetainedValuesStore;kotlin.Function2<androidx.compose.runtime.Composer,kotlin.Int,0:0>;androidx.compose.runtime.Composer?;kotlin.Int){0§<kotlin.Any?>}[0]
+final fun software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_BackEventPresenter$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose.backgesture/software_ralf_app_platform_presenter_compose_backgesture_BackEventPresenter$stableprop_getter|software_ralf_app_platform_presenter_compose_backgesture_BackEventPresenter$stableprop_getter(){}[0]
+final fun software.ralf.app.platform.presenter.compose.saveable/rememberReturningSaveableStateHolder(androidx.compose.runtime/Composer?, kotlin/Int): software.ralf.app.platform.presenter.compose.saveable/ReturningSaveableStateHolder // software.ralf.app.platform.presenter.compose.saveable/rememberReturningSaveableStateHolder|rememberReturningSaveableStateHolder(androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+final fun software.ralf.app.platform.presenter.compose.text/software_ralf_app_platform_presenter_compose_text_PresenterTextFieldState$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose.text/software_ralf_app_platform_presenter_compose_text_PresenterTextFieldState$stableprop_getter|software_ralf_app_platform_presenter_compose_text_PresenterTextFieldState$stableprop_getter(){}[0]
+final fun software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_ComposePresenterScope$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.compose/software_ralf_app_platform_presenter_compose_ComposePresenterScope$stableprop_getter|software_ralf_app_platform_presenter_compose_ComposePresenterScope$stableprop_getter(){}[0]

@@ -1,0 +1,79 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:metro-impl>
+final object software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph { // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph|null[0]
+    final fun providePresenterCoroutineScope(kotlinx.coroutines/CoroutineScope, kotlinx.coroutines/CoroutineDispatcher): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.providePresenterCoroutineScope|providePresenterCoroutineScope(kotlinx.coroutines.CoroutineScope;kotlinx.coroutines.CoroutineDispatcher){}[0]
+
+    final class ProvidePresenterCoroutineScopeMetroFactory : dev.zacsweers.metro.internal/Factory<kotlinx.coroutines/CoroutineScope> { // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.ProvidePresenterCoroutineScopeMetroFactory|null[0]
+        final fun declarationMirror(kotlinx.coroutines/CoroutineScope, kotlinx.coroutines/CoroutineDispatcher): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.ProvidePresenterCoroutineScopeMetroFactory.declarationMirror|declarationMirror(kotlinx.coroutines.CoroutineScope;kotlinx.coroutines.CoroutineDispatcher){}[0]
+        final fun invoke(): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.ProvidePresenterCoroutineScopeMetroFactory.invoke|invoke(){}[0]
+
+        final object Companion { // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.ProvidePresenterCoroutineScopeMetroFactory.Companion|null[0]
+            constructor <init>() // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.ProvidePresenterCoroutineScopeMetroFactory.Companion.<init>|<init>(){}[0]
+
+            final fun create(dev.zacsweers.metro/Provider<kotlinx.coroutines/CoroutineScope>, dev.zacsweers.metro/Provider<kotlinx.coroutines/CoroutineDispatcher>): software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.ProvidePresenterCoroutineScopeMetroFactory // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.ProvidePresenterCoroutineScopeMetroFactory.Companion.create|create(dev.zacsweers.metro.Provider<kotlinx.coroutines.CoroutineScope>;dev.zacsweers.metro.Provider<kotlinx.coroutines.CoroutineDispatcher>){}[0]
+            final fun providePresenterCoroutineScope(kotlinx.coroutines/CoroutineScope, kotlinx.coroutines/CoroutineDispatcher): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.presenter.metro/PresenterCoroutineScopeGraph.ProvidePresenterCoroutineScopeMetroFactory.Companion.providePresenterCoroutineScope|providePresenterCoroutineScope(kotlinx.coroutines.CoroutineScope;kotlinx.coroutines.CoroutineDispatcher){}[0]
+        }
+    }
+}
+
+final object software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph { // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph|null[0]
+    final fun provideAppCoroutineScope(software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.provideAppCoroutineScope|provideAppCoroutineScope(software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped){}[0]
+    final fun provideAppScopeCoroutineScopeScoped(kotlinx.coroutines/CoroutineDispatcher): software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.provideAppScopeCoroutineScopeScoped|provideAppScopeCoroutineScopeScoped(kotlinx.coroutines.CoroutineDispatcher){}[0]
+
+    final class ProvideAppCoroutineScopeMetroFactory : dev.zacsweers.metro.internal/Factory<kotlinx.coroutines/CoroutineScope> { // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppCoroutineScopeMetroFactory|null[0]
+        final fun declarationMirror(software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppCoroutineScopeMetroFactory.declarationMirror|declarationMirror(software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped){}[0]
+        final fun invoke(): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppCoroutineScopeMetroFactory.invoke|invoke(){}[0]
+
+        final object Companion { // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppCoroutineScopeMetroFactory.Companion|null[0]
+            constructor <init>() // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppCoroutineScopeMetroFactory.Companion.<init>|<init>(){}[0]
+
+            final fun create(dev.zacsweers.metro/Provider<software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped>): software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppCoroutineScopeMetroFactory // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppCoroutineScopeMetroFactory.Companion.create|create(dev.zacsweers.metro.Provider<software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped>){}[0]
+            final fun provideAppCoroutineScope(software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped): kotlinx.coroutines/CoroutineScope // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppCoroutineScopeMetroFactory.Companion.provideAppCoroutineScope|provideAppCoroutineScope(software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped){}[0]
+        }
+    }
+
+    final class ProvideAppScopeCoroutineScopeScopedMetroFactory : dev.zacsweers.metro.internal/Factory<software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped> { // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppScopeCoroutineScopeScopedMetroFactory|null[0]
+        final fun declarationMirror(kotlinx.coroutines/CoroutineDispatcher): software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppScopeCoroutineScopeScopedMetroFactory.declarationMirror|declarationMirror(kotlinx.coroutines.CoroutineDispatcher){}[0]
+        final fun invoke(): software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppScopeCoroutineScopeScopedMetroFactory.invoke|invoke(){}[0]
+
+        final object Companion { // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppScopeCoroutineScopeScopedMetroFactory.Companion|null[0]
+            constructor <init>() // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppScopeCoroutineScopeScopedMetroFactory.Companion.<init>|<init>(){}[0]
+
+            final fun create(dev.zacsweers.metro/Provider<kotlinx.coroutines/CoroutineDispatcher>): software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppScopeCoroutineScopeScopedMetroFactory // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppScopeCoroutineScopeScopedMetroFactory.Companion.create|create(dev.zacsweers.metro.Provider<kotlinx.coroutines.CoroutineDispatcher>){}[0]
+            final fun provideAppScopeCoroutineScopeScoped(kotlinx.coroutines/CoroutineDispatcher): software.ralf.app.platform.scope.coroutine/CoroutineScopeScoped // software.ralf.app.platform.scope.coroutine.metro/AppScopeCoroutineScopeGraph.ProvideAppScopeCoroutineScopeScopedMetroFactory.Companion.provideAppScopeCoroutineScopeScoped|provideAppScopeCoroutineScopeScoped(kotlinx.coroutines.CoroutineDispatcher){}[0]
+        }
+    }
+}
+
+final object software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph { // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph|null[0]
+    final fun provideDefaultCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.provideDefaultCoroutineDispatcher|provideDefaultCoroutineDispatcher(){}[0]
+    final fun provideIoCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.provideIoCoroutineDispatcher|provideIoCoroutineDispatcher(){}[0]
+    final fun provideMainCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.provideMainCoroutineDispatcher|provideMainCoroutineDispatcher(){}[0]
+
+    final object ProvideDefaultCoroutineDispatcherMetroFactory : dev.zacsweers.metro.internal/Factory<kotlinx.coroutines/CoroutineDispatcher> { // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideDefaultCoroutineDispatcherMetroFactory|null[0]
+        final fun create(): software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideDefaultCoroutineDispatcherMetroFactory // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideDefaultCoroutineDispatcherMetroFactory.create|create(){}[0]
+        final fun declarationMirror(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideDefaultCoroutineDispatcherMetroFactory.declarationMirror|declarationMirror(){}[0]
+        final fun invoke(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideDefaultCoroutineDispatcherMetroFactory.invoke|invoke(){}[0]
+        final fun provideDefaultCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideDefaultCoroutineDispatcherMetroFactory.provideDefaultCoroutineDispatcher|provideDefaultCoroutineDispatcher(){}[0]
+    }
+
+    final object ProvideIoCoroutineDispatcherMetroFactory : dev.zacsweers.metro.internal/Factory<kotlinx.coroutines/CoroutineDispatcher> { // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideIoCoroutineDispatcherMetroFactory|null[0]
+        final fun create(): software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideIoCoroutineDispatcherMetroFactory // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideIoCoroutineDispatcherMetroFactory.create|create(){}[0]
+        final fun declarationMirror(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideIoCoroutineDispatcherMetroFactory.declarationMirror|declarationMirror(){}[0]
+        final fun invoke(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideIoCoroutineDispatcherMetroFactory.invoke|invoke(){}[0]
+        final fun provideIoCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideIoCoroutineDispatcherMetroFactory.provideIoCoroutineDispatcher|provideIoCoroutineDispatcher(){}[0]
+    }
+
+    final object ProvideMainCoroutineDispatcherMetroFactory : dev.zacsweers.metro.internal/Factory<kotlinx.coroutines/CoroutineDispatcher> { // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideMainCoroutineDispatcherMetroFactory|null[0]
+        final fun create(): software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideMainCoroutineDispatcherMetroFactory // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideMainCoroutineDispatcherMetroFactory.create|create(){}[0]
+        final fun declarationMirror(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideMainCoroutineDispatcherMetroFactory.declarationMirror|declarationMirror(){}[0]
+        final fun invoke(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideMainCoroutineDispatcherMetroFactory.invoke|invoke(){}[0]
+        final fun provideMainCoroutineDispatcher(): kotlinx.coroutines/CoroutineDispatcher // software.ralf.app.platform.scope.coroutine.metro/CoroutineDispatcherGraph.ProvideMainCoroutineDispatcherMetroFactory.provideMainCoroutineDispatcher|provideMainCoroutineDispatcher(){}[0]
+    }
+}

@@ -1,0 +1,39 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, linuxArm64, linuxX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:di-common-public>
+open annotation class software.ralf.app.platform.inject.robot/ContributesRobot : kotlin/Annotation { // software.ralf.app.platform.inject.robot/ContributesRobot|null[0]
+    constructor <init>(kotlin.reflect/KClass<*>) // software.ralf.app.platform.inject.robot/ContributesRobot.<init>|<init>(kotlin.reflect.KClass<*>){}[0]
+
+    final val scope // software.ralf.app.platform.inject.robot/ContributesRobot.scope|{}scope[0]
+        final fun <get-scope>(): kotlin.reflect/KClass<*> // software.ralf.app.platform.inject.robot/ContributesRobot.scope.<get-scope>|<get-scope>(){}[0]
+}
+
+open annotation class software.ralf.app.platform.inject/ContributesRenderer : kotlin/Annotation { // software.ralf.app.platform.inject/ContributesRenderer|null[0]
+    constructor <init>(kotlin.reflect/KClass<*> = ..., kotlin/Boolean = ...) // software.ralf.app.platform.inject/ContributesRenderer.<init>|<init>(kotlin.reflect.KClass<*>;kotlin.Boolean){}[0]
+
+    final val includeSealedSubtypes // software.ralf.app.platform.inject/ContributesRenderer.includeSealedSubtypes|{}includeSealedSubtypes[0]
+        final fun <get-includeSealedSubtypes>(): kotlin/Boolean // software.ralf.app.platform.inject/ContributesRenderer.includeSealedSubtypes.<get-includeSealedSubtypes>|<get-includeSealedSubtypes>(){}[0]
+    final val modelType // software.ralf.app.platform.inject/ContributesRenderer.modelType|{}modelType[0]
+        final fun <get-modelType>(): kotlin.reflect/KClass<*> // software.ralf.app.platform.inject/ContributesRenderer.modelType.<get-modelType>|<get-modelType>(){}[0]
+}
+
+open annotation class software.ralf.app.platform.presenter/PresenterCoroutineScope : kotlin/Annotation { // software.ralf.app.platform.presenter/PresenterCoroutineScope|null[0]
+    constructor <init>() // software.ralf.app.platform.presenter/PresenterCoroutineScope.<init>|<init>(){}[0]
+}
+
+open annotation class software.ralf.app.platform.scope.coroutine/DefaultCoroutineDispatcher : kotlin/Annotation { // software.ralf.app.platform.scope.coroutine/DefaultCoroutineDispatcher|null[0]
+    constructor <init>() // software.ralf.app.platform.scope.coroutine/DefaultCoroutineDispatcher.<init>|<init>(){}[0]
+}
+
+open annotation class software.ralf.app.platform.scope.coroutine/IoCoroutineDispatcher : kotlin/Annotation { // software.ralf.app.platform.scope.coroutine/IoCoroutineDispatcher|null[0]
+    constructor <init>() // software.ralf.app.platform.scope.coroutine/IoCoroutineDispatcher.<init>|<init>(){}[0]
+}
+
+open annotation class software.ralf.app.platform.scope.coroutine/MainCoroutineDispatcher : kotlin/Annotation { // software.ralf.app.platform.scope.coroutine/MainCoroutineDispatcher|null[0]
+    constructor <init>() // software.ralf.app.platform.scope.coroutine/MainCoroutineDispatcher.<init>|<init>(){}[0]
+}

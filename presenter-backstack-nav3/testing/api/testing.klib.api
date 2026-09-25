@@ -1,0 +1,25 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:presenter-backstack-nav3-testing>
+final class software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope : software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope { // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope|null[0]
+    constructor <init>(software.ralf.app.platform.presenter.compose/ComposePresenter<kotlin/Unit, out software.ralf.app.platform.presenter/BaseModel> = ...) // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope.<init>|<init>(software.ralf.app.platform.presenter.compose.ComposePresenter<kotlin.Unit,out|software.ralf.app.platform.presenter.BaseModel>){}[0]
+
+    final val lastBackstackChange // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope.lastBackstackChange|{}lastBackstackChange[0]
+        final fun <get-lastBackstackChange>(): androidx.compose.runtime/State<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange> // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope.lastBackstackChange.<get-lastBackstackChange>|<get-lastBackstackChange>(){}[0]
+    final val recordedBackstackChanges // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope.recordedBackstackChanges|{}recordedBackstackChanges[0]
+        final fun <get-recordedBackstackChanges>(): kotlinx.coroutines.flow/StateFlow<kotlin.collections/List<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange>> // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope.recordedBackstackChanges.<get-recordedBackstackChanges>|<get-recordedBackstackChanges>(){}[0]
+
+    final fun pop() // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope.pop|pop(){}[0]
+    final fun push(software.ralf.app.platform.presenter.compose/ComposePresenter<kotlin/Unit, out software.ralf.app.platform.presenter/BaseModel>) // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope.push|push(software.ralf.app.platform.presenter.compose.ComposePresenter<kotlin.Unit,out|software.ralf.app.platform.presenter.BaseModel>){}[0]
+    final fun replaceTop(software.ralf.app.platform.presenter.compose/ComposePresenter<kotlin/Unit, out software.ralf.app.platform.presenter/BaseModel>) // software.ralf.app.platform.presenter.backstack.nav3/FakePresenterBackstackScope.replaceTop|replaceTop(software.ralf.app.platform.presenter.compose.ComposePresenter<kotlin.Unit,out|software.ralf.app.platform.presenter.BaseModel>){}[0]
+}
+
+final val software.ralf.app.platform.presenter.backstack.nav3/software_ralf_app_platform_presenter_backstack_nav3_FakePresenterBackstackScope$stableprop // software.ralf.app.platform.presenter.backstack.nav3/software_ralf_app_platform_presenter_backstack_nav3_FakePresenterBackstackScope$stableprop|#static{}software_ralf_app_platform_presenter_backstack_nav3_FakePresenterBackstackScope$stableprop[0]
+
+final fun <#A: kotlin/Any, #B: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.presenter.compose/ComposePresenter<#A, #B>).software.ralf.app.platform.presenter.backstack.nav3/withPresenterBackstackScope(software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope = ...): software.ralf.app.platform.presenter.compose/ComposePresenter<#A, #B> // software.ralf.app.platform.presenter.backstack.nav3/withPresenterBackstackScope|withPresenterBackstackScope@software.ralf.app.platform.presenter.compose.ComposePresenter<0:0,0:1>(software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope){0§<kotlin.Any>;1§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun software.ralf.app.platform.presenter.backstack.nav3/software_ralf_app_platform_presenter_backstack_nav3_FakePresenterBackstackScope$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.backstack.nav3/software_ralf_app_platform_presenter_backstack_nav3_FakePresenterBackstackScope$stableprop_getter|software_ralf_app_platform_presenter_backstack_nav3_FakePresenterBackstackScope$stableprop_getter(){}[0]

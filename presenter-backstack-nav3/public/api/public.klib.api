@@ -1,0 +1,60 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:presenter-backstack-nav3-public>
+abstract interface software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackModel : software.ralf.app.platform.presenter/BaseModel { // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackModel|null[0]
+    abstract val backstack // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackModel.backstack|{}backstack[0]
+        abstract fun <get-backstack>(): kotlin.collections/List<software.ralf.app.platform.presenter/BaseModel> // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackModel.backstack.<get-backstack>|<get-backstack>(){}[0]
+    abstract val onBack // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackModel.onBack|{}onBack[0]
+        abstract fun <get-onBack>(): kotlin/Function0<kotlin/Unit> // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackModel.onBack.<get-onBack>|<get-onBack>(){}[0]
+}
+
+abstract interface software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope { // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope|null[0]
+    abstract val lastBackstackChange // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.lastBackstackChange|{}lastBackstackChange[0]
+        abstract fun <get-lastBackstackChange>(): androidx.compose.runtime/State<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange> // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.lastBackstackChange.<get-lastBackstackChange>|<get-lastBackstackChange>(){}[0]
+
+    abstract fun pop() // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.pop|pop(){}[0]
+    abstract fun push(software.ralf.app.platform.presenter.compose/ComposePresenter<kotlin/Unit, out software.ralf.app.platform.presenter/BaseModel>) // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.push|push(software.ralf.app.platform.presenter.compose.ComposePresenter<kotlin.Unit,out|software.ralf.app.platform.presenter.BaseModel>){}[0]
+    abstract fun replaceTop(software.ralf.app.platform.presenter.compose/ComposePresenter<kotlin/Unit, out software.ralf.app.platform.presenter/BaseModel>) // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.replaceTop|replaceTop(software.ralf.app.platform.presenter.compose.ComposePresenter<kotlin.Unit,out|software.ralf.app.platform.presenter.BaseModel>){}[0]
+
+    abstract interface BackstackChange { // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange|null[0]
+        abstract val action // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.action|{}action[0]
+            abstract fun <get-action>(): software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.action.<get-action>|<get-action>(){}[0]
+        abstract val backstack // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.backstack|{}backstack[0]
+            abstract fun <get-backstack>(): kotlin.collections/List<software.ralf.app.platform.presenter.compose/ComposePresenter<kotlin/Unit, out software.ralf.app.platform.presenter/BaseModel>> // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.backstack.<get-backstack>|<get-backstack>(){}[0]
+
+        final enum class Action : kotlin/Enum<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action> { // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action|null[0]
+            enum entry POP // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action.POP|null[0]
+            enum entry PUSH // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action.PUSH|null[0]
+            enum entry REPLACE // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action.REPLACE|null[0]
+
+            final val entries // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action.entries|#static{}entries[0]
+                final fun <get-entries>(): kotlin.enums/EnumEntries<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action> // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action.entries.<get-entries>|<get-entries>#static(){}[0]
+
+            final fun valueOf(kotlin/String): software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action.valueOf|valueOf#static(kotlin.String){}[0]
+            final fun values(): kotlin/Array<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action> // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope.BackstackChange.Action.values|values#static(){}[0]
+        }
+    }
+}
+
+abstract class <#A: in software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackModel> software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackRenderer : software.ralf.app.platform.renderer/ComposeRenderer<#A> { // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackRenderer|null[0]
+    constructor <init>() // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackRenderer.<init>|<init>(){}[0]
+
+    abstract fun ComposeBackstackEntry(software.ralf.app.platform.presenter/BaseModel, androidx.compose.runtime/Composer?, kotlin/Int) // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackRenderer.ComposeBackstackEntry|ComposeBackstackEntry(software.ralf.app.platform.presenter.BaseModel;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+    final fun Compose(#A, androidx.compose.ui/Modifier, androidx.compose.runtime/Composer?, kotlin/Int) // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackRenderer.Compose|Compose(1:0;androidx.compose.ui.Modifier;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+    open fun PresenterNavDisplay(kotlin.collections/List<kotlin/Int>, kotlin/Function0<kotlin/Unit>, kotlin/Function1<kotlin/Int, androidx.navigation3.runtime/NavEntry<kotlin/Int>>, androidx.compose.ui/Modifier, androidx.compose.runtime/Composer?, kotlin/Int) // software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackRenderer.PresenterNavDisplay|PresenterNavDisplay(kotlin.collections.List<kotlin.Int>;kotlin.Function0<kotlin.Unit>;kotlin.Function1<kotlin.Int,androidx.navigation3.runtime.NavEntry<kotlin.Int>>;androidx.compose.ui.Modifier;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+}
+
+final val software.ralf.app.platform.presenter.backstack.nav3/LocalBackstackScope // software.ralf.app.platform.presenter.backstack.nav3/LocalBackstackScope|{}LocalBackstackScope[0]
+    final fun <get-LocalBackstackScope>(): androidx.compose.runtime/ProvidableCompositionLocal<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope?> // software.ralf.app.platform.presenter.backstack.nav3/LocalBackstackScope.<get-LocalBackstackScope>|<get-LocalBackstackScope>(){}[0]
+final val software.ralf.app.platform.presenter.backstack.nav3/backstack // software.ralf.app.platform.presenter.backstack.nav3/backstack|@software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope{}backstack[0]
+    final fun (software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope).<get-backstack>(): kotlin.collections/List<software.ralf.app.platform.presenter.compose/ComposePresenter<kotlin/Unit, out software.ralf.app.platform.presenter/BaseModel>> // software.ralf.app.platform.presenter.backstack.nav3/backstack.<get-backstack>|<get-backstack>@software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope(){}[0]
+final val software.ralf.app.platform.presenter.backstack.nav3/software_ralf_app_platform_presenter_backstack_nav3_PresenterBackstackRenderer$stableprop // software.ralf.app.platform.presenter.backstack.nav3/software_ralf_app_platform_presenter_backstack_nav3_PresenterBackstackRenderer$stableprop|#static{}software_ralf_app_platform_presenter_backstack_nav3_PresenterBackstackRenderer$stableprop[0]
+
+final fun (androidx.compose.runtime/CompositionLocal<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope?>).software.ralf.app.platform.presenter.backstack.nav3/requireNotNull(androidx.compose.runtime/Composer?, kotlin/Int): software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope // software.ralf.app.platform.presenter.backstack.nav3/requireNotNull|requireNotNull@androidx.compose.runtime.CompositionLocal<software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope?>(androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+final fun <#A: software.ralf.app.platform.presenter/BaseModel> software.ralf.app.platform.presenter.backstack.nav3/presenterBackstack(software.ralf.app.platform.presenter.compose/ComposePresenter<kotlin/Unit, out software.ralf.app.platform.presenter/BaseModel>, kotlin/Function4<software.ralf.app.platform.presenter.backstack.nav3/PresenterBackstackScope, kotlin.collections/List<software.ralf.app.platform.presenter/BaseModel>, androidx.compose.runtime/Composer, kotlin/Int, #A>, androidx.compose.runtime/Composer?, kotlin/Int): #A // software.ralf.app.platform.presenter.backstack.nav3/presenterBackstack|presenterBackstack(software.ralf.app.platform.presenter.compose.ComposePresenter<kotlin.Unit,out|software.ralf.app.platform.presenter.BaseModel>;kotlin.Function4<software.ralf.app.platform.presenter.backstack.nav3.PresenterBackstackScope,kotlin.collections.List<software.ralf.app.platform.presenter.BaseModel>,androidx.compose.runtime.Composer,kotlin.Int,0:0>;androidx.compose.runtime.Composer?;kotlin.Int){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun software.ralf.app.platform.presenter.backstack.nav3/software_ralf_app_platform_presenter_backstack_nav3_PresenterBackstackRenderer$stableprop_getter(): kotlin/Int // software.ralf.app.platform.presenter.backstack.nav3/software_ralf_app_platform_presenter_backstack_nav3_PresenterBackstackRenderer$stableprop_getter|software_ralf_app_platform_presenter_backstack_nav3_PresenterBackstackRenderer$stableprop_getter(){}[0]

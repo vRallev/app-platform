@@ -1,0 +1,46 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <app-platform:renderer-compose-multiplatform-public>
+abstract interface <#A: in software.ralf.app.platform.presenter/BaseModel> software.ralf.app.platform.renderer/BaseComposeRenderer { // software.ralf.app.platform.renderer/BaseComposeRenderer|null[0]
+    abstract fun renderCompose(#A, androidx.compose.ui/Modifier, androidx.compose.runtime/Composer?, kotlin/Int) // software.ralf.app.platform.renderer/BaseComposeRenderer.renderCompose|renderCompose(1:0;androidx.compose.ui.Modifier;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+
+    final class ComposeDefaultImpls { // software.ralf.app.platform.renderer/BaseComposeRenderer.ComposeDefaultImpls|null[0]
+        final fun renderCompose$default(#A, androidx.compose.ui/Modifier?, software.ralf.app.platform.renderer/BaseComposeRenderer<#A>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // software.ralf.app.platform.renderer/BaseComposeRenderer.ComposeDefaultImpls.renderCompose$default|renderCompose$default#static(2:0;androidx.compose.ui.Modifier?;software.ralf.app.platform.renderer.BaseComposeRenderer<2:0>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+    }
+}
+
+abstract class <#A: in software.ralf.app.platform.presenter/BaseModel> software.ralf.app.platform.renderer/ComposeRenderer : software.ralf.app.platform.renderer/BaseComposeRenderer<#A>, software.ralf.app.platform.renderer/Renderer<#A> { // software.ralf.app.platform.renderer/ComposeRenderer|null[0]
+    constructor <init>() // software.ralf.app.platform.renderer/ComposeRenderer.<init>|<init>(){}[0]
+
+    abstract fun Compose(#A, androidx.compose.ui/Modifier, androidx.compose.runtime/Composer?, kotlin/Int) // software.ralf.app.platform.renderer/ComposeRenderer.Compose|Compose(1:0;androidx.compose.ui.Modifier;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+    final fun render(#A): kotlin/Nothing // software.ralf.app.platform.renderer/ComposeRenderer.render|render(1:0){}[0]
+    final fun renderCompose(#A, androidx.compose.ui/Modifier, androidx.compose.runtime/Composer?, kotlin/Int) // software.ralf.app.platform.renderer/ComposeRenderer.renderCompose|renderCompose(1:0;androidx.compose.ui.Modifier;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+}
+
+final class software.ralf.app.platform.renderer/ComposeRendererFactory : software.ralf.app.platform.renderer/BaseRendererFactory { // software.ralf.app.platform.renderer/ComposeRendererFactory|null[0]
+    constructor <init>(software.ralf.app.platform.scope/RootScopeProvider) // software.ralf.app.platform.renderer/ComposeRendererFactory.<init>|<init>(software.ralf.app.platform.scope.RootScopeProvider){}[0]
+
+    final fun <#A1: software.ralf.app.platform.presenter/BaseModel> createRenderer(kotlin.reflect/KClass<out #A1>): software.ralf.app.platform.renderer/ComposeRenderer<#A1> // software.ralf.app.platform.renderer/ComposeRendererFactory.createRenderer|createRenderer(kotlin.reflect.KClass<out|0:0>){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+    final fun <#A1: software.ralf.app.platform.presenter/BaseModel> getRenderer(kotlin.reflect/KClass<out #A1>, kotlin/Int): software.ralf.app.platform.renderer/ComposeRenderer<#A1> // software.ralf.app.platform.renderer/ComposeRendererFactory.getRenderer|getRenderer(kotlin.reflect.KClass<out|0:0>;kotlin.Int){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+}
+
+final val software.ralf.app.platform.renderer/LocalRendererFactory // software.ralf.app.platform.renderer/LocalRendererFactory|{}LocalRendererFactory[0]
+    final fun <get-LocalRendererFactory>(): androidx.compose.runtime/ProvidableCompositionLocal<software.ralf.app.platform.renderer/RendererFactory?> // software.ralf.app.platform.renderer/LocalRendererFactory.<get-LocalRendererFactory>|<get-LocalRendererFactory>(){}[0]
+final val software.ralf.app.platform.renderer/software_ralf_app_platform_renderer_ComposeRenderer$stableprop // software.ralf.app.platform.renderer/software_ralf_app_platform_renderer_ComposeRenderer$stableprop|#static{}software_ralf_app_platform_renderer_ComposeRenderer$stableprop[0]
+final val software.ralf.app.platform.renderer/software_ralf_app_platform_renderer_ComposeRendererFactory$stableprop // software.ralf.app.platform.renderer/software_ralf_app_platform_renderer_ComposeRendererFactory$stableprop|#static{}software_ralf_app_platform_renderer_ComposeRendererFactory$stableprop[0]
+
+final fun (software.ralf.app.platform.presenter.compose.backgesture/BackGestureDispatcherPresenter).software.ralf.app.platform.presenter.compose.backgesture/ForwardBackPressEventsToPresenters(androidx.compose.runtime/Composer?, kotlin/Int) // software.ralf.app.platform.presenter.compose.backgesture/ForwardBackPressEventsToPresenters|ForwardBackPressEventsToPresenters@software.ralf.app.platform.presenter.compose.backgesture.BackGestureDispatcherPresenter(androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+final fun <#A: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.renderer/RendererFactory).software.ralf.app.platform.renderer/createComposeRenderer(#A): software.ralf.app.platform.renderer/BaseComposeRenderer<#A> // software.ralf.app.platform.renderer/createComposeRenderer|createComposeRenderer@software.ralf.app.platform.renderer.RendererFactory(0:0){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.renderer/RendererFactory).software.ralf.app.platform.renderer/createComposeRenderer(kotlin.reflect/KClass<out #A>): software.ralf.app.platform.renderer/BaseComposeRenderer<#A> // software.ralf.app.platform.renderer/createComposeRenderer|createComposeRenderer@software.ralf.app.platform.renderer.RendererFactory(kotlin.reflect.KClass<out|0:0>){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.renderer/RendererFactory).software.ralf.app.platform.renderer/getComposeRenderer(#A, kotlin/Int = ...): software.ralf.app.platform.renderer/BaseComposeRenderer<#A> // software.ralf.app.platform.renderer/getComposeRenderer|getComposeRenderer@software.ralf.app.platform.renderer.RendererFactory(0:0;kotlin.Int){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.renderer/RendererFactory).software.ralf.app.platform.renderer/getComposeRenderer(kotlin.reflect/KClass<out #A>, kotlin/Int = ...): software.ralf.app.platform.renderer/BaseComposeRenderer<#A> // software.ralf.app.platform.renderer/getComposeRenderer|getComposeRenderer@software.ralf.app.platform.renderer.RendererFactory(kotlin.reflect.KClass<out|0:0>;kotlin.Int){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun <#A: software.ralf.app.platform.presenter/BaseModel> (software.ralf.app.platform.renderer/RendererFactory).software.ralf.app.platform.renderer/renderCompose(#A, androidx.compose.ui/Modifier?, kotlin/Int, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // software.ralf.app.platform.renderer/renderCompose|renderCompose@software.ralf.app.platform.renderer.RendererFactory(0:0;androidx.compose.ui.Modifier?;kotlin.Int;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<software.ralf.app.platform.presenter.BaseModel>}[0]
+final fun software.ralf.app.platform.renderer.text/rememberPresenterBackedTextFieldState(software.ralf.app.platform.presenter.compose.text/PresenterTextFieldState, androidx.compose.runtime/Composer?, kotlin/Int): androidx.compose.foundation.text.input/TextFieldState // software.ralf.app.platform.renderer.text/rememberPresenterBackedTextFieldState|rememberPresenterBackedTextFieldState(software.ralf.app.platform.presenter.compose.text.PresenterTextFieldState;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+final fun software.ralf.app.platform.renderer/Render(software.ralf.app.platform.presenter/BaseModel, androidx.compose.ui/Modifier?, kotlin/Int, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // software.ralf.app.platform.renderer/Render|Render(software.ralf.app.platform.presenter.BaseModel;androidx.compose.ui.Modifier?;kotlin.Int;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun software.ralf.app.platform.renderer/software_ralf_app_platform_renderer_ComposeRenderer$stableprop_getter(): kotlin/Int // software.ralf.app.platform.renderer/software_ralf_app_platform_renderer_ComposeRenderer$stableprop_getter|software_ralf_app_platform_renderer_ComposeRenderer$stableprop_getter(){}[0]
+final fun software.ralf.app.platform.renderer/software_ralf_app_platform_renderer_ComposeRendererFactory$stableprop_getter(): kotlin/Int // software.ralf.app.platform.renderer/software_ralf_app_platform_renderer_ComposeRendererFactory$stableprop_getter|software_ralf_app_platform_renderer_ComposeRendererFactory$stableprop_getter(){}[0]

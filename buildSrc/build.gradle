@@ -65,7 +65,6 @@ dependencies {
     implementation libs.kotlin.gradle.plugin.api
     implementation libs.kotlin.multiplatform.gradle.plugin
     implementation libs.kotlin.compose.gradle.plugin
-    implementation libs.kotlinx.binaryCompatibilityValidator
     runtimeOnly libs.kotlin.gradle.plugin.asProvider()
 
     // This is needed to reference KspExperimental for experimental features.
