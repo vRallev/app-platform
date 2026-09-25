@@ -16,7 +16,6 @@ import org.jetbrains.kotlin.fir.resolve.typeResolver
 import org.jetbrains.kotlin.fir.scopes.createImportingScopes
 import org.jetbrains.kotlin.fir.scopes.getSingleClassifier
 import org.jetbrains.kotlin.fir.symbols.SymbolInternals
-import org.jetbrains.kotlin.fir.symbols.impl.ConeClassLikeLookupTagImpl
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirRegularClassSymbol
 import org.jetbrains.kotlin.fir.types.ConeKotlinType
@@ -33,7 +32,7 @@ import org.jetbrains.kotlin.fir.types.FirTypeRef
 import org.jetbrains.kotlin.fir.types.FirUserTypeRef
 import org.jetbrains.kotlin.fir.types.classId
 import org.jetbrains.kotlin.fir.types.coneTypeOrNull
-import org.jetbrains.kotlin.fir.types.impl.ConeClassLikeTypeImpl
+import org.jetbrains.kotlin.fir.types.constructClassLikeType
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.StandardClassIds
@@ -152,8 +151,7 @@ private fun resolveUserTypeManually(
     typeRef.qualifier.lastOrNull()?.typeArgumentList?.typeArguments?.map { argument ->
       resolveTypeProjection(argument, owner, session)
     }
-  return ConeClassLikeTypeImpl(
-    ConeClassLikeLookupTagImpl(fallbackClassId),
+  return fallbackClassId.constructClassLikeType(
     typeArguments.orEmpty().toTypedArray(),
     isMarkedNullable = typeRef.isMarkedNullable,
   )

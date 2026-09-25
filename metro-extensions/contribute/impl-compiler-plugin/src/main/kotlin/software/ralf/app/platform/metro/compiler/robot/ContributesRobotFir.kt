@@ -42,7 +42,6 @@ import org.jetbrains.kotlin.fir.resolve.defaultType
 import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
 import org.jetbrains.kotlin.fir.scopes.kotlinScopeProvider
 import org.jetbrains.kotlin.fir.symbols.SymbolInternals
-import org.jetbrains.kotlin.fir.symbols.impl.ConeClassLikeLookupTagImpl
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirConstructorSymbol
@@ -52,7 +51,7 @@ import org.jetbrains.kotlin.fir.symbols.impl.FirValueParameterSymbol
 import org.jetbrains.kotlin.fir.toEffectiveVisibility
 import org.jetbrains.kotlin.fir.toFirResolvedTypeRef
 import org.jetbrains.kotlin.fir.types.coneType
-import org.jetbrains.kotlin.fir.types.impl.ConeClassLikeTypeImpl
+import org.jetbrains.kotlin.fir.types.constructClassLikeType
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.Name
@@ -498,26 +497,11 @@ internal constructor(
     }
   }
 
-  private fun generatedGraphType(graphClassId: ClassId) =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(graphClassId),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  private fun generatedGraphType(graphClassId: ClassId) = graphClassId.constructClassLikeType()
 
-  private fun robotType() =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(ClassIds.ROBOT),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  private fun robotType() = ClassIds.ROBOT.constructClassLikeType()
 
-  private fun robotGraphType() =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(ClassIds.ROBOT_GRAPH),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  private fun robotGraphType() = ClassIds.ROBOT_GRAPH.constructClassLikeType()
 
   private fun buildOriginAnnotation(owner: FirClassSymbol<*>) = buildAnnotation {
     val originSymbol =

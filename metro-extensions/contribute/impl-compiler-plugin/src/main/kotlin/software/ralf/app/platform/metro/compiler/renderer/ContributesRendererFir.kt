@@ -39,7 +39,6 @@ import org.jetbrains.kotlin.fir.references.builder.buildResolvedNamedReference
 import org.jetbrains.kotlin.fir.resolve.defaultType
 import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
 import org.jetbrains.kotlin.fir.scopes.kotlinScopeProvider
-import org.jetbrains.kotlin.fir.symbols.impl.ConeClassLikeLookupTagImpl
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirConstructorSymbol
@@ -52,7 +51,7 @@ import org.jetbrains.kotlin.fir.types.ConeKotlinType
 import org.jetbrains.kotlin.fir.types.ConeKotlinTypeProjectionOut
 import org.jetbrains.kotlin.fir.types.ConeStarProjection
 import org.jetbrains.kotlin.fir.types.coneType
-import org.jetbrains.kotlin.fir.types.impl.ConeClassLikeTypeImpl
+import org.jetbrains.kotlin.fir.types.constructClassLikeType
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
@@ -496,26 +495,14 @@ internal constructor(
     }
   }
 
-  private fun generatedGraphType(graphClassId: ClassId) =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(graphClassId),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  private fun generatedGraphType(graphClassId: ClassId) = graphClassId.constructClassLikeType()
 
   private fun rendererStarType() =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(ClassIds.RENDERER),
-      arrayOf(ConeStarProjection),
-      isMarkedNullable = false,
-    )
+    ClassIds.RENDERER.constructClassLikeType(arrayOf(ConeStarProjection))
 
   private fun kClassProducerOf(type: ConeKotlinType) =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(ClassId(FqName("kotlin.reflect"), Name.identifier("KClass"))),
-      arrayOf(ConeKotlinTypeProjectionOut(type)),
-      isMarkedNullable = false,
-    )
+    ClassId(FqName("kotlin.reflect"), Name.identifier("KClass"))
+      .constructClassLikeType(arrayOf(ConeKotlinTypeProjectionOut(type)))
 
   private fun buildReflectionContributesToAnnotation() = buildAnnotation {
     val contributesToSymbol =

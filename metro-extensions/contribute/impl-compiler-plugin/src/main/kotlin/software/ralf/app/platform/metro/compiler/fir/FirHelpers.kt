@@ -30,15 +30,15 @@ import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
 import org.jetbrains.kotlin.fir.resolve.toRegularClassSymbol
 import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.symbols.SymbolInternals
-import org.jetbrains.kotlin.fir.symbols.impl.ConeClassLikeLookupTagImpl
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirConstructorSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirRegularClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirValueParameterSymbol
 import org.jetbrains.kotlin.fir.toFirResolvedTypeRef
+import org.jetbrains.kotlin.fir.types.ConeClassLikeType
 import org.jetbrains.kotlin.fir.types.ConeKotlinType
-import org.jetbrains.kotlin.fir.types.impl.ConeClassLikeTypeImpl
+import org.jetbrains.kotlin.fir.types.constructClassLikeType
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -77,12 +77,7 @@ internal fun buildAnnotationCallWithArgument(
   containingSymbol: FirBasedSymbol<*>,
   session: FirSession,
 ): FirAnnotationCall {
-  val annotationType =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(classId),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  val annotationType = classId.constructClassLikeType()
   val annotationClassSymbol =
     session.symbolProvider.getClassLikeSymbolByClassId(classId)
       ?: error("Annotation class $classId not found on the classpath")
@@ -116,12 +111,7 @@ internal fun buildSimpleAnnotationCall(
   containingSymbol: FirBasedSymbol<*>,
   session: FirSession,
 ): FirAnnotationCall {
-  val annotationType =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(classId),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  val annotationType = classId.constructClassLikeType()
   val annotationClassSymbol =
     session.symbolProvider.getClassLikeSymbolByClassId(classId)
       ?: error("Annotation class $classId not found on the classpath")
@@ -268,19 +258,9 @@ internal fun buildClassExpression(
   compatContext: CompatContext,
 ): FirExpression {
   val classId = classSymbol.classId
-  val classType =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(classId),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  val classType = classId.constructClassLikeType()
   val kClassClassId = ClassId(FqName("kotlin.reflect"), Name.identifier("KClass"))
-  val kClassType =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(kClassClassId),
-      arrayOf(classType),
-      isMarkedNullable = false,
-    )
+  val kClassType = kClassClassId.constructClassLikeType(arrayOf(classType))
 
   return buildGetClassCall {
     coneTypeOrNull = kClassType
@@ -302,19 +282,9 @@ internal fun buildClassExpression(
   compatContext: CompatContext,
   ownerSymbol: FirRegularClassSymbol? = null,
 ): FirExpression {
-  val classType =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(classId),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  val classType = classId.constructClassLikeType()
   val kClassClassId = ClassId(FqName("kotlin.reflect"), Name.identifier("KClass"))
-  val kClassType =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(kClassClassId),
-      arrayOf(classType),
-      isMarkedNullable = false,
-    )
+  val kClassType = kClassClassId.constructClassLikeType(arrayOf(classType))
 
   val classSymbol =
     findClassLikeSymbol(classId, ownerSymbol, session)
@@ -340,7 +310,7 @@ internal fun buildClassExpression(
 }
 
 private fun buildSyntheticClassLiteralParameter(
-  classType: ConeClassLikeTypeImpl,
+  classType: ConeClassLikeType,
   containingSymbol: FirBasedSymbol<*>?,
   session: FirSession,
 ) = buildValueParameter {

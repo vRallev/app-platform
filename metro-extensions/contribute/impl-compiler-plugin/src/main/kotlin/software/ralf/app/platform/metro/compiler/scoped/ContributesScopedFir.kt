@@ -37,7 +37,6 @@ import org.jetbrains.kotlin.fir.references.builder.buildResolvedNamedReference
 import org.jetbrains.kotlin.fir.resolve.defaultType
 import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
 import org.jetbrains.kotlin.fir.scopes.kotlinScopeProvider
-import org.jetbrains.kotlin.fir.symbols.impl.ConeClassLikeLookupTagImpl
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirConstructorSymbol
@@ -48,7 +47,7 @@ import org.jetbrains.kotlin.fir.toEffectiveVisibility
 import org.jetbrains.kotlin.fir.toFirResolvedTypeRef
 import org.jetbrains.kotlin.fir.types.ConeKotlinType
 import org.jetbrains.kotlin.fir.types.coneType
-import org.jetbrains.kotlin.fir.types.impl.ConeClassLikeTypeImpl
+import org.jetbrains.kotlin.fir.types.constructClassLikeType
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.Name
@@ -514,19 +513,9 @@ internal constructor(
     }
   }
 
-  private fun contributionType(classId: ClassId) =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(classId),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  private fun contributionType(classId: ClassId) = classId.constructClassLikeType()
 
-  private fun scopedType() =
-    ConeClassLikeTypeImpl(
-      ConeClassLikeLookupTagImpl(ClassIds.SCOPED),
-      emptyArray(),
-      isMarkedNullable = false,
-    )
+  private fun scopedType() = ClassIds.SCOPED.constructClassLikeType()
 
   @AutoService(MetroFirDeclarationGenerationExtension.Factory::class)
   public class Factory : MetroFirDeclarationGenerationExtension.Factory {
