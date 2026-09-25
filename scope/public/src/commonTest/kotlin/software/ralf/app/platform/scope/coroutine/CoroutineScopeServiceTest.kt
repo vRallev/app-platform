@@ -7,7 +7,6 @@ import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineStart
@@ -16,7 +15,6 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
@@ -175,7 +173,7 @@ class CoroutineScopeServiceTest {
   }
 
   @Test
-  fun `destruction can be awaited again after caller cancellation`() = runTest {
+  fun `caller cancellation does not interrupt destruction`() = runTest {
     val coroutineScope = CoroutineScopeScoped(coroutineContext + Job() + CoroutineName("test"))
     val scope = Scope.buildRootScope { addCoroutineScopeScoped(coroutineScope) }
     val finishCleanup = CompletableDeferred<Unit>()
@@ -188,22 +186,24 @@ class CoroutineScopeServiceTest {
         }
       }
 
-    val destruction = async(start = CoroutineStart.UNDISPATCHED) { scope.destroyAndWait() }
-    destruction.cancelAndJoin()
+    var waitCompleted = false
+    val destruction =
+      launch(start = CoroutineStart.UNDISPATCHED) {
+        scope.destroyAndWait()
+        waitCompleted = true
+      }
+    destruction.cancel()
 
-    assertFailsWith<CancellationException> { destruction.await() }
     assertThat(scope.isDestroyed()).isTrue()
     assertThat(job.isCancelled).isTrue()
     assertThat(job.isCompleted).isFalse()
-
-    val retriedDestruction = async(start = CoroutineStart.UNDISPATCHED) { scope.destroyAndWait() }
-    assertThat(retriedDestruction.isCompleted).isFalse()
+    assertThat(destruction.isCompleted).isFalse()
 
     finishCleanup.complete(Unit)
-    retriedDestruction.await()
+    destruction.join()
 
     assertThat(job.isCompleted).isTrue()
-    scope.destroyAndWait()
+    assertThat(waitCompleted).isTrue()
   }
 
   @Test

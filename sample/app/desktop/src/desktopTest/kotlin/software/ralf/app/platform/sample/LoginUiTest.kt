@@ -38,8 +38,7 @@ class LoginUiTest {
   fun after() = runBlocking {
     RobotInternals.setRootScopeProvider(null)
 
-    // Wait for background cleanup from outside the scope being destroyed. A canceled wait is safe
-    // to retry.
+    // Wait for background cleanup from outside the scope being destroyed, even if canceled.
     desktopApp.rootScope.destroyAndWait()
     desktopApp.destroy()
   }

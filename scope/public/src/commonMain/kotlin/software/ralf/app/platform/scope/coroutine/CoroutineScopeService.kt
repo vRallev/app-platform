@@ -6,12 +6,13 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import software.ralf.app.platform.scope.Scope
-import software.ralf.app.platform.scope.ScopeImpl
 import software.ralf.app.platform.scope.Scoped
 
 internal const val COROUTINE_SCOPE_KEY = "coroutineScope"
@@ -100,27 +101,23 @@ public fun Scope.launch(
  * suspending cleanup. Waits for coroutine scopes added with [addCoroutineScopeScoped] and all their
  * child jobs. Scopes without a coroutine scope are also destroyed.
  *
- * Call from a coroutine outside the scopes being destroyed. The wait is cancellable. If the caller
- * is canceled, destruction still takes effect and another call resumes waiting for the same
- * coroutine cleanup.
+ * Call from a coroutine outside the scopes being destroyed. Once called, destruction and the wait
+ * finish even if the caller is canceled.
  *
- * This scope must not already be destroyed unless a previous call started its destruction.
+ * This scope must not already be destroyed.
  */
-public suspend fun Scope.destroyAndWait() {
-  val scopeImpl = this as? ScopeImpl
-  val jobs = scopeImpl?.getOrCreateDestructionJobs { coroutineJobs() } ?: coroutineJobs()
+public suspend fun Scope.destroyAndWait(): Unit =
+  withContext(NonCancellable) {
+    val jobs =
+      generateSequence(listOf(this@destroyAndWait)) { scopes ->
+          scopes.flatMap { it.children() }.takeIf { it.isNotEmpty() }
+        }
+        .flatten()
+        .mapNotNull { scope ->
+          scope.getService<CoroutineScopeScoped>(COROUTINE_SCOPE_KEY)?.coroutineContext?.job
+        }
+        .toList()
 
-  destroy()
-  jobs.joinAll()
-  scopeImpl?.markDestructionJobsCompleted()
-}
-
-private fun Scope.coroutineJobs(): List<Job> =
-  generateSequence(listOf(this)) { scopes ->
-      scopes.flatMap { it.children() }.takeIf { it.isNotEmpty() }
-    }
-    .flatten()
-    .mapNotNull { scope ->
-      scope.getService<CoroutineScopeScoped>(COROUTINE_SCOPE_KEY)?.coroutineContext?.job
-    }
-    .toList()
+    destroy()
+    jobs.joinAll()
+  }

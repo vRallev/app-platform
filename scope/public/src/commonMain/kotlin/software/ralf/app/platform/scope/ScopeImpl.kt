@@ -1,6 +1,5 @@
 package software.ralf.app.platform.scope
 
-import kotlinx.coroutines.Job
 import software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped
 
 internal class ScopeImpl(
@@ -10,7 +9,6 @@ internal class ScopeImpl(
 ) : Scope {
 
   private val scopedInstances = mutableSetOf<Scoped>()
-  private var destructionJobs: List<Job>? = null
   private var isDestroyed = false
   private var isDestroying = false
 
@@ -82,19 +80,6 @@ internal class ScopeImpl(
     (parent as? ScopeImpl)?.children?.remove(this)
     isDestroyed = true
     isDestroying = false
-  }
-
-  internal fun getOrCreateDestructionJobs(create: () -> List<Job>): List<Job> {
-    val existingJobs = destructionJobs
-    if (existingJobs != null) return existingJobs
-
-    checkIsNotDestroyed()
-    return create().also { destructionJobs = it }
-  }
-
-  internal fun markDestructionJobsCompleted() {
-    // Allow repeated waits without retaining completed coroutine jobs.
-    destructionJobs = emptyList()
   }
 
   private fun checkIsNotDestroyed() {
