@@ -17,6 +17,8 @@
 
 ### Fixed
 
+- Allow canceled `Scope.destroyAndWait()` calls to be retried.
+
 ### Security
 
 ### Other Notes & Contributions

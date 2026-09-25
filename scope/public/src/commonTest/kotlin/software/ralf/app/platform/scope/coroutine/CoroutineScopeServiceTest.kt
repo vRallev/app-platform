@@ -175,7 +175,7 @@ class CoroutineScopeServiceTest {
   }
 
   @Test
-  fun `canceling the caller interrupts the wait but does not undo destruction`() = runTest {
+  fun `destruction can be awaited again after caller cancellation`() = runTest {
     val coroutineScope = CoroutineScopeScoped(coroutineContext + Job() + CoroutineName("test"))
     val scope = Scope.buildRootScope { addCoroutineScopeScoped(coroutineScope) }
     val finishCleanup = CompletableDeferred<Unit>()
@@ -196,9 +196,14 @@ class CoroutineScopeServiceTest {
     assertThat(job.isCancelled).isTrue()
     assertThat(job.isCompleted).isFalse()
 
+    val retriedDestruction = async(start = CoroutineStart.UNDISPATCHED) { scope.destroyAndWait() }
+    assertThat(retriedDestruction.isCompleted).isFalse()
+
     finishCleanup.complete(Unit)
-    coroutineScope.coroutineContext.job.join()
+    retriedDestruction.await()
+
     assertThat(job.isCompleted).isTrue()
+    scope.destroyAndWait()
   }
 
   @Test

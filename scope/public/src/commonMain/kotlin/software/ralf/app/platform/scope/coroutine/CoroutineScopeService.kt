@@ -11,6 +11,7 @@ import kotlinx.coroutines.job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import software.ralf.app.platform.scope.Scope
+import software.ralf.app.platform.scope.ScopeImpl
 import software.ralf.app.platform.scope.Scoped
 
 internal const val COROUTINE_SCOPE_KEY = "coroutineScope"
@@ -99,22 +100,27 @@ public fun Scope.launch(
  * suspending cleanup. Waits for coroutine scopes added with [addCoroutineScopeScoped] and all their
  * child jobs. Scopes without a coroutine scope are also destroyed.
  *
- * Call from a coroutine outside the scopes being destroyed. The wait is cancellable; if the caller
- * is canceled, destruction still takes effect but coroutine cleanup may not have finished.
+ * Call from a coroutine outside the scopes being destroyed. The wait is cancellable. If the caller
+ * is canceled, destruction still takes effect and another call resumes waiting for the same
+ * coroutine cleanup.
  *
- * This scope must not already be destroyed.
+ * This scope must not already be destroyed unless a previous call started its destruction.
  */
 public suspend fun Scope.destroyAndWait() {
-  val jobs =
-    generateSequence(listOf(this)) { scopes ->
-        scopes.flatMap { it.children() }.takeIf { it.isNotEmpty() }
-      }
-      .flatten()
-      .mapNotNull { scope ->
-        scope.getService<CoroutineScopeScoped>(COROUTINE_SCOPE_KEY)?.coroutineContext?.job
-      }
-      .toList()
+  val scopeImpl = this as? ScopeImpl
+  val jobs = scopeImpl?.getOrCreateDestructionJobs { coroutineJobs() } ?: coroutineJobs()
 
   destroy()
   jobs.joinAll()
+  scopeImpl?.markDestructionJobsCompleted()
 }
+
+private fun Scope.coroutineJobs(): List<Job> =
+  generateSequence(listOf(this)) { scopes ->
+      scopes.flatMap { it.children() }.takeIf { it.isNotEmpty() }
+    }
+    .flatten()
+    .mapNotNull { scope ->
+      scope.getService<CoroutineScopeScoped>(COROUTINE_SCOPE_KEY)?.coroutineContext?.job
+    }
+    .toList()

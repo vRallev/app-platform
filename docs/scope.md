@@ -315,7 +315,8 @@ userScope.destroyAndWait()
 ```
 
 Call this before the scope is destroyed. The wait is cancellable: if the caller is canceled, the scope
-stays destroyed, but coroutine cleanup may still be running.
+stays destroyed and coroutine cleanup continues. Call `destroyAndWait()` again to resume waiting for
+the same cleanup.
 
 ## `Scoped`
 
