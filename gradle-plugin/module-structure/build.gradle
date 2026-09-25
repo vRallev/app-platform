@@ -2,6 +2,7 @@ plugins {
     alias libs.plugins.kotlin.jvm
     alias libs.plugins.maven.publish
     alias libs.plugins.detekt
+    alias libs.plugins.kotlinx.binaryCompatibilityValidator
 }
 
 mavenPublishing {
@@ -45,7 +46,7 @@ tasks.withType(dev.detekt.gradle.DetektCreateBaselineTask).configureEach {
 }
 
 detekt {
-    config.from(rootProject.file('../gradle/detekt-config.yml'))
+    config.from(isolated.rootProject.projectDirectory.file('../gradle/detekt-config.yml'))
     buildUponDefaultConfig.set(true)
 }
 
