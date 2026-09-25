@@ -150,6 +150,24 @@ class CoroutineScopeServiceTest {
   }
 
   @Test
+  fun `a custom scope implementation is destroyed`() = runTest {
+    val delegate = Scope.buildRootScope()
+    var destroyCalled = false
+    val scope =
+      object : Scope by delegate {
+        override fun destroy() {
+          destroyCalled = true
+          delegate.destroy()
+        }
+      }
+
+    scope.destroyAndWait()
+
+    assertThat(destroyCalled).isTrue()
+    assertThat(delegate.isDestroyed()).isTrue()
+  }
+
+  @Test
   fun `destruction waits for cleanup in an already canceled coroutine scope`() = runTest {
     val coroutineScope = CoroutineScopeScoped(coroutineContext + Job() + CoroutineName("test"))
     val scope = Scope.buildRootScope { addCoroutineScopeScoped(coroutineScope) }
@@ -175,7 +193,7 @@ class CoroutineScopeServiceTest {
   }
 
   @Test
-  fun `canceling the caller interrupts the wait but does not undo destruction`() = runTest {
+  fun `destruction can be awaited again after caller cancellation`() = runTest {
     val coroutineScope = CoroutineScopeScoped(coroutineContext + Job() + CoroutineName("test"))
     val scope = Scope.buildRootScope { addCoroutineScopeScoped(coroutineScope) }
     val finishCleanup = CompletableDeferred<Unit>()
@@ -196,16 +214,39 @@ class CoroutineScopeServiceTest {
     assertThat(job.isCancelled).isTrue()
     assertThat(job.isCompleted).isFalse()
 
+    val retriedDestruction = async(start = CoroutineStart.UNDISPATCHED) { scope.destroyAndWait() }
+    assertThat(retriedDestruction.isCompleted).isFalse()
+
     finishCleanup.complete(Unit)
-    coroutineScope.coroutineContext.job.join()
+    retriedDestruction.await()
+
     assertThat(job.isCompleted).isTrue()
+    scope.destroyAndWait()
   }
 
   @Test
-  fun `an already destroyed scope cannot be awaited`() = runTest {
-    val scope = Scope.buildRootScope()
-    scope.destroy()
+  fun `destruction started with destroy can be awaited`() = runTest {
+    val coroutineScope = CoroutineScopeScoped(coroutineContext + Job() + CoroutineName("test"))
+    val scope = Scope.buildRootScope { addCoroutineScopeScoped(coroutineScope) }
+    val finishCleanup = CompletableDeferred<Unit>()
+    val job =
+      coroutineScope.launch(start = CoroutineStart.UNDISPATCHED) {
+        try {
+          awaitCancellation()
+        } finally {
+          withContext(NonCancellable) { finishCleanup.await() }
+        }
+      }
 
-    assertFailsWith<IllegalStateException> { scope.destroyAndWait() }
+    scope.destroy()
+    val destruction = async(start = CoroutineStart.UNDISPATCHED) { scope.destroyAndWait() }
+
+    assertThat(destruction.isCompleted).isFalse()
+    assertThat(job.isCompleted).isFalse()
+
+    finishCleanup.complete(Unit)
+    destruction.await()
+
+    assertThat(job.isCompleted).isTrue()
   }
 }

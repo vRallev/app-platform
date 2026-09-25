@@ -1,5 +1,7 @@
 package software.ralf.app.platform.scope
 
+import kotlinx.coroutines.job
+import software.ralf.app.platform.scope.coroutine.COROUTINE_SCOPE_KEY
 import software.ralf.app.platform.scope.coroutine.CoroutineScopeScoped
 
 internal class ScopeImpl(
@@ -9,6 +11,9 @@ internal class ScopeImpl(
 ) : Scope {
 
   private val scopedInstances = mutableSetOf<Scoped>()
+  internal var destruction: Destruction? = null
+    private set
+
   private var isDestroyed = false
   private var isDestroying = false
 
@@ -55,6 +60,25 @@ internal class ScopeImpl(
   }
 
   override fun destroy() {
+    prepareDestruction()
+    destroyScope()
+  }
+
+  private fun prepareDestruction(): Destruction {
+    destruction?.let {
+      return it
+    }
+    checkIsNotDestroyed()
+
+    val childDestructions = children.map { it.prepareDestruction() }
+    val coroutineJob =
+      (services[COROUTINE_SCOPE_KEY] as? CoroutineScopeScoped)?.coroutineContext?.job
+    return Destruction(listOfNotNull(coroutineJob), childDestructions).also {
+      destruction = it
+    }
+  }
+
+  private fun destroyScope() {
     if (isDestroyed || isDestroying) return
     isDestroying = true
 

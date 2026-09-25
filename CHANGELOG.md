@@ -19,6 +19,7 @@
 ### Fixed
 
 - Fix Metro compiler extension compatibility with Kotlin `2.5.0-Beta1` while retaining Kotlin `2.4.20` support.
+- Allow canceled `Scope.destroyAndWait()` calls to be retried.
 
 ### Security
 
