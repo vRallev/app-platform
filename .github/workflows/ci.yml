@@ -422,8 +422,65 @@ jobs:
 
       - name: Publish to Maven Local
         run: |
-          ./gradlew publishToMavenLocal --stacktrace --show-version --no-configuration-cache
-          ./gradlew -p gradle-plugin publishToMavenLocal --stacktrace --show-version --no-configuration-cache
+          ./gradlew publishToMavenLocal -Dmaven.repo.local="$RUNNER_TEMP/maven-local" --stacktrace --show-version --no-configuration-cache
+          ./gradlew -p gradle-plugin publishToMavenLocal -Dmaven.repo.local="$RUNNER_TEMP/maven-local" --stacktrace --show-version --no-configuration-cache
+
+      - name: Upload Maven Local
+        uses: actions/upload-artifact@v4
+        with:
+          name: maven-local
+          path: ${{ runner.temp }}/maven-local
+          if-no-files-found: error
+
+  publish-maven-local-blueprint:
+    name: publish-maven-local-blueprint-${{ matrix.blueprint }}
+    needs: publish-maven-local
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    strategy:
+      fail-fast: false
+      matrix:
+        blueprint: [starter, list-detail]
+
+    defaults:
+      run:
+        working-directory: blueprints/${{ matrix.blueprint }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup-action
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Download Maven Local
+        uses: actions/download-artifact@v4
+        with:
+          name: maven-local
+          path: ${{ runner.temp }}/maven-local
+
+      - name: Use published App Platform version
+        run: |
+          version=$(sed -n 's/^VERSION_NAME=//p' "$GITHUB_WORKSPACE/gradle.properties")
+          test -n "$version"
+          sed -i "s/^app-platform = .*/app-platform = \"$version\"/" gradle/libs.versions.toml
+
+      - name: Build Android, Desktop and Wasm and run Desktop tests
+        run: >
+          ./gradlew :app:android:assembleDebug :app:desktop:desktopMainClasses :app:web:wasmJsBrowserDistribution
+          desktopTest
+          --init-script "$GITHUB_WORKSPACE/.github/gradle/blueprint-maven-local.init.gradle"
+          -Dmaven.repo.local="$RUNNER_TEMP/maven-local"
+          --stacktrace --show-version --continue
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: test-results-${{ github.job }}-${{ matrix.blueprint }}
+          path: blueprints/${{ matrix.blueprint }}/**/build/reports/
 
   build-src:
     runs-on: ubuntu-latest

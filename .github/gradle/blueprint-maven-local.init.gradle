@@ -1,0 +1,9 @@
+// Apply to the blueprint and its buildSrc before either resolves plugins or dependencies.
+gradle.beforeSettings { settings ->
+    [settings.pluginManagement.repositories, settings.dependencyResolutionManagement.repositories].each { repositories ->
+        repositories.exclusiveContent {
+            forRepository { repositories.mavenLocal() }
+            filter { includeGroup('software.ralf.app.platform') }
+        }
+    }
+}
