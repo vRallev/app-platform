@@ -33,6 +33,9 @@ internal object ClassIds {
   val CONTRIBUTES_BINDING =
     ClassId(FqName("dev.zacsweers.metro"), Name.identifier("ContributesBinding"))
 
+  val CONTRIBUTES_INTO_SET =
+    ClassId(FqName("dev.zacsweers.metro"), Name.identifier("ContributesIntoSet"))
+
   val CONTRIBUTES_TO = ClassId(FqName("dev.zacsweers.metro"), Name.identifier("ContributesTo"))
 
   val DEPENDENCY_GRAPH = ClassId(FqName("dev.zacsweers.metro"), Name.identifier("DependencyGraph"))

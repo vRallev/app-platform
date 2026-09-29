@@ -15,19 +15,18 @@ import software.ralf.app.platform.scope.Scoped
  * ```
  *
  * This annotation is a shortcut for using `@ContributesBinding` and `@ContributesIntoSet`, but with
- * a qualifier for the multibinding alone. This can in Metro only be expressed with a contributed
- * graph:
+ * a qualifier for the multibinding alone. With the default Metro compiler integration, use the
+ * explicit annotations when the class implements multiple non-[Scoped] supertypes:
  * ```
  * @Inject
  * @SingleIn(AppScope::class)
- * class MyClass(..) : SuperType, Scoped
- *
- * @ContributesTo(AppScope::class)
- * interface MyClassGraph {
- *   @Binds val MyClass.bindSuperType: SuperType
- *
- *   @Binds @IntoSet @ForScope(AppScope::class) val MyClass.bindScoped: Scoped
- * }
+ * @ContributesBinding(AppScope::class, binding = binding<SuperType>())
+ * @ContributesBinding(AppScope::class, binding = binding<AnotherSuperType>())
+ * @ContributesIntoSet(
+ *   AppScope::class,
+ *   binding = binding<@ForScope(AppScope::class) Scoped>(),
+ * )
+ * class MyClass(..) : SuperType, AnotherSuperType, Scoped
  * ```
  *
  * Note that this annotation is only applicable for Metro and not kotlin-inject, because for

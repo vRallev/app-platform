@@ -12,6 +12,8 @@
 
 ### Fixed
 
+- Allow the default Metro compiler integration to use `@ContributesBinding` on `Scoped` classes with an explicit qualified set binding.
+
 ### Security
 
 ### Other Notes & Contributions

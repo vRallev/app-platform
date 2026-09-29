@@ -69,19 +69,28 @@ internal object ContributesScopedChecker : FirClassChecker(MppCheckerKind.Common
       }
     }
 
-    val contributesBindingAnnotation =
-      declaration.annotations.firstOrNull { candidate ->
+    val contributesBindingAnnotations =
+      declaration.annotations.filter { candidate ->
         candidate.toAnnotationClassId(session) == ClassIds.CONTRIBUTES_BINDING
-      } ?: return
+      }
+    if (contributesBindingAnnotations.isEmpty()) return
 
     if (implementsScoped(classSymbol, session)) {
+      val invalidAnnotation =
+        contributesBindingAnnotations.firstOrNull { annotation ->
+          !hasExplicitScopedSetBinding(
+            declaration.annotations,
+            annotation,
+            classSymbol,
+            session,
+          )
+        } ?: return
       reporter.reportOn(
-        contributesBindingAnnotation.source ?: declaration.source,
+        invalidAnnotation.source ?: declaration.source,
         AppPlatformMetroExtensionsDiagnostics.CONTRIBUTES_SCOPED_ERROR,
         "${classSymbol.name.asString()} implements Scoped, but uses @ContributesBinding " +
-          "instead of @ContributesScoped. When implementing Scoped the annotation " +
-          "@ContributesScoped must be used instead of @ContributesBinding to bind both super " +
-          "types correctly. It's not necessary to use @ContributesBinding.",
+          "without an explicit @ContributesIntoSet binding for the same scope-qualified " +
+          "Scoped type. Use @ContributesScoped or add the explicit scoped-set binding.",
       )
     }
   }

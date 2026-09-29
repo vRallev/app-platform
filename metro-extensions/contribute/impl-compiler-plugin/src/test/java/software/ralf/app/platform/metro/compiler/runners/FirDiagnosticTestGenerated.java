@@ -109,6 +109,12 @@ public class FirDiagnosticTestGenerated extends AbstractFirDiagnosticTest {
     }
 
     @Test
+    @TestMetadata("explicitScopedSetBindingMustMatch.kt")
+    public void testExplicitScopedSetBindingMustMatch() {
+      run("explicitScopedSetBindingMustMatch.kt");
+    }
+
+    @Test
     @TestMetadata("multipleConstructorsMustUseInject.kt")
     public void testMultipleConstructorsMustUseInject() {
       run("multipleConstructorsMustUseInject.kt");

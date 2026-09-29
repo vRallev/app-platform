@@ -154,6 +154,14 @@ internal fun extractScopeClassId(
   session: FirSession,
 ): ClassId? {
   val annotation = findAnnotation(classSymbol, annotationClassId, session) ?: return null
+  return extractScopeClassId(annotation, classSymbol, session)
+}
+
+internal fun extractScopeClassId(
+  annotation: FirAnnotation,
+  classSymbol: FirRegularClassSymbol,
+  session: FirSession,
+): ClassId? {
   val annotationCall = annotation as? FirAnnotationCall ?: return null
 
   val rawScopeExpression =

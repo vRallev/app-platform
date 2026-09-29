@@ -7,5 +7,8 @@ interface SuperType
 
 @Inject
 @SingleIn(AppScope::class)
-<!AGGREGATION_ERROR, CONTRIBUTES_SCOPED_ERROR!>@ContributesBinding(AppScope::class)<!>
+<!CONTRIBUTES_SCOPED_ERROR!>@ContributesBinding(
+  AppScope::class,
+  binding = binding<SuperType>(),
+)<!>
 class TestClass : SuperType, Scoped

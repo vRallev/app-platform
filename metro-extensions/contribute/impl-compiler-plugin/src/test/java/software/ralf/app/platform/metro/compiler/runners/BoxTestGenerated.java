@@ -187,6 +187,12 @@ public class BoxTestGenerated extends AbstractBoxTest {
     }
 
     @Test
+    @TestMetadata("explicitScopedSetBinding.kt")
+    public void testExplicitScopedSetBinding() {
+      run("explicitScopedSetBinding.kt");
+    }
+
+    @Test
     @TestMetadata("injectSecondaryConstructorSkipsProvider.kt")
     public void testInjectSecondaryConstructorSkipsProvider() {
       run("injectSecondaryConstructorSkipsProvider.kt");
