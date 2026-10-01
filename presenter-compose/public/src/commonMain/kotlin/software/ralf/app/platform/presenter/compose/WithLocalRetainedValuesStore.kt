@@ -42,19 +42,23 @@ public fun <R> withLocalRetainedValuesStore(
   store: RetainedValuesStore,
   content: @Composable () -> R,
 ): R {
-  val result = withCompositionLocal(LocalRetainedValuesStore provides store, content)
+  return withCompositionLocal(LocalRetainedValuesStore provides store) {
+    val result = content()
 
-  // Important: This must come AFTER the content for the underlying RememberObservers to dispatch
-  // in the correct order relative to retained values from the content block.
-  val composer = currentComposer
-  remember(store) { RetainContentPresenceIndicator(store, composer) }
-    .apply {
-      // Composer isn't guaranteed to stay the same between recompositions, make sure to update the
-      // reference just in case.
-      this.composer = composer
-    }
+    // Important: This must come AFTER the content for the underlying RememberObservers to dispatch
+    // in the correct order relative to retained values from the content block. It must also stay in
+    // the same composition-local group so that order is preserved after the content independently
+    // recomposes.
+    val composer = currentComposer
+    remember(store) { RetainContentPresenceIndicator(store, composer) }
+      .apply {
+        // Composer isn't guaranteed to stay the same between recompositions, make sure to update
+        // the reference just in case.
+        this.composer = composer
+      }
 
-  return result
+    result
+  }
 }
 
 private class RetainContentPresenceIndicator(
