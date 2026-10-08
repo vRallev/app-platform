@@ -187,7 +187,7 @@ class ListDetailPresenterImplTest {
   }
 
   private fun detailPresenterFactory(
-    repository: CharacterRepository
+    repository: CharacterRepository,
   ): CharacterDetailPresenter.Factory {
     return object : CharacterDetailPresenter.Factory {
       override fun createCharacterDetailPresenter(
@@ -230,7 +230,7 @@ class ListDetailPresenterImplTest {
   }
 
   private suspend fun ReceiveTurbine<BaseModel>.awaitTabletModel(
-    selectedCharacterId: String? = null
+    selectedCharacterId: String? = null,
   ): TabletListDetailPresenter.Model {
     while (true) {
       val model = awaitItem().delegatedModel()
@@ -245,7 +245,7 @@ class ListDetailPresenterImplTest {
   }
 
   private suspend fun ReceiveTurbine<BaseModel>.awaitTabletContent(
-    selectedCharacterId: String? = null
+    selectedCharacterId: String? = null,
   ): TabletListDetailPresenter.Model.Content {
     while (true) {
       val model = awaitItem().delegatedModel()

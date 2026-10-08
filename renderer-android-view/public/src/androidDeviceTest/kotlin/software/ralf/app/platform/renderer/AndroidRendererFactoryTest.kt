@@ -194,7 +194,7 @@ class AndroidRendererFactoryTest {
           "No renderer was provided for class " +
             "software.ralf.app.platform.renderer.AndroidRendererFactoryTest" +
             "\$TestModel (Kotlin reflection is not available). " +
-            "Did you add @ContributesRenderer?"
+            "Did you add @ContributesRenderer?",
         )
     }
   }

@@ -99,7 +99,7 @@ internal class ContributesBindingScopedProcessor(
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("scope = %T::class", scope.type.toClassName())
-                .build()
+                .build(),
             )
             .addFunction(
               FunSpec.builder("provide${clazz.innerClassNames()}Scoped")
@@ -108,20 +108,20 @@ internal class ContributesBindingScopedProcessor(
                 .addAnnotation(
                   AnnotationSpec.builder(ForScope::class)
                     .addMember("scope = %T::class", scope.type.toClassName())
-                    .build()
+                    .build(),
                 )
                 .apply {
                   val parameterName = clazz.innerClassNames().decapitalize()
                   addParameter(
-                    ParameterSpec.builder(name = parameterName, type = clazz.toClassName()).build()
+                    ParameterSpec.builder(name = parameterName, type = clazz.toClassName()).build(),
                   )
 
                   addStatement("return $parameterName")
                 }
                 .returns(scopedClassName)
-                .build()
+                .build(),
             )
-            .build()
+            .build(),
         )
         .build()
 

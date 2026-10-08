@@ -63,7 +63,7 @@ class ContributesScopedProcessorTest {
           fun create(): GraphInterface = createGraph<GraphInterface>()
         }
       }
-      """
+      """,
     ) {
       val scopedGraph = testClass.graph
 
@@ -100,7 +100,7 @@ class ContributesScopedProcessorTest {
           graphInterface.declaredNonSyntheticMethods
               .single { it.name == "getSuperTypeInstance" }
               .invoke(graph)::class
-            .java
+            .java,
         )
         .isEqualTo(testClass)
     }
@@ -126,7 +126,7 @@ class ContributesScopedProcessorTest {
         @ContributesScoped(AppScope::class)
         class Inner : SuperType, Scoped
       }
-      """
+      """,
     ) {
       val scopedGraph = testClass.inner.graph
 
@@ -139,7 +139,7 @@ class ContributesScopedProcessorTest {
       }
 
       with(
-        scopedGraph.declaredNonSyntheticMethods.single { it.name == "getBindTestClassInnerScoped" }
+        scopedGraph.declaredNonSyntheticMethods.single { it.name == "getBindTestClassInnerScoped" },
       ) {
         assertThat(parameters.single().type).isEqualTo(testClass.inner)
         assertThat(returnType).isEqualTo(Scoped::class.java)
@@ -187,7 +187,7 @@ class ContributesScopedProcessorTest {
           fun create(): GraphInterface = createGraph<GraphInterface>()
         }
       }
-      """
+      """,
     ) {
       val scopedGraph = testClass.graph
 
@@ -212,7 +212,7 @@ class ContributesScopedProcessorTest {
       assertThat(
           graphInterface.declaredNonSyntheticMethods
             .single { it.name == "getSuperTypeInstance" }
-            .invoke(graph)
+            .invoke(graph),
         )
         .isEqualTo(scopedInstance)
     }
@@ -262,7 +262,7 @@ class ContributesScopedProcessorTest {
           fun create(): GraphInterface = createGraph<GraphInterface>()
         }
       }
-      """
+      """,
     ) {
       val scopedGraph = testClass.graph
 
@@ -298,7 +298,7 @@ class ContributesScopedProcessorTest {
       @SingleIn(AppScope::class)
       @ContributesScoped(AppScope::class)
       class TestClass : Scoped
-      """
+      """,
     ) {
       val scopedGraph = testClass.graph
 
@@ -334,7 +334,7 @@ class ContributesScopedProcessorTest {
     ) {
       assertThat(messages)
         .contains(
-          "In order to use @ContributesScoped, TestClass must implement software.ralf.app.platform.scope.Scoped."
+          "In order to use @ContributesScoped, TestClass must implement software.ralf.app.platform.scope.Scoped.",
         )
     }
   }
@@ -359,7 +359,7 @@ class ContributesScopedProcessorTest {
     ) {
       assertThat(messages)
         .contains(
-          "In order to use @ContributesScoped, TestClass must implement software.ralf.app.platform.scope.Scoped."
+          "In order to use @ContributesScoped, TestClass must implement software.ralf.app.platform.scope.Scoped.",
         )
     }
   }
@@ -388,7 +388,7 @@ class ContributesScopedProcessorTest {
     ) {
       assertThat(messages)
         .contains(
-          "In order to use @ContributesScoped, TestClass is allowed to have only one other super type besides Scoped."
+          "In order to use @ContributesScoped, TestClass is allowed to have only one other super type besides Scoped.",
         )
     }
   }
@@ -412,7 +412,7 @@ class ContributesScopedProcessorTest {
       @SingleIn(AppScope::class)
       @ContributesScoped(AppScope::class)
       class TestClass : SuperType2
-      """
+      """,
     ) {
       assertThat(testClass.graph).isNotNull()
     }
@@ -442,7 +442,7 @@ class ContributesScopedProcessorTest {
       assertThat(messages)
         .contains(
           "TestClass has multiple constructors. Annotate the constructor to use with @Inject, " +
-            "or remove the extra constructors so @ContributesScoped can generate a provider."
+            "or remove the extra constructors so @ContributesScoped can generate a provider.",
         )
     }
   }
@@ -473,7 +473,7 @@ class ContributesScopedProcessorTest {
           "TestClass implements Scoped, but uses @ContributesBinding instead of " +
             "@ContributesScoped. When implementing Scoped the annotation @ContributesScoped " +
             "must be used instead of @ContributesBinding to bind both super types correctly. " +
-            "It's not necessary to use @ContributesBinding."
+            "It's not necessary to use @ContributesBinding.",
         )
     }
   }
@@ -530,10 +530,10 @@ class ContributesScopedProcessorTest {
       classLoader.loadClass(
         "$METRO_LOOKUP_PACKAGE.$packageName." +
           canonicalName.substringAfter(packageName).substring(1).split(".").joinToString(
-            separator = ""
+            separator = "",
           ) {
             it.capitalize()
           } +
-          "Graph"
+          "Graph",
       )
 }

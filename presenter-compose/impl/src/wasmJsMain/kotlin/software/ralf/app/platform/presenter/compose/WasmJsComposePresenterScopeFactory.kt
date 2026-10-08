@@ -32,7 +32,7 @@ public interface WasmJsComposePresenterScopeFactoryComponent {
   @KiProvides
   @KiSingleIn(KiAppScope::class)
   public fun provideWasmJsComposePresenterScopeFactory(
-    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
   ): ComposePresenterScopeFactory = WasmJsComposePresenterScopeFactory(coroutineScopeFactory)
 }
 
@@ -44,6 +44,6 @@ public object WasmJsComposePresenterScopeFactoryGraph {
   @MetroProvides
   @MetroSingleIn(MetroAppScope::class)
   public fun provideWasmJsComposePresenterScopeFactory(
-    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
   ): ComposePresenterScopeFactory = WasmJsComposePresenterScopeFactory { coroutineScopeFactory() }
 }

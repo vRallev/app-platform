@@ -170,6 +170,6 @@ public fun Scope.onExit(block: () -> Unit) {
       override fun onExitScope() {
         block()
       }
-    }
+    },
   )
 }

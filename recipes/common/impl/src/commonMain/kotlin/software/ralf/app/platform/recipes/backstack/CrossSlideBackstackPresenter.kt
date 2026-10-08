@@ -19,7 +19,7 @@ import software.ralf.app.platform.recipes.backstack.CrossSlideBackstackPresenter
  * as an element.
  */
 class CrossSlideBackstackPresenter(
-  private val initialPresenter: ComposePresenter<Unit, out BaseModel>
+  private val initialPresenter: ComposePresenter<Unit, out BaseModel>,
 ) : ComposePresenter<Unit, Model> {
   @Composable
   override fun present(input: Unit): Model {

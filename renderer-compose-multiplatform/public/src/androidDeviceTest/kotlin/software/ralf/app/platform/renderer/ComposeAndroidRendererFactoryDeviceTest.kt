@@ -195,7 +195,7 @@ class ComposeAndroidRendererFactoryDeviceTest {
             factory.getRenderer(viewModel).render(viewModel)
           }
           .messageContains(
-            "Tried to call render() on an AndroidViewRenderer without a parent view."
+            "Tried to call render() on an AndroidViewRenderer without a parent view.",
           )
       }
     }
@@ -452,7 +452,7 @@ class ComposeAndroidRendererFactoryDeviceTest {
   }
 
   private inner class TestRendererGraph(
-    private val rendererFactoryProvider: () -> RendererFactory
+    private val rendererFactoryProvider: () -> RendererFactory,
   ) : RendererGraph {
     override val rendererFactory: RendererFactory
       get() = rendererFactoryProvider()

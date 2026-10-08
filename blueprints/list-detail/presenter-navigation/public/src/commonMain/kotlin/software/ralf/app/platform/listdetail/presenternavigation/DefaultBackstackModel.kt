@@ -22,7 +22,7 @@ data class DefaultBackstackModel(
 /** Presents [initialPresenter] in a backstack that pops its current entry on back. */
 @Composable
 fun presenterBackstackDefault(
-  initialPresenter: ComposePresenter<Unit, out BaseModel>
+  initialPresenter: ComposePresenter<Unit, out BaseModel>,
 ): DefaultBackstackModel {
   return presenterBackstack(initialPresenter) { backstack ->
     DefaultBackstackModel(backstack = backstack, onBack = { pop() })

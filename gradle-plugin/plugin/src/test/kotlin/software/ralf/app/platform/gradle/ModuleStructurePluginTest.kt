@@ -107,7 +107,7 @@ class ModuleStructurePluginTest {
     project.dependencies.add("compileClasspath", "com.example:forbidden-impl:1.0")
 
     project.appPlatform.enableModuleStructure(
-      Action { options -> options.enableDependencyCheck(false) }
+      Action { options -> options.enableDependencyCheck(false) },
     )
     project.evaluate()
 
@@ -124,7 +124,7 @@ class ModuleStructurePluginTest {
 
     project.appPlatform.enableModuleStructure(true)
     project.appPlatform.enableModuleStructure(
-      Action { options -> options.enableDependencyCheck(false) }
+      Action { options -> options.enableDependencyCheck(false) },
     )
     project.evaluate()
 
@@ -141,7 +141,7 @@ class ModuleStructurePluginTest {
     project.plugins.apply("java-test-fixtures")
 
     project.appPlatform.enableModuleStructure(
-      Action { options -> options.enableTestDependencyCheck(false) }
+      Action { options -> options.enableTestDependencyCheck(false) },
     )
     project.evaluate()
 
@@ -277,7 +277,7 @@ class ModuleStructurePluginTest {
     project.plugins.apply(AppPlatformPlugin::class.java)
 
     project.appPlatform.enableModuleStructure(
-      Action { options -> options.enableTestDependencyCheck(false) }
+      Action { options -> options.enableTestDependencyCheck(false) },
     )
     project.evaluate()
 

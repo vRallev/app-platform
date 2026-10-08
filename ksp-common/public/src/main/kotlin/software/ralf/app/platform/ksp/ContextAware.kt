@@ -113,7 +113,7 @@ public interface ContextAware {
     findAnnotations(annotation).single()
 
   public fun KSClassDeclaration.findAnnotations(
-    annotation: KClass<out Annotation>
+    annotation: KClass<out Annotation>,
   ): List<KSAnnotation> {
     val fqName = annotation.requireQualifiedName()
     return annotations
@@ -223,7 +223,7 @@ public interface ContextAware {
   }
 
   public fun KSClassDeclaration.findAnnotationsAtLeastOne(
-    annotation: KClass<out Annotation>
+    annotation: KClass<out Annotation>,
   ): List<KSAnnotation> {
     return findAnnotations(annotation).also {
       check(it.isNotEmpty(), this) {

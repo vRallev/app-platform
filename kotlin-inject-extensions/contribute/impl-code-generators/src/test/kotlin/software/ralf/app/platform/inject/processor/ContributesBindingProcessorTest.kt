@@ -37,7 +37,7 @@ class ContributesBindingProcessorTest {
             @Inject
             @ContributesBinding(Unit::class)
             class Impl : Base 
-            """
+            """,
     ) {
       val generatedComponent = impl.generatedComponent
 
@@ -68,7 +68,7 @@ class ContributesBindingProcessorTest {
                 @ContributesBinding(Unit::class)
                 class Inner : Base
             } 
-            """
+            """,
     ) {
       val generatedComponent = impl.inner.generatedComponent
 
@@ -102,7 +102,7 @@ class ContributesBindingProcessorTest {
             @Inject
             @ContributesBinding(Unit::class)
             class Impl2 : Base2 
-            """
+            """,
     ) {
       assertThat(impl.generatedComponent.declaredNonSyntheticMethods.single().returnType)
         .isEqualTo(base)
@@ -152,7 +152,7 @@ class ContributesBindingProcessorTest {
       assertThat(messages)
         .contains(
           "The bound type could not be determined for Impl. " +
-            "There are multiple super types: Base, Base2."
+            "There are multiple super types: Base, Base2.",
         )
     }
   }
@@ -173,7 +173,7 @@ class ContributesBindingProcessorTest {
             @ContributesBinding(Unit::class, boundType = Base::class)
             @ContributesBinding(Unit::class, boundType = Base2::class)
             class Impl : Base, Base2 
-            """
+            """,
     ) {
       val generatedComponent = impl.generatedComponent
 
@@ -187,7 +187,7 @@ class ContributesBindingProcessorTest {
       }
 
       with(
-        generatedComponent.declaredNonSyntheticMethods.single { it.name == "provideImplBase2" }
+        generatedComponent.declaredNonSyntheticMethods.single { it.name == "provideImplBase2" },
       ) {
         assertThat(parameters.single().type).isEqualTo(impl)
         assertThat(returnType).isEqualTo(base2)
@@ -256,7 +256,7 @@ class ContributesBindingProcessorTest {
             @Inject
             @ContributesBinding(Unit::class, multibinding = true)
             class Impl : Base 
-            """
+            """,
     ) {
       val generatedComponent = impl.generatedComponent
 
@@ -287,7 +287,7 @@ class ContributesBindingProcessorTest {
             @ContributesBinding(Unit::class, multibinding = false)
             @ContributesBinding(Unit::class, multibinding = true)
             class Impl : Base 
-            """
+            """,
     ) {
       val generatedComponent = impl.generatedComponent
 

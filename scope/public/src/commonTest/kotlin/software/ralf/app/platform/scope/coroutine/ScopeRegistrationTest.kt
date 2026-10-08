@@ -57,7 +57,7 @@ class ScopeRegistrationTest {
           assertThat(events).isEmpty()
           events += "last callback"
         },
-      )
+      ),
     )
 
     assertThat(events)
@@ -87,7 +87,7 @@ class ScopeRegistrationTest {
           runCurrent()
           assertThat(ran).isFalse()
         },
-      )
+      ),
     )
 
     runCurrent()
@@ -126,7 +126,7 @@ class ScopeRegistrationTest {
           events += "outer callback"
         },
         scoped { events += "last callback" },
-      )
+      ),
     )
 
     assertThat(events).containsExactly("outer callback", "last callback", "coroutine")
@@ -160,8 +160,8 @@ class ScopeRegistrationTest {
           canceled = current.launch { events += "canceled" }
           canceled.cancel()
           current.launch { events += "sibling" }
-        }
-      )
+        },
+      ),
     )
 
     assertThat(events).containsExactly("sibling")
@@ -184,8 +184,8 @@ class ScopeRegistrationTest {
             withTimeoutOrNull(100.milliseconds) { delay(200.milliseconds) }
             events += "timeout"
           }
-        }
-      )
+        },
+      ),
     )
 
     runCurrent()
@@ -218,8 +218,8 @@ class ScopeRegistrationTest {
           current.launch(start = CoroutineStart.UNDISPATCHED) { bypassed++ }
           assertThat(count).isEqualTo(0)
           assertThat(bypassed).isEqualTo(3)
-        }
-      )
+        },
+      ),
     )
 
     assertThat(count).isEqualTo(10_000)
@@ -244,7 +244,7 @@ class ScopeRegistrationTest {
   }
 
   private fun TestScope.coroutines(
-    context: CoroutineContext = UnconfinedTestDispatcher(testScheduler)
+    context: CoroutineContext = UnconfinedTestDispatcher(testScheduler),
   ): CoroutineScopeScoped = CoroutineScopeScoped(Job() + CoroutineName("test") + context)
 
   private fun scoped(onEnter: (Scope) -> Unit): Scoped =

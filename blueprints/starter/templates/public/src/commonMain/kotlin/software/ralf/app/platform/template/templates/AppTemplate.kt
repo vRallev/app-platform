@@ -8,7 +8,7 @@ sealed interface AppTemplate : Template {
   /** A template that hosts a single model, which should rendered as full-screen element. */
   data class FullScreenTemplate(
     /** The model to be rendered fullscreen. */
-    val model: BaseModel
+    val model: BaseModel,
   ) : AppTemplate
 
   data class HeaderDetailTemplate(val header: BaseModel, val detail: BaseModel) : AppTemplate

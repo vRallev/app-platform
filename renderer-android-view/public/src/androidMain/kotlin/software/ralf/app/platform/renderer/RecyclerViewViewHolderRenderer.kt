@@ -92,7 +92,7 @@ public abstract class RecyclerViewViewHolderRenderer<ModelT : BaseModel> :
       // memory will be reclaimed when the RecyclerView is removed from the view hierarchy.
       @Suppress("UseCheckOrError")
       throw IllegalStateException(
-        "A RecyclerViewViewHolderRenderer should only be reused with the same parent view."
+        "A RecyclerViewViewHolderRenderer should only be reused with the same parent view.",
       )
     }
   }

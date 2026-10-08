@@ -39,7 +39,7 @@ class UserPagePresenterImplTest {
           .isEqualTo(FakeUser.fakeAttribute1.value)
 
         (model.listModel as UserPageListPresenter.Model).onEvent(
-          UserPageListPresenter.Event.ItemSelected(1)
+          UserPageListPresenter.Event.ItemSelected(1),
         )
       }
 

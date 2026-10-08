@@ -100,7 +100,7 @@ public fun rememberReturningSaveableStateHolder(): ReturningSaveableStateHolder 
 
 @OptIn(ExperimentalAppPlatform::class)
 private class ReturningSaveableStateHolderImpl(
-  private val savedStates: MutableMap<Any, Map<String, List<Any?>>> = mutableMapOf()
+  private val savedStates: MutableMap<Any, Map<String, List<Any?>>> = mutableMapOf(),
 ) : ReturningSaveableStateHolder {
   private val registries = mutableScatterMapOf<Any, SaveableStateRegistry>()
   var parentSaveableStateRegistry: SaveableStateRegistry? = null
@@ -115,7 +115,7 @@ private class ReturningSaveableStateHolderImpl(
             "which can be stored inside the Bundle."
         }
         ReturningSaveableStateRegistryWrapper(
-          base = SaveableStateRegistry(restoredValues = savedStates[key], canBeSaved)
+          base = SaveableStateRegistry(restoredValues = savedStates[key], canBeSaved),
         )
       }
       val model =

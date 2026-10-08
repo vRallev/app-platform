@@ -31,7 +31,7 @@ class AppPlatformExtensionTest {
         options.enableDependencyCheck(false)
         options.enableTestDependencyCheck(false)
         options.allowLibraryImplToImplDependencies(true)
-      }
+      },
     )
 
     assertThat(extension.isModuleStructureEnabled().get()).isTrue()
@@ -51,7 +51,7 @@ class AppPlatformExtensionTest {
         options.enableDependencyCheck(false)
         options.enableTestDependencyCheck(false)
         options.allowLibraryImplToImplDependencies(true)
-      }
+      },
     )
 
     assertThat(extension.moduleStructureOptions().isDependencyCheckEnabled().get()).isFalse()
@@ -74,7 +74,7 @@ class AppPlatformExtensionTest {
           allowLibraryImplToImplDependencies true
         }
         """
-          .trimIndent()
+          .trimIndent(),
       )
 
     assertThat(extension.isModuleStructureEnabled().get()).isTrue()

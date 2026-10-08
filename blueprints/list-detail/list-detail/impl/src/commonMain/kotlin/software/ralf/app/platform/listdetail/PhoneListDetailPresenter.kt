@@ -43,12 +43,12 @@ class PhoneListDetailPresenter(
 
   @Composable
   private fun presentListModel(
-    selectionState: ListDetailSelectionState
+    selectionState: ListDetailSelectionState,
   ): CharacterListPresenter.Model {
     val backstackScope = LocalBackstackScope.requireNotNull()
     val listModel =
       listPresenter.present(
-        CharacterListPresenter.Input(selectedCharacterId = selectionState.selectedCharacterId)
+        CharacterListPresenter.Input(selectedCharacterId = selectionState.selectedCharacterId),
       )
 
     return listModel.copy(
@@ -58,16 +58,16 @@ class PhoneListDetailPresenter(
           detailPresenterFactory.createCharacterDetailPresenter(
             characterId = character.id,
             showBackButton = true,
-          )
+          ),
         )
-      }
+      },
     )
   }
 
   /** State supplied by the adaptive parent so selection survives layout changes. */
   data class Input(
     /** Shared character selection state. */
-    val selectionState: ListDetailSelectionState
+    val selectionState: ListDetailSelectionState,
   )
 
   /** Delegates rendering to App Platform's presenter-backstack model. */

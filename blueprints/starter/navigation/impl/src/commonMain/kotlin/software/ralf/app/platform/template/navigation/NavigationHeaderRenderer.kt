@@ -62,7 +62,7 @@ class NavigationHeaderRenderer : ComposeRenderer<Model>() {
 
       Spacer(
         modifier =
-          Modifier.fillMaxWidth().height(1.dp).background(MaterialTheme.colorScheme.primary)
+          Modifier.fillMaxWidth().height(1.dp).background(MaterialTheme.colorScheme.primary),
       )
     }
   }

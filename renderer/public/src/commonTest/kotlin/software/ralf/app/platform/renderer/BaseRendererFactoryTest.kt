@@ -160,7 +160,7 @@ class BaseRendererFactoryTest {
                         Map<KClass<out BaseModel>, KClass<out Renderer<*>>> =
                         kotlinInjectModelToRendererMapping
                     }
-                }
+                },
               )
             }
 
@@ -177,11 +177,11 @@ class BaseRendererFactoryTest {
                         Map<KClass<out BaseModel>, KClass<out Renderer<*>>> =
                         metroModelToRendererMapping
                     }
-                }
+                },
               )
             }
           }
-        }
+        },
     )
 
   private data class TestModel(val value: Int) : BaseModel

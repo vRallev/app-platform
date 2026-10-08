@@ -91,7 +91,7 @@ internal class ContributesMockImplProcessor(
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", clazz.scope().type.toClassName())
-                .build()
+                .build(),
             )
             .addFunctions(
               annotations.map { annotation ->
@@ -104,7 +104,7 @@ internal class ContributesMockImplProcessor(
                   .addParameter(
                     ParameterSpec.builder("mockMode", Boolean::class)
                       .addAnnotation(MockMode::class)
-                      .build()
+                      .build(),
                   )
                   .addParameter("mockImpl", LambdaTypeName.get(returnType = clazz.toClassName()))
                   .addParameter(
@@ -113,12 +113,12 @@ internal class ContributesMockImplProcessor(
                         LambdaTypeName.get(returnType = boundType.toClassName()),
                       )
                       .addAnnotation(RealImpl::class)
-                      .build()
+                      .build(),
                   )
                   .returns(boundType.toClassName())
                   .addStatement("return if (mockMode) mockImpl() else realImpl()")
                   .build()
-              }
+              },
             )
             .apply {
               if (
@@ -132,21 +132,21 @@ internal class ContributesMockImplProcessor(
                     .addAnnotation(
                       AnnotationSpec.builder(ForScope::class)
                         .addMember("scope = %T::class", clazz.scope().type.toClassName())
-                        .build()
+                        .build(),
                     )
                     .addParameter(
                       ParameterSpec.builder("mockMode", Boolean::class)
                         .addAnnotation(MockMode::class)
-                        .build()
+                        .build(),
                     )
                     .addParameter("mockImpl", LambdaTypeName.get(returnType = clazz.toClassName()))
                     .returns(scopedClassName)
                     .addStatement("return if (mockMode) mockImpl() else %T.NO_OP", scopedClassName)
-                    .build()
+                    .build(),
                 )
               }
             }
-            .build()
+            .build(),
         )
         .build()
 

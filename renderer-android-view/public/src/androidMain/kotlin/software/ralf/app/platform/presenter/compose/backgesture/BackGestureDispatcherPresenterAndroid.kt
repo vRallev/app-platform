@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
  * ```
  */
 public fun BackGestureDispatcherPresenter.forwardBackPressEventsToPresenters(
-  onBackPressedDispatcherOwner: OnBackPressedDispatcherOwner
+  onBackPressedDispatcherOwner: OnBackPressedDispatcherOwner,
 ) {
   // Later if needed we can consider limiting this to the STARTED lifecycle if needed with
   // repeatOnLifecycle API. For now we forward events until the lifecycle changes to DESTROYED.
@@ -130,7 +130,7 @@ private class BackGestureForwarder(
           progress = it.progress,
           swipeEdge = it.swipeEdge,
         )
-      }
+      },
     )
   }
 }

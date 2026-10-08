@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
  * This class is part of the `:testing` module and shared with other modules.
  */
 class FakeExampleRepository(
-  override val exampleStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
+  override val exampleStateFlow: MutableStateFlow<Int> = MutableStateFlow(0),
 ) : ExampleRepository {
 
   override fun setExampleFlowValue(value: Int) {

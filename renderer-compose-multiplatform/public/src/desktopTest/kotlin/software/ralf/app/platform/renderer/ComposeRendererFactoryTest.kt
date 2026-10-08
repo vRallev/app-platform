@@ -50,10 +50,10 @@ class ComposeRendererFactoryTest {
 
         messageContains(
           "The renderer class software.ralf.app.platform.renderer." +
-            "ComposeRendererFactoryTest\$AndroidRenderer"
+            "ComposeRendererFactoryTest\$AndroidRenderer",
         )
         messageContains(
-          "For Android View and Compose UI interop use ComposeAndroidRendererFactory."
+          "For Android View and Compose UI interop use ComposeAndroidRendererFactory.",
         )
       }
   }
@@ -80,7 +80,7 @@ class ComposeRendererFactoryTest {
                   )
               }
             }
-          }
+          },
         )
       }
     return object : RootScopeProvider {

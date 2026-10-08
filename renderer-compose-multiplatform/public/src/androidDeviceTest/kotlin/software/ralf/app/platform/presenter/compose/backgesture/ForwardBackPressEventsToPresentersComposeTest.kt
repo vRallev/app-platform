@@ -69,12 +69,12 @@ class ForwardBackPressEventsToPresentersComposeTest {
   }
 
   private class TestPresenter(
-    private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter
+    private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
   ) : ComposePresenter<Unit, Model> {
     @Composable
     override fun present(input: Unit): Model {
       return withCompositionLocal(
-        LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter
+        LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter,
       ) {
         var backPressCount by remember { mutableIntStateOf(0) }
 

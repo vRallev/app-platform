@@ -16,10 +16,10 @@ internal const val OPEN_SOURCE_LOOKUP_PACKAGE = "amazon.lastmile.inject"
 internal const val APP_PLATFORM_LOOKUP_PACKAGE = "app.platform.inject"
 
 internal fun <T : Annotatable.Builder<T>> Annotatable.Builder<T>.addOriginAnnotation(
-  clazz: KSClassDeclaration
+  clazz: KSClassDeclaration,
 ): T =
   addAnnotation(
     AnnotationSpec.builder(Origin::class)
       .addMember("value = %T::class", clazz.toClassName())
-      .build()
+      .build(),
   )

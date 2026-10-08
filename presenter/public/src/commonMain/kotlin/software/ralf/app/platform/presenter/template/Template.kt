@@ -52,7 +52,7 @@ public interface Template : BaseModel
  * used.
  */
 public inline fun <reified T : Template> BaseModel.toTemplate(
-  defaultTemplate: (BaseModel) -> T
+  defaultTemplate: (BaseModel) -> T,
 ): T {
   var model = this
   while (model is ModelDelegate) {

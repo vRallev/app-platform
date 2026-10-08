@@ -16,7 +16,7 @@ import software.ralf.app.platform.renderer.getRenderer
  * container (read `ViewGroup`) gets hidden and the new container (read `ViewGroup`) gets shown.
  */
 public abstract class AndroidTemplateRenderer<T : Template>(
-  private val rendererFactory: RendererFactory
+  private val rendererFactory: RendererFactory,
 ) : ViewRenderer<T>() {
 
   protected inner class Container(

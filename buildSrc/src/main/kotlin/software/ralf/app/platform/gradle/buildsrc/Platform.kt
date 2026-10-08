@@ -93,14 +93,14 @@ internal sealed interface Platform {
 
       project.kmpExtension.sourceSets.getByName("desktopMain").dependencies {
         implementation(
-          "org.jetbrains.compose.desktop:desktop-jvm-${currentOsTarget()}:$composeVersion"
+          "org.jetbrains.compose.desktop:desktop-jvm-${currentOsTarget()}:$composeVersion",
         )
       }
 
       project.kmpExtension.sourceSets.getByName("desktopTest").dependencies {
         implementation("org.jetbrains.compose.ui:ui-test-junit4:$composeVersion")
         implementation(
-          "org.jetbrains.compose.desktop:desktop-jvm-${currentOsTarget()}:$composeVersion"
+          "org.jetbrains.compose.desktop:desktop-jvm-${currentOsTarget()}:$composeVersion",
         )
       }
     }

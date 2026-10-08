@@ -41,7 +41,7 @@ internal abstract class ModuleStructureNestingCheckTask : DefaultTask() {
     if (invalidExceptions.isNotEmpty()) {
       throw GradleException(
         "allowNestedLibrariesIn requires exact library paths. These paths do not identify " +
-          "libraries in the checked subtree: ${invalidExceptions.joinToString()}."
+          "libraries in the checked subtree: ${invalidExceptions.joinToString()}.",
       )
     }
 
@@ -61,14 +61,14 @@ internal abstract class ModuleStructureNestingCheckTask : DefaultTask() {
         "Library modules must be direct children of their library:\n" +
           violations.joinToString("\n") { " - $it" } +
           "\nMove nested projects outside the library, or configure allowNestedLibrariesIn " +
-          "in the appPlatform.enableModuleStructureNestingCheck block of the project running this check."
+          "in the appPlatform.enableModuleStructureNestingCheck block of the project running this check.",
       )
     }
   }
 
   companion object {
     fun Project.registerModuleStructureNestingCheckTask(
-      options: ModuleStructureNestingCheckOptions
+      options: ModuleStructureNestingCheckOptions,
     ) {
       val checkTask =
         tasks.register(

@@ -43,7 +43,7 @@ internal object SdkPlugin {
         "App Platform ${
         artifactId.split('-')
           .joinToString(separator = " ", prefix = "", postfix = "") { it.capitalize() }
-      }"
+      }",
       )
     }
   }

@@ -32,7 +32,7 @@ public interface DesktopComposePresenterScopeFactoryComponent {
   @KiProvides
   @KiSingleIn(KiAppScope::class)
   public fun provideDesktopComposePresenterScopeFactory(
-    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
   ): ComposePresenterScopeFactory = DesktopComposePresenterScopeFactory(coroutineScopeFactory)
 }
 
@@ -44,6 +44,6 @@ public object DesktopComposePresenterScopeFactoryGraph {
   @MetroProvides
   @MetroSingleIn(MetroAppScope::class)
   public fun provideDesktopComposePresenterScopeFactory(
-    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
   ): ComposePresenterScopeFactory = DesktopComposePresenterScopeFactory { coroutineScopeFactory() }
 }

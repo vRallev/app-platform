@@ -8,7 +8,7 @@ internal const val ANDROID_TEST_EXECUTION = "ANDROIDX_TEST_ORCHESTRATOR"
 internal val ANDROID_TEST_INSTRUMENTATION_RUNNER_ARGUMENTS = mapOf("clearPackageData" to "true")
 
 internal fun Project.configureAppPlatformInstrumentedTests(
-  implementationConfigurationName: String
+  implementationConfigurationName: String,
 ) {
   releaseTask.configure { it.dependsOn("emulatorCheck") }
 

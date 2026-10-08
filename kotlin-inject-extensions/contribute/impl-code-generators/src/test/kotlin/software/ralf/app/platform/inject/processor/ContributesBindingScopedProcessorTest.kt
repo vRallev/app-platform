@@ -46,7 +46,7 @@ class ContributesBindingScopedProcessorTest {
             @SingleIn(AppScope::class)
             @ContributesBinding(AppScope::class)
             class Impl : Base, Scoped
-            """
+            """,
     ) {
       val generatedComponent = impl.scopedComponent
 
@@ -55,7 +55,7 @@ class ContributesBindingScopedProcessorTest {
         .isEqualTo(AppScope::class)
 
       with(
-        generatedComponent.declaredNonSyntheticMethods.single { it.name == "provideImplScoped" }
+        generatedComponent.declaredNonSyntheticMethods.single { it.name == "provideImplScoped" },
       ) {
         assertThat(parameters.single().type).isEqualTo(impl)
         assertThat(returnType).isEqualTo(scoped)
@@ -84,7 +84,7 @@ class ContributesBindingScopedProcessorTest {
                 @ContributesBinding(Unit::class)
                 class Inner : Base, Scoped
             } 
-            """
+            """,
     ) {
       val generatedComponent = impl.inner.scopedComponent
 
@@ -95,7 +95,7 @@ class ContributesBindingScopedProcessorTest {
       with(
         generatedComponent.declaredNonSyntheticMethods.single {
           it.name == "provideImplInnerScoped"
-        }
+        },
       ) {
         assertThat(parameters.single().type).isEqualTo(impl.inner)
         assertThat(returnType).isEqualTo(scoped)
@@ -126,12 +126,12 @@ class ContributesBindingScopedProcessorTest {
             @ContributesBinding(AppScope::class, boundType = Base::class)
             @ContributesBinding(AppScope::class, boundType = Base2::class)
             class Impl : Base, Base2, Scoped
-            """
+            """,
     ) {
       val generatedComponent = impl.scopedComponent
 
       with(
-        generatedComponent.declaredNonSyntheticMethods.single { it.name == "provideImplScoped" }
+        generatedComponent.declaredNonSyntheticMethods.single { it.name == "provideImplScoped" },
       ) {
         assertThat(parameters.single().type).isEqualTo(impl)
         assertThat(returnType).isEqualTo(scoped)
@@ -158,7 +158,7 @@ class ContributesBindingScopedProcessorTest {
             @SingleIn(AppScope::class)
             @ContributesBinding(AppScope::class)
             class Impl : Scoped
-            """
+            """,
     ) {
       val generatedComponent = impl.scopedComponent
       with(generatedComponent.declaredNonSyntheticMethods.single()) {
@@ -199,7 +199,7 @@ class ContributesBindingScopedProcessorTest {
             @ContributesBinding(AppScope::class, boundType = Base::class)
             @ContributesBinding(AppScope::class, boundType = Scoped::class)
             class Impl2 : Base
-            """
+            """,
     ) {
       with(impl.generatedComponent.declaredNonSyntheticMethods.single()) {
         assertThat(name).isEqualTo("provideImplBase")
@@ -216,7 +216,9 @@ class ContributesBindingScopedProcessorTest {
         assertThat(this).isAnnotatedWith(Provides::class)
       }
       with(
-        impl2.scopedComponent.declaredNonSyntheticMethods.single { it.name == "provideImpl2Scoped" }
+        impl2.scopedComponent.declaredNonSyntheticMethods.single {
+          it.name == "provideImpl2Scoped"
+        },
       ) {
         assertThat(parameters.single().type).isEqualTo(impl2)
         assertThat(returnType).isEqualTo(scoped)
@@ -271,7 +273,7 @@ class ContributesBindingScopedProcessorTest {
                 @ForScope(Unit::class)
                 val scoped: Set<Scoped>
             }
-            """
+            """,
     ) {
       val component = componentInterface.newComponent<Any>()
 
@@ -308,7 +310,7 @@ class ContributesBindingScopedProcessorTest {
           canonicalName.substringAfter("$packageName.").split(".").joinToString(separator = "") {
             it.capitalize()
           } +
-          "ScopedComponent"
+          "ScopedComponent",
       )
 
   private val JvmCompilationResult.componentInterface2: Class<*>

@@ -152,7 +152,7 @@ internal class ContributesRendererProcessor(
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", rendererScope)
-                .build()
+                .build(),
             )
             .apply {
               if (!clazz.hasInjectAnnotation()) {
@@ -162,13 +162,13 @@ internal class ContributesRendererProcessor(
                     .returns(clazz.toClassName())
                     .addParameters(clazz.constructorParameters().map { it.toParameterSpec() })
                     .addCode(clazz.constructorCall())
-                    .build()
+                    .build(),
                 )
               }
             }
             .addFunctions(allModels.map { createModelBindingFunction(clazz, it) }.toList())
             .addFunctions(allModels.map { createModelKeyFunction(clazz, it) }.toList())
-            .build()
+            .build(),
         )
         .build()
 
@@ -201,7 +201,7 @@ internal class ContributesRendererProcessor(
       buildString {
         append(
           "Couldn't find BaseModel type for ${clazz.simpleName.asString()}. " +
-            "Consider adding an explicit parameter."
+            "Consider adding an explicit parameter.",
         )
         if (implicitModelTypes.size > 1) {
           append("Found: ")
@@ -227,8 +227,8 @@ internal class ContributesRendererProcessor(
             listOf(
               KClass::class.asClassName().parameterizedBy(WildcardTypeName.producerOf(baseModel)),
               LambdaTypeName.get(returnType = rendererWildcard),
-            )
-          )
+            ),
+          ),
       )
       .addStatement("return %T::class·to·renderer", modelType.toClassName())
       .build()
@@ -244,7 +244,7 @@ internal class ContributesRendererProcessor(
       .addAnnotation(
         AnnotationSpec.builder(ForScope::class)
           .addMember("scope = %T::class", rendererScope)
-          .build()
+          .build(),
       )
       .returns(
         Pair::class.asClassName()
@@ -253,8 +253,8 @@ internal class ContributesRendererProcessor(
               KClass::class.asClassName().parameterizedBy(WildcardTypeName.producerOf(baseModel)),
               KClass::class.asClassName()
                 .parameterizedBy(WildcardTypeName.producerOf(rendererWildcard)),
-            )
-          )
+            ),
+          ),
       )
       .addStatement("return %T::class·to·%T::class", modelType.toClassName(), clazz.toClassName())
       .build()

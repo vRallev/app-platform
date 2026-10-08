@@ -164,7 +164,7 @@ class RecyclerViewViewHolderRendererTest {
           }
 
           override fun getVerticalSnapPreference(): Int = SNAP_TO_START
-        }
+        },
       )
     }
 
@@ -174,7 +174,7 @@ class RecyclerViewViewHolderRendererTest {
 
   @Suppress("UNCHECKED_CAST")
   private fun RecyclerView.viewHolderRenderer(
-    adapterPosition: Int
+    adapterPosition: Int,
   ): TestRecyclerViewViewHolderRenderer {
     val viewHolder =
       findViewHolderForAdapterPosition(adapterPosition)

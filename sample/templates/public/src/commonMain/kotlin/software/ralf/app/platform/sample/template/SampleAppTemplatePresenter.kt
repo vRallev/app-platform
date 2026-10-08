@@ -26,7 +26,7 @@ class SampleAppTemplatePresenter(
   @Composable
   override fun present(input: Unit): SampleAppTemplate {
     return withCompositionLocal(
-      LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter
+      LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter,
     ) {
       rootPresenter.present(Unit).toTemplate<SampleAppTemplate> {
         SampleAppTemplate.FullScreenTemplate(it)
@@ -44,7 +44,7 @@ class SampleAppTemplatePresenter(
      * [SampleAppTemplate] directly or making its [BaseModel] type implement [ModelDelegate].
      */
     fun createSampleAppTemplatePresenter(
-      rootPresenter: ComposePresenter<Unit, *>
+      rootPresenter: ComposePresenter<Unit, *>,
     ): SampleAppTemplatePresenter
   }
 }

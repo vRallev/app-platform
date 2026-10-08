@@ -122,7 +122,7 @@ private fun <T> fake(
   type.cast(
     Proxy.newProxyInstance(type.classLoader, arrayOf(type)) { proxy, method, arguments ->
       invocation(proxy, method, arguments)
-    }
+    },
   )
 
 private fun Method.defaultReturnValue(): Any? =

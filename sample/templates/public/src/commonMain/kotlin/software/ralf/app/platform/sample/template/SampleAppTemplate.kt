@@ -10,7 +10,7 @@ sealed interface SampleAppTemplate : Template, AnimationContentKey {
   /** A template that hosts a single model, which should rendered as full-screen element. */
   data class FullScreenTemplate(
     /** The model to be rendered fullscreen. */
-    val model: BaseModel
+    val model: BaseModel,
   ) : SampleAppTemplate {
     override val contentKey: Int
       get() = model.contentKey

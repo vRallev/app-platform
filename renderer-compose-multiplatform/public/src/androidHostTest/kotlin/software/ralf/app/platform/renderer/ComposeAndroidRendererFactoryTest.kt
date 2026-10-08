@@ -43,7 +43,7 @@ class ComposeAndroidRendererFactoryTest {
       .isInstanceOf<IllegalStateException>()
       .messageContains(
         "Unsupported renderer type class software.ralf.app.platform." +
-          "renderer.ComposeAndroidRendererFactoryTest\$UnsupportedRenderer"
+          "renderer.ComposeAndroidRendererFactoryTest\$UnsupportedRenderer",
       )
   }
 
@@ -75,7 +75,7 @@ class ComposeAndroidRendererFactoryTest {
                   )
               }
             }
-          }
+          },
         )
       }
     return object : RootScopeProvider {

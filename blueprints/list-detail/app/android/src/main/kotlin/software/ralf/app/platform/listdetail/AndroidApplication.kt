@@ -19,7 +19,7 @@ open class AndroidApplication : Application(), RootScopeProvider {
 
   /** Creates the production graph. Tests can override this to install a test graph. */
   protected open fun metroGraph(
-    listDetailApplication: software.ralf.app.platform.listdetail.Application
+    listDetailApplication: software.ralf.app.platform.listdetail.Application,
   ): AppGraph {
     return createGraphFactory<AndroidAppGraph.Factory>().create(this, listDetailApplication)
   }

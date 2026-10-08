@@ -72,11 +72,11 @@ public class FakePresenterBackstackScope(
       override fun present(input: Unit): BaseModel {
         return object : BaseModel {}
       }
-    }
+    },
 ) : PresenterBackstackScope {
   private val _recordedBackstackChanges: MutableStateFlow<List<BackstackChange>> =
     MutableStateFlow(
-      listOf(BackstackChangeImpl(backstack = listOf(rootPresenter), action = Action.PUSH))
+      listOf(BackstackChangeImpl(backstack = listOf(rootPresenter), action = Action.PUSH)),
     )
 
   private val _lastBackstackChange =

@@ -24,7 +24,7 @@ class DefaultBackstackRenderer : PresenterBackstackRenderer<DefaultBackstackMode
     // NavDisplay is implemented with AnimatedContent. Forward its entry-specific scope so child
     // renderers can coordinate shared elements with the outgoing or incoming navigation entry.
     CompositionLocalProvider(
-      LocalAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current
+      LocalAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current,
     ) {
       Render(model)
     }

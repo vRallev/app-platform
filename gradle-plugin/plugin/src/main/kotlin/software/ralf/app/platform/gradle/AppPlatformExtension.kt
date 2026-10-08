@@ -271,11 +271,11 @@ private fun Project.enableKotlinInject() {
       implementation("$APP_PLATFORM_GROUP:kotlin-inject-public:$APP_PLATFORM_VERSION")
       implementation("$APP_PLATFORM_GROUP:kotlin-inject-contribute-public:$APP_PLATFORM_VERSION")
       implementation(
-        "software.amazon.lastmile.kotlin.inject.anvil:runtime:$KOTLIN_INJECT_ANVIL_VERSION"
+        "software.amazon.lastmile.kotlin.inject.anvil:runtime:$KOTLIN_INJECT_ANVIL_VERSION",
       )
       implementation(
         "software.amazon.lastmile.kotlin.inject.anvil:runtime-optional:" +
-          KOTLIN_INJECT_ANVIL_VERSION
+          KOTLIN_INJECT_ANVIL_VERSION,
       )
     }
 
@@ -477,7 +477,7 @@ private fun Project.enableComposeUi() {
       implementation("org.jetbrains.compose.runtime:runtime:$COMPOSE_MULTIPLATFORM_VERSION")
 
       implementation(
-        "$APP_PLATFORM_GROUP:renderer-compose-multiplatform-public:$APP_PLATFORM_VERSION"
+        "$APP_PLATFORM_GROUP:renderer-compose-multiplatform-public:$APP_PLATFORM_VERSION",
       )
 
       if (isRobotsModule()) {

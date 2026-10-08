@@ -63,7 +63,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRenderer"
-        }
+        },
       ) {
         assertThat(parameters).isEmpty()
         assertThat(returnType).isEqualTo(testRenderer)
@@ -74,7 +74,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRendererModel"
-        }
+        },
       ) {
         assertThat(parameters.single().type).isEqualTo(Function0::class.java)
         assertThat(returnType).isEqualTo(Renderer::class.java)
@@ -86,7 +86,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRendererModelKey"
-        }
+        },
       ) {
         assertThat(parameters).isEmpty()
         assertThat(returnType).isEqualTo(KClass::class.java)
@@ -136,7 +136,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRendererInner"
-        }
+        },
       ) {
         assertThat(parameters).isEmpty()
         assertThat(returnType).isEqualTo(testRenderer.inner)
@@ -147,7 +147,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRendererInnerModel"
-        }
+        },
       ) {
         assertThat(parameters.single().type).isEqualTo(Function0::class.java)
         assertThat(returnType).isEqualTo(Renderer::class.java)
@@ -189,7 +189,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRenderer"
-        }
+        },
       ) {
         assertThat(parameters).isEmpty()
         assertThat(returnType).isEqualTo(testRenderer)
@@ -200,7 +200,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRendererPresenterModel"
-        }
+        },
       ) {
         assertThat(parameters.single().type).isEqualTo(Function0::class.java)
         assertThat(returnType).isEqualTo(Renderer::class.java)
@@ -256,7 +256,7 @@ class ContributesRendererProcessorTest {
       class TestRenderer : OtherRenderer {
         override fun render(model: Model) = Unit
       }
-      """
+      """,
     ) {
       assertThat(testRenderer.modelType).isEqualTo(model)
     }
@@ -284,7 +284,7 @@ class ContributesRendererProcessorTest {
       class TestRenderer : OtherRenderer4 {
         override fun render(model: Model) = Unit
       }
-      """
+      """,
     ) {
       assertThat(testRenderer.modelType).isEqualTo(model)
     }
@@ -315,7 +315,7 @@ class ContributesRendererProcessorTest {
       assertThat(messages)
         .contains(
           "Couldn't find BaseModel type for TestRenderer. Consider adding " +
-            "an explicit parameter.Found: software.ralf.test.Model1, software.ralf.test.Model2"
+            "an explicit parameter.Found: software.ralf.test.Model1, software.ralf.test.Model2",
         )
     }
   }
@@ -355,7 +355,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRenderer"
-        }
+        },
       ) {
         assertThat(parameters).isEmpty()
         assertThat(returnType).isEqualTo(testRenderer)
@@ -426,7 +426,11 @@ class ContributesRendererProcessorTest {
         )
 
       assertThat(
-          graphInterface.newMetroGraph<TestRendererGraph>().modelToRendererMapping.values.distinct()
+          graphInterface
+            .newMetroGraph<TestRendererGraph>()
+            .modelToRendererMapping
+            .values
+            .distinct(),
         )
         .containsOnly(testRenderer.kotlin)
     }
@@ -464,14 +468,14 @@ class ContributesRendererProcessorTest {
               it.name.startsWith("provideSoftwareRalfTestTestRendererPresenterModel") &&
                 !it.name.endsWith("Key")
             }
-            .map { it.name }
+            .map { it.name },
         )
         .containsOnly("provideSoftwareRalfTestTestRendererPresenterModel")
 
       assertThat(
           generatedGraph.declaredNonSyntheticMethods
             .filter { it.name.startsWith("provideSoftwareRalfTestTestRendererPresenterModelKey") }
-            .map { it.name }
+            .map { it.name },
         )
         .containsOnly("provideSoftwareRalfTestTestRendererPresenterModelKey")
 
@@ -591,7 +595,7 @@ class ContributesRendererProcessorTest {
         .contains(
           "Source0.kt:15: Renderers should not be singletons in the " +
             "RendererScope. The RendererFactory will cache the Renderer when " +
-            "necessary. Remove the @SingleIn(RendererScope::class) annotation."
+            "necessary. Remove the @SingleIn(RendererScope::class) annotation.",
         )
     }
   }
@@ -621,7 +625,7 @@ class ContributesRendererProcessorTest {
       assertThat(messages)
         .contains(
           "It's redundant to use @Inject when using @ContributesRenderer " +
-            "for a Renderer with a zero-arg constructor."
+            "for a Renderer with a zero-arg constructor.",
         )
     }
   }
@@ -652,7 +656,7 @@ class ContributesRendererProcessorTest {
       with(
         generatedGraph.declaredNonSyntheticMethods.single {
           it.name == "provideSoftwareRalfTestTestRenderer"
-        }
+        },
       ) {
         assertThat(parameters.single().type).isEqualTo(String::class.java)
         assertThat(returnType).isEqualTo(testRenderer)
@@ -690,7 +694,7 @@ class ContributesRendererProcessorTest {
         .contains(
           "TestRenderer has multiple constructors. Annotate the constructor to use with " +
             "@Inject, or remove the extra constructors so @ContributesRenderer can generate " +
-            "a provider."
+            "a provider.",
         )
     }
   }
@@ -746,7 +750,7 @@ class ContributesRendererProcessorTest {
       classLoader.loadClass(
         "$METRO_LOOKUP_PACKAGE.$packageName." +
           canonicalName.substringAfter(packageName).substring(1).replace(".", "") +
-          "Graph"
+          "Graph",
       )
 
   private val Class<*>.modelType: KClass<*>

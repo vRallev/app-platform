@@ -38,7 +38,7 @@ public inline fun <reified T : Any> Scope.metroDependencyGraph(): T {
   throw NoSuchElementException(
     "Couldn't find dependency graph implementing ${T::class}. Inspected: " +
       "[${diGraphs.joinToString { it.simpleName.toString() }}] (fully qualified " +
-      "names: [${diGraphs.joinToString { it.toString().replace('\$', '.') }}])"
+      "names: [${diGraphs.joinToString { it.toString().replace('\$', '.') }}])",
   )
 }
 

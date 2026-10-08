@@ -86,7 +86,7 @@ public fun BackGestureDispatcherPresenter.ForwardBackPressEventsToPresenters() {
               touchY = event.touchY,
               progress = event.progress,
               swipeEdge = event.swipeEdge,
-            )
+            ),
           )
         }
       }

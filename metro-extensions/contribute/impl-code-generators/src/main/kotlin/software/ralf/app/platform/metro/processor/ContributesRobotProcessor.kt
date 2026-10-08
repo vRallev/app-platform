@@ -100,7 +100,7 @@ internal class ContributesRobotProcessor(
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", clazz.scope().type.toClassName())
-                .build()
+                .build(),
             )
             .apply {
               if (!clazz.hasInjectAnnotation()) {
@@ -110,7 +110,7 @@ internal class ContributesRobotProcessor(
                     .returns(clazz.toClassName())
                     .addParameters(clazz.constructorParameters().map { it.toParameterSpec() })
                     .addCode(clazz.constructorCall())
-                    .build()
+                    .build(),
                 )
               }
             }
@@ -121,7 +121,7 @@ internal class ContributesRobotProcessor(
                 .addAnnotation(
                   AnnotationSpec.builder(robotKey)
                     .addMember("%T::class", clazz.toClassName())
-                    .build()
+                    .build(),
                 )
                 .addParameter(
                   name = "robot",
@@ -129,10 +129,10 @@ internal class ContributesRobotProcessor(
                 )
                 .returns(robotClassName)
                 .addStatement("return robot()")
-                .build()
+                .build(),
             )
             .addProperty(name = clazz.innerClassNames().decapitalize(), type = clazz.toClassName())
-            .build()
+            .build(),
         )
         .build()
 

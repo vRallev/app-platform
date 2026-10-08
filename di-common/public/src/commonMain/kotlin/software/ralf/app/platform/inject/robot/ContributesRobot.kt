@@ -30,5 +30,5 @@ import software.amazon.lastmile.kotlin.inject.anvil.extend.ContributingAnnotatio
 @ContributingAnnotation
 public annotation class ContributesRobot(
   /** The scope in which to include this contributed binding. */
-  val scope: KClass<*>
+  val scope: KClass<*>,
 )

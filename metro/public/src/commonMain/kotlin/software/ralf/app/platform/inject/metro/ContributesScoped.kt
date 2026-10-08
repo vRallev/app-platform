@@ -36,5 +36,5 @@ import software.ralf.app.platform.scope.Scoped
 @Target(CLASS)
 public annotation class ContributesScoped(
   /** The scope in which to include this contributed binding. */
-  val scope: KClass<*>
+  val scope: KClass<*>,
 )

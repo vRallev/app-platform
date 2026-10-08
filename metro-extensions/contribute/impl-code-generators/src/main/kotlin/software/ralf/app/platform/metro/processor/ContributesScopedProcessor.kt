@@ -96,7 +96,7 @@ internal class ContributesScopedProcessor(
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", scopeClassName)
-                .build()
+                .build(),
             )
             .apply {
               if (!clazz.hasInjectAnnotation()) {
@@ -109,14 +109,14 @@ internal class ContributesScopedProcessor(
                           clazz.annotations
                             .filter { it.isMetroScopeAnnotation() }
                             .map { it.toAnnotationSpec() }
-                            .toList()
+                            .toList(),
                         )
                         .returns(clazz.toClassName())
                         .addParameters(clazz.constructorParameters().map { it.toParameterSpec() })
                         .addCode(clazz.constructorCall())
-                        .build()
+                        .build(),
                     )
-                    .build()
+                    .build(),
                 )
               }
             }
@@ -133,7 +133,7 @@ internal class ContributesScopedProcessor(
                     .receiver(clazz.toClassName())
                     .build()
                 }
-                .toList()
+                .toList(),
             )
             .addProperty(
               PropertySpec.builder("bind${clazz.innerClassNames()}Scoped", scopedClassName)
@@ -142,12 +142,12 @@ internal class ContributesScopedProcessor(
                 .addAnnotation(
                   AnnotationSpec.builder(ForScope::class)
                     .addMember("%T::class", scopeClassName)
-                    .build()
+                    .build(),
                 )
                 .receiver(clazz.toClassName())
-                .build()
+                .build(),
             )
-            .build()
+            .build(),
         )
         .build()
 

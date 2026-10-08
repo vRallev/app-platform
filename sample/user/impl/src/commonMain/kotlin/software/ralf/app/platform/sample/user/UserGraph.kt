@@ -46,7 +46,7 @@ interface UserGraph {
   @SingleIn(UserScope::class)
   @ForScope(UserScope::class)
   fun provideUserScopeCoroutineScopeScoped(
-    @IoCoroutineDispatcher dispatcher: CoroutineDispatcher
+    @IoCoroutineDispatcher dispatcher: CoroutineDispatcher,
   ): CoroutineScopeScoped {
     return CoroutineScopeScoped(dispatcher + SupervisorJob() + CoroutineName("UserScope"))
   }
@@ -58,7 +58,7 @@ interface UserGraph {
   @Provides
   @ForScope(UserScope::class)
   fun provideUserCoroutineScope(
-    @ForScope(UserScope::class) userScopeCoroutineScopeScoped: CoroutineScopeScoped
+    @ForScope(UserScope::class) userScopeCoroutineScopeScoped: CoroutineScopeScoped,
   ): CoroutineScope {
     return userScopeCoroutineScopeScoped.createChild()
   }

@@ -13,7 +13,7 @@ sealed interface AppTemplate : Template {
   /** Template that delegates the entire available window to one feature model. */
   data class FullScreenTemplate(
     /** Feature model resolved through the platform's renderer factory. */
-    val model: BaseModel
+    val model: BaseModel,
   ) : AppTemplate
 }
 

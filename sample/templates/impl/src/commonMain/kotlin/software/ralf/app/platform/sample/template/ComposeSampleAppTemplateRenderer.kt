@@ -24,7 +24,7 @@ import software.ralf.app.platform.sample.template.animation.LocalSharedTransitio
 @OptIn(ExperimentalSharedTransitionApi::class)
 @ContributesRenderer
 class ComposeSampleAppTemplateRenderer(
-  private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter
+  private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
 ) : ComposeRenderer<SampleAppTemplate>() {
 
   @Composable

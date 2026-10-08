@@ -25,7 +25,7 @@ class RootPresenter(
   @Composable
   override fun present(input: Unit): RecipesAppTemplate {
     return withCompositionLocal(
-      LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter
+      LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter,
     ) {
       val backstackPresenter = remember { CrossSlideBackstackPresenter(landingPresenter) }
       val backstackModel = backstackPresenter.present(Unit)

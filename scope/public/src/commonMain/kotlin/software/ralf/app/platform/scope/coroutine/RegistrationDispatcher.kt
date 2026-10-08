@@ -44,7 +44,7 @@ private constructor(
           .startCoroutine(
             Continuation(delegate) {
               it.getOrThrow()
-            }
+            },
           )
       }
     }

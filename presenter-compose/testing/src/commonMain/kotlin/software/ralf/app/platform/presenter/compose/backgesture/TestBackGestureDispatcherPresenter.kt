@@ -39,7 +39,7 @@ private class TestBackGestureDispatcherPresenter<InputT : Any, ModelT : BaseMode
 @JvmName("withBackGestureDispatcherUnit")
 public fun <InputT : Any, ModelT : BaseModel> ComposePresenter<InputT, ModelT>
   .withBackGestureDispatcher(
-  backEvents: SharedFlow<Unit> = MutableSharedFlow()
+  backEvents: SharedFlow<Unit> = MutableSharedFlow(),
 ): ComposePresenter<InputT, ModelT> =
   TestBackGestureDispatcherPresenter(this, backEvents.map { emptyFlow() })
 
@@ -52,5 +52,5 @@ public fun <InputT : Any, ModelT : BaseModel> ComposePresenter<InputT, ModelT>
  */
 public fun <InputT : Any, ModelT : BaseModel> ComposePresenter<InputT, ModelT>
   .withBackGestureDispatcher(
-  backEvents: SharedFlow<Flow<BackEventPresenter>>
+  backEvents: SharedFlow<Flow<BackEventPresenter>>,
 ): ComposePresenter<InputT, ModelT> = TestBackGestureDispatcherPresenter(this, backEvents)
