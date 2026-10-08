@@ -27,7 +27,7 @@ public class ComposeRendererFactory(rootScopeProvider: RootScopeProvider) :
   }
 
   private fun <T : BaseModel> Renderer<T>.asComposeRenderer(
-    modelType: KClass<out T>
+    modelType: KClass<out T>,
   ): ComposeRenderer<T> {
     check(this is ComposeRenderer<T>) {
       "Expected a ComposeRenderer for model type $modelType, " +
@@ -42,7 +42,7 @@ public class ComposeRendererFactory(rootScopeProvider: RootScopeProvider) :
  * to call from another [BaseComposeRenderer] to embed a child renderer.
  */
 public fun <T : BaseModel> RendererFactory.createComposeRenderer(
-  modelType: KClass<out T>
+  modelType: KClass<out T>,
 ): BaseComposeRenderer<T> = createRenderer(modelType).asBaseComposeRenderer()
 
 /**

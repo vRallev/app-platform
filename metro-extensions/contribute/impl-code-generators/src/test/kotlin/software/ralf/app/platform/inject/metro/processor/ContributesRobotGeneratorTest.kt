@@ -96,7 +96,7 @@ class ContributesRobotGeneratorTest {
         .isEqualTo(AppScope::class)
 
       assertThat(
-          robotGraph.declaredNonSyntheticMethods.singleOrNull { it.name == "provideTestRobot" }
+          robotGraph.declaredNonSyntheticMethods.singleOrNull { it.name == "provideTestRobot" },
         )
         .isNull()
 
@@ -137,7 +137,7 @@ class ContributesRobotGeneratorTest {
       val robotGraph = testRobot.graph
 
       assertThat(
-          robotGraph.declaredNonSyntheticMethods.singleOrNull { it.name == "provideTestRobot" }
+          robotGraph.declaredNonSyntheticMethods.singleOrNull { it.name == "provideTestRobot" },
         )
         .isNull()
 
@@ -172,7 +172,7 @@ class ContributesRobotGeneratorTest {
       val robotGraph = testRobot.graph
 
       assertThat(
-          robotGraph.declaredNonSyntheticMethods.singleOrNull { it.name == "provideTestRobot" }
+          robotGraph.declaredNonSyntheticMethods.singleOrNull { it.name == "provideTestRobot" },
         )
         .isNull()
 
@@ -203,7 +203,7 @@ class ContributesRobotGeneratorTest {
       assertThat(messages)
         .contains(
           "TestRobot has multiple constructors. Annotate the constructor to use with @Inject, " +
-            "or remove the extra constructors so @ContributesRobot can generate a provider."
+            "or remove the extra constructors so @ContributesRobot can generate a provider.",
         )
     }
   }
@@ -255,7 +255,7 @@ class ContributesRobotGeneratorTest {
 
       @ContributesRobot(AppScope::class)
       class TestRobot : BaseRobot2()
-      """
+      """,
     ) {
       assertThat(testRobot.graph).isNotNull()
     }
@@ -282,7 +282,7 @@ class ContributesRobotGeneratorTest {
       assertThat(messages)
         .contains(
           "In order to use @ContributesRobot, TestRobot must implement " +
-            "software.ralf.app.platform.robot.Robot."
+            "software.ralf.app.platform.robot.Robot.",
         )
     }
   }
@@ -310,7 +310,7 @@ class ContributesRobotGeneratorTest {
         .contains(
           "It's not allowed allowed for a robot to be a singleton, because " +
             "the lifetime of the robot is scoped to the robot() factory function. " +
-            "Remove the @SingleIn annotation."
+            "Remove the @SingleIn annotation.",
         )
     }
   }
@@ -403,10 +403,10 @@ class ContributesRobotGeneratorTest {
       classLoader.loadClass(
         "$METRO_LOOKUP_PACKAGE.$packageName." +
           canonicalName.substringAfter(packageName).substring(1).split(".").joinToString(
-            separator = ""
+            separator = "",
           ) {
             it.capitalize()
           } +
-          "Graph"
+          "Graph",
       )
 }

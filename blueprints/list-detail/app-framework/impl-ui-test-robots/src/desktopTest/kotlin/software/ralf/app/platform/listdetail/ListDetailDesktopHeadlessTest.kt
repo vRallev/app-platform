@@ -68,7 +68,7 @@ class ListDetailDesktopHeadlessTest {
   }
 
   private suspend fun ReceiveTurbine<AppTemplate>.awaitPhoneBackstack(
-    size: Int
+    size: Int,
   ): DefaultBackstackModel {
     while (true) {
       val template = requireInstance<AppTemplate.FullScreenTemplate>(awaitItem())
@@ -83,7 +83,7 @@ class ListDetailDesktopHeadlessTest {
   }
 
   private suspend fun ReceiveTurbine<AppTemplate>.awaitTabletContent(
-    selectedCharacterId: String? = null
+    selectedCharacterId: String? = null,
   ): TabletListDetailPresenter.Model.Content {
     while (true) {
       val template = requireInstance<AppTemplate.FullScreenTemplate>(awaitItem())

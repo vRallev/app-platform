@@ -28,7 +28,7 @@ class RobotTest {
     assertThat(message)
       .contains(
         "Could not find Robot of type class software.ralf.app.platform." +
-          "robot.RobotTest.KiTestRobot"
+          "robot.RobotTest.KiTestRobot",
       )
     assertThat(message).contains("Did you forget to add the @ContributesRobot annotation?")
   }
@@ -53,7 +53,7 @@ class RobotTest {
         object : RobotComponent {
           override val robots: Map<KClass<out Robot>, () -> Robot> =
             mapOf(KiTestRobot::class to { KiTestRobot() })
-        }
+        },
       )
     }
 
@@ -158,7 +158,7 @@ class RobotTest {
       exception.message?.replace("RobotTest\$ChildTestRobot", "RobotTest.ChildTestRobot").toString()
     assertThat(message)
       .contains(
-        "Found Robot of type class software.ralf.app.platform.robot.RobotTest.ChildTestRobot"
+        "Found Robot of type class software.ralf.app.platform.robot.RobotTest.ChildTestRobot",
       )
     assertThat(message).contains("child-1 and child-2")
   }

@@ -15,7 +15,7 @@ import kotlinx.coroutines.test.TestScope
  * @param coroutineContext a [CoroutineContext] to override any element of coroutine scope.
  */
 public fun TestScope.composePresenterScope(
-  coroutineContext: CoroutineContext = EmptyCoroutineContext
+  coroutineContext: CoroutineContext = EmptyCoroutineContext,
 ): ComposePresenterScope {
   val scope = backgroundScope + CoroutineName("TestComposePresenterScope") + coroutineContext
 

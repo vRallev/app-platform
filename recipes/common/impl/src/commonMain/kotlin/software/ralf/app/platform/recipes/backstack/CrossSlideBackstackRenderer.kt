@@ -49,7 +49,7 @@ class CrossSlideBackstackRenderer :
   }
 
   private fun AnimatedContentTransitionScope<Scene<Int>>.crossSlideTransition(
-    direction: AnimatedContentTransitionScope.SlideDirection
+    direction: AnimatedContentTransitionScope.SlideDirection,
   ): ContentTransform {
     return slideIntoContainer(direction, tween()) togetherWith
       slideOutOfContainer(direction, tween())

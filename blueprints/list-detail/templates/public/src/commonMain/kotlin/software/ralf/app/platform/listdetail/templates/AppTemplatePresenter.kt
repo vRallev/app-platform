@@ -23,7 +23,7 @@ class AppTemplatePresenter(
   @Composable
   override fun present(input: Unit): AppTemplate {
     return withCompositionLocal(
-      LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter
+      LocalBackGestureDispatcherPresenter provides backGestureDispatcherPresenter,
     ) {
       rootPresenter.present(Unit).toAppTemplate()
     }

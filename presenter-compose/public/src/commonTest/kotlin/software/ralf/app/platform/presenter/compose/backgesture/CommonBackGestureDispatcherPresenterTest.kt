@@ -72,7 +72,7 @@ class CommonBackGestureDispatcherPresenterTest {
       assertThat(awaitItem().lastEvent).isNull()
 
       dispatcher.onPredictiveBack(
-        flowOf(BackEventPresenter(1f, 1f, 1f, BackEventPresenter.EDGE_RIGHT))
+        flowOf(BackEventPresenter(1f, 1f, 1f, BackEventPresenter.EDGE_RIGHT)),
       )
       assertThat(awaitItem().lastEvent?.touchX).isEqualTo(1f)
     }
@@ -138,7 +138,7 @@ class CommonBackGestureDispatcherPresenterTest {
         .messageContains(
           "Couldn't find the BackGestureDispatcherPresenter in the presenter hierarchy. " +
             "Did you register the BackGestureDispatcherPresenter instance as composition local? " +
-            "See LocalBackGestureDispatcherPresenter for more details."
+            "See LocalBackGestureDispatcherPresenter for more details.",
         )
     }
 
@@ -211,7 +211,7 @@ class CommonBackGestureDispatcherPresenterTest {
         assertFailure { dispatcher.onPredictiveBack(emptyFlow()) }
           .messageContains(
             "No back gesture listener was registered or they were all disabled. Check " +
-              "`listenerCount` before invoking this function."
+              "`listenerCount` before invoking this function.",
           )
       }
     }

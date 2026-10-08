@@ -18,7 +18,7 @@ internal class PresenterBackstackScopeImpl(initial: ComposePresenter<Unit, out B
       BackstackChangeImpl(
         entries = listOf(initialEntry),
         action = PresenterBackstackScope.BackstackChange.Action.PUSH,
-      )
+      ),
     )
 
   override val lastBackstackChange: State<PresenterBackstackScope.BackstackChange> =

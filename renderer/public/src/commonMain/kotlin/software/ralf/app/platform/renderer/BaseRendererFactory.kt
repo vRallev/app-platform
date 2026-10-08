@@ -56,7 +56,7 @@ public open class BaseRendererFactory(rootScopeProvider: RootScopeProvider) : Re
 
   @Suppress("NOTHING_TO_INLINE")
   private inline fun <T : BaseModel> errorMessageForMissingRenderer(
-    modelType: KClass<out T>
+    modelType: KClass<out T>,
   ): String {
     return "No renderer was provided for $modelType. Did you add @ContributesRenderer?"
   }

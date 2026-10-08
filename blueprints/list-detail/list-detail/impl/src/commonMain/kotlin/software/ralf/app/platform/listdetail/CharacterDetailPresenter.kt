@@ -56,13 +56,13 @@ class CharacterDetailPresenter(
     /** The requested character is present in the latest repository value. */
     data class Available(
       /** Character rendered by the detail screen. */
-      val character: Character
+      val character: Character,
     ) : State
 
     /** The requested character is no longer present in the repository. */
     data class Missing(
       /** Identifier that could not be resolved. */
-      val characterId: String
+      val characterId: String,
     ) : State
   }
 

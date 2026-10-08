@@ -357,7 +357,7 @@ class WaiterTest {
           }
         }
         .messageContains(
-          "Waiting for 'Wait for suspended result' never succeeded and the value is null."
+          "Waiting for 'Wait for suspended result' never succeeded and the value is null.",
         )
     }
 

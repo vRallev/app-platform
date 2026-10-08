@@ -40,7 +40,7 @@ class ContributesRealImplGeneratorTest {
             
             @ContributesRealImpl(AppScope::class)
             class RealImpl : Base
-            """
+            """,
     ) {
       val component = realImpl.component
 
@@ -71,7 +71,7 @@ class ContributesRealImplGeneratorTest {
                 @ContributesRealImpl(AppScope::class)
                 class Inner : Base
             }
-            """
+            """,
     ) {
       val component = realImpl.inner.component
 
@@ -102,7 +102,7 @@ class ContributesRealImplGeneratorTest {
             @ContributesRealImpl(AppScope::class, boundType = Base::class)
             @ContributesRealImpl(AppScope::class, boundType = Base2::class)
             class RealImpl : Base, Base2
-            """
+            """,
     ) {
       val component = realImpl.component
 
@@ -186,7 +186,7 @@ class ContributesRealImplGeneratorTest {
     ) {
       assertThat(messages)
         .contains(
-          "The bound type could not be determined for RealImpl. " + "There are no super types."
+          "The bound type could not be determined for RealImpl. " + "There are no super types.",
         )
     }
   }
@@ -204,7 +204,7 @@ class ContributesRealImplGeneratorTest {
             
             @ContributesRealImpl(AppScope::class)
             class RealImpl : Base()
-            """
+            """,
     ) {
       assertThat(realImpl.component).isNotNull()
     }
@@ -224,7 +224,7 @@ class ContributesRealImplGeneratorTest {
             
             @ContributesRealImpl(AppScope::class, boundType = Base2::class)
             class RealImpl : Base
-            """
+            """,
     ) {
       val component = realImpl.component
 
@@ -261,7 +261,7 @@ class ContributesRealImplGeneratorTest {
       assertThat(messages)
         .contains(
           "The bound type could not be determined for RealImpl. " +
-            "There are multiple super types: Base, Base2."
+            "There are multiple super types: Base, Base2.",
         )
     }
   }
@@ -280,7 +280,7 @@ class ContributesRealImplGeneratorTest {
             
             @ContributesRealImpl(AppScope::class)
             class RealImpl : Base, Scoped
-            """
+            """,
     ) {
       val component = realImpl.component
 
@@ -324,7 +324,7 @@ class ContributesRealImplGeneratorTest {
             @ContributesRealImpl(AppScope::class, boundType = Base::class)
             @ContributesBinding(AppScope::class, boundType = Base2::class)
             class RealImpl : Base, Base2, Scoped
-            """
+            """,
     ) {
       val component = realImpl.component
 
@@ -337,7 +337,7 @@ class ContributesRealImplGeneratorTest {
       }
 
       assertThat(
-          component.declaredNonSyntheticMethods.firstOrNull { it.name == "provideRealImplScoped" }
+          component.declaredNonSyntheticMethods.firstOrNull { it.name == "provideRealImplScoped" },
         )
         .isNull()
     }
@@ -376,10 +376,10 @@ class ContributesRealImplGeneratorTest {
       classLoader.loadClass(
         "$APP_PLATFORM_LOOKUP_PACKAGE.$packageName." +
           canonicalName.substringAfter(packageName).substring(1).split(".").joinToString(
-            separator = ""
+            separator = "",
           ) {
             it.capitalize()
           } +
-          "RealImplComponent"
+          "RealImplComponent",
       )
 }

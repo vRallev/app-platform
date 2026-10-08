@@ -18,7 +18,7 @@ internal val Class<*>.generatedComponent: Class<*>
   get() =
     classLoader.loadClass(
       "$OPEN_SOURCE_LOOKUP_PACKAGE." +
-        canonicalName.split(".").joinToString(separator = "") { it.capitalize() }
+        canonicalName.split(".").joinToString(separator = "") { it.capitalize() },
     )
 
 internal fun <T : Any> Class<*>.newComponent(vararg arguments: Any): T {
@@ -26,7 +26,9 @@ internal fun <T : Any> Class<*>.newComponent(vararg arguments: Any): T {
   return classLoader
     .loadClass("$packageName.Inject$simpleName")
     .getDeclaredConstructor(
-      *arguments.map { arg -> arg::class.java.primitiveByWrapper ?: arg::class.java }.toTypedArray()
+      *arguments
+        .map { arg -> arg::class.java.primitiveByWrapper ?: arg::class.java }
+        .toTypedArray(),
     )
     .newInstance(*arguments) as T
 }

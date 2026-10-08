@@ -88,7 +88,7 @@ internal class ContributesRealImplProcessor(
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", clazz.scope().type.toClassName())
-                .build()
+                .build(),
             )
             .addFunctions(
               annotations.map { annotation ->
@@ -97,7 +97,7 @@ internal class ContributesRealImplProcessor(
                 check(!boundType.isScoped(), clazz) { "Scoped cannot be used as bound type." }
 
                 FunSpec.builder(
-                    "provide${boundType.declaration.simpleName.asString()}" + "RealImpl"
+                    "provide${boundType.declaration.simpleName.asString()}" + "RealImpl",
                   )
                   .addAnnotation(Provides::class)
                   .addAnnotation(RealImpl::class)
@@ -105,7 +105,7 @@ internal class ContributesRealImplProcessor(
                   .returns(boundType.toClassName())
                   .addStatement("return realImpl")
                   .build()
-              }
+              },
             )
             .apply {
               if (
@@ -119,21 +119,21 @@ internal class ContributesRealImplProcessor(
                     .addAnnotation(
                       AnnotationSpec.builder(ForScope::class)
                         .addMember("scope = %T::class", clazz.scope().type.toClassName())
-                        .build()
+                        .build(),
                     )
                     .addParameter(
                       ParameterSpec.builder("mockMode", Boolean::class)
                         .addAnnotation(MockMode::class)
-                        .build()
+                        .build(),
                     )
                     .addParameter("realImpl", LambdaTypeName.get(returnType = clazz.toClassName()))
                     .returns(scopedClassName)
                     .addStatement("return if (mockMode) %T.NO_OP else realImpl()", scopedClassName)
-                    .build()
+                    .build(),
                 )
               }
             }
-            .build()
+            .build(),
         )
         .build()
 

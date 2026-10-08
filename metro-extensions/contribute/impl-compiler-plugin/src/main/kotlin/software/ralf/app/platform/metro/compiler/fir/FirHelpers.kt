@@ -278,7 +278,7 @@ internal fun buildClassExpression(
         original = null,
         mapping =
           linkedMapOf(
-            qualifier to buildSyntheticClassLiteralParameter(classType, classSymbol, session)
+            qualifier to buildSyntheticClassLiteralParameter(classType, classSymbol, session),
           ),
       )
   }
@@ -311,7 +311,7 @@ internal fun buildClassExpression(
                 classType = classType,
                 containingSymbol = classSymbol,
                 session = session,
-              )
+              ),
           ),
       )
   }

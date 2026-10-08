@@ -30,7 +30,7 @@ public interface LinuxComposePresenterScopeFactoryComponent {
   @KiProvides
   @KiSingleIn(KiAppScope::class)
   public fun provideLinuxComposePresenterScopeFactory(
-    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
   ): ComposePresenterScopeFactory = LinuxComposePresenterScopeFactory(coroutineScopeFactory)
 }
 
@@ -42,6 +42,6 @@ public object LinuxComposePresenterScopeFactoryGraph {
   @MetroProvides
   @MetroSingleIn(MetroAppScope::class)
   public fun provideLinuxComposePresenterScopeFactory(
-    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
   ): ComposePresenterScopeFactory = LinuxComposePresenterScopeFactory { coroutineScopeFactory() }
 }

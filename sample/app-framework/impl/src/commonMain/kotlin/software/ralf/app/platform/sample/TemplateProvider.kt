@@ -67,7 +67,7 @@ class TemplateProvider(
      */
     fun createTemplateProvider(): TemplateProvider {
       return templateProviderFactory.create(
-        composePresenterScopeFactory.createComposePresenterScope()
+        composePresenterScopeFactory.createComposePresenterScope(),
       )
     }
   }

@@ -22,7 +22,7 @@ open class AndroidApplication : Application(), RootScopeProvider {
 
   /** Create the [AppGraph]. In UI tests we use a different instance. */
   protected open fun metroGraph(
-    templateApplication: software.ralf.app.platform.template.Application
+    templateApplication: software.ralf.app.platform.template.Application,
   ): AppGraph {
     return createGraphFactory<AndroidAppGraph.Factory>().create(this, templateApplication)
   }

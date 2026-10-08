@@ -34,7 +34,7 @@ public interface AndroidComposePresenterScopeFactoryComponent {
   @KiProvides
   @KiSingleIn(KiAppScope::class)
   public fun provideAndroidComposePresenterScopeFactory(
-    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
   ): ComposePresenterScopeFactory = AndroidComposePresenterScopeFactory(coroutineScopeFactory)
 }
 
@@ -46,6 +46,6 @@ public object AndroidComposePresenterScopeFactoryGraph {
   @MetroProvides
   @MetroSingleIn(MetroAppScope::class)
   public fun provideAndroidComposePresenterScopeFactory(
-    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+    @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
   ): ComposePresenterScopeFactory = AndroidComposePresenterScopeFactory { coroutineScopeFactory() }
 }

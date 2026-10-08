@@ -21,7 +21,7 @@ public interface AppScopeCoroutineScopeComponent {
   @SingleIn(AppScope::class)
   @ForScope(AppScope::class)
   public fun provideAppScopeCoroutineScopeScoped(
-    @IoCoroutineDispatcher dispatcher: CoroutineDispatcher
+    @IoCoroutineDispatcher dispatcher: CoroutineDispatcher,
   ): CoroutineScopeScoped {
     return CoroutineScopeScoped(dispatcher + SupervisorJob() + CoroutineName("AppScope"))
   }
@@ -33,7 +33,7 @@ public interface AppScopeCoroutineScopeComponent {
   @Provides
   @ForScope(AppScope::class)
   public fun provideAppCoroutineScope(
-    @ForScope(AppScope::class) appScopeCoroutineScopeScoped: CoroutineScopeScoped
+    @ForScope(AppScope::class) appScopeCoroutineScopeScoped: CoroutineScopeScoped,
   ): CoroutineScope {
     return appScopeCoroutineScopeScoped.createChild()
   }

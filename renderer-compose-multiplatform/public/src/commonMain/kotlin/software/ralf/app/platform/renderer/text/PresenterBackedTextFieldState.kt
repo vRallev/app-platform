@@ -44,7 +44,7 @@ import software.ralf.app.platform.presenter.compose.text.PresenterTextFieldState
 @ExperimentalAppPlatform
 @Composable
 public fun rememberPresenterBackedTextFieldState(
-  presenterState: PresenterTextFieldState
+  presenterState: PresenterTextFieldState,
 ): TextFieldState {
   val presenterText = presenterState.value
   val presenterTextState by rememberUpdatedState(presenterState)

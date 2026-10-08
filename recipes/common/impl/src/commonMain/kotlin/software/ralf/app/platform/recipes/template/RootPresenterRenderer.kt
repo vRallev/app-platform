@@ -40,7 +40,7 @@ import software.ralf.app.platform.renderer.Render
 @Inject
 @ContributesRenderer
 class RootPresenterRenderer(
-  private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter
+  private val backGestureDispatcherPresenter: BackGestureDispatcherPresenter,
 ) : ComposeRenderer<RecipesAppTemplate>() {
   @Composable
   override fun Compose(model: RecipesAppTemplate, modifier: Modifier) {

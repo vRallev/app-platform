@@ -122,7 +122,7 @@ internal constructor(
         ContributionHint(
           contributingClassId =
             classSymbol.classId.createNestedClassId(
-              ContributesRobotIds.NESTED_ROBOT_GRAPH_INTERFACE_NAME
+              ContributesRobotIds.NESTED_ROBOT_GRAPH_INTERFACE_NAME,
             ),
           scope = scopeClassId,
         ),
@@ -276,7 +276,7 @@ internal constructor(
     }
 
   private fun generatedRobotContributionOwner(
-    classSymbol: FirClassSymbol<*>
+    classSymbol: FirClassSymbol<*>,
   ): FirRegularClassSymbol? {
     if (classSymbol.classId.shortClassName != ContributesRobotIds.NESTED_INTERFACE_NAME) {
       return null
@@ -291,7 +291,7 @@ internal constructor(
   }
 
   private fun generatedRobotProviderCompanionOwner(
-    classSymbol: FirClassSymbol<*>
+    classSymbol: FirClassSymbol<*>,
   ): FirRegularClassSymbol? {
     if (classSymbol.classId.shortClassName != SpecialNames.DEFAULT_NAME_FOR_COMPANION_OBJECT) {
       return null
@@ -364,7 +364,7 @@ internal constructor(
                   constructor.parameters,
                   generatedParameters,
                 )
-            }
+            },
           )
       }
     }

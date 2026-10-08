@@ -41,7 +41,7 @@ interface MetroTestComponent {
   @DependencyGraph.Factory
   fun interface Factory {
     fun create(
-      @Provides @PresenterCoroutineScope coroutineScope: CoroutineScope
+      @Provides @PresenterCoroutineScope coroutineScope: CoroutineScope,
     ): MetroTestComponent
   }
 
@@ -53,7 +53,7 @@ interface MetroTestComponent {
 @Inject
 @SingleIn(AppScope::class)
 class MetroTestComposePresenterScopeFactory(
-  @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+  @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
 ) :
   ComposePresenterScopeFactory by DefaultComposePresenterScopeFactory(
     coroutineScopeFactory = { coroutineScopeFactory() },

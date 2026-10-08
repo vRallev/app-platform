@@ -70,7 +70,7 @@ internal class ContributesRendererIrExtension(private val compatContext: CompatC
   IrGenerationExtension {
   override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
     moduleFragment.transformChildrenVoid(
-      ContributesRendererIrTransformer(pluginContext, compatContext)
+      ContributesRendererIrTransformer(pluginContext, compatContext),
     )
   }
 }
@@ -139,7 +139,7 @@ private class ContributesRendererIrTransformer(
           pluginContext.irBuiltIns.kClassClass.typeWith(ownerClassSymbol.defaultType),
           ownerClassSymbol,
           ownerClassSymbol.defaultType,
-        )
+        ),
       )
     }
   }

@@ -55,7 +55,7 @@ internal fun Modifier.sharedCharacterBounds(
       sharedBounds(
         sharedContentState =
           rememberSharedContentState(
-            key = CharacterSharedElementKey(characterId = characterId, element = element)
+            key = CharacterSharedElementKey(characterId = characterId, element = element),
           ),
         animatedVisibilityScope = animatedVisibilityScope,
       )

@@ -56,14 +56,14 @@ abstract class KotlinInjectTestComponent(
 
   @Provides
   fun provideComposePresenterScopeFactory(
-    factory: KotlinInjectTestComposePresenterScopeFactory
+    factory: KotlinInjectTestComposePresenterScopeFactory,
   ): ComposePresenterScopeFactory = factory
 }
 
 @Inject
 @SingleIn(AppScope::class)
 class KotlinInjectTestComposePresenterScopeFactory(
-  @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope
+  @PresenterCoroutineScope coroutineScopeFactory: () -> CoroutineScope,
 ) :
   ComposePresenterScopeFactory by DefaultComposePresenterScopeFactory(
     coroutineScopeFactory = coroutineScopeFactory,

@@ -119,7 +119,7 @@ class CoroutineScopeScopedTest {
         override fun onExitScope() {
           exitScopeOrder += "first"
         }
-      }
+      },
     )
 
     scope.register(coroutineScope)
@@ -129,7 +129,7 @@ class CoroutineScopeScopedTest {
         override fun onExitScope() {
           exitScopeOrder += "third"
         }
-      }
+      },
     )
 
     scope.destroy()

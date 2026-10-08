@@ -110,7 +110,7 @@ internal class ContributesBindingProcessor(
                 FunSpec.builder(
                     "provide${clazz.innerClassNames()}" +
                       function.bindingMethodReturnType.simpleName +
-                      multibindingSuffix
+                      multibindingSuffix,
                   )
                   .addAnnotation(Provides::class)
                   .apply {
@@ -122,16 +122,16 @@ internal class ContributesBindingProcessor(
                     val parameterName = clazz.innerClassNames().decapitalize()
                     addParameter(
                       ParameterSpec.builder(name = parameterName, type = clazz.toClassName())
-                        .build()
+                        .build(),
                     )
 
                     addStatement("return $parameterName")
                   }
                   .returns(function.bindingMethodReturnType)
                   .build()
-              }
+              },
             )
-            .build()
+            .build(),
         )
         .build()
 

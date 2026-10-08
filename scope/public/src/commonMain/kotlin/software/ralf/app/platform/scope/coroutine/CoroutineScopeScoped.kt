@@ -37,7 +37,7 @@ public class CoroutineScopeScoped(coroutineContext: CoroutineContext) : Coroutin
    * this scope or its other children.
    */
   public fun createChild(
-    coroutineContext: CoroutineContext = EmptyCoroutineContext
+    coroutineContext: CoroutineContext = EmptyCoroutineContext,
   ): CoroutineScope {
     val name = coroutineContext[CoroutineName] ?: CoroutineName(parentName.name + "-child")
     val childContext = this.coroutineContext + coroutineContext

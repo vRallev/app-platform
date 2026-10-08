@@ -47,7 +47,7 @@ class ComponentServiceTest {
           "[class software.ralf.app.platform.scope.di.ComponentServiceTest." +
           "ChildComponentImpl$kotlinReflectWarning, class software.ralf.app." +
           "platform.scope.di.ComponentServiceTest.ParentComponentImpl" +
-          "$kotlinReflectWarning])"
+          "$kotlinReflectWarning])",
       )
   }
 

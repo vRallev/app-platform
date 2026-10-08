@@ -10,8 +10,8 @@ import dev.zacsweers.metro.Origin
 internal const val METRO_LOOKUP_PACKAGE = "app.platform.inject.metro"
 
 internal fun TypeSpec.Builder.addMetroOriginAnnotation(
-  clazz: KSClassDeclaration
+  clazz: KSClassDeclaration,
 ): TypeSpec.Builder =
   addAnnotation(
-    AnnotationSpec.builder(Origin::class).addMember("%T::class", clazz.toClassName()).build()
+    AnnotationSpec.builder(Origin::class).addMember("%T::class", clazz.toClassName()).build(),
   )

@@ -94,13 +94,13 @@ internal fun resolveRendererModelType(
       buildString {
         append(
           "Couldn't find BaseModel type for ${classSymbol.name.asString()}. Consider adding " +
-            "an explicit parameter."
+            "an explicit parameter.",
         )
         if (implicitModelTypes.size > 1) {
           append("Found: ")
           append(implicitModelTypes.joinToString { it.classId.asSingleFqName().asString() })
         }
-      }
+      },
     )
   }
 }
@@ -351,7 +351,7 @@ private fun findDirectSealedInheritorsInSource(
 
 @OptIn(DirectDeclarationsAccess::class)
 private fun collectRegularClasses(
-  declarations: List<FirDeclaration>
+  declarations: List<FirDeclaration>,
 ): Sequence<FirRegularClassSymbol> {
   return declarations.asSequence().flatMap { declaration ->
     val regularClass = declaration as? FirRegularClass ?: return@flatMap emptySequence()

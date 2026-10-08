@@ -45,7 +45,7 @@ class ContributesMockImplGeneratorTest {
             
             @ContributesMockImpl(AppScope::class)
             class MockImpl : Base    
-            """
+            """,
     ) {
       val component = mockImpl.component
 
@@ -63,7 +63,7 @@ class ContributesMockImplGeneratorTest {
             .filterIsInstance<WildcardType>()
             .single()
             .upperBounds
-            .single()
+            .single(),
         )
         .isEqualTo(base)
       assertThat(providesMethod.parameters[2].annotations.single().annotationClass)
@@ -87,7 +87,7 @@ class ContributesMockImplGeneratorTest {
             
             @ContributesMockImpl(AppScope::class, boundType = Base::class)
             class MockImpl : Base    
-            """
+            """,
     ) {
       val component = mockImpl.component
 
@@ -105,7 +105,7 @@ class ContributesMockImplGeneratorTest {
             .filterIsInstance<WildcardType>()
             .single()
             .upperBounds
-            .single()
+            .single(),
         )
         .isEqualTo(base)
       assertThat(providesMethod.parameters[2].annotations.single().annotationClass)
@@ -131,7 +131,7 @@ class ContributesMockImplGeneratorTest {
                 @ContributesMockImpl(AppScope::class)
                 class Inner : Base
             }
-            """
+            """,
     ) {
       val component = mockImpl.inner.component
 
@@ -149,7 +149,7 @@ class ContributesMockImplGeneratorTest {
             .filterIsInstance<WildcardType>()
             .single()
             .upperBounds
-            .single()
+            .single(),
         )
         .isEqualTo(base)
       assertThat(providesMethod.parameters[2].annotations.single().annotationClass)
@@ -173,7 +173,7 @@ class ContributesMockImplGeneratorTest {
             
             @ContributesMockImpl(AppScope::class)
             class MockImpl : Base()
-            """
+            """,
     ) {
       assertThat(mockImpl.component).isNotNull()
     }
@@ -194,7 +194,7 @@ class ContributesMockImplGeneratorTest {
             @ContributesMockImpl(AppScope::class, boundType = Base::class)
             @ContributesMockImpl(AppScope::class, boundType = Base2::class)
             class MockImpl : Base, Base2
-            """
+            """,
     ) {
       val component = mockImpl.component
 
@@ -266,7 +266,7 @@ class ContributesMockImplGeneratorTest {
     ) {
       assertThat(messages)
         .contains(
-          "The bound type could not be determined for MockImpl. " + "There are no super types."
+          "The bound type could not be determined for MockImpl. " + "There are no super types.",
         )
     }
   }
@@ -285,7 +285,7 @@ class ContributesMockImplGeneratorTest {
             
             @ContributesMockImpl(AppScope::class, boundType = Base2::class)
             class MockImpl : Base
-            """
+            """,
     ) {
       val component = mockImpl.component
 
@@ -303,7 +303,7 @@ class ContributesMockImplGeneratorTest {
             .filterIsInstance<WildcardType>()
             .single()
             .upperBounds
-            .single()
+            .single(),
         )
         .isEqualTo(base2)
       assertThat(providesMethod.parameters[2].annotations.single().annotationClass)
@@ -334,7 +334,7 @@ class ContributesMockImplGeneratorTest {
       assertThat(messages)
         .contains(
           "The bound type could not be determined for MockImpl. " +
-            "There are multiple super types: Base, Base2."
+            "There are multiple super types: Base, Base2.",
         )
     }
   }
@@ -353,7 +353,7 @@ class ContributesMockImplGeneratorTest {
             
             @ContributesMockImpl(AppScope::class)
             class MockImpl : Base, Scoped
-            """
+            """,
     ) {
       val component = mockImpl.component
 
@@ -371,7 +371,7 @@ class ContributesMockImplGeneratorTest {
               .filterIsInstance<WildcardType>()
               .single()
               .upperBounds
-              .single()
+              .single(),
           )
           .isEqualTo(base)
         assertThat(parameters[2].annotations.single().annotationClass).isEqualTo(RealImpl::class)
@@ -409,7 +409,7 @@ class ContributesMockImplGeneratorTest {
             @ContributesMockImpl(AppScope::class, boundType = Base::class)
             @ContributesBinding(AppScope::class, boundType = Base2::class)
             class MockImpl : Base, Base2, Scoped
-            """
+            """,
     ) {
       val component = mockImpl.component
 
@@ -417,7 +417,7 @@ class ContributesMockImplGeneratorTest {
         .isNotNull()
 
       assertThat(
-          component.declaredNonSyntheticMethods.firstOrNull { it.name == "provideMockImplScoped" }
+          component.declaredNonSyntheticMethods.firstOrNull { it.name == "provideMockImplScoped" },
         )
         .isNull()
     }
@@ -480,7 +480,7 @@ class ContributesMockImplGeneratorTest {
             ) : ComponentInterfaceMerged {
                 abstract val base: Base
             }
-            """
+            """,
     ) {
       val componentMockModeTrue = componentInterface.newComponent<Any>(true)
       val componentMockModeFalse = componentInterface.newComponent<Any>(false)
@@ -491,7 +491,7 @@ class ContributesMockImplGeneratorTest {
               .declaredNonSyntheticMethods
               .single { it.name == "getBase" }
               .invoke(componentMockModeTrue)::class
-            .java
+            .java,
         )
         .isEqualTo(mockImpl)
 
@@ -501,7 +501,7 @@ class ContributesMockImplGeneratorTest {
               .declaredNonSyntheticMethods
               .single { it.name == "getBase" }
               .invoke(componentMockModeFalse)::class
-            .java
+            .java,
         )
         .isEqualTo(realBaseImpl)
     }
@@ -550,7 +550,7 @@ class ContributesMockImplGeneratorTest {
                 @ForScope(AppScope::class)
                 abstract val scoped: Set<Scoped>
             }
-            """
+            """,
     ) {
       val componentMockModeTrue = componentInterface.newComponent<Any>(true)
       val componentMockModeFalse = componentInterface.newComponent<Any>(false)
@@ -561,7 +561,7 @@ class ContributesMockImplGeneratorTest {
           .java
           .declaredNonSyntheticMethods
           .single { it.name == "getScoped" }
-          .invoke(componentMockModeTrue) as Set<Scoped>
+          .invoke(componentMockModeTrue) as Set<Scoped>,
       ) {
         assertThat(this).hasSize(2)
         assertThat(singleOrNull { mockImpl.isAssignableFrom(it.javaClass) }).isNotNull()
@@ -574,7 +574,7 @@ class ContributesMockImplGeneratorTest {
           .java
           .declaredNonSyntheticMethods
           .single { it.name == "getScoped" }
-          .invoke(componentMockModeFalse) as Set<Scoped>
+          .invoke(componentMockModeFalse) as Set<Scoped>,
       ) {
         assertThat(this).hasSize(2)
         assertThat(singleOrNull { realBaseImpl.isAssignableFrom(it.javaClass) }).isNotNull()
@@ -675,7 +675,7 @@ class ContributesMockImplGeneratorTest {
             }
 
             object TestScoped : Scoped
-            """
+            """,
     ) {
       val component = componentInterface.newComponent<Any>()
 
@@ -708,10 +708,10 @@ class ContributesMockImplGeneratorTest {
       classLoader.loadClass(
         "$APP_PLATFORM_LOOKUP_PACKAGE.$packageName." +
           canonicalName.substringAfter(packageName).substring(1).split(".").joinToString(
-            separator = ""
+            separator = "",
           ) {
             it.capitalize()
           } +
-          "MockImplComponent"
+          "MockImplComponent",
       )
 }

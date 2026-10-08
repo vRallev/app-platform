@@ -158,7 +158,7 @@ internal class ContributesRendererProcessor(
             .addAnnotation(
               AnnotationSpec.builder(ContributesTo::class)
                 .addMember("%T::class", rendererScope)
-                .build()
+                .build(),
             )
             .apply {
               if (!clazz.hasInjectAnnotation()) {
@@ -168,13 +168,13 @@ internal class ContributesRendererProcessor(
                     .returns(clazz.toClassName())
                     .addParameters(clazz.constructorParameters().map { it.toParameterSpec() })
                     .addCode(clazz.constructorCall())
-                    .build()
+                    .build(),
                 )
               }
             }
             .addFunctions(allModels.map { createModelBindingFunction(clazz, it) }.toList())
             .addFunctions(allModels.map { createModelKeyFunction(clazz, it) }.toList())
-            .build()
+            .build(),
         )
         .build()
 
@@ -207,7 +207,7 @@ internal class ContributesRendererProcessor(
       buildString {
         append(
           "Couldn't find BaseModel type for ${clazz.simpleName.asString()}. " +
-            "Consider adding an explicit parameter."
+            "Consider adding an explicit parameter.",
         )
         if (implicitModelTypes.size > 1) {
           append("Found: ")
@@ -227,7 +227,7 @@ internal class ContributesRendererProcessor(
       .addAnnotation(Provides::class)
       .addAnnotation(IntoMap::class)
       .addAnnotation(
-        AnnotationSpec.builder(rendererKey).addMember("%T::class", modelType.toClassName()).build()
+        AnnotationSpec.builder(rendererKey).addMember("%T::class", modelType.toClassName()).build(),
       )
       .addParameter(name = "renderer", type = LambdaTypeName.get(returnType = clazz.toClassName()))
       .returns(rendererWildcard)
@@ -243,15 +243,15 @@ internal class ContributesRendererProcessor(
       .addAnnotation(Provides::class)
       .addAnnotation(IntoMap::class)
       .addAnnotation(
-        AnnotationSpec.builder(rendererKey).addMember("%T::class", modelType.toClassName()).build()
+        AnnotationSpec.builder(rendererKey).addMember("%T::class", modelType.toClassName()).build(),
       )
       .addAnnotation(
         AnnotationSpec.builder(ForScope::class)
           .addMember("scope = %T::class", rendererScope)
-          .build()
+          .build(),
       )
       .returns(
-        KClass::class.asClassName().parameterizedBy(WildcardTypeName.producerOf(rendererWildcard))
+        KClass::class.asClassName().parameterizedBy(WildcardTypeName.producerOf(rendererWildcard)),
       )
       .addStatement("return %T::class", clazz.toClassName())
       .build()

@@ -183,13 +183,13 @@ class LocalRendererFactoryTest {
                     TextModel::class to TextRenderer::class,
                   )
               }
-          }
+          },
         )
       }
     return ComposeRendererFactory(
       object : RootScopeProvider {
         override val rootScope: Scope = scope
-      }
+      },
     )
   }
 

@@ -271,7 +271,7 @@ public abstract class ViewRenderer<in ModelT : BaseModel> : BaseAndroidViewRende
               block(this@doOnDestroy)
             }
           }
-        }
+        },
       )
     }
   }

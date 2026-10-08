@@ -64,7 +64,7 @@ class TabletListDetailPresenter(
   /** State supplied by the adaptive parent so selection survives layout changes. */
   data class Input(
     /** Shared character selection state. */
-    val selectionState: ListDetailSelectionState
+    val selectionState: ListDetailSelectionState,
   )
 
   /** States understood by the tablet renderer. */

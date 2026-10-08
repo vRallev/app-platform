@@ -47,7 +47,7 @@ class MetroServiceTest {
           "[class software.ralf.app.platform.scope.di.metro.MetroServiceTest." +
           "ChildGraphImpl$kotlinReflectWarning, class software.ralf.app." +
           "platform.scope.di.metro.MetroServiceTest.ParentGraphImpl" +
-          "$kotlinReflectWarning])"
+          "$kotlinReflectWarning])",
       )
   }
 

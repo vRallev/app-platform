@@ -54,7 +54,7 @@ import software.ralf.app.platform.presenter.compose.ComposePresenter
 @ExperimentalAppPlatform
 public fun <InputT : Any, ModelT : BaseModel> ComposePresenter<InputT, ModelT>
   .withPresenterBackstackScope(
-  scope: PresenterBackstackScope = FakePresenterBackstackScope()
+  scope: PresenterBackstackScope = FakePresenterBackstackScope(),
 ): ComposePresenter<InputT, ModelT> {
   val delegate = this
   return object : ComposePresenter<InputT, ModelT> {

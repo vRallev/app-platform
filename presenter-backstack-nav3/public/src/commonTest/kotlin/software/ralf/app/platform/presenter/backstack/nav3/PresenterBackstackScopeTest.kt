@@ -130,7 +130,7 @@ class PresenterBackstackScopeTest {
   }
 
   private fun createScopeSnapshotPresenter(
-    initialPresenter: ComposePresenter<Unit, out BaseModel>
+    initialPresenter: ComposePresenter<Unit, out BaseModel>,
   ): ComposePresenter<Unit, ScopeSnapshotModel> {
     return object : ComposePresenter<Unit, ScopeSnapshotModel> {
       @Composable
@@ -149,7 +149,7 @@ class PresenterBackstackScopeTest {
   }
 
   private fun createPresenterBackstackModelPresenter(
-    initialPresenter: ComposePresenter<Unit, out BaseModel>
+    initialPresenter: ComposePresenter<Unit, out BaseModel>,
   ): ComposePresenter<Unit, PresenterBackstackModel> {
     return object : ComposePresenter<Unit, PresenterBackstackModel> {
       @Composable

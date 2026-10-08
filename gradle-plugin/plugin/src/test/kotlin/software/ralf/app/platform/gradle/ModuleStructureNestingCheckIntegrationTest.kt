@@ -57,7 +57,7 @@ class ModuleStructureNestingCheckIntegrationTest {
           allowNestedLibrariesIn([':legacy'])
         }
         """
-          .trimIndent()
+          .trimIndent(),
       )
 
     runner("checkModuleStructureNesting").build()
@@ -78,7 +78,7 @@ class ModuleStructureNestingCheckIntegrationTest {
           }
         }
         """
-          .trimIndent()
+          .trimIndent(),
       )
 
     runner("checkModuleStructureNesting").build()
@@ -209,7 +209,7 @@ class ModuleStructureNestingCheckIntegrationTest {
           allowNestedLibrariesIn(":abc")
         }
         """
-          .trimIndent()
+          .trimIndent(),
       )
 
     val result = runner(":abc:public:checkModuleStructureDependencies").buildAndFail()
@@ -237,7 +237,7 @@ class ModuleStructureNestingCheckIntegrationTest {
           $options
         }
         """
-          .trimIndent()
+          .trimIndent(),
       )
   }
 
@@ -258,7 +258,7 @@ class ModuleStructureNestingCheckIntegrationTest {
           dependsOn 'checkModuleStructureDependenciesFixture'
         }
         """
-          .trimIndent()
+          .trimIndent(),
       )
   }
 

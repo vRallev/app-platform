@@ -6,7 +6,7 @@ import software.ralf.app.platform.renderer.RendererFactory
 
 object UnusedRendererFactory : RendererFactory {
   override fun <T : BaseModel> createRenderer(
-    modelType: kotlin.reflect.KClass<out T>
+    modelType: kotlin.reflect.KClass<out T>,
   ): Renderer<T> {
     error("unused")
   }

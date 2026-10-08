@@ -17,7 +17,7 @@ if [[ -z "${KTFMT_JAR:-}" ]]; then
 
   if [[ ! -f "$KTFMT_JAR" ]]; then
     curl -fsSL \
-      "https://github.com/facebook/ktfmt/releases/download/v${KTFMT_VERSION}/ktfmt-${KTFMT_VERSION}-with-dependencies.jar" \
+      "https://github.com/Kotlin/ktfmt/releases/download/v${KTFMT_VERSION}/ktfmt-${KTFMT_VERSION}-with-dependencies.jar" \
       -o "$KTFMT_JAR"
   fi
 fi

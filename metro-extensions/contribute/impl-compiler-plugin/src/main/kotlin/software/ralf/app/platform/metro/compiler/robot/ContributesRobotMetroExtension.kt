@@ -56,7 +56,7 @@ public class ContributesRobotMetroExtension(private val session: FirSession) :
           ?: return@flatMap emptyList()
       val robotGraphContributionClassId =
         parentSymbol.classId.createNestedClassId(
-          ContributesRobotIds.NESTED_ROBOT_GRAPH_INTERFACE_NAME
+          ContributesRobotIds.NESTED_ROBOT_GRAPH_INTERFACE_NAME,
         )
       val robotGraphContributionSymbol =
         session.symbolProvider.getClassLikeSymbolByClassId(robotGraphContributionClassId)

@@ -192,7 +192,7 @@ public open class KmpPlugin : Plugin<Project> {
           implementation(libs.findLibrary("kotlin.inject.runtime").get().get().toString())
           implementation(libs.findLibrary("kotlin.inject.anvil.runtime").get().get().toString())
           implementation(
-            libs.findLibrary("kotlin.inject.anvil.runtime.optional").get().get().toString()
+            libs.findLibrary("kotlin.inject.anvil.runtime.optional").get().get().toString(),
           )
 
           if (path != ":di-common:public" && path != ":kotlin-inject:public") {

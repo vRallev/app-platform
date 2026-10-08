@@ -35,7 +35,7 @@ class ModuleStructureNestingCheckTaskTest {
         "Library modules must be direct children of their library:\n" +
           " - :abc contains :abc:def:public, :abc:ghi:impl\n" +
           "Move nested projects outside the library, or configure allowNestedLibrariesIn " +
-          "in the appPlatform.enableModuleStructureNestingCheck block of the project running this check."
+          "in the appPlatform.enableModuleStructureNestingCheck block of the project running this check.",
       )
   }
 
@@ -113,7 +113,7 @@ class ModuleStructureNestingCheckTaskTest {
       assertFailure { task.checkLibraryNesting() }
         .hasMessage(
           "allowNestedLibrariesIn requires exact library paths. These paths do not identify " +
-            "libraries in the checked subtree: $path."
+            "libraries in the checked subtree: $path.",
         )
     }
   }

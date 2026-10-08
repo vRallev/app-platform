@@ -62,7 +62,7 @@ public sealed interface ComposeAndroidRendererFactory : RendererFactory {
      * ```
      */
     public fun createForComposeUi(
-      rootScopeProvider: RootScopeProvider
+      rootScopeProvider: RootScopeProvider,
     ): ComposeAndroidRendererFactory = ComposeAndroidRendererFactoryComposeUi(rootScopeProvider)
 
     /**

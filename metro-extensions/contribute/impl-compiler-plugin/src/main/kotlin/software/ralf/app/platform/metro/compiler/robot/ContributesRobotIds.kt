@@ -22,7 +22,7 @@ internal object ContributesRobotIds {
 
   fun generatedRobotPropertyName(contributingClassId: ClassId): Name {
     return Name.identifier(
-      generatedClassNamePrefix(contributingClassId).replaceFirstChar { char -> char.lowercase() }
+      generatedClassNamePrefix(contributingClassId).replaceFirstChar { char -> char.lowercase() },
     )
   }
 }

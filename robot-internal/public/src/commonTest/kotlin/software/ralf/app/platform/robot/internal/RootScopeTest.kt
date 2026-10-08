@@ -35,7 +35,7 @@ class RootScopeTest {
     assertThat(throwable.message.toString())
       .contains(
         "The root scope could not be found. Consider overriding the " +
-          "RootScopeProvider through RobotInternals."
+          "RootScopeProvider through RobotInternals.",
       )
   }
 

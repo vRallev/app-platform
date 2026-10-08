@@ -46,7 +46,7 @@ public inline fun <reified T : Any> Scope.kotlinInjectComponent(): T {
   throw NoSuchElementException(
     "Couldn't find component implementing ${T::class}. Inspected: " +
       "[${diComponents.joinToString { it.simpleName.toString() }}] (fully qualified " +
-      "names: [${diComponents.joinToString { it.toString().replace('\$', '.') }}])"
+      "names: [${diComponents.joinToString { it.toString().replace('\$', '.') }}])",
   )
 }
 

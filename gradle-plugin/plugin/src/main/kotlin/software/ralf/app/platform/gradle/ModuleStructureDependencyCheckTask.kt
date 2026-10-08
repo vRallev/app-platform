@@ -83,7 +83,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
       throw GradleException(
         ":public modules are only allowed to depend on other :public modules. " +
           "Remove the dependencies: ${forbiddenDependencies.joinToString()} " +
-          "from $modulePath."
+          "from $modulePath.",
       )
     }
   }
@@ -102,7 +102,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
       throw GradleException(
         "No module except for an app module is allowed to import an :impl module. " +
           "Remove the dependencies: ${forbiddenDependencies.joinToString()} " +
-          "from $modulePath."
+          "from $modulePath.",
       )
     }
   }
@@ -116,7 +116,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
       throw GradleException(
         "Testing modules should be added to the test compile classpath, otherwise " +
           "they're included in the final app. Remove the dependencies: " +
-          "${forbiddenDependencies.joinToString()} from $modulePath."
+          "${forbiddenDependencies.joinToString()} from $modulePath.",
       )
     }
   }
@@ -128,7 +128,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
       throw GradleException(
         "Robot modules should be added to the instrumented test compile classpath, " +
           "otherwise they're included in the final app. Remove the dependencies: " +
-          "${forbiddenDependencies.joinToString()} from $modulePath."
+          "${forbiddenDependencies.joinToString()} from $modulePath.",
       )
     }
   }
@@ -153,7 +153,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
       throw GradleException(
         "Internal modules can only be imported within the same library or by app " +
           "modules, but not from another library. Remove the dependencies: " +
-          "${forbiddenDependencies.joinToString()} from $modulePath."
+          "${forbiddenDependencies.joinToString()} from $modulePath.",
       )
     }
   }
@@ -207,7 +207,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
             )
             task.modulePath = path
             task.allowLibraryImplToImplDependencies.set(
-              appPlatform.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed()
+              appPlatform.moduleStructureOptions().isLibraryImplToImplDependenciesAllowed(),
             )
             task.testFixtures.set(isTestFixtures)
             task.testCompilation.set(isTestCompilation)

@@ -50,7 +50,7 @@ class TemplateProvider(
     /** Creates a provider with a fresh Compose presenter scope that it can cancel independently. */
     fun createTemplateProvider(): TemplateProvider {
       return templateProviderFactory.create(
-        composePresenterScopeFactory.createComposePresenterScope()
+        composePresenterScopeFactory.createComposePresenterScope(),
       )
     }
   }

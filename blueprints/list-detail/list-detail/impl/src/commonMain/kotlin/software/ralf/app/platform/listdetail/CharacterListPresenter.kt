@@ -24,7 +24,7 @@ class CharacterListPresenter(private val repository: CharacterRepository) :
   /** Selection owned by the parent phone or tablet presenter. */
   data class Input(
     /** Identifier highlighted by the list renderer, or `null` when nothing is selected. */
-    val selectedCharacterId: String?
+    val selectedCharacterId: String?,
   )
 
   /**

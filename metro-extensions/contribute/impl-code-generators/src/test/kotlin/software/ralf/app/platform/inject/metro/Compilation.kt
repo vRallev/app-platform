@@ -128,7 +128,7 @@ class Compilation internal constructor(val kotlinCompilation: KotlinCompilation)
           inheritClassPath = true
           jvmTarget = JvmTarget.JVM_21.description
           verbose = false
-        }
+        },
       )
     }
   }

@@ -114,7 +114,7 @@ class CharacterListRenderer : ComposeRenderer<CharacterListPresenter.Model>() {
               AppTheme.colorScheme.secondaryContainer
             } else {
               AppTheme.colorScheme.surface
-            }
+            },
         ),
       modifier =
         Modifier.selectable(selected = selected, onClick = onClick)

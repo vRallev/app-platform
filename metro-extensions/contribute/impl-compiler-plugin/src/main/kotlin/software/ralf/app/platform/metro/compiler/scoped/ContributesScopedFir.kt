@@ -249,7 +249,7 @@ internal constructor(
     }
 
   private fun generatedScopedContributionOwner(
-    classSymbol: FirClassSymbol<*>
+    classSymbol: FirClassSymbol<*>,
   ): FirRegularClassSymbol? {
     if (classSymbol.classId.shortClassName != ContributesScopedIds.NESTED_INTERFACE_NAME) {
       return null
@@ -265,7 +265,7 @@ internal constructor(
   }
 
   private fun generatedScopedProviderCompanionOwner(
-    classSymbol: FirClassSymbol<*>
+    classSymbol: FirClassSymbol<*>,
   ): FirRegularClassSymbol? {
     if (classSymbol.classId.shortClassName != SpecialNames.DEFAULT_NAME_FOR_COMPANION_OBJECT) {
       return null
@@ -363,7 +363,7 @@ internal constructor(
                   constructor.parameters,
                   generatedParameters,
                 )
-            }
+            },
           )
       }
     }
@@ -404,7 +404,7 @@ internal constructor(
             argument = scopeArg,
             containingSymbol = functionSymbol,
             session = session,
-          )
+          ),
         )
       },
     )
@@ -417,7 +417,7 @@ internal constructor(
     returnType: ConeKotlinType,
     additionalAnnotations:
       MutableList<org.jetbrains.kotlin.fir.expressions.FirAnnotation>.(
-        FirNamedFunctionSymbol
+        FirNamedFunctionSymbol,
       ) -> Unit =
       {},
   ): FirFunction {

@@ -38,7 +38,7 @@ class TestBackGestureDispatcherPresenterTest {
 
     assertFailure { presenter.test(this) {} }
       .messageContains(
-        "Couldn't find the BackGestureDispatcherPresenter in the presenter hierarchy."
+        "Couldn't find the BackGestureDispatcherPresenter in the presenter hierarchy.",
       )
   }
 
@@ -117,7 +117,7 @@ class TestBackGestureDispatcherPresenterTest {
             emit(BackEventPresenter(1f, 1f, 1f, BackEventPresenter.EDGE_LEFT))
             delay(1.seconds)
             emit(BackEventPresenter(1f, 1f, 1f, BackEventPresenter.EDGE_LEFT))
-          }
+          },
         )
 
         assertThat(awaitItem()).isEqualTo(Model(eventCount = 1, doneCount = 0))
@@ -130,7 +130,7 @@ class TestBackGestureDispatcherPresenterTest {
           flowOf(
             BackEventPresenter(1f, 1f, 1f, BackEventPresenter.EDGE_LEFT),
             BackEventPresenter(1f, 1f, 1f, BackEventPresenter.EDGE_LEFT),
-          )
+          ),
         )
         assertThat(awaitItem()).isEqualTo(Model(eventCount = 3, doneCount = 1))
         assertThat(awaitItem()).isEqualTo(Model(eventCount = 4, doneCount = 1))

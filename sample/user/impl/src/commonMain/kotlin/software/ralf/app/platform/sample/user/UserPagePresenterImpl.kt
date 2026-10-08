@@ -34,7 +34,7 @@ class UserPagePresenterImpl(
     val listModel = userPageListPresenter.present(UserPageListPresenter.Input(user))
     val detailModel =
       userPageDetailPresenter.present(
-        UserPageDetailPresenter.Input(user, selectedAttribute = listModel.selectedIndex)
+        UserPageDetailPresenter.Input(user, selectedAttribute = listModel.selectedIndex),
       )
 
     return ModelImpl(listModel = listModel, detailModel = detailModel)

@@ -14,7 +14,7 @@ import software.ralf.app.platform.presenter.BaseModel
  * embedded within the Compose hierarchy.
  */
 internal class AndroidViewWithinComposeRenderer<in ModelT : BaseModel>(
-  private val androidRenderer: BaseAndroidViewRenderer<ModelT>
+  private val androidRenderer: BaseAndroidViewRenderer<ModelT>,
 ) : BaseAndroidViewRenderer<ModelT>, BaseComposeRenderer<ModelT> {
 
   private var composeContainer: ViewGroup? = null
@@ -51,7 +51,7 @@ internal class AndroidViewWithinComposeRenderer<in ModelT : BaseModel>(
           composeContainer = it
           init(context as Activity, it)
         }
-      }
+      },
     ) {
       render(model)
     }

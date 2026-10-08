@@ -94,7 +94,7 @@ constructor(objects: ObjectFactory, private val project: Project) {
       .convention(
         project.provider {
           project.ci || project.gradle.taskGraph.hasTask("${project.path}:release")
-        }
+        },
       )
 
   public fun kotlinWarningsAsErrors(enabled: Boolean) {

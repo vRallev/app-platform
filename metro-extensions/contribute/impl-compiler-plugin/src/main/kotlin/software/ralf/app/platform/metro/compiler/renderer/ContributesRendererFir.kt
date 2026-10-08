@@ -235,7 +235,7 @@ internal constructor(
     }
 
   private fun generatedRendererContributionOwner(
-    classSymbol: FirClassSymbol<*>
+    classSymbol: FirClassSymbol<*>,
   ): FirRegularClassSymbol? {
     if (classSymbol.classId.shortClassName != ContributesRendererIds.NESTED_INTERFACE_NAME) {
       return null
@@ -250,7 +250,7 @@ internal constructor(
   }
 
   private fun generatedRendererProviderCompanionOwner(
-    classSymbol: FirClassSymbol<*>
+    classSymbol: FirClassSymbol<*>,
   ): FirRegularClassSymbol? {
     if (classSymbol.classId.shortClassName != SpecialNames.DEFAULT_NAME_FOR_COMPANION_OBJECT) {
       return null
@@ -351,7 +351,7 @@ internal constructor(
                   constructor.parameters,
                   generatedParameters,
                 )
-            }
+            },
           )
       }
     }

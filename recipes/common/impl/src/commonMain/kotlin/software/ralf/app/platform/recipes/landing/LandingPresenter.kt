@@ -41,7 +41,7 @@ class LandingPresenter : ComposePresenter<Unit, Model> {
   /** The state of the landing screen. */
   data class Model(
     /** Callback to send events back to the presenter. */
-    val onEvent: (Event) -> Unit
+    val onEvent: (Event) -> Unit,
   ) : BaseModel
 
   /** All events that [LandingPresenter] can process. */

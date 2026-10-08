@@ -91,7 +91,7 @@ class ReturningSaveableStateHolderTest {
     var savedValues: Map<String, List<Any?>>? = null
 
     SaveablePresenter(key = MutableStateFlow("first"), parentRegistry = firstParentRegistry).test(
-      this
+      this,
     ) {
       val firstInitial = awaitItem()
       firstInitial.increment()

@@ -20,7 +20,7 @@ public class AppPlatformMetroExtensionsPluginComponentRegistrar : CompilerPlugin
       } catch (throwable: Throwable) {
         System.err.println(
           "[APP PLATFORM] Unable to load Kotlin compiler compatibility support; " +
-            "skipping compiler extensions."
+            "skipping compiler extensions.",
         )
         throwable.printStackTrace()
         return
