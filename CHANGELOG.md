@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Upgrade Kotlin to `2.4.21`.
+
 ### Deprecated
 
 ### Removed
