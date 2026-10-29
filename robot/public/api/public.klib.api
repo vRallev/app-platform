@@ -19,10 +19,6 @@ abstract interface software.ralf.app.platform.robot/RobotComponent { // software
 abstract interface software.ralf.app.platform.robot/RobotGraph { // software.ralf.app.platform.robot/RobotGraph|null[0]
     abstract val robots // software.ralf.app.platform.robot/RobotGraph.robots|{}robots[0]
         abstract fun <get-robots>(): kotlin.collections/Map<kotlin.reflect/KClass<*>, kotlin/Function0<software.ralf.app.platform.robot/Robot>> // software.ralf.app.platform.robot/RobotGraph.robots.<get-robots>|<get-robots>(){}[0]
-
-    abstract class BindsMirror { // software.ralf.app.platform.robot/RobotGraph.BindsMirror|null[0]
-        final fun robots_property995712408(): kotlin.collections/Map<kotlin.reflect/KClass<*>, kotlin/Function0<software.ralf.app.platform.robot/Robot>> // software.ralf.app.platform.robot/RobotGraph.BindsMirror.robots_property995712408|robots_property995712408(){}[0]
-    }
 }
 
 final object software.ralf.app.platform.robot.internal/RobotInternals { // software.ralf.app.platform.robot.internal/RobotInternals|null[0]

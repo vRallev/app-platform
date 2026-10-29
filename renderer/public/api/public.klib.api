@@ -37,11 +37,6 @@ abstract interface software.ralf.app.platform.renderer/RendererGraph { // softwa
     abstract interface Factory { // software.ralf.app.platform.renderer/RendererGraph.Factory|null[0]
         abstract fun createRendererGraph(software.ralf.app.platform.renderer/RendererFactory): software.ralf.app.platform.renderer/RendererGraph // software.ralf.app.platform.renderer/RendererGraph.Factory.createRendererGraph|createRendererGraph(software.ralf.app.platform.renderer.RendererFactory){}[0]
     }
-
-    abstract class BindsMirror { // software.ralf.app.platform.renderer/RendererGraph.BindsMirror|null[0]
-        final fun modelToRendererMapping_property2182260457995712408(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.presenter/BaseModel>, kotlin.reflect/KClass<out software.ralf.app.platform.renderer/Renderer<*>>> // software.ralf.app.platform.renderer/RendererGraph.BindsMirror.modelToRendererMapping_property2182260457995712408|modelToRendererMapping_property2182260457995712408(){}[0]
-        final fun renderers_property995712408(): kotlin.collections/Map<kotlin.reflect/KClass<out software.ralf.app.platform.presenter/BaseModel>, kotlin/Function0<software.ralf.app.platform.renderer/Renderer<*>>> // software.ralf.app.platform.renderer/RendererGraph.BindsMirror.renderers_property995712408|renderers_property995712408(){}[0]
-    }
 }
 
 abstract class software.ralf.app.platform.renderer/RendererScope // software.ralf.app.platform.renderer/RendererScope|null[0]

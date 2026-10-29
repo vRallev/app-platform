@@ -121,7 +121,8 @@ class TestRenderer : Renderer<Model> {
 
 }
 
-// FILE: comTestTestRendererRendererContributionSoftware_ralf_app_platform_renderer_RendererScope.kt
+// FILE: defaultConstructorRendererIr.kt
+@file:JvmName(name = "ComTestTestRendererRendererContributionSoftware_ralf_app_platform_renderer_RendererScopeKt")
 package metro.hints
 
 @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)

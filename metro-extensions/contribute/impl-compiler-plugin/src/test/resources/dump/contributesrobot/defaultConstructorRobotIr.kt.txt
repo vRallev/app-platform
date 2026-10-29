@@ -73,7 +73,8 @@ class TestRobot : Robot {
 
 }
 
-// FILE: comTestTestRobotRobotContributionDev_zacsweers_metro_AppScope.kt
+// FILE: defaultConstructorRobotIr.kt
+@file:JvmName(name = "ComTestTestRobotRobotContributionDev_zacsweers_metro_AppScopeKt")
 package metro.hints
 
 @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
@@ -81,7 +82,8 @@ fun dev_zacsweers_metro_AppScope(contributed: RobotContribution) {
   return error(message = "Never called")
 }
 
-// FILE: comTestTestRobotRobotGraphContributionDev_zacsweers_metro_AppScope.kt
+// FILE: defaultConstructorRobotIr.kt
+@file:JvmName(name = "ComTestTestRobotRobotGraphContributionDev_zacsweers_metro_AppScopeKt")
 package metro.hints
 
 @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)

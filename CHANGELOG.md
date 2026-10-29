@@ -6,6 +6,9 @@
 
 ### Changed
 
+- Upgrade AGP to `9.5.0`, Metro to `1.5.0`, Compose Multiplatform to `1.12.1`, and Navigation 3 to `1.2.0`.
+- App Platform now requires Android API `24` or later for Navigation 3 integrations.
+
 ### Deprecated
 
 ### Removed
