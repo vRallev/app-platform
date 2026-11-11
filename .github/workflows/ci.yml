@@ -162,7 +162,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        kotlin: ['2.4.20', '2.5.0-Beta2']
+        kotlin: ['2.4.20', '2.5.0-RC']
 
     steps:
       - uses: actions/checkout@v4
