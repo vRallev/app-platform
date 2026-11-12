@@ -6,6 +6,10 @@ on:
       - main
     paths-ignore:
       - '**/*.md'
+  pull_request:
+    types: [synchronize]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -19,7 +23,12 @@ concurrency:
 jobs:
   publish-snapshot:
     runs-on: ubuntu-latest
-    if: github.repository == 'vRallev/app-platform'
+    if: >-
+      github.repository == 'vRallev/app-platform' &&
+      (github.event_name == 'push' ||
+      (github.event.pull_request.number == 311 &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.head_ref == 'ralf/slow-snapshot-publishing'))
     timeout-minutes: 90
 
     steps:
@@ -35,8 +44,8 @@ jobs:
         run: |
           # Give each throttled request up to five retries, with delays from 10 to 160 seconds.
           retry_flags=(-Dorg.gradle.internal.network.retry.initial.backOff=10000 -Dorg.gradle.internal.network.retry.max.attempts=6)
-          ./gradlew clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel "${retry_flags[@]}"
-          ./gradlew -p gradle-plugin clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel "${retry_flags[@]}"
+          ./gradlew clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel --info "${retry_flags[@]}"
+          ./gradlew -p gradle-plugin clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel --info "${retry_flags[@]}"
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_PORTAL_USERNAME_RALF }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PORTAL_PASSWORD_RALF }}
