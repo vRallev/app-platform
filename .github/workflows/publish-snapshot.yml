@@ -20,7 +20,7 @@ jobs:
   publish-snapshot:
     runs-on: ubuntu-latest
     if: github.repository == 'vRallev/app-platform'
-    timeout-minutes: 60
+    timeout-minutes: 90
 
     steps:
       - uses: actions/checkout@v4
@@ -33,8 +33,10 @@ jobs:
 
       - name: Publish snapshot
         run: |
-          ./gradlew clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel -Dorg.gradle.internal.network.retry.initial.backOff=10000
-          ./gradlew -p gradle-plugin clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel -Dorg.gradle.internal.network.retry.initial.backOff=10000
+          # Give each throttled request up to five retries, with delays from 10 to 160 seconds.
+          retry_flags=(-Dorg.gradle.internal.network.retry.initial.backOff=10000 -Dorg.gradle.internal.network.retry.max.attempts=6)
+          ./gradlew clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel "${retry_flags[@]}"
+          ./gradlew -p gradle-plugin clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel "${retry_flags[@]}"
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_PORTAL_USERNAME_RALF }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PORTAL_PASSWORD_RALF }}
