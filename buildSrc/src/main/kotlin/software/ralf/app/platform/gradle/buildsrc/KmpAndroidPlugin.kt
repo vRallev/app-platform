@@ -18,6 +18,7 @@ public open class KmpAndroidPlugin : Plugin<Project> {
     androidKmpTarget.apply {
       compileSdk = libs.findVersion("android.compileSdk").get().requiredVersion.toInt()
       minSdk = libs.findVersion("android.minSdk").get().requiredVersion.toInt()
+      aarMetadata.minCompileSdk = minSdk
       compilerOptions { jvmTarget.set(javaTarget) }
 
       packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
