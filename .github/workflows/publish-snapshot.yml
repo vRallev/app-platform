@@ -33,8 +33,8 @@ jobs:
 
       - name: Publish snapshot
         run: |
-          ./gradlew clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache
-          ./gradlew -p gradle-plugin clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache
+          ./gradlew clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel -Dorg.gradle.internal.network.retry.initial.backOff=10000
+          ./gradlew -p gradle-plugin clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache --no-parallel -Dorg.gradle.internal.network.retry.initial.backOff=10000
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_PORTAL_USERNAME_RALF }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PORTAL_PASSWORD_RALF }}
