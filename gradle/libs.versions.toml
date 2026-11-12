@@ -1,5 +1,5 @@
 [versions]
-agp = "9.5.0"
+agp = "9.5.1"
 android-compileSdk = "37"
 # https://developer.android.com/jetpack/androidx/releases/compose-ui
 # https://maven.google.com/web/index.html#androidx.compose.ui:ui
@@ -52,7 +52,7 @@ kotlin-poet = "2.4.0"
 ktfmt = "0.65"
 ksp = "2.3.12"
 maven-publish = "0.37.0"
-metro = "1.5.0"
+metro = "1.5.2"
 molecule = "2.2.0"
 navigation-event = "1.1.0"
 navigation3 = "1.2.0"
