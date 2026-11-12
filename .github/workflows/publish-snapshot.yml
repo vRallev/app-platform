@@ -6,6 +6,10 @@ on:
       - main
     paths-ignore:
       - '**/*.md'
+  pull_request:
+    types: [synchronize]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -19,7 +23,12 @@ concurrency:
 jobs:
   publish-snapshot:
     runs-on: ubuntu-latest
-    if: github.repository == 'vRallev/app-platform'
+    if: >-
+      github.repository == 'vRallev/app-platform' &&
+      (github.event_name == 'push' ||
+      (github.event.pull_request.number == 311 &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.head_ref == 'ralf/slow-snapshot-publishing'))
     timeout-minutes: 60
 
     steps:
