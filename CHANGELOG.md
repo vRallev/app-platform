@@ -6,10 +6,6 @@
 
 ### Changed
 
-- Upgrade AGP to `9.5.1`, Metro to `1.5.2`, Compose Multiplatform to `1.12.1`, and Navigation 3 to `1.2.0`.
-- App Platform now requires Android API `24` or later for Navigation 3 integrations.
-- Use `minSdk` as the minimum `compileSdk` in Android AARs. Dependencies can require a higher SDK.
-
 ### Deprecated
 
 ### Removed
@@ -20,6 +16,14 @@
 
 ### Other Notes & Contributions
 
+
+## [0.2.4] - 2026-11-12
+
+### Changed
+
+- Upgrade AGP to `9.5.1`, Metro to `1.5.2`, Compose Multiplatform to `1.12.1`, and Navigation 3 to `1.2.0`.
+- App Platform now requires Android API `24` or later for Navigation 3 integrations.
+- Use `minSdk` as the minimum `compileSdk` in Android AARs. Dependencies can require a higher SDK.
 
 ## [0.2.3] - 2026-10-21
 
@@ -379,7 +383,8 @@
 
 - Initial release.
 
-[Unreleased]: https://github.com/vRallev/app-platform/compare/0.2.3...HEAD
+[Unreleased]: https://github.com/vRallev/app-platform/compare/0.2.4...HEAD
+[0.2.4]: https://github.com/vRallev/app-platform/compare/0.2.4
 [0.2.3]: https://github.com/vRallev/app-platform/compare/0.2.3
 [0.2.2]: https://github.com/vRallev/app-platform/compare/0.2.2
 [0.2.1]: https://github.com/vRallev/app-platform/compare/0.2.1
