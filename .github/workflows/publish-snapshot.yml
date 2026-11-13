@@ -6,6 +6,10 @@ on:
       - main
     paths-ignore:
       - '**/*.md'
+  pull_request:
+    types: [synchronize]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -13,13 +17,18 @@ permissions:
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "snapshot-upload"
+  group: ${{ (github.event_name == 'push' || github.event.pull_request.number == 311) && 'snapshot-upload' || github.run_id }}
   cancel-in-progress: false
 
 jobs:
   publish-snapshot:
     runs-on: ubuntu-latest
-    if: github.repository == 'vRallev/app-platform'
+    if: >-
+      github.repository == 'vRallev/app-platform' &&
+      (github.event_name == 'push' ||
+      (github.event.pull_request.number == 311 &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.head_ref == 'ralf/slow-snapshot-publishing'))
     timeout-minutes: 100
 
     steps:
@@ -33,7 +42,7 @@ jobs:
 
       - name: Publish snapshot
         run: |
-          publish_flags=(--init-script "$PWD/.github/gradle/pace-snapshot-publishing.init.gradle" --no-parallel -Dorg.gradle.internal.network.retry.initial.backOff=10000)
+          publish_flags=(--init-script "$PWD/.github/gradle/pace-snapshot-publishing.init.gradle" --no-parallel -Dorg.gradle.internal.network.retry.initial.backOff=10000 --info)
           ./gradlew clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache "${publish_flags[@]}"
           ./gradlew -p gradle-plugin clean publish -PRELEASE_SIGNING_ENABLED=true --no-build-cache --stacktrace --show-version --no-configuration-cache "${publish_flags[@]}"
         env:
