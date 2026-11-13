@@ -2,7 +2,7 @@ import java.util.concurrent.TimeUnit
 import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 
 // The snapshot workflow runs with --no-parallel. Space out its remote publications.
-def publicationInterval = TimeUnit.SECONDS.toNanos(45)
+def publicationInterval = TimeUnit.SECONDS.toNanos(25)
 long nextPublication = System.nanoTime()
 
 gradle.beforeProject { project ->

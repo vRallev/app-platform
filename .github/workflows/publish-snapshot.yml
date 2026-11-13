@@ -20,7 +20,7 @@ jobs:
   publish-snapshot:
     runs-on: ubuntu-latest
     if: github.repository == 'vRallev/app-platform'
-    timeout-minutes: 150
+    timeout-minutes: 100
 
     steps:
       - uses: actions/checkout@v4
