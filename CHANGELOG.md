@@ -6,7 +6,7 @@
 
 ### Changed
 
-- Upgrade AGP to `9.5.0`, Metro to `1.5.0`, Compose Multiplatform to `1.12.1`, and Navigation 3 to `1.2.0`.
+- Upgrade AGP to `9.5.1`, Metro to `1.5.2`, Compose Multiplatform to `1.12.1`, and Navigation 3 to `1.2.0`.
 - App Platform now requires Android API `24` or later for Navigation 3 integrations.
 - Use `minSdk` as the minimum `compileSdk` in Android AARs. Dependencies can require a higher SDK.
 
