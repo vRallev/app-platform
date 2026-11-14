@@ -1,18 +1,31 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
-        google()
+        mavenCentral()
+        google {
+            content {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroup("com.google.testing.platform")
+            }
+        }
     }
 }
 
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
-        google()
-        gradlePluginPortal()
+        google {
+            content {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroup("com.google.testing.platform")
+            }
+        }
 
         maven {
             url = "https://central.sonatype.com/repository/maven-snapshots/"
+            content { includeGroup("software.ralf.app.platform") }
+            mavenContent { snapshotsOnly() }
         }
     }
 

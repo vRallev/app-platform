@@ -87,8 +87,8 @@ class IncrementalCompilationTest {
     File(projectDir, "settings.gradle")
       .writeText(
         """
-      pluginManagement { repositories { mavenCentral(); gradlePluginPortal() } }
-      dependencyResolutionManagement { repositories { mavenCentral(); google() } }
+      pluginManagement { repositories { mavenCentral() } }
+      dependencyResolutionManagement { repositories { mavenCentral() } }
       rootProject.name = 'incremental-contributions'
       include ${modules.joinToString { "':$it'" }}
       """

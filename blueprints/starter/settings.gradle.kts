@@ -1,14 +1,25 @@
 pluginManagement {
   repositories {
-    google()
+    google {
+      content {
+        includeGroupAndSubgroups("androidx")
+        includeGroupAndSubgroups("com.android")
+        includeGroup("com.google.testing.platform")
+      }
+    }
     mavenCentral()
-    gradlePluginPortal()
   }
 }
 
 dependencyResolutionManagement {
   repositories {
-    google()
+    google {
+      content {
+        includeGroupAndSubgroups("androidx")
+        includeGroupAndSubgroups("com.android")
+        includeGroup("com.google.testing.platform")
+      }
+    }
     mavenCentral()
   }
 }
