@@ -4,8 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.retain.retainManagedRetainedValuesStore
+import androidx.compose.runtime.setValue
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
@@ -33,7 +35,7 @@ class WithLocalRetainedValuesStoreTest {
   }
 
   @Test
-  fun `retained child state returns after the child leaves composition`() = runTest {
+  fun `retained child state returns after the child recomposes and leaves composition`() = runTest {
     val showChild = MutableStateFlow(true)
     val presenter = ParentPresenter(ChildPresenter())
 
@@ -42,6 +44,8 @@ class WithLocalRetainedValuesStoreTest {
         assertThat(firstModel.count).isEqualTo(0)
         firstModel.onIncrement()
       }
+      assertThat(awaitItem()).isInstanceOf<Model.Child>().prop(Model.Child::count).isEqualTo(1)
+
       showChild.value = false
       assertThat(awaitItem()).isEqualTo(Model.Hidden)
 
@@ -80,12 +84,10 @@ class WithLocalRetainedValuesStoreTest {
   private class ChildPresenter : ComposePresenter<Unit, Model.Child> {
     @Composable
     override fun present(input: Unit): Model.Child {
-      val counter = retain { Counter() }
-      return Model.Child(count = counter.count, onIncrement = { counter.count++ })
+      var count by retain { mutableIntStateOf(0) }
+      return Model.Child(count = count, onIncrement = { count++ })
     }
   }
-
-  private class Counter(var count: Int = 0)
 
   private sealed interface Model : BaseModel {
     data object Hidden : Model
