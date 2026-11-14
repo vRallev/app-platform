@@ -95,13 +95,15 @@ This repository includes project-neutral skills for coding agents working on app
 
 ## Snapshot
 
-To import snapshot builds use following repository:
+Add this repository to use App Platform snapshots.
 
 === "build.gradle"
 
     ```groovy
     maven {
       url = 'https://central.sonatype.com/repository/maven-snapshots/'
+      content { includeGroup('software.ralf.app.platform') }
+      mavenContent { snapshotsOnly() }
     }
     ```
 
@@ -110,5 +112,7 @@ To import snapshot builds use following repository:
     ```kotlin
     maven {
       url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+      content { includeGroup("software.ralf.app.platform") }
+      mavenContent { snapshotsOnly() }
     }
     ```

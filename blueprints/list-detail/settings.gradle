@@ -1,8 +1,12 @@
 pluginManagement {
   repositories {
-    google()
     mavenCentral()
-    gradlePluginPortal()
+    gradlePluginPortal {
+      content {
+        includeGroup('org.gradle.toolchains.foojay-resolver-convention')
+        includeModule('org.gradle.toolchains', 'foojay-resolver')
+      }
+    }
   }
 }
 
@@ -12,7 +16,13 @@ plugins {
 
 dependencyResolutionManagement {
   repositories {
-    google()
+    google {
+      content {
+        includeGroupAndSubgroups('androidx')
+        includeGroupAndSubgroups('com.android')
+        includeGroup('com.google.testing.platform')
+      }
+    }
     mavenCentral()
   }
 }

@@ -1,3 +1,15 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal {
+            content {
+                includeGroup("com.gradle.develocity")
+                includeModule("com.gradle", "develocity-gradle-plugin")
+            }
+        }
+    }
+}
+
 plugins {
     id "com.gradle.develocity" version "4.5.1"
 }
@@ -11,11 +23,18 @@ includeBuild('gradle-plugin') {
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
-        google()
-        gradlePluginPortal()
+        google {
+            content {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroup("com.google.testing.platform")
+            }
+        }
 
         maven {
             url = "https://central.sonatype.com/repository/maven-snapshots/"
+            content { includeGroup("software.ralf.app.platform") }
+            mavenContent { snapshotsOnly() }
         }
     }
 }

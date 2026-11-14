@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Filter Gradle repositories in the blueprints to skip unrelated artifact lookups.
+
 ### Deprecated
 
 ### Removed
