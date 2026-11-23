@@ -145,6 +145,6 @@ The aggregate task checks supported production compile classpaths across Android
 
 When changing `:public`, run the project's API checks. When moving DI contributions or implementation selection, compile the real app graph and platform entry point. Recheck Gradle settings after adding or renaming modules.
 
-The dependency task checks declared dependencies whose names follow the module structure. It does not prove that public APIs are well designed, that transitive dependencies are harmless, or that source-set boundaries are correct. Review exported signatures and the effective dependency graph as well.
+The dependency task checks direct dependencies whose names follow the module structure. In `:impl` tests, the `:impl` rule also applies to `:impl-robots`. Review exported signatures and transitive dependencies separately.
 
 Public docs: [module structure](https://vrallev.github.io/app-platform/module-structure/), [setup](https://vrallev.github.io/app-platform/setup/), and [testing](https://vrallev.github.io/app-platform/testing/).

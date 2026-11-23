@@ -53,6 +53,47 @@ class ModuleStructureDependencyCheckTaskTest {
   }
 
   @Test
+  fun `impl tests can opt in to sibling implementation robots`() {
+    val robots = setOf(":library:impl-common-robots")
+    assertFailure {
+      checkDependencies(
+        modulePath = ":library:impl-specific",
+        moduleCompileClasspath = robots,
+        testCompilation = true,
+      )
+    }
+      .isInstanceOf<GradleException>()
+
+    checkDependencies(
+      modulePath = ":library:impl-specific",
+      moduleCompileClasspath = robots,
+      allowLibraryImplToImplDependencies = true,
+      testCompilation = true,
+    )
+  }
+
+  @Test
+  fun `impl tests cannot depend on published implementation robots`() {
+    assertFailure {
+      checkDependencies(
+        modulePath = ":library:impl",
+        moduleCompileClasspath = setOf("com.example:library-impl-common-robots:1.0"),
+        allowLibraryImplToImplDependencies = true,
+        testCompilation = true,
+      )
+    }
+      .isInstanceOf<GradleException>()
+  }
+
+  @Test
+  fun `implementation robots can depend on another library's implementation robots`() {
+    checkDependencies(
+      modulePath = ":library:impl-robots",
+      moduleCompileClasspath = setOf(":other-library:impl-robots"),
+    )
+  }
+
+  @Test
   fun `non-impl module cannot use the option to import an impl module`() {
     assertFailure {
       checkDependencies(

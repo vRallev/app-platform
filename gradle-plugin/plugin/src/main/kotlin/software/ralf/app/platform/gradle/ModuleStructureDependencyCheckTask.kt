@@ -26,7 +26,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
   /** The path of this module, e.g. `:presenter:public`. */
   @get:Input public abstract var modulePath: String
 
-  /** All Gradle modules on the compile classpath. */
+  /** Structured module dependencies declared on or inherited by the compile configuration. */
   @get:Input public abstract var moduleCompileClasspath: Set<String>
 
   /** Whether `:impl` dependencies within the same library are allowed. */
@@ -89,9 +89,13 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
   }
 
   private fun checkNoImplImport(moduleType: ModuleType) {
+    val isImplTest = moduleType == ModuleType.IMPL && testCompilation.get()
     val forbiddenDependencies =
       moduleCompileClasspath
-        .filter { it.moduleType == ModuleType.IMPL }
+        .filter { dependency ->
+          val type = dependency.moduleType
+          type == ModuleType.IMPL || (isImplTest && type == ModuleType.IMPL_ROBOTS)
+        }
         .filterNot { dependency ->
           allowLibraryImplToImplDependencies.get() &&
             moduleType == ModuleType.IMPL &&
@@ -100,9 +104,7 @@ public abstract class ModuleStructureDependencyCheckTask : DefaultTask() {
 
     if (forbiddenDependencies.isNotEmpty()) {
       throw GradleException(
-        "No module except for an app module is allowed to import an :impl module. " +
-          "Remove the dependencies: ${forbiddenDependencies.joinToString()} " +
-          "from $modulePath.",
+        "$modulePath has forbidden implementation dependencies: ${forbiddenDependencies.sorted().joinToString()}.",
       )
     }
   }
