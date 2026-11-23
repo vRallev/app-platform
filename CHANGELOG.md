@@ -14,6 +14,8 @@
 
 ### Fixed
 
+- Apply the `:impl` dependency rule to direct `:impl-robots` dependencies in `:impl` module tests.
+
 ### Security
 
 ### Other Notes & Contributions

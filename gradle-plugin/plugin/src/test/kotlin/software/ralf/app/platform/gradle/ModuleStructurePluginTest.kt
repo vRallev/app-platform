@@ -7,6 +7,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
+import assertk.assertions.messageContains
 import kotlin.test.Test
 import org.gradle.api.Action
 import org.gradle.api.GradleException
@@ -198,10 +199,10 @@ class ModuleStructurePluginTest {
   @Test
   fun `test compilation can depend on test-only modules`() {
     val project = createImplModule()
-    project.createLibrary("other-library", "testing", "impl-robots")
+    project.createLibrary("other-library", "testing", "public-robots")
     project.dependencies.add("testImplementation", project.project(":library:impl"))
     project.dependencies.add("testImplementation", project.project(":other-library:testing"))
-    project.dependencies.add("testImplementation", project.project(":other-library:impl-robots"))
+    project.dependencies.add("testImplementation", project.project(":other-library:public-robots"))
     project.dependencies.add(
       "testImplementation",
       "org.jetbrains.kotlin:kotlin-compiler-internal-test-framework:2.4.20",
@@ -240,8 +241,32 @@ class ModuleStructurePluginTest {
   }
 
   @Test
-  fun `multiplatform test compilation can depend on test-only modules`() {
+  fun `desktop tests cannot declare another library's implementation robots`() {
     val project = createModule(name = "impl")
+    project.createLibrary("podcast", "impl-robots")
+
+    val task = project.desktopTestWithDependency(project.project(":podcast:impl-robots"))
+    assertFailure { task.checkDependencies() }
+      .isInstanceOf<GradleException>()
+      .messageContains(":podcast:impl-robots")
+  }
+
+  @Test
+  fun `desktop tests can use a legacy module that depends on another library's impl`() {
+    val project = createModule(name = "impl")
+    project.createLibrary("other-library", "impl")
+    val impl = project.project(":other-library:impl")
+    impl.plugins.apply("java-library")
+    val legacy = ProjectBuilder.builder().withName("legacy").withParent(project.rootProject).build()
+    legacy.plugins.apply("java-library")
+    legacy.dependencies.add("api", impl)
+
+    project.desktopTestWithDependency(legacy).checkDependencies()
+  }
+
+  @Test
+  fun `multiplatform app tests can depend on testing and implementation robot modules`() {
+    val project = createModule(name = "app")
     project.createLibrary("other-library", "testing", "impl-robots")
     project.plugins.apply(PluginIds.KOTLIN_MULTIPLATFORM)
     project.kmpExtension.jvm()
@@ -478,6 +503,26 @@ class ModuleStructurePluginTest {
     project.configurations.maybeCreate("compileClasspath")
     project.plugins.apply(AppPlatformPlugin::class.java)
     return project
+  }
+
+  private fun Project.desktopTestWithDependency(
+    dependency: Project,
+  ): ModuleStructureDependencyCheckTask {
+    plugins.apply(PluginIds.KOTLIN_MULTIPLATFORM)
+    kmpExtension.jvm("desktop")
+    plugins.apply(AppPlatformPlugin::class.java)
+    dependencies.add("desktopTestImplementation", dependency)
+    appPlatform.enableModuleStructure { options ->
+      options.allowLibraryImplToImplDependencies(true)
+    }
+    evaluate()
+
+    return tasks
+      .named(
+        "checkModuleStructureDependenciesDesktopTest",
+        ModuleStructureDependencyCheckTask::class.java,
+      )
+      .get()
   }
 
   private fun createModule(name: String): Project {

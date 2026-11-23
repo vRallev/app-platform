@@ -28,8 +28,8 @@ public open class ModuleStructureOptions @Inject constructor(objects: ObjectFact
   }
 
   /**
-   * Allows an `:impl` module to depend on another `:impl` module in the same library. Dependencies
-   * on `:impl` modules from other libraries remain forbidden.
+   * Allows an `:impl` module to depend on sibling `:impl` modules. Its tests can also depend on
+   * sibling `:impl-robots` modules.
    */
   public fun allowLibraryImplToImplDependencies(allow: Boolean) {
     allowLibraryImplToImplDependencies.set(allow)
