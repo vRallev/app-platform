@@ -205,7 +205,7 @@ These are the main root-level quality gates used by GitHub Actions:
 ./gradlew checkModuleStructureDependencies
 ```
 
-ABI validation uses Kotlin's built-in validator. Run on macOS with Xcode to cover iOS targets. Review changes before updating the checked-in `api/` baselines:
+ABI validation runs on Ubuntu and includes both iOS targets. Review changes before updating the checked-in `api/` baselines:
 
 ```bash
 ./gradlew updateKotlinAbi :gradle-plugin:module-structure:updateKotlinAbi :gradle-plugin:plugin:updateKotlinAbi
