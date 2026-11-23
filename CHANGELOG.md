@@ -6,20 +6,22 @@
 
 ### Changed
 
-- Filter Gradle repositories in the blueprints to skip unrelated artifact lookups.
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
 
-- Apply the `:impl` dependency rule to direct `:impl-robots` dependencies in `:impl` module tests.
-
 ### Security
 
 ### Other Notes & Contributions
 
+
+## [0.2.5] - 2026-11-23
+
+### Fixed
+
+- Apply the `:impl` dependency rule to direct `:impl-robots` dependencies in `:impl` module tests.
 
 ## [0.2.4] - 2026-11-12
 
@@ -387,7 +389,8 @@
 
 - Initial release.
 
-[Unreleased]: https://github.com/vRallev/app-platform/compare/0.2.4...HEAD
+[Unreleased]: https://github.com/vRallev/app-platform/compare/0.2.5...HEAD
+[0.2.5]: https://github.com/vRallev/app-platform/compare/0.2.5
 [0.2.4]: https://github.com/vRallev/app-platform/compare/0.2.4
 [0.2.3]: https://github.com/vRallev/app-platform/compare/0.2.3
 [0.2.2]: https://github.com/vRallev/app-platform/compare/0.2.2
